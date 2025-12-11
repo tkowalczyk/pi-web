@@ -6,19 +6,6 @@ export function CoursePromoSection() {
   return (
     <section className="w-full py-16 bg-gradient-to-b from-background to-muted/20">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="aspect-video w-full bg-black rounded-lg overflow-hidden">
-            <iframe
-              className="w-full h-full"
-              src="https://www.youtube.com/embed/1-dXh8J08UI?si=aSyQCYk1YVJAlG7X"
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            />
-          </div>
-        </div>
 
         <div className="max-w-4xl mx-auto mt-12 text-center">
           <Badge className="mb-4" variant="secondary">

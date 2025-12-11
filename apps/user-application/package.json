@@ -4,8 +4,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev --port 3000",
-    "build": "vite build",
-    "deploy": "pnpm run build && wrangler deploy",
+    "build:stage": "vite build --mode stage",
+    "build:prod": "vite build --mode prod",
+    "deploy:stage": "pnpm run build:stage && wrangler deploy --env=''",
+    "deploy:prod": "pnpm run build:prod && wrangler deploy --env=''",
     "serve": "vite preview",
     "cf-typegen": "wrangler types --env-interface Env"
   },

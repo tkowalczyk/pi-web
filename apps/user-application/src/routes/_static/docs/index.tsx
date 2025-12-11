@@ -279,17 +279,6 @@ function RouteComponent() {
 
       {/* Course Promo Section */}
       <div className="mt-16 mb-8 bg-gradient-to-b from-background to-muted/20 -mx-4 px-4 py-8">
-        <div className="aspect-video w-full bg-black rounded-lg overflow-hidden">
-          <iframe
-            className="w-full h-full"
-            src="https://www.youtube.com/embed/1-dXh8J08UI?si=aSyQCYk1YVJAlG7X"
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-          />
-        </div>
 
         <div className="mt-8 text-center">
           <Badge className="mb-4" variant="secondary">

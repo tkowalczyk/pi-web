@@ -1,9 +1,5 @@
 # saas-kit
 
-[![Watch the video](https://img.youtube.com/vi/TWQv_tr5ABI/maxresdefault.jpg)](https://www.youtube.com/watch?v=TWQv_tr5ABI&t=1s)
-
-A monorepo SaaS application with user-facing frontend and data service backend.
-
 ## Setup
 
 ```bash

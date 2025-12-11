@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "deploy": "wrangler deploy",
-    "dev": "wrangler dev --x-remote-bindings",
+    "deploy:stage": "wrangler deploy --env=''",
+    "deploy:prod": "wrangler deploy --env=''",
+    "dev": "wrangler dev",
     "start": "wrangler dev",
     "test": "vitest",
     "cf-typegen": "wrangler types --env-interface BaseEnv"

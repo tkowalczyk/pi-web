@@ -1,10 +1,44 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "tanstack-start-app",
+  "name": "pi-web-user-app",
   "compatibility_date": "2025-09-02",
-  "compatibility_flags": ["nodejs_compat"],
-  "main": "./src/server.ts",
-  "vars": {
-    "MY_VAR": "Hello from Cloudflare",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "observability": {
+    "enabled": true
   },
+  "main": "./src/server.ts",
+  "env": {
+    "dev": {
+      "name": "pi-web-user-app-dev",
+      "vars": {
+        "MY_VAR": "Hello from Cloudflare Dev",
+      },
+    },
+    "stage": {
+      "name": "pi-web-user-app-stage",
+      "routes": [
+        {
+          "custom_domain": true,
+          "pattern": "stage.powiadomienia.info"
+        }
+      ],
+      "vars": {
+        "MY_VAR": "Hello from Cloudflare Stage",
+      },
+    },
+    "prod": {
+      "name": "pi-web-user-app-prod",
+      "routes": [
+        {
+          "custom_domain": true,
+          "pattern": "powiadomienia.info"
+        }
+      ],
+      "vars": {
+        "MY_VAR": "Hello from Cloudflare Prod",
+      },
+    },
+  }
 }

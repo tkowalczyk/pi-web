@@ -8,7 +8,7 @@ import { env } from "cloudflare:workers";
 console.log("[server-entry]: using custom server entry in 'src/server.ts'");
 
 export default {
-  fetch(request: Request) {
+  fetch: async (request: Request) =>{
     const db = initDatabase({
       host: env.DATABASE_HOST,
       username: env.DATABASE_USERNAME,
@@ -25,7 +25,7 @@ export default {
       },
       adapter: {
         drizzleDb: db,
-        provider: "mysql",
+        provider: "pg",
       },
     });
     return handler.fetch(request, {
