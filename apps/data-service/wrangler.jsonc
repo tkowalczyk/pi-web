@@ -7,9 +7,36 @@
   "name": "pi-web-data-service",
   "main": "./src/index.ts",
   "compatibility_date": "2025-04-01",
-  "compatibility_flags": ["nodejs_compat"],
-
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "observability": {
     "enabled": true,
   },
+  "env": {
+    "stage": {
+      "routes": [
+				{
+					"zone_name": "powiadomienia.info",
+					"pattern": "stage.powiadomienia.info/worker/*"
+				}
+			],
+      "name": "pi-web-data-service-stage",
+      "vars": {
+        "MY_VAR": "Hello from Cloudflare Stage",
+      }
+    },
+    "prod": {
+      "routes": [
+				{
+					"zone_name": "powiadomienia.info",
+					"pattern": "stage.powiadomienia.info/worker/*"
+				}
+			],
+      "name": "pi-web-data-service-prod",
+      "vars": {
+        "MY_VAR": "Hello from Cloudflare Prod",
+      }
+    },
+  }
 }
