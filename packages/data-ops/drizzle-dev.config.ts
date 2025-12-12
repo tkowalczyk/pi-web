@@ -1,7 +1,7 @@
 // packages/data-ops/drizzle.config.ts
 import type { Config } from "drizzle-kit";
 const config: Config = {
-  out: "./src/drizzle",
+  out: "./src/drizzle/migrations/dev",
   schema: ["./src/drizzle/auth-schema.ts"],
   dialect: "postgresql",
   dbCredentials: {

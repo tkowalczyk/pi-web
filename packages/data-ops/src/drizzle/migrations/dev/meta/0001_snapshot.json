@@ -1,6 +1,6 @@
 {
-  "id": "e3c8a90c-83e4-434e-9561-2ab475662c33",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "f293c9bf-d725-4ce0-b5af-5b9177ba4b5e",
+  "prevId": "e3c8a90c-83e4-434e-9561-2ab475662c33",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -247,6 +247,12 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "phone": {
+          "name": "phone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         },
         "email_verified": {
           "name": "email_verified",

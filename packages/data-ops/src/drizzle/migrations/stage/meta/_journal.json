@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1765461870108,
+      "tag": "0000_initial_auth_tables",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1765551823830,
+      "tag": "0001_left_mister_sinister",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1765553668580,
+      "tag": "0002_colorful_gamma_corps",
+      "breakpoints": true
+    }
+  ]
+}
