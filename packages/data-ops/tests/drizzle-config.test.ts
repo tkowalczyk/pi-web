@@ -10,8 +10,15 @@ describe("Drizzle Config", () => {
     expect(prodConfig.out).toBe("./src/drizzle/migrations/prod");
   });
 
-  it("should use same schema for all environments", () => {
+  it("should use same schema files for all environments", () => {
+    expect(Array.isArray(devConfig.schema)).toBe(true);
     expect(devConfig.schema).toEqual(stageConfig.schema);
     expect(stageConfig.schema).toEqual(prodConfig.schema);
+  });
+
+  it("should include all required schema files", () => {
+    expect(devConfig.schema).toContain("./src/drizzle/auth-schema.ts");
+    expect(devConfig.schema).toContain("./src/drizzle/schema.ts");
+    expect(devConfig.schema).toContain("./src/drizzle/relations.ts");
   });
 });

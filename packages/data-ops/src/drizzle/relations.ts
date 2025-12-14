@@ -1,3 +1,44 @@
 import { relations } from "drizzle-orm/relations";
-import {  } from "./schema";
+import { addresses, notification_preferences, cities, streets } from "./schema";
+import { auth_user } from "./auth-schema";
+
+export const citiesRelations = relations(cities, ({ many }) => ({
+  streets: many(streets),
+  addresses: many(addresses),
+}));
+
+export const streetsRelations = relations(streets, ({ one, many }) => ({
+  city: one(cities, {
+    fields: [streets.cityId],
+    references: [cities.id],
+  }),
+  addresses: many(addresses),
+}));
+
+export const addressesRelations = relations(addresses, ({ one, many }) => ({
+  user: one(auth_user, {
+    fields: [addresses.userId],
+    references: [auth_user.id],
+  }),
+  city: one(cities, {
+    fields: [addresses.cityId],
+    references: [cities.id],
+  }),
+  street: one(streets, {
+    fields: [addresses.streetId],
+    references: [streets.id],
+  }),
+  notificationPreferences: many(notification_preferences),
+}));
+
+export const notificationPreferencesRelations = relations(notification_preferences, ({ one }) => ({
+  user: one(auth_user, {
+    fields: [notification_preferences.userId],
+    references: [auth_user.id],
+  }),
+  address: one(addresses, {
+    fields: [notification_preferences.addressId],
+    references: [addresses.id],
+  }),
+}));
 

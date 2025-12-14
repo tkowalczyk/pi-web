@@ -12,10 +12,12 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as StaticRouteRouteImport } from './routes/_static/route'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiCitiesIndexRouteImport } from './routes/api/cities/index'
 import { Route as StaticDocsIndexRouteImport } from './routes/_static/docs/index'
 import { Route as AuthAppIndexRouteImport } from './routes/_auth/app/index'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth.$'
 import { Route as StaticDocsNameRouteImport } from './routes/_static/docs/$name'
+import { Route as ApiCitiesCityIdStreetsRouteImport } from './routes/api/cities/$cityId/streets'
 import { Route as AuthAppPolarSubscriptionsRouteImport } from './routes/_auth/app/polar/subscriptions'
 import { Route as AuthAppPolarPortalRouteImport } from './routes/_auth/app/polar/portal'
 import { Route as AuthAppPolarCheckoutSuccessRouteImport } from './routes/_auth/app/polar/checkout.success'
@@ -31,6 +33,11 @@ const AuthRouteRoute = AuthRouteRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCitiesIndexRoute = ApiCitiesIndexRouteImport.update({
+  id: '/api/cities/',
+  path: '/api/cities/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StaticDocsIndexRoute = StaticDocsIndexRouteImport.update({
@@ -52,6 +59,11 @@ const StaticDocsNameRoute = StaticDocsNameRouteImport.update({
   id: '/docs/$name',
   path: '/docs/$name',
   getParentRoute: () => StaticRouteRoute,
+} as any)
+const ApiCitiesCityIdStreetsRoute = ApiCitiesCityIdStreetsRouteImport.update({
+  id: '/api/cities/$cityId/streets',
+  path: '/api/cities/$cityId/streets',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthAppPolarSubscriptionsRoute =
   AuthAppPolarSubscriptionsRouteImport.update({
@@ -77,8 +89,10 @@ export interface FileRoutesByFullPath {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/app': typeof AuthAppIndexRoute
   '/docs': typeof StaticDocsIndexRoute
+  '/api/cities': typeof ApiCitiesIndexRoute
   '/app/polar/portal': typeof AuthAppPolarPortalRoute
   '/app/polar/subscriptions': typeof AuthAppPolarSubscriptionsRoute
+  '/api/cities/$cityId/streets': typeof ApiCitiesCityIdStreetsRoute
   '/app/polar/checkout/success': typeof AuthAppPolarCheckoutSuccessRoute
 }
 export interface FileRoutesByTo {
@@ -87,8 +101,10 @@ export interface FileRoutesByTo {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/app': typeof AuthAppIndexRoute
   '/docs': typeof StaticDocsIndexRoute
+  '/api/cities': typeof ApiCitiesIndexRoute
   '/app/polar/portal': typeof AuthAppPolarPortalRoute
   '/app/polar/subscriptions': typeof AuthAppPolarSubscriptionsRoute
+  '/api/cities/$cityId/streets': typeof ApiCitiesCityIdStreetsRoute
   '/app/polar/checkout/success': typeof AuthAppPolarCheckoutSuccessRoute
 }
 export interface FileRoutesById {
@@ -100,8 +116,10 @@ export interface FileRoutesById {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/_auth/app/': typeof AuthAppIndexRoute
   '/_static/docs/': typeof StaticDocsIndexRoute
+  '/api/cities/': typeof ApiCitiesIndexRoute
   '/_auth/app/polar/portal': typeof AuthAppPolarPortalRoute
   '/_auth/app/polar/subscriptions': typeof AuthAppPolarSubscriptionsRoute
+  '/api/cities/$cityId/streets': typeof ApiCitiesCityIdStreetsRoute
   '/_auth/app/polar/checkout/success': typeof AuthAppPolarCheckoutSuccessRoute
 }
 export interface FileRouteTypes {
@@ -112,8 +130,10 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/app'
     | '/docs'
+    | '/api/cities'
     | '/app/polar/portal'
     | '/app/polar/subscriptions'
+    | '/api/cities/$cityId/streets'
     | '/app/polar/checkout/success'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -122,8 +142,10 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/app'
     | '/docs'
+    | '/api/cities'
     | '/app/polar/portal'
     | '/app/polar/subscriptions'
+    | '/api/cities/$cityId/streets'
     | '/app/polar/checkout/success'
   id:
     | '__root__'
@@ -134,8 +156,10 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/_auth/app/'
     | '/_static/docs/'
+    | '/api/cities/'
     | '/_auth/app/polar/portal'
     | '/_auth/app/polar/subscriptions'
+    | '/api/cities/$cityId/streets'
     | '/_auth/app/polar/checkout/success'
   fileRoutesById: FileRoutesById
 }
@@ -144,6 +168,8 @@ export interface RootRouteChildren {
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   StaticRouteRoute: typeof StaticRouteRouteWithChildren
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  ApiCitiesIndexRoute: typeof ApiCitiesIndexRoute
+  ApiCitiesCityIdStreetsRoute: typeof ApiCitiesCityIdStreetsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -167,6 +193,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/cities/': {
+      id: '/api/cities/'
+      path: '/api/cities'
+      fullPath: '/api/cities'
+      preLoaderRoute: typeof ApiCitiesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_static/docs/': {
@@ -196,6 +229,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/docs/$name'
       preLoaderRoute: typeof StaticDocsNameRouteImport
       parentRoute: typeof StaticRouteRoute
+    }
+    '/api/cities/$cityId/streets': {
+      id: '/api/cities/$cityId/streets'
+      path: '/api/cities/$cityId/streets'
+      fullPath: '/api/cities/$cityId/streets'
+      preLoaderRoute: typeof ApiCitiesCityIdStreetsRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_auth/app/polar/subscriptions': {
       id: '/_auth/app/polar/subscriptions'
@@ -258,6 +298,8 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRouteRoute: AuthRouteRouteWithChildren,
   StaticRouteRoute: StaticRouteRouteWithChildren,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
+  ApiCitiesIndexRoute: ApiCitiesIndexRoute,
+  ApiCitiesCityIdStreetsRoute: ApiCitiesCityIdStreetsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

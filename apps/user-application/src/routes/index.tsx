@@ -1,28 +1,98 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { NavigationBar } from "@/components/navigation";
-import { HeroSection } from "@/components/landing/hero-section";
-import { FeaturesSection } from "@/components/landing/features-section";
-import { ClaudeCodeSection } from "@/components/landing/claude-code-section";
-import { CoursePromoSection } from "@/components/landing/course-promo-section";
-import { Footer } from "@/components/landing/footer";
-import { MiddlewareDemo } from "@/components/demo";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { MapPin, Phone, Bell, ArrowRight } from "lucide-react";
+import { authClient } from "@/components/auth/client";
 
 export const Route = createFileRoute("/")({
   component: LandingPage,
 });
 
 function LandingPage() {
+  const { data: session } = authClient.useSession();
+  const isLoggedIn = !!session?.user;
+
   return (
     <div className="min-h-screen bg-background">
-      <NavigationBar />
-      <main>
-        <HeroSection />
-        <ClaudeCodeSection />
-        <FeaturesSection />
-        <MiddlewareDemo />
-        <CoursePromoSection />
-      </main>
-      <Footer />
+      <section className="relative px-6 lg:px-8 pt-32 pb-24">
+        <div className="mx-auto max-w-5xl">
+          {/* Hero */}
+          <div className="text-center mb-16">
+            <Badge variant="outline" className="mb-4">
+              Waste Collection Notifications
+            </Badge>
+            <h1 className="text-5xl font-bold tracking-tight text-foreground sm:text-6xl mb-6">
+              Never Miss <span className="text-primary">Collection Day</span>
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+              Get SMS notifications before waste pickup times for your street
+            </p>
+            <Link to="/app">
+              <Button size="lg" className="text-lg px-8 py-6 group">
+                {isLoggedIn ? "Go to Dashboard" : "Get Started"}
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
+          </div>
+
+          {/* How it works */}
+          <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
+            <CardHeader>
+              <CardTitle className="text-2xl">How it works</CardTitle>
+              <CardDescription>Simple setup in 3 steps</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-6 md:grid-cols-3">
+                <div className="flex flex-col items-center text-center space-y-3">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                    <MapPin className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-semibold mb-1">1. Add Address</p>
+                    <p className="text-sm text-muted-foreground">Select your city and street</p>
+                  </div>
+                </div>
+
+                <div className="flex flex-col items-center text-center space-y-3">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                    <Phone className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-semibold mb-1">2. Add Phone</p>
+                    <p className="text-sm text-muted-foreground">Provide number for SMS alerts</p>
+                  </div>
+                </div>
+
+                <div className="flex flex-col items-center text-center space-y-3">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                    <Bell className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-semibold mb-1">3. Get Notifications</p>
+                    <p className="text-sm text-muted-foreground">19:00 before, 7:00 same day</p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <p className="text-center text-sm text-muted-foreground mt-12">
+            Free waste collection schedule notifications for your area
+          </p>
+        </div>
+
+        {/* Background gradient */}
+        <div className="absolute inset-x-0 top-0 -z-10 transform-gpu overflow-hidden blur-3xl">
+          <div
+            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-primary to-secondary opacity-10 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+            style={{
+              clipPath:
+                "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
+            }}
+          />
+        </div>
+      </section>
     </div>
   );
 }

@@ -14,6 +14,7 @@ import { NotFound } from "@/components/not-found";
 import { ThemeProvider } from "@/components/theme";
 import appCss from "@/styles.css?url";
 import { seo } from "@/utils/seo";
+import { Toaster } from "sonner";
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
@@ -77,6 +78,7 @@ function RootComponent() {
         disableTransitionOnChange={false}
       >
         <Outlet />
+        <Toaster position="top-center" richColors />
       </ThemeProvider>
     </RootDocument>
   );
