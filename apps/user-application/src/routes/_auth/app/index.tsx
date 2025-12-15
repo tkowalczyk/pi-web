@@ -2,12 +2,14 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { getMyProfile } from "@/core/functions/profile";
 import { getMyAddresses } from "@/core/functions/addresses";
+import { getMyWasteSchedule } from "@/core/functions/waste";
 import { DashboardNav } from "@/components/navigation/dashboard-nav";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { PhoneForm } from "@/components/profile/phone-form";
 import { AddressList } from "@/components/addresses/address-list";
 import { AddressForm } from "@/components/addresses/address-form";
+import { WasteScheduleCard } from "@/components/dashboard/waste-schedule-card";
 import { Phone, MapPin, Bell, CheckCircle2, AlertCircle } from "lucide-react";
 
 export const Route = createFileRoute("/_auth/app/")({
@@ -21,6 +23,10 @@ export const Route = createFileRoute("/_auth/app/")({
       queryClient.prefetchQuery({
         queryKey: ["addresses"],
         queryFn: () => getMyAddresses(),
+      }),
+      queryClient.prefetchQuery({
+        queryKey: ["waste-schedule"],
+        queryFn: () => getMyWasteSchedule(),
       }),
     ]);
   },
@@ -49,8 +55,8 @@ function Dashboard() {
       <section className="relative px-6 lg:px-8 pt-32 pb-16">
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-12">
-            <div className="mb-4 flex justify-center gap-2">
-              <Badge variant={setupComplete ? "default" : "secondary"} className="mb-2">
+            <div className="mb-2 flex justify-center gap-2">
+              <Badge variant={setupComplete ? "default" : "secondary"}>
                 {setupComplete ? (
                   <>
                     <CheckCircle2 className="mr-1 h-3 w-3" />
@@ -63,16 +69,27 @@ function Dashboard() {
                   </>
                 )}
               </Badge>
+              {setupComplete && (
+                <Badge variant="outline" className="border-green-500/40 text-green-600 dark:text-green-400">
+                  <Bell className="mr-1 h-3 w-3" />
+                  Notifications Active
+                </Badge>
+              )}
             </div>
+            {setupComplete && (
+              <p className="text-xs text-muted-foreground mb-4">
+                SMS notifications at 19:00 (day before) and 7:00 (collection day)
+              </p>
+            )}
 
             <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
               Your <span className="text-primary">Dashboard</span>
             </h1>
-            <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-              {setupComplete
-                ? "Manage your profile and notification preferences"
-                : "Complete your setup to start receiving waste collection notifications"}
-            </p>
+            {!setupComplete && (
+              <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+                Complete your setup to start receiving waste collection notifications
+              </p>
+            )}
           </div>
 
           {/* Setup Status Cards */}
@@ -158,19 +175,11 @@ function Dashboard() {
             </Card>
           </div>
 
-          {/* Notification Info Card */}
+          {/* Waste Collection Schedule */}
           {setupComplete && (
-            <Card className="mt-8 border-green-500/20 bg-gradient-to-br from-green-500/5 to-transparent">
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  <Bell className="h-5 w-5 text-green-500" />
-                  <CardTitle>Notifications Active</CardTitle>
-                </div>
-                <CardDescription>
-                  You'll receive SMS notifications at 19:00 (day before) and 7:00 (collection day)
-                </CardDescription>
-              </CardHeader>
-            </Card>
+            <div className="mt-8">
+              <WasteScheduleCard />
+            </div>
           )}
         </div>
 

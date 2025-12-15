@@ -8,6 +8,13 @@ const ExtractionSchema = z.object({
     addresses: z.array(z.object({
       city: z.string(),
       streets: z.array(z.string())
+    })),
+    waste_collection_schedule: z.array(z.object({
+      waste_type: z.string(),
+      days_of_the_month: z.array(z.object({
+        month: z.string(),
+        days: z.array(z.number())
+      }))
     }))
   })
 });

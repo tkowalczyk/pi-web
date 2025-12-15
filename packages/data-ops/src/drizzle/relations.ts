@@ -1,10 +1,11 @@
 import { relations } from "drizzle-orm/relations";
-import { addresses, notification_preferences, cities, streets } from "./schema";
+import { addresses, notification_preferences, cities, streets, waste_types, waste_schedules } from "./schema";
 import { auth_user } from "./auth-schema";
 
 export const citiesRelations = relations(cities, ({ many }) => ({
   streets: many(streets),
   addresses: many(addresses),
+  wasteSchedules: many(waste_schedules),
 }));
 
 export const streetsRelations = relations(streets, ({ one, many }) => ({
@@ -39,6 +40,21 @@ export const notificationPreferencesRelations = relations(notification_preferenc
   address: one(addresses, {
     fields: [notification_preferences.addressId],
     references: [addresses.id],
+  }),
+}));
+
+export const wasteTypesRelations = relations(waste_types, ({ many }) => ({
+  schedules: many(waste_schedules),
+}));
+
+export const wasteSchedulesRelations = relations(waste_schedules, ({ one }) => ({
+  city: one(cities, {
+    fields: [waste_schedules.cityId],
+    references: [cities.id],
+  }),
+  wasteType: one(waste_types, {
+    fields: [waste_schedules.wasteTypeId],
+    references: [waste_types.id],
   }),
 }));
 
