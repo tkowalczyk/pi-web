@@ -32,7 +32,10 @@
     "drizzle:stage:pull": "dotenvx run -f .env.stage -- drizzle-kit pull --config drizzle-stage.config.ts",
     "drizzle:prod:generate": "dotenvx run -f .env.prod -- drizzle-kit generate --config drizzle-prod.config.ts",
     "drizzle:prod:migrate": "dotenvx run -f .env.prod -- drizzle-kit migrate --config drizzle-prod.config.ts",
-    "drizzle:prod:pull": "dotenvx run -f .env.prod -- drizzle-kit pull --config drizzle-prod.config.ts"
+    "drizzle:prod:pull": "dotenvx run -f .env.prod -- drizzle-kit pull --config drizzle-prod.config.ts",
+    "seed:dev": "dotenvx run -f .env.dev -- tsx src/database/seed/index.ts",
+    "seed:stage": "dotenvx run -f .env.stage -- tsx src/database/seed/index.ts",
+    "seed:prod": "dotenvx run -f .env.prod -- tsx src/database/seed/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -58,6 +61,7 @@
     "mysql2": "^3.14.3",
     "postgres": "^3.4.7",
     "tsc-alias": "^1.8.16",
+    "tsx": "^4.19.2",
     "typescript": "^5.9.2"
   }
 }

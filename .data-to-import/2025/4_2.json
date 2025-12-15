@@ -1,0 +1,588 @@
+{
+  "extraction": {
+    "region": "Gmina Nieporęt",
+    "addresses": [
+      {
+        "city": "Nieporęt",
+        "streets": [
+          "Agawy",
+          "Aleja Henryka Sienkiewicza",
+          "Baśki",
+          "Cyklistów",
+          "Czajki",
+          "Czarnieckiego",
+          "Heleny",
+          "Hubala",
+          "Husarii",
+          "Inwokacji",
+          "Izabelińska",
+          "Jana Kochanowskiego",
+          "Jaremy",
+          "Jaskółki",
+          "Kapitana Benedykta Pęczkowskiego",
+          "Ketlinga",
+          "Kmicica",
+          "Kordeckiego",
+          "Kresowa",
+          "Lawendowa",
+          "Literacka",
+          "Małołęcka",
+          "Marsa",
+          "Michała",
+          "Motylkowa",
+          "Nastrojowa",
+          "Niezapominajki",
+          "Nowolipie",
+          "Odrodzenia",
+          "Oleńki",
+          "Polna",
+          "Polnych Kwiatów",
+          "Potocka",
+          "Powstańców",
+          "Przyjaciół",
+          "Ptasia",
+          "Rocha",
+          "Rynek",
+          "Sielankowa",
+          "Skrzetuskiego",
+          "Starej Gruszy",
+          "Świętego Huberta",
+          "Turkusowa",
+          "Wazów",
+          "Zagłoby",
+          "Zosi",
+          "Zwycięstwa",
+          "Żeglarska",
+          "Żurawia"
+        ]
+      }
+    ],
+    "waste_collection_schedule": [
+      {
+        "waste_type": "Zmieszane",
+        "days_of_the_month": [
+          {
+            "month": "January",
+            "days": [
+              2,
+              15,
+              29
+            ]
+          },
+          {
+            "month": "February",
+            "days": [
+              12,
+              26
+            ]
+          },
+          {
+            "month": "March",
+            "days": [
+              12,
+              26
+            ]
+          },
+          {
+            "month": "April",
+            "days": [
+              9,
+              23
+            ]
+          },
+          {
+            "month": "May",
+            "days": [
+              7,
+              21
+            ]
+          },
+          {
+            "month": "June",
+            "days": [
+              4,
+              18
+            ]
+          },
+          {
+            "month": "July",
+            "days": [
+              2,
+              16,
+              30
+            ]
+          },
+          {
+            "month": "August",
+            "days": [
+              13,
+              27
+            ]
+          },
+          {
+            "month": "September",
+            "days": [
+              10,
+              24
+            ]
+          },
+          {
+            "month": "October",
+            "days": [
+              8,
+              22
+            ]
+          },
+          {
+            "month": "November",
+            "days": [
+              5,
+              19
+            ]
+          },
+          {
+            "month": "December",
+            "days": [
+              3,
+              17,
+              31
+            ]
+          }
+        ]
+      },
+      {
+        "waste_type": "Metale i tworzywa sztuczne",
+        "days_of_the_month": [
+          {
+            "month": "January",
+            "days": [
+              7
+            ]
+          },
+          {
+            "month": "February",
+            "days": [
+              4
+            ]
+          },
+          {
+            "month": "March",
+            "days": [
+              4
+            ]
+          },
+          {
+            "month": "April",
+            "days": [
+              1,
+              29
+            ]
+          },
+          {
+            "month": "May",
+            "days": [
+              27
+            ]
+          },
+          {
+            "month": "June",
+            "days": [
+              24
+            ]
+          },
+          {
+            "month": "July",
+            "days": [
+              22
+            ]
+          },
+          {
+            "month": "August",
+            "days": [
+              19
+            ]
+          },
+          {
+            "month": "September",
+            "days": [
+              16
+            ]
+          },
+          {
+            "month": "October",
+            "days": [
+              14
+            ]
+          },
+          {
+            "month": "November",
+            "days": [
+              8
+            ]
+          },
+          {
+            "month": "December",
+            "days": [
+              9
+            ]
+          }
+        ]
+      },
+      {
+        "waste_type": "Papier",
+        "days_of_the_month": [
+          {
+            "month": "January",
+            "days": [
+              22
+            ]
+          },
+          {
+            "month": "February",
+            "days": [
+              19
+            ]
+          },
+          {
+            "month": "March",
+            "days": [
+              19
+            ]
+          },
+          {
+            "month": "April",
+            "days": [
+              16
+            ]
+          },
+          {
+            "month": "May",
+            "days": [
+              14
+            ]
+          },
+          {
+            "month": "June",
+            "days": [
+              11
+            ]
+          },
+          {
+            "month": "July",
+            "days": [
+              9
+            ]
+          },
+          {
+            "month": "August",
+            "days": [
+              6
+            ]
+          },
+          {
+            "month": "September",
+            "days": [
+              3
+            ]
+          },
+          {
+            "month": "October",
+            "days": [
+              1,
+              29
+            ]
+          },
+          {
+            "month": "November",
+            "days": [
+              26
+            ]
+          },
+          {
+            "month": "December",
+            "days": [
+              22
+            ]
+          }
+        ]
+      },
+      {
+        "waste_type": "Szkło",
+        "days_of_the_month": [
+          {
+            "month": "January",
+            "days": [
+              17
+            ]
+          },
+          {
+            "month": "February",
+            "days": [
+              14
+            ]
+          },
+          {
+            "month": "March",
+            "days": [
+              14
+            ]
+          },
+          {
+            "month": "April",
+            "days": [
+              11
+            ]
+          },
+          {
+            "month": "May",
+            "days": [
+              9
+            ]
+          },
+          {
+            "month": "June",
+            "days": [
+              6
+            ]
+          },
+          {
+            "month": "July",
+            "days": [
+              4
+            ]
+          },
+          {
+            "month": "August",
+            "days": [
+              1,
+              29
+            ]
+          },
+          {
+            "month": "September",
+            "days": [
+              26
+            ]
+          },
+          {
+            "month": "October",
+            "days": [
+              24
+            ]
+          },
+          {
+            "month": "November",
+            "days": [
+              21
+            ]
+          },
+          {
+            "month": "December",
+            "days": [
+              19
+            ]
+          }
+        ]
+      },
+      {
+        "waste_type": "Bioodpady",
+        "days_of_the_month": [
+          {
+            "month": "January",
+            "days": [
+              8
+            ]
+          },
+          {
+            "month": "February",
+            "days": [
+              11
+            ]
+          },
+          {
+            "month": "March",
+            "days": [
+              11
+            ]
+          },
+          {
+            "month": "April",
+            "days": [
+              8,
+              22
+            ]
+          },
+          {
+            "month": "May",
+            "days": [
+              6,
+              20
+            ]
+          },
+          {
+            "month": "June",
+            "days": [
+              3,
+              17
+            ]
+          },
+          {
+            "month": "July",
+            "days": [
+              1,
+              15,
+              29
+            ]
+          },
+          {
+            "month": "August",
+            "days": [
+              12,
+              26
+            ]
+          },
+          {
+            "month": "September",
+            "days": [
+              9,
+              23
+            ]
+          },
+          {
+            "month": "October",
+            "days": [
+              7,
+              21
+            ]
+          },
+          {
+            "month": "November",
+            "days": [
+              4,
+              18
+            ]
+          },
+          {
+            "month": "December",
+            "days": [
+              2,
+              30
+            ]
+          }
+        ]
+      },
+      {
+        "waste_type": "Odbiór naturalnych drzewek świątecznych ( choinki)",
+        "days_of_the_month": [
+          {
+            "month": "January",
+            "days": []
+          },
+          {
+            "month": "February",
+            "days": [
+              11
+            ]
+          },
+          {
+            "month": "March",
+            "days": []
+          },
+          {
+            "month": "April",
+            "days": []
+          },
+          {
+            "month": "May",
+            "days": []
+          },
+          {
+            "month": "June",
+            "days": []
+          },
+          {
+            "month": "July",
+            "days": []
+          },
+          {
+            "month": "August",
+            "days": []
+          },
+          {
+            "month": "September",
+            "days": []
+          },
+          {
+            "month": "October",
+            "days": []
+          },
+          {
+            "month": "November",
+            "days": []
+          },
+          {
+            "month": "December",
+            "days": []
+          }
+        ]
+      },
+      {
+        "waste_type": "odpady wielkogabarytowe, ZSEE, odzież, tekstylia, opakowania z tekstyliów, zużyte opony",
+        "days_of_the_month": [
+          {
+            "month": "January",
+            "days": []
+          },
+          {
+            "month": "February",
+            "days": []
+          },
+          {
+            "month": "March",
+            "days": [
+              21
+            ]
+          },
+          {
+            "month": "April",
+            "days": []
+          },
+          {
+            "month": "May",
+            "days": []
+          },
+          {
+            "month": "June",
+            "days": []
+          },
+          {
+            "month": "July",
+            "days": []
+          },
+          {
+            "month": "August",
+            "days": []
+          },
+          {
+            "month": "September",
+            "days": []
+          },
+          {
+            "month": "October",
+            "days": []
+          },
+          {
+            "month": "November",
+            "days": [
+              14
+            ]
+          },
+          {
+            "month": "December",
+            "days": []
+          }
+        ]
+      }
+    ]
+  }
+}
