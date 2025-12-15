@@ -1,20 +1,70 @@
-# saas-kit
+# powiadomienia.info
 
-## High Level Description
+Web application that sends SMS messages about upcoming waste collection dates.
 
-At a high level, this template provides basic authentication using [Better Auth](https://www.better-auth.com/docs/introduction), payments and subscriptions with [Polar.sh](https://polar.sh/docs/introduction), [Drizzle ORM](https://orm.drizzle.team/docs/overview) so you can bring whatever relational database you prefer, and it deploys out of the box to [Cloudflare Worker](https://developers.cloudflare.com/workers/), which can accommodate free hobby projects to serious high volume services. But most importantly, this template implements a project structure that can truly scale with complexity. It is designed as modular components that can be pieced together, so this template provides a monorepo setup using a [pnpm workspace](https://pnpm.io/workspaces). This allows to create lightweight packages of reusable code that can be shared across multiple apps.
+## Architecture
 
-An example of this can be found in a package called [data-ops](./packages/data-ops), which contains all the core logic for:
-- managing Drizzle schemas, 
-- creating database clients,
-- defining database queries. 
+Monorepo using [pnpm workspace](https://pnpm.io/workspaces) with modular packages shared across apps:
+- [apps/user-application](./apps/user-application/) - TanStack Start consumer-facing app
+- [apps/data-service](./apps/data-service/) - Backend service for long-running tasks
+- [packages/data-ops](./packages/data-ops/) - Shared DB layer (schemas, queries, auth)
 
-The queries can then be used in a consumer-facing [TanStack Start](https://tanstack.com/start/latest/docs/framework/react/overview) app but can also be used in a separate back-end service that handles long-running tasks.
+Stack: [Better Auth](https://www.better-auth.com/docs/introduction), [Drizzle ORM](https://orm.drizzle.team/docs/overview), [Cloudflare Workers](https://developers.cloudflare.com/workers/), Neon Postgres.
 
-In the root directory, the number of files is pretty limited as this is a monorepo setup that contains multiple apps and packages:
-- [apps/user-application](./apps/user-application/)
-- [apps/data-service](./apps/data-service/)
-- [packages/data-ops](./packages/data-ops/)
+## data-ops Package
+
+Central shared package for all database operations. Both apps consume this package for type-safe DB access.
+
+**Purpose**: Single source of truth for database schemas, queries, validations, and auth config.
+
+### Directory Structure
+
+#### `src/drizzle/`
+Core database definitions using Drizzle ORM.
+
+- **`schema.ts`** - Main application tables (cities, streets, addresses, notification_preferences)
+- **`auth-schema.ts`** - Better Auth tables (auto-generated, don't edit manually)
+- **`relations.ts`** - Drizzle relational queries config (defines joins between tables)
+- **`migrations/{env}/`** - Migration history per environment (dev/stage/prod)
+
+#### `src/queries/`
+Reusable database operations exported as functions.
+
+Example: `user.ts` exports `getUserProfile()`, `updateUserPhone()`
+
+**Usage**: Import and call from apps - handles DB connection internally via `getDb()`.
+
+```ts
+import { getUserProfile } from "data-ops/queries/user";
+const user = await getUserProfile(userId);
+```
+
+#### `src/zod-schema/`
+API request/response validation schemas using Zod.
+
+**Purpose**: Type-safe contracts between frontend/backend. Validates data shape at runtime.
+
+Example: `user.ts` exports `UserProfileResponse` schema.
+
+#### `src/database/`
+- **`setup.ts`** - DB client initialization (`getDb()` function)
+- **`seed/`** - Data seeding utilities (file loader, importer)
+
+#### `src/auth/`
+Better Auth configuration.
+- **`setup.ts`** - Auth config (providers, plugins)
+- **`server.ts`** - Auth server instance
+
+### Workflow for New DB Features
+
+1. **Add table** to `src/drizzle/schema.ts`
+2. **Add relations** to `src/drizzle/relations.ts` (if needed)
+3. **Generate migration**: `pnpm run drizzle:dev:generate`
+4. **Apply migration**: `pnpm run drizzle:dev:migrate`
+5. **Create queries** in `src/queries/{feature}.ts`
+6. **Create Zod schemas** in `src/zod-schema/{feature}.ts`
+7. **Rebuild package**: `pnpm run build:data-ops`
+8. **Import in apps**: Use queries/schemas from both user-application and data-service
 
 ## Setup
 
@@ -22,41 +72,39 @@ In the root directory, the number of files is pretty limited as this is a monore
 pnpm run setup
 ```
 
-This will install all the dependencies for all of the [packages](./packages/) and the [apps](./apps/). It will then build the package called data-ops which is used by our apps.
+Installs all dependencies and builds data-ops package.
 
 ## Development
 
-### User Application
 ```bash
-pnpm run dev:user-application
+pnpm run dev:user-application  # TanStack Start app (port 3000)
+pnpm run dev:data-service      # Hono backend service
 ```
 
-Start up a TanStack Start app
+### Database Migrations
 
-### Data Service
-```bash
-pnpm run dev:data-service
-```
-
-### Data-Ops Package
-
-#### Database
-
-Using [Neon](https://neon.com/docs/introduction) as Postgres provider.
-
-**Migrations** - isolated per env (dev/stage/prod):
-
-In the [data-ops](./packages/data-ops/) directory:
+From `packages/data-ops/` directory:
 
 ```bash
-# Generate migration
-pnpm run drizzle:dev:generate
-
-# Apply to database
-pnpm run drizzle:dev:migrate
+pnpm run drizzle:dev:generate  # Generate migration
+pnpm run drizzle:dev:migrate   # Apply to database
 ```
 
-Replace `dev` with `stage` or `prod` for other envs. Each env maintains separate migration history in `src/drizzle/migrations/{env}/`.
+Replace `dev` with `stage` or `prod`. Migrations stored in `src/drizzle/migrations/{env}/`.
+
+### Environment Variables
+
+Config files in `packages/data-ops/`:
+- `.env.dev` - Local development
+- `.env.stage` - Staging
+- `.env.prod` - Production
+
+Required:
+```bash
+DATABASE_HOST=
+DATABASE_USERNAME=
+DATABASE_PASSWORD=
+```
 
 ## Deployment
 

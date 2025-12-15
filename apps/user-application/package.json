@@ -12,8 +12,6 @@
     "cf-typegen": "wrangler types --env-interface Env"
   },
   "dependencies": {
-    "@polar-sh/sdk": "^0.34.17",
-    "@polar-sh/tanstack-start": "^0.1.12",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-collapsible": "^1.1.12",
     "@radix-ui/react-dialog": "^1.1.15",
@@ -24,7 +22,6 @@
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-tabs": "^1.1.13",
     "@repo/data-ops": "workspace:^",
-    "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.1.15",
     "@tanstack/react-query": "^5.90.5",
     "@tanstack/react-query-devtools": "^5.90.2",
@@ -53,14 +50,11 @@
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "^1.13.14",
-    "@testing-library/dom": "^10.4.1",
-    "@testing-library/react": "^16.3.0",
     "@types/node": "^22.18.12",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@types/remark-prism": "^1.3.7",
     "@vitejs/plugin-react": "^4.7.0",
-    "jsdom": "^26.1.0",
     "typescript": "^5.9.3",
     "vite": "7.1.2",
     "vitest": "^3.2.4",
