@@ -715,73 +715,6 @@ export function WasteSchedule() {
 }
 ```
 
-### 10. Notification SMS Translation
-
-**File:** `apps/data-service/src/services/sms.ts` (update)
-
-```ts
-import { WASTE_TYPE_MAP } from "@repo/data-ops/lib/enum-translations"; // Shared in data-ops
-
-export function formatWasteNotification(
-  wasteTypes: string[], // DB values: ["Bio", "Plastik"]
-  cityName: string,
-  date: string,
-  notificationType: "day_before" | "same_day",
-  locale: "pl" | "en" = "pl" // NEW parameter
-): string {
-  const templates = {
-    pl: {
-      dayBefore: "Przypomnienie: Jutro ({{date}}) wywóz śmieci w {{city}}: {{types}}.",
-      sameDay: "Dzisiaj ({{date}}) wywóz śmieci w {{city}}: {{types}}.",
-    },
-    en: {
-      dayBefore: "Reminder: Tomorrow ({{date}}) waste collection in {{city}}: {{types}}.",
-      sameDay: "Today ({{date}}) waste collection in {{city}}: {{types}}.",
-    },
-  };
-
-  // Translate waste types using shared enum map
-  const translatedTypes = wasteTypes
-    .map(name => WASTE_TYPE_MAP[name]?.[locale] || name)
-    .join(", ");
-
-  const template = notificationType === "day_before"
-    ? templates[locale].dayBefore
-    : templates[locale].sameDay;
-
-  return template
-    .replace("{{date}}", date)
-    .replace("{{city}}", cityName)
-    .replace("{{types}}", translatedTypes);
-}
-```
-
-**Queue Consumer Update:**
-
-**File:** `apps/data-service/src/queue-consumer.ts` (update)
-
-```ts
-export async function handleQueue(batch: MessageBatch<NotificationMessage>, env: Env) {
-  for (const message of batch.messages) {
-    const { userId, notificationType, wasteTypes, scheduledDate, cityName } = message.body;
-
-    // Get user's preferred language from DB
-    const user = await db.select().from(auth_user).where(eq(auth_user.id, userId)).limit(1);
-    const locale = (user[0]?.preferredLanguage as "pl" | "en") || "pl";
-
-    // Format SMS with user's language
-    const smsContent = formatWasteNotification(
-      wasteTypes.map(w => w.wasteTypeName), // DB values: "Bio", "Plastik"
-      cityName,
-      scheduledDate,
-      notificationType,
-      locale // NEW
-    );
-
-    // ... rest unchanged
-  }
-}
-```
 
 ## Migration Path
 
@@ -811,14 +744,7 @@ export async function handleQueue(batch: MessageBatch<NotificationMessage>, env:
 3. Update components to use translation helpers
 4. Test enum translations in UI
 
-**Status:** Full i18n support for all content (no DB migration needed)
-
-### Phase 4: Notification Translation
-1. Add locale param to `formatWasteNotification`
-2. Update queue consumer to fetch user's preferredLanguage
-3. Test SMS in both languages
-
-**Status:** Complete i18n implementation
+**Status:** Complete i18n implementation for UI
 
 ## Alternatives Considered
 
@@ -859,6 +785,16 @@ export async function handleQueue(batch: MessageBatch<NotificationMessage>, env:
 ✅ Browser locale detection: One-time on first visit, then user demand only
 ✅ notification_logs: Don't store locale (not needed)
 
+## Future Work / Dependencies
+
+**SMS Notification Translation** - Blocked by [docs/003-notification-service.md](003-notification-service.md) implementation
+
+When implementing doc 003, add:
+- Locale param to `formatWasteNotification()` in `apps/data-service/src/services/sms.ts`
+- User language fetch in queue consumer: `auth_user.preferredLanguage`
+- Use shared `WASTE_TYPE_MAP` from `@repo/data-ops/lib/enum-translations`
+- Template translations for day_before/same_day messages
+
 ## Critical Files
 
 **New Files:**
@@ -874,11 +810,9 @@ export async function handleQueue(batch: MessageBatch<NotificationMessage>, env:
 - `apps/user-application/src/routes/__root.tsx` - Wrap in LanguageProvider
 - `apps/user-application/src/components/navigation/navigation-bar.tsx` - Add LanguageToggle
 - `apps/user-application/src/components/auth/account-dialog.tsx` - Add LanguageToggle
-- `apps/data-service/src/services/sms.ts` - Add locale param
-- `apps/data-service/src/queue-consumer.ts` - Fetch user locale
 
 **Shared Translation Module:**
-- `packages/data-ops/src/lib/enum-translations.ts` - Enum translation maps + helpers
+- `packages/data-ops/src/lib/enum-translations.ts` - Enum translation maps + helpers (shared for future SMS use)
 
 ## Execution Order
 
@@ -898,6 +832,4 @@ export async function handleQueue(batch: MessageBatch<NotificationMessage>, env:
 14. Test language switching
 15. Create enum-translations.ts in data-ops (WASTE_TYPE_MAP, MONTH_MAP)
 16. Update components to use translation helpers
-17. Update SMS formatting with locale support
-18. Update queue consumer to use user locale
-19. Test end-to-end (UI + notifications)
+17. Test end-to-end UI translation

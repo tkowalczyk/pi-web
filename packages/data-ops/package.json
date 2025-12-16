@@ -18,6 +18,10 @@
     "./queries/*": {
       "types": "./dist/queries/*.d.ts",
       "default": "./dist/queries/*.js"
+    },
+    "./lib/*": {
+      "types": "./dist/lib/*.d.ts",
+      "default": "./dist/lib/*.js"
     }
   },
   "scripts": {

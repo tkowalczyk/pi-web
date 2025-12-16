@@ -11,6 +11,7 @@ import { AddressList } from "@/components/addresses/address-list";
 import { AddressForm } from "@/components/addresses/address-form";
 import { WasteScheduleCard } from "@/components/dashboard/waste-schedule-card";
 import { Phone, MapPin, Bell, CheckCircle2, AlertCircle } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/_auth/app/")({
   component: Dashboard,
@@ -33,6 +34,7 @@ export const Route = createFileRoute("/_auth/app/")({
 });
 
 function Dashboard() {
+  const { t } = useTranslation();
   const { data: profile } = useSuspenseQuery({
     queryKey: ["profile"],
     queryFn: () => getMyProfile(),
@@ -60,34 +62,34 @@ function Dashboard() {
                 {setupComplete ? (
                   <>
                     <CheckCircle2 className="mr-1 h-3 w-3" />
-                    Setup Complete
+                    {t("dashboard.setupComplete")}
                   </>
                 ) : (
                   <>
                     <AlertCircle className="mr-1 h-3 w-3" />
-                    Setup Required
+                    {t("dashboard.setupRequired")}
                   </>
                 )}
               </Badge>
               {setupComplete && (
                 <Badge variant="outline" className="border-green-500/40 text-green-600 dark:text-green-400">
                   <Bell className="mr-1 h-3 w-3" />
-                  Notifications Active
+                  {t("dashboard.notificationsActive")}
                 </Badge>
               )}
             </div>
             {setupComplete && (
               <p className="text-xs text-muted-foreground mb-4">
-                SMS notifications at 19:00 (day before) and 7:00 (collection day)
+                {t("dashboard.smsNotificationTimes")}
               </p>
             )}
 
             <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-              Your <span className="text-primary">Dashboard</span>
+              {t("dashboard.yourDashboard")}
             </h1>
             {!setupComplete && (
               <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-                Complete your setup to start receiving waste collection notifications
+                {t("dashboard.completeSetup")}
               </p>
             )}
           </div>
@@ -98,10 +100,10 @@ function Dashboard() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <AlertCircle className="h-5 w-5 text-primary" />
-                  Complete Your Setup
+                  {t("dashboard.completeYourSetup")}
                 </CardTitle>
                 <CardDescription>
-                  To receive waste collection notifications, complete the following steps:
+                  {t("dashboard.completeSetupDescription")}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -113,8 +115,8 @@ function Dashboard() {
                       <div className="h-5 w-5 rounded-full border-2 border-muted-foreground flex-shrink-0" />
                     )}
                     <div>
-                      <p className="font-medium text-sm">Phone number</p>
-                      <p className="text-xs text-muted-foreground">Required for SMS notifications</p>
+                      <p className="font-medium text-sm">{t("dashboard.phoneNumber")}</p>
+                      <p className="text-xs text-muted-foreground">{t("dashboard.phoneNumberDescription")}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 p-3 rounded-lg bg-background/50">
@@ -124,8 +126,8 @@ function Dashboard() {
                       <div className="h-5 w-5 rounded-full border-2 border-muted-foreground flex-shrink-0" />
                     )}
                     <div>
-                      <p className="font-medium text-sm">Address</p>
-                      <p className="text-xs text-muted-foreground">To match waste collection schedule</p>
+                      <p className="font-medium text-sm">{t("dashboard.addressLabel")}</p>
+                      <p className="text-xs text-muted-foreground">{t("dashboard.addressDescription")}</p>
                     </div>
                   </div>
                 </div>
@@ -142,11 +144,11 @@ function Dashboard() {
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
                     <Phone className="h-5 w-5 text-primary" />
                   </div>
-                  <Badge variant="outline">Profile</Badge>
+                  <Badge variant="outline">{t("dashboard.profile")}</Badge>
                 </div>
-                <CardTitle>Contact Information</CardTitle>
+                <CardTitle>{t("dashboard.contactInformation")}</CardTitle>
                 <CardDescription>
-                  Manage your phone number for SMS notifications
+                  {t("dashboard.contactDescription")}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -161,11 +163,11 @@ function Dashboard() {
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
                     <MapPin className="h-5 w-5 text-primary" />
                   </div>
-                  <Badge variant="outline">Addresses</Badge>
+                  <Badge variant="outline">{t("dashboard.addresses")}</Badge>
                 </div>
-                <CardTitle>Your Addresses</CardTitle>
+                <CardTitle>{t("dashboard.yourAddresses")}</CardTitle>
                 <CardDescription>
-                  Manage locations for waste collection notifications
+                  {t("dashboard.addressesDescription")}
                 </CardDescription>
               </CardHeader>
               <CardContent>

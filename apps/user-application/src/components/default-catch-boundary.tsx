@@ -18,9 +18,11 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
   const router = useRouter();
+  const { t } = useTranslation();
   const isRoot = useMatch({
     strict: false,
     select: (state) => state.id === rootRouteId,
@@ -30,7 +32,7 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
   console.error(error);
 
   // Format error details for display
-  const errorMessage = error?.message || "An unexpected error occurred";
+  const errorMessage = error?.message || t("error.defaultMessage");
   const errorStack = error?.stack || "";
   const hasStack = errorStack.length > 0;
 
@@ -51,9 +53,9 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
               <AlertTriangle className="h-5 w-5 text-destructive" />
             </div>
             <div>
-              <CardTitle className="text-xl">Something went wrong</CardTitle>
+              <CardTitle className="text-xl">{t("error.title")}</CardTitle>
               <p className="text-sm text-muted-foreground">
-                We encountered an unexpected error. Please try again.
+                {t("error.description")}
               </p>
             </div>
           </div>
@@ -75,14 +77,14 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
               className="flex items-center gap-2"
             >
               <RefreshCw className="h-4 w-4" />
-              Try Again
+              {t("error.tryAgain")}
             </Button>
 
             {isRoot ? (
               <Button variant="outline" asChild>
                 <Link to="/" className="flex items-center gap-2">
                   <Home className="h-4 w-4" />
-                  Go to Home
+                  {t("error.goToHome")}
                 </Link>
               </Button>
             ) : (
@@ -92,7 +94,7 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
                 className="flex items-center gap-2"
               >
                 <ArrowLeft className="h-4 w-4" />
-                Go Back
+                {t("error.goBack")}
               </Button>
             )}
           </div>
@@ -107,7 +109,7 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
                   className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
                 >
                   <Bug className="h-4 w-4" />
-                  Technical Details
+                  {t("error.technicalDetails")}
                   <ChevronDown
                     className={`h-4 w-4 transition-transform duration-200 ${showDetails ? "rotate-180" : ""}`}
                   />
@@ -116,7 +118,7 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
               <CollapsibleContent className="space-y-2">
                 <div className="rounded-lg bg-muted p-4">
                   <h4 className="text-sm font-medium mb-2">
-                    Error Stack Trace:
+                    {t("error.stackTrace")}
                   </h4>
                   <pre className="text-xs text-muted-foreground whitespace-pre-wrap break-words max-h-40 overflow-y-auto">
                     {errorStack}
@@ -130,7 +132,7 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
           <div className="border-t pt-4">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
               <div className="text-sm text-muted-foreground">
-                If this error persists, please report it to our support team.
+                {t("error.persistMessage")}
               </div>
               <Button
                 variant="outline"
@@ -139,7 +141,7 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
                 className="flex items-center gap-2"
               >
                 <Mail className="h-4 w-4" />
-                Report Error
+                {t("error.reportError")}
               </Button>
             </div>
           </div>

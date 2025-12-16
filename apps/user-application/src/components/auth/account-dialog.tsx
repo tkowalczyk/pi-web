@@ -8,14 +8,17 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { authClient } from "@/lib/auth-client";
-import { LogOut, Palette } from "lucide-react";
+import { LogOut, Palette, Languages } from "lucide-react";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { LanguageToggle } from "@/components/language/language-toggle";
+import { useTranslation } from "react-i18next";
 
 interface AccountDialogProps {
   children: React.ReactNode;
 }
 
 export function AccountDialog({ children }: AccountDialogProps) {
+  const { t } = useTranslation();
   const { data: session } = authClient.useSession();
 
   const signOut = async () => {
@@ -38,7 +41,7 @@ export function AccountDialog({ children }: AccountDialogProps) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader className="text-center pb-4">
-          <DialogTitle>Account</DialogTitle>
+          <DialogTitle>{t("nav.account")}</DialogTitle>
         </DialogHeader>
         <div className="flex flex-col items-center space-y-6 py-6">
           <Avatar className="h-20 w-20">
@@ -61,8 +64,15 @@ export function AccountDialog({ children }: AccountDialogProps) {
           <div className="flex flex-col gap-4 w-full mt-6">
             <div className="flex items-center justify-between w-full py-3 px-4 rounded-lg border bg-card">
               <span className="text-sm font-medium flex items-center gap-2">
+                <Languages className="h-4 w-4" />
+                {t("language.label")}
+              </span>
+              <LanguageToggle />
+            </div>
+            <div className="flex items-center justify-between w-full py-3 px-4 rounded-lg border bg-card">
+              <span className="text-sm font-medium flex items-center gap-2">
                 <Palette className="h-4 w-4" />
-                Theme
+                {t("theme.toggle")}
               </span>
               <ThemeToggle />
             </div>
@@ -73,7 +83,7 @@ export function AccountDialog({ children }: AccountDialogProps) {
               className="w-full gap-2"
             >
               <LogOut className="h-5 w-5" />
-              Sign Out
+              {t("nav.signOut")}
             </Button>
           </div>
         </div>

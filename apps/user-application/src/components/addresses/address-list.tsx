@@ -7,8 +7,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { type AddressResponse, type CityResponse, type StreetResponse } from "@repo/data-ops/zod-schema/address";
 import { updateMyAddress, deleteMyAddress } from "@/core/functions/addresses";
 import { AlertCircle } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export function AddressList({ addresses }: { addresses: AddressResponse[] }) {
+  const { t } = useTranslation();
   const [editingId, setEditingId] = useState<number | null>(null);
   const [deleteConfirmId, setDeleteConfirmId] = useState<number | null>(null);
   const queryClient = useQueryClient();
@@ -24,7 +26,7 @@ export function AddressList({ addresses }: { addresses: AddressResponse[] }) {
   if (addresses.length === 0) {
     return (
       <div className="text-sm text-gray-600">
-        No addresses yet. Add your first address below.
+        {t("address.noAddresses")}
       </div>
     );
   }
@@ -44,12 +46,12 @@ export function AddressList({ addresses }: { addresses: AddressResponse[] }) {
               <div className="flex gap-2 items-start p-3 bg-red-50 rounded-lg border border-red-200">
                 <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
                 <div className="text-sm">
-                  <p className="font-medium text-red-900">Delete address?</p>
+                  <p className="font-medium text-red-900">{t("address.deleteConfirm")}</p>
                   <p className="text-red-700 mt-1">
                     {addr.cityName}, {addr.streetName}
                   </p>
                   <p className="text-red-600 mt-2">
-                    You won't receive notifications for this address
+                    {t("address.deleteWarning")}
                   </p>
                 </div>
               </div>
@@ -60,14 +62,14 @@ export function AddressList({ addresses }: { addresses: AddressResponse[] }) {
                   onClick={() => deleteMutation.mutate(addr.id)}
                   disabled={deleteMutation.isPending}
                 >
-                  {deleteMutation.isPending ? "Deleting..." : "Delete"}
+                  {deleteMutation.isPending ? t("address.deleting") : t("address.delete")}
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => setDeleteConfirmId(null)}
                 >
-                  Cancel
+                  {t("address.cancel")}
                 </Button>
               </div>
             </div>
@@ -77,11 +79,11 @@ export function AddressList({ addresses }: { addresses: AddressResponse[] }) {
                 <div className="font-medium">
                   {addr.cityName}, {addr.streetName}
                   {addr.isDefault && (
-                    <Badge className="ml-2" variant="secondary">Default</Badge>
+                    <Badge className="ml-2" variant="secondary">{t("address.default")}</Badge>
                   )}
                 </div>
                 <div className="text-sm text-gray-600 mt-1">
-                  Notifications: 19:00 day before, 7:00 same day
+                  {t("address.notificationTimes")}
                 </div>
               </div>
               <div className="space-x-2">
@@ -90,14 +92,14 @@ export function AddressList({ addresses }: { addresses: AddressResponse[] }) {
                   size="sm"
                   onClick={() => setEditingId(addr.id)}
                 >
-                  Edit
+                  {t("address.edit")}
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => setDeleteConfirmId(addr.id)}
                 >
-                  Delete
+                  {t("address.delete")}
                 </Button>
               </div>
             </div>
@@ -117,6 +119,7 @@ function EditAddressForm({
   onCancel: () => void;
   onSuccess: () => void;
 }) {
+  const { t } = useTranslation();
   const [cityId, setCityId] = useState<number>(address.cityId);
   const queryClient = useQueryClient();
 
@@ -170,7 +173,7 @@ function EditAddressForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <Label htmlFor="cityId">City</Label>
+        <Label htmlFor="cityId">{t("address.city")}</Label>
         <Select
           name="cityId"
           defaultValue={address.cityId.toString()}
@@ -190,7 +193,7 @@ function EditAddressForm({
       </div>
 
       <div>
-        <Label htmlFor="streetId">Street</Label>
+        <Label htmlFor="streetId">{t("address.street")}</Label>
         <Select name="streetId" defaultValue={address.streetId.toString()}>
           <SelectTrigger>
             <SelectValue />
@@ -207,10 +210,10 @@ function EditAddressForm({
 
       <div className="flex gap-2">
         <Button type="submit" size="sm" disabled={mutation.isPending}>
-          {mutation.isPending ? "Saving..." : "Save"}
+          {mutation.isPending ? t("address.saving") : t("address.save")}
         </Button>
         <Button type="button" variant="outline" size="sm" onClick={onCancel}>
-          Cancel
+          {t("address.cancel")}
         </Button>
       </div>
     </form>

@@ -5,8 +5,10 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { type CreateAddressInput, type CityResponse, type StreetResponse } from "@repo/data-ops/zod-schema/address";
+import { useTranslation } from "react-i18next";
 
 export function AddressForm() {
+  const { t } = useTranslation();
   const [cityId, setCityId] = useState<number | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const queryClient = useQueryClient();
@@ -58,16 +60,16 @@ export function AddressForm() {
   return (
     <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 max-w-md">
       <div>
-        <Label htmlFor="cityId">City</Label>
+        <Label htmlFor="cityId">{t("address.city")}</Label>
         <p className="text-sm text-gray-600 mb-2">
-          Select your city to see waste collection schedules
+          {t("address.cityDescription")}
         </p>
         <Select
           name="cityId"
           onValueChange={(val) => setCityId(Number(val))}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Select city" />
+            <SelectValue placeholder={t("address.selectCity")} />
           </SelectTrigger>
           <SelectContent>
             {cities.map((city) => (
@@ -80,13 +82,13 @@ export function AddressForm() {
       </div>
 
       <div key={cityId}>
-        <Label htmlFor="streetId">Street</Label>
+        <Label htmlFor="streetId">{t("address.street")}</Label>
         <Select
           name="streetId"
           disabled={!cityId}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Select street" />
+            <SelectValue placeholder={t("address.selectStreet")} />
           </SelectTrigger>
           <SelectContent>
             {streets.map((street) => (
@@ -99,7 +101,7 @@ export function AddressForm() {
       </div>
 
       <Button type="submit" disabled={!cityId || mutation.isPending}>
-        {mutation.isPending ? "Adding..." : "Add Address"}
+        {mutation.isPending ? t("address.adding") : t("address.add")}
       </Button>
     </form>
   );

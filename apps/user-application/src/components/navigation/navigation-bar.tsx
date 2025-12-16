@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme";
+import { LanguageToggle } from "@/components/language/language-toggle";
 import { authClient } from "@/lib/auth-client";
 import { AccountDialog } from "@/components/auth/account-dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -134,8 +135,9 @@ export function NavigationBar() {
               </div>
             ))}
 
-            {/* Theme Toggle */}
-            <div className="ml-2 pl-2 border-l border-border/30">
+            {/* Language + Theme Toggle */}
+            <div className="ml-2 pl-2 border-l border-border/30 flex items-center gap-2">
+              <LanguageToggle variant="ghost" align="end" />
               <ThemeToggle variant="ghost" align="end" />
             </div>
           </div>
@@ -174,8 +176,9 @@ export function NavigationBar() {
             )}
           </div>
 
-          {/* Mobile Menu Button + Theme Toggle */}
+          {/* Mobile Menu Button + Language + Theme Toggle */}
           <div className="lg:hidden flex items-center space-x-2">
+            <LanguageToggle variant="ghost" align="end" />
             <ThemeToggle variant="ghost" align="end" />
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>

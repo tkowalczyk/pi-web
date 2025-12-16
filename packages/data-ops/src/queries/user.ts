@@ -24,3 +24,12 @@ export async function updateUserPhone(userId: string, phone: string | null) {
     .where(eq(auth_user.id, userId));
   return getUserProfile(userId);
 }
+
+export async function updateUserLanguage(userId: string, language: string) {
+  const db = getDb();
+  await db
+    .update(auth_user)
+    .set({ preferredLanguage: language })
+    .where(eq(auth_user.id, userId));
+  return { success: true };
+}

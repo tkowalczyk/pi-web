@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "./theme-provider";
+import { useTranslation } from "react-i18next";
 
 interface ThemeToggleProps {
   variant?: "default" | "outline" | "ghost";
@@ -24,6 +25,7 @@ export function ThemeToggle({
   align = "end",
 }: ThemeToggleProps) {
   const { theme, setTheme, resolvedTheme } = useTheme();
+  const { t } = useTranslation();
 
   // Animation variants for icons
   const iconVariants = {
@@ -35,26 +37,26 @@ export function ThemeToggle({
   const getCurrentIcon = () => {
     if (theme === "system") {
       return (
-        <Monitor 
+        <Monitor
           className={`h-4 w-4 ${iconVariants.system} rotate-0 scale-100`}
-          aria-hidden="true" 
+          aria-hidden="true"
         />
       );
     }
-    
+
     if (resolvedTheme === "dark") {
       return (
-        <Moon 
+        <Moon
           className={`h-4 w-4 ${iconVariants.moon} rotate-0 scale-100`}
-          aria-hidden="true" 
+          aria-hidden="true"
         />
       );
     }
-    
+
     return (
-      <Sun 
+      <Sun
         className={`h-4 w-4 ${iconVariants.sun} rotate-0 scale-100`}
-        aria-hidden="true" 
+        aria-hidden="true"
       />
     );
   };
@@ -62,21 +64,21 @@ export function ThemeToggle({
   const themeOptions = [
     {
       value: "light",
-      label: "Light",
+      label: t("theme.light"),
       icon: Sun,
-      description: "Use light theme",
+      description: t("theme.lightDescription"),
     },
     {
-      value: "dark", 
-      label: "Dark",
+      value: "dark",
+      label: t("theme.dark"),
       icon: Moon,
-      description: "Use dark theme",
+      description: t("theme.darkDescription"),
     },
     {
       value: "system",
-      label: "System",
+      label: t("theme.system"),
       icon: Monitor,
-      description: "Use system theme",
+      description: t("theme.systemDescription"),
     },
   ] as const;
 
@@ -96,7 +98,7 @@ export function ThemeToggle({
             focus:ring-2 focus:ring-ring focus:ring-offset-2
             ${showLabel ? "gap-2" : "aspect-square"}
           `}
-          aria-label="Toggle theme"
+          aria-label={t("theme.toggle")}
         >
           <div className="relative flex items-center justify-center">
             {getCurrentIcon()}
@@ -107,7 +109,7 @@ export function ThemeToggle({
             </span>
           )}
           <span className="sr-only">
-            Current theme: {theme === "system" ? `System (${resolvedTheme})` : theme}
+            {t("theme.currentTheme")}: {theme === "system" ? `${t("theme.system")} (${resolvedTheme})` : t(`theme.${theme}`)}
           </span>
         </Button>
       </DropdownMenuTrigger>
@@ -170,7 +172,7 @@ export function ThemeToggle({
                 w-2 h-2 rounded-full transition-colors duration-200
                 ${resolvedTheme === 'dark' ? 'bg-blue-500' : 'bg-amber-500'}
               `} />
-              Currently using {resolvedTheme} theme
+              {t("theme.currentlyUsing", { theme: t(`theme.${resolvedTheme}`) })}
             </div>
           </div>
         )}
@@ -182,7 +184,8 @@ export function ThemeToggle({
 // Simplified version for minimal use cases
 export function ThemeToggleSimple() {
   const { theme, setTheme, resolvedTheme } = useTheme();
-  
+  const { t } = useTranslation();
+
   const handleToggle = () => {
     if (theme === "light") {
       setTheme("dark");
@@ -204,7 +207,7 @@ export function ThemeToggleSimple() {
         hover:scale-105 active:scale-95
         focus:ring-2 focus:ring-ring focus:ring-offset-2
       `}
-      aria-label={`Switch to ${theme === "light" ? "dark" : theme === "dark" ? "system" : "light"} theme`}
+      aria-label={t("theme.toggle")}
     >
       <div className="relative flex items-center justify-center">
         {theme === "system" && (
@@ -218,7 +221,7 @@ export function ThemeToggleSimple() {
         )}
       </div>
       <span className="sr-only">
-        Current theme: {theme === "system" ? `System (${resolvedTheme})` : theme}
+        {t("theme.currentTheme")}: {theme === "system" ? `${t("theme.system")} (${resolvedTheme})` : t(`theme.${theme}`)}
       </span>
     </Button>
   );

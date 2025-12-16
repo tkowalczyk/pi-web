@@ -3,14 +3,19 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Trash2, Calendar } from "lucide-react";
 import { getMyWasteSchedule } from "@/core/functions/waste";
+import { useTranslation } from "react-i18next";
+import { translateWasteType } from "@repo/data-ops/lib/enum-translations";
 
 export function WasteScheduleCard() {
+  const { t, i18n } = useTranslation();
+  const locale = i18n.language as "pl" | "en";
+
   const { data: schedules = [] } = useSuspenseQuery({
     queryKey: ["waste-schedule"],
     queryFn: () => getMyWasteSchedule(),
   });
 
-  const upcomingCollections = getUpcomingCollections(schedules);
+  const upcomingCollections = getUpcomingCollections(schedules, t, locale);
 
   if (upcomingCollections.length === 0) {
     return (
@@ -20,11 +25,11 @@ export function WasteScheduleCard() {
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
               <Calendar className="h-5 w-5 text-primary" />
             </div>
-            <Badge variant="outline">Schedule</Badge>
+            <Badge variant="outline">{t("waste_schedule.schedule")}</Badge>
           </div>
-          <CardTitle>Waste Collection</CardTitle>
+          <CardTitle>{t("waste_schedule.title")}</CardTitle>
           <CardDescription>
-            No upcoming collections in next 2 weeks
+            {t("waste_schedule.noUpcoming")}
           </CardDescription>
         </CardHeader>
       </Card>
@@ -38,11 +43,11 @@ export function WasteScheduleCard() {
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
             <Trash2 className="h-5 w-5 text-primary" />
           </div>
-          <Badge variant="outline">Next 2 Weeks</Badge>
+          <Badge variant="outline">{t("waste_schedule.nextTwoWeeks")}</Badge>
         </div>
-        <CardTitle>Waste Collection</CardTitle>
+        <CardTitle>{t("waste_schedule.title")}</CardTitle>
         <CardDescription>
-          Upcoming collections for notification address
+          {t("waste_schedule.upcomingDescription")}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -68,8 +73,8 @@ export function WasteScheduleCard() {
                       {collection.wasteTypes.map((type, typeIdx) => (
                         <Badge
                           key={typeIdx}
-                          variant={isToday ? "default" : "secondary"}
-                          className="text-xs"
+                          variant="outline"
+                          className={`text-xs ${getWasteTypeColor(type)}`}
                         >
                           {type}
                         </Badge>
@@ -79,9 +84,9 @@ export function WasteScheduleCard() {
                 </div>
                 <Badge variant={isToday ? "default" : "outline"}>
                   {isToday
-                    ? "Today"
+                    ? t("waste_schedule.today")
                     : collection.daysUntil === 1
-                    ? "Tomorrow"
+                    ? t("waste_schedule.tomorrow")
                     : `${collection.daysUntil}d`}
                 </Badge>
               </div>
@@ -100,7 +105,7 @@ interface UpcomingCollection {
   daysUntil: number;
 }
 
-function getUpcomingCollections(schedules: any[]): UpcomingCollection[] {
+function getUpcomingCollections(schedules: any[], t: any, locale: "pl" | "en"): UpcomingCollection[] {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const twoWeeksFromNow = new Date(today);
@@ -109,6 +114,8 @@ function getUpcomingCollections(schedules: any[]): UpcomingCollection[] {
   const collectionMap = new Map<string, { date: Date; wasteTypes: string[] }>();
 
   for (const schedule of schedules) {
+    if (!schedule.month || !schedule.year) continue;
+
     const days = JSON.parse(schedule.days) as number[];
     const monthIndex = monthNameToIndex(schedule.month);
 
@@ -117,13 +124,14 @@ function getUpcomingCollections(schedules: any[]): UpcomingCollection[] {
       date.setHours(0, 0, 0, 0);
 
       if (date >= today && date <= twoWeeksFromNow) {
-        const dateKey = date.toISOString().split('T')[0];
+        const dateKey = date.toISOString().split('T')[0]!;
 
         if (!collectionMap.has(dateKey)) {
           collectionMap.set(dateKey, { date, wasteTypes: [] });
         }
 
-        collectionMap.get(dateKey)!.wasteTypes.push(schedule.wasteTypeName || "Unknown");
+        const translatedType = translateWasteType(schedule.wasteTypeName || "Unknown", locale);
+        collectionMap.get(dateKey)!.wasteTypes.push(translatedType);
       }
     }
   }
@@ -134,7 +142,7 @@ function getUpcomingCollections(schedules: any[]): UpcomingCollection[] {
     return {
       wasteTypes: item.wasteTypes,
       date: item.date,
-      dateFormatted: formatDate(item.date),
+      dateFormatted: formatDate(item.date, t),
       daysUntil,
     };
   });
@@ -148,9 +156,39 @@ function monthNameToIndex(month: string): number {
   return months.indexOf(month);
 }
 
-function formatDate(date: Date): string {
-  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+function formatDate(date: Date, t: any): string {
+  const dayKeys = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+  const monthKeys = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
 
-  return `${days[date.getDay()]}, ${months[date.getMonth()]} ${date.getDate()}`;
+  const dayName = t(`waste_schedule.days.${dayKeys[date.getDay()]}`);
+  const monthName = t(`waste_schedule.months.${monthKeys[date.getMonth()]}`);
+
+  return `${dayName}, ${monthName} ${date.getDate()}`;
+}
+
+function getWasteTypeColor(wasteType: string): string {
+  const type = wasteType.toLowerCase();
+
+  // Bio - brown
+  if (type.includes("bio")) {
+    return "bg-amber-700 hover:bg-amber-800 text-white border-amber-800";
+  }
+
+  // Szkło/Glass - green
+  if (type.includes("szkło") || type.includes("glass")) {
+    return "bg-green-600 hover:bg-green-700 text-white border-green-700";
+  }
+
+  // Plastik/Plastic - yellow
+  if (type.includes("plastik") || type.includes("plastic")) {
+    return "bg-yellow-500 hover:bg-yellow-600 text-black border-yellow-600";
+  }
+
+  // Papier/Paper - blue
+  if (type.includes("papier") || type.includes("paper")) {
+    return "bg-blue-600 hover:bg-blue-700 text-white border-blue-700";
+  }
+
+  // Zmieszane/Mixed - default gray
+  return "bg-gray-600 hover:bg-gray-700 text-white border-gray-700";
 }

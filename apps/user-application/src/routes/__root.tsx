@@ -12,9 +12,11 @@ import type { QueryClient } from "@tanstack/react-query";
 import { DefaultCatchBoundary } from "@/components/default-catch-boundary";
 import { NotFound } from "@/components/not-found";
 import { ThemeProvider } from "@/components/theme";
+import { LanguageProvider } from "@/components/language/language-provider";
 import appCss from "@/styles.css?url";
 import { seo } from "@/utils/seo";
 import { Toaster } from "sonner";
+import "@/lib/i18n";
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
@@ -77,8 +79,10 @@ function RootComponent() {
         enableSystem
         disableTransitionOnChange={false}
       >
-        <Outlet />
-        <Toaster position="top-center" richColors />
+        <LanguageProvider>
+          <Outlet />
+          <Toaster position="top-center" richColors />
+        </LanguageProvider>
       </ThemeProvider>
     </RootDocument>
   );

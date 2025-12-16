@@ -9,6 +9,7 @@ export const auth_user = pgTable("auth_user", {
   emailVerified: boolean("email_verified").default(false).notNull(),
   image: text("image"),
   phone: text("phone"),
+  preferredLanguage: text("preferred_language").default("pl"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
     .defaultNow()

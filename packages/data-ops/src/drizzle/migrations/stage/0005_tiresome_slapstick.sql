@@ -1,0 +1,1 @@
+ALTER TABLE "auth_user" ADD COLUMN "preferred_language" text DEFAULT 'pl';

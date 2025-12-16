@@ -11,8 +11,10 @@ import {
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme";
+import { LanguageToggle } from "@/components/language/language-toggle";
 import { authClient } from "@/lib/auth-client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useTranslation } from "react-i18next";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,6 +25,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export function DashboardNav() {
+  const { t } = useTranslation();
   const [isScrolled, setIsScrolled] = React.useState(false);
   const { data: session } = authClient.useSession();
 
@@ -64,12 +67,13 @@ export function DashboardNav() {
               <Bell className="h-5 w-5 text-primary" />
             </div>
             <span className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">
-              Waste Alerts
+              {t("nav.appName")}
             </span>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4">
+            <LanguageToggle variant="ghost" align="end" />
             <ThemeToggle variant="ghost" align="end" />
 
             <DropdownMenu>
@@ -95,7 +99,7 @@ export function DashboardNav() {
               <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuItem asChild>
                   <Link to="/" className="cursor-pointer">
-                    Home
+                    {t("nav.home")}
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
@@ -104,7 +108,7 @@ export function DashboardNav() {
                   className="cursor-pointer text-red-600"
                 >
                   <LogOut className="mr-2 h-4 w-4" />
-                  Sign Out
+                  {t("nav.signOut")}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -112,6 +116,7 @@ export function DashboardNav() {
 
           {/* Mobile Menu */}
           <div className="md:hidden flex items-center space-x-2">
+            <LanguageToggle variant="ghost" align="end" />
             <ThemeToggle variant="ghost" align="end" />
             <Sheet>
               <SheetTrigger asChild>
@@ -125,7 +130,7 @@ export function DashboardNav() {
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px]">
                 <SheetHeader className="text-left pb-6">
-                  <SheetTitle>Menu</SheetTitle>
+                  <SheetTitle>{t("nav.menu")}</SheetTitle>
                 </SheetHeader>
 
                 <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-accent/30 mb-4">
@@ -155,7 +160,7 @@ export function DashboardNav() {
                     className="w-full gap-2"
                   >
                     <LogOut className="h-4 w-4" />
-                    Sign Out
+                    {t("nav.signOut")}
                   </Button>
                 </div>
               </SheetContent>
