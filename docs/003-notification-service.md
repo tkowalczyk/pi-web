@@ -6,6 +6,7 @@ Daily notification system sending SMS reminders about upcoming waste collection.
 
 ## Architecture Flow
 
+### High-Level Components
 ```
 Scheduled Cron (every hour)
   ↓ (query notification_preferences for current hour)
@@ -22,6 +23,117 @@ Database (notification_logs table)
 - **Cron Triggers** - Hourly execution
 - **Queues** - Reliable SMS delivery with retries
 - **Worker Bindings** - SMSAPI.pl credentials
+
+### Detailed Execution Flow
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ CRON TRIGGER (every hour at :00)                                │
+│ - Fires: 00:00, 01:00, 02:00, ..., 23:00 UTC                   │
+└─────────────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ SCHEDULED HANDLER (handleScheduled)                             │
+│ 1. Get current UTC time → Convert to CET/CEST                  │
+│    - DST offset: Apr-Oct +2h, Nov-Mar +1h                       │
+│ 2. Calculate dates:                                             │
+│    - today = UTC date (YYYY-MM-DD)                              │
+│    - tomorrow = today + 1 day                                   │
+│ 3. Query notification_preferences:                              │
+│    WHERE hour = cetHour AND enabled = true                      │
+│ 4. Query waste_schedules:                                       │
+│    - Filter by today/tomorrow dates                             │
+│    - Join cities, waste_types                                   │
+│ 5. Join users + addresses + phone validation                    │
+│    - Filter: cityId IN (cities with waste today/tomorrow)       │
+│    - Validate: phone matches +48xxxxxxxxx                       │
+│ 6. Build batch: NotificationMessage[]                           │
+│    - Include: userId, phone, addressId, wasteTypes,             │
+│               scheduledDate, notificationType                   │
+└─────────────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ QUEUE PRODUCER (NOTIFICATION_QUEUE.sendBatch)                   │
+│ - Push batch to queue                                           │
+│ - Async processing decouples from cron timeout                  │
+└─────────────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ QUEUE CONSUMER (handleQueue)                                    │
+│ - Batch size: 10 messages                                       │
+│ - Timeout: 5s per batch                                         │
+│ - Max retries: 3 per message                                    │
+│                                                                 │
+│ FOR EACH MESSAGE:                                               │
+│   1. Validate phone format                                      │
+│      - If invalid: message.ack() → skip retry                   │
+│                                                                 │
+│   2. Check idempotency: getNotificationLog()                    │
+│      - Query: userId + addressId + scheduledDate + prefId       │
+│      - If exists with status "sent"/"delivered":                │
+│          message.ack() → skip duplicate                         │
+│                                                                 │
+│   3. Format SMS content:                                        │
+│      - Day before: "Jutro (date) wywóz: types"                  │
+│      - Same day: "Dzisiaj (date) wywóz: types"                  │
+│                                                                 │
+│   4. Create log: createNotificationLog()                        │
+│      - Status: "pending"                                        │
+│      - Store: smsContent, phone, wasteTypeIds[]                 │
+│                                                                 │
+│   5. Rate limit: sleep(100ms)                                   │
+│      - 10 req/s to stay under SMSAPI 100 req/s limit            │
+│                                                                 │
+│   6. Send SMS: sendSms(token, phone, content)                   │
+│      POST https://api.smsapi.pl/sms.do                          │
+│      - Headers: Bearer token, form-urlencoded                   │
+│      - Response: {id, points, status, error?}                   │
+│                                                                 │
+│   7a. SUCCESS PATH:                                             │
+│       - Update log: status="sent", smsApiMessageId, cost        │
+│       - message.ack() → remove from queue                       │
+│                                                                 │
+│   7b. FAILURE PATH:                                             │
+│       - Update log: status="failed", errorMessage               │
+│       - message.retry() → requeue (max 3 retries)               │
+│       - After 3 fails → moves to DLQ                            │
+│                                                                 │
+│   8. EXCEPTION HANDLING:                                        │
+│      - Catch errors → message.retry()                           │
+│      - Logs written even on crash                               │
+└─────────────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────────────┐
+│ DATABASE (notification_logs)                                    │
+│ - Records all send attempts                                     │
+│ - Tracks status: pending → sent/failed → delivered              │
+│ - Prevents duplicate sends via idempotency check                │
+│ - Indexes: userId, addressId, scheduledDate, status             │
+└─────────────────────────────────────────────────────────────────┘
+
+TIMING EXAMPLE (19:00 CET day-before notification):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+18:00 UTC → Cron fires
+         → Converts to 19:00 CET (winter) or 20:00 CEST (summer)
+         → Queries notification_preferences WHERE hour=19 (CET)
+         → Finds users with day_before preference
+         → Queries waste_schedules for tomorrow's date
+         → Sends batch to queue
+         → Queue processes within ~10-20 seconds
+         → Users receive SMS at ~19:00 CET
+
+RETRY BEHAVIOR:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Attempt 1 → Fail → wait 30s  → Attempt 2
+         → Fail → wait 60s  → Attempt 3
+         → Fail → wait 120s → Move to DLQ (manual inspection)
+
+IDEMPOTENCY:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Queue message retries → Always check notification_logs first
+If log exists with status="sent"/"delivered" → Skip send, ack message
+Prevents duplicate SMS charges on retry
+```
 
 ---
 
@@ -83,6 +195,12 @@ import {
   notification_logs
 } from "@/drizzle/schema";
 import { eq, and, isNotNull } from "drizzle-orm";
+
+// Validate Polish phone number: +48 followed by 9 digits
+function isValidPolishPhone(phone: string): boolean {
+  const cleaned = phone.replace(/\s/g, "");
+  return /^\+48\d{9}$/.test(cleaned);
+}
 
 export async function getUsersNeedingNotification(
   currentHour: number, // 0-23 in CET/CEST
@@ -146,12 +264,13 @@ export async function getUsersNeedingNotification(
       )
     );
 
-  // Filter users in relevant cities and calculate notification type
+  // Filter users in relevant cities and validate phone numbers
   const now = new Date();
   const target = new Date(targetDate);
 
   return users
     .filter(u => u.cityId && cityIds.includes(u.cityId))
+    .filter(u => u.phone && isValidPolishPhone(u.phone)) // Phone validation
     .map(u => {
       const daysDiff = Math.floor((target.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
       const isDayBefore = daysDiff === 1 && u.notificationType === "day_before";
@@ -161,7 +280,7 @@ export async function getUsersNeedingNotification(
 
       return {
         userId: u.userId,
-        phone: u.phone!,
+        phone: u.phone!.replace(/\s/g, ""), // Strip spaces
         addressId: u.addressId,
         cityId: u.cityId!,
         cityName: u.cityName!,
@@ -260,23 +379,36 @@ const SmsApiResponseSchema = z.object({
   ),
 });
 
+// Validate Polish phone: +48 followed by 9 digits
+export function isValidPolishPhone(phone: string): boolean {
+  const cleaned = phone.replace(/\s/g, "");
+  return /^\+48\d{9}$/.test(cleaned);
+}
+
 export async function sendSms(
   apiToken: string,
   phoneNumber: string,
-  message: string
+  message: string,
+  senderName?: string // Optional - uses default sender if omitted
 ): Promise<{ messageId: string; cost: number; status: string } | { error: string }> {
   try {
+    const params = new URLSearchParams({
+      to: phoneNumber,
+      message: message,
+      format: "json",
+    });
+
+    if (senderName) {
+      params.append("from", senderName);
+    }
+
     const response = await fetch("https://api.smsapi.pl/sms.do", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${apiToken}`,
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: new URLSearchParams({
-        to: phoneNumber,
-        message: message,
-        format: "json",
-      }),
+      body: params,
     });
 
     if (!response.ok) {
@@ -377,6 +509,7 @@ export function formatWasteNotification(
 interface Env extends BaseEnv {
   NOTIFICATION_QUEUE: Queue<NotificationMessage>;
   SMSAPI_TOKEN: string;
+  SMSAPI_SENDER_NAME?: string; // Optional - uses account default if not set
 }
 
 interface NotificationMessage {
@@ -403,7 +536,7 @@ interface NotificationMessage {
 import { getUsersNeedingNotification } from "data-ops/queries/notifications";
 import type { NotificationMessage } from "./worker-configuration";
 
-export async function handleScheduled(event: ScheduledEvent, env: Env) {
+export async function handleScheduled(controller: ScheduledController, env: Env, ctx: ExecutionContext) {
   const now = new Date();
   const currentHour = now.getUTCHours();
   const currentMinute = now.getUTCMinutes();
@@ -461,9 +594,13 @@ export async function handleScheduled(event: ScheduledEvent, env: Env) {
 **File:** `apps/data-service/src/queue-consumer.ts` (new)
 
 ```ts
-import { sendSms, formatWasteNotification } from "./services/sms";
+import { sendSms, formatWasteNotification, isValidPolishPhone } from "./services/sms";
 import { createNotificationLog, updateNotificationStatus, getNotificationLog } from "data-ops/queries/notifications";
 import type { NotificationMessage } from "./worker-configuration";
+
+// Rate limiting: 10 req/s to stay under SMSAPI 100 req/s limit
+const RATE_LIMIT_DELAY_MS = 100; // 10 SMS per second
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export async function handleQueue(batch: MessageBatch<NotificationMessage>, env: Env) {
   for (const message of batch.messages) {
@@ -479,6 +616,13 @@ export async function handleQueue(batch: MessageBatch<NotificationMessage>, env:
         wasteTypes,
         scheduledDate
       } = message.body;
+
+      // Validate phone format before processing
+      if (!isValidPolishPhone(phone)) {
+        console.error(`Invalid phone format for user ${userId}: ${phone}`);
+        message.ack(); // Don't retry - invalid data
+        continue;
+      }
 
       // Check if already sent (idempotency)
       const existingLog = await getNotificationLog(userId, addressId, scheduledDate, notificationPreferenceId);
@@ -503,6 +647,9 @@ export async function handleQueue(batch: MessageBatch<NotificationMessage>, env:
         smsContent,
         status: "pending",
       });
+
+      // Rate limiting: wait before sending
+      await sleep(RATE_LIMIT_DELAY_MS);
 
       // Send SMS
       const result = await sendSms(env.SMSAPI_TOKEN, phone, smsContent);
@@ -548,8 +695,8 @@ export default class DataService extends WorkerEntrypoint<Env> {
     return app.fetch(request, this.env, this.ctx);
   }
 
-  async scheduled(event: ScheduledEvent) {
-    await handleScheduled(event, this.env);
+  async scheduled(controller: ScheduledController, env: Env, ctx: ExecutionContext) {
+    await handleScheduled(controller, env, ctx);
   }
 
   async queue(batch: MessageBatch) {
@@ -564,12 +711,13 @@ export default class DataService extends WorkerEntrypoint<Env> {
 
 ### 8.1 Set Secrets
 ```bash
-# Stage
+# Required
 wrangler secret put SMSAPI_TOKEN --env stage
-# Enter token when prompted
-
-# Prod
 wrangler secret put SMSAPI_TOKEN --env prod
+
+# Optional (uses account default if omitted)
+wrangler secret put SMSAPI_SENDER_NAME --env stage
+wrangler secret put SMSAPI_SENDER_NAME --env prod
 ```
 
 ### 8.2 Create Queue
@@ -594,16 +742,55 @@ pnpm run deploy:prod:data-service
 ## 9. Testing Flow
 
 ### 9.1 Local Testing
-1. Set SMSAPI_TOKEN in `.dev.vars`:
-   ```
-   SMSAPI_TOKEN=your_test_token
-   ```
 
-2. Test cron locally:
-   ```bash
-   wrangler dev
-   # Trigger cron: curl http://localhost:8787/__scheduled?cron=*
-   ```
+**Prerequisites:**
+- `.dev.vars` in `apps/data-service/` with `SMSAPI_TOKEN` + `DATABASE_URL`
+- `notification_logs` table migrated to dev DB
+
+**Steps:**
+1. Start wrangler: `wrangler dev` (supports queues + cron locally)
+2. Trigger cron manually: `curl "http://localhost:8787/__scheduled?cron=*+*+*+*+*"`
+3. Queue auto-runs in-memory (wrangler simulates)
+4. Check console logs for full flow
+5. Query `notification_logs` table on Neon dev DB
+
+**SMS Testing Options:**
+
+**Option A: SMSAPI test mode** (recommended first)
+- Add `test: "1"` param in `sendSms()` URLSearchParams
+- Free, no actual send
+- Returns fake message ID
+- Update `sms.ts`:
+  ```ts
+  export async function sendSms(
+    apiToken: string,
+    phoneNumber: string,
+    message: string,
+    testMode = false
+  ): Promise<{ messageId: string; cost: number; status: string } | { error: string }> {
+    const params = new URLSearchParams({
+      to: phoneNumber,
+      message: message,
+      format: "json",
+    });
+
+    if (testMode) {
+      params.append("test", "1"); // Test mode - no send, returns fake ID
+    }
+
+    // ... rest unchanged
+  }
+  ```
+
+**Option B: Real SMS**
+- Use real SMSAPI token
+- Send to test phone
+- ~0.08 PLN per SMS
+
+**Verification:**
+- Console logs show: cron trigger → query users → queue batch → consumer process → SMS send
+- `notification_logs` table tracks all attempts
+- Check status: `pending` → `sent`/`failed`
 
 ### 9.2 Production Testing
 1. Deploy to stage
@@ -653,7 +840,7 @@ pnpm run deploy:prod:data-service
 9. Create queue consumer
 10. Update worker index.ts
 11. Create queues on Cloudflare
-12. Set SMSAPI_TOKEN secrets
+12. Set SMSAPI_TOKEN secret (optionally SMSAPI_SENDER_NAME)
 13. Deploy to stage
 14. Test end-to-end
 15. Deploy to prod
@@ -670,6 +857,8 @@ pnpm run deploy:prod:data-service
 6. **Dead letter queue** for permanent failures
 7. **Batch size 10** for queue consumer (SMSAPI.pl rate limits)
 8. **notification_preferences replaces notificationsEnabled** - more flexible
+9. **Phone validation** - +48xxxxxxxxx format (9 digits). Validate in query + queue consumer
+10. **Rate limiting** - 100ms delay between SMS sends (10/sec) to stay under SMSAPI 100 req/s limit
 
 ---
 
@@ -696,3 +885,28 @@ pnpm run deploy:prod:data-service
 - Cron triggers: Free (runs 24x/day = 720x/month)
 
 **Total:** ~5,000 PLN/month for 1000 active users
+
+---
+
+## 15. Verification Notes (2025-12-16)
+
+### Corrected Issues:
+
+1. **Scheduled handler signature** - Fixed to use `(controller: ScheduledController, env: Env, ctx: ExecutionContext)` per Cloudflare docs
+2. **SMSAPI sender field** - Made optional (uses account default if not provided)
+3. **Implementation status** - No notification_logs table exists in schema yet, no implementation in data-service
+
+### Verified Correct:
+
+1. **SMSAPI.pl endpoint** - `https://api.smsapi.pl/sms.do` with Bearer token auth confirmed
+2. **Queue config syntax** - producers/consumers arrays format correct
+3. **Cron syntax** - `triggers.crons` array correct
+4. **Queue limits** - batch_size: 10, timeout: 5s, retries: 3 all within limits (100/60/100)
+5. **MessageBatch API** - `message.ack()`, `message.retry()`, `Queue.sendBatch()` correct
+6. **Request format** - `application/x-www-form-urlencoded` with `format=json` param correct
+
+### Current State:
+
+- Design doc complete but **NOT implemented**
+- Missing: notification_logs table, queries, SMS service, scheduled/queue handlers
+- data-service has no queue/cron config in wrangler.jsonc yet
