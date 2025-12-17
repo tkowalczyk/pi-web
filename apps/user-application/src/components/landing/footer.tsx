@@ -1,107 +1,94 @@
-import { ExternalLink } from "lucide-react";
-import { FaXTwitter, FaGithub } from "react-icons/fa6";
-
-const navigation = {
-  main: [
-    { name: "TanStack Start", href: "https://tanstack.com/start" },
-    { name: "TanStack Router", href: "https://tanstack.com/router" },
-    { name: "TanStack Query", href: "https://tanstack.com/query" },
-    { name: "React", href: "https://react.dev" },
-  ],
-  tools: [
-    { name: "Vite", href: "https://vitejs.dev" },
-    { name: "Shadcn/UI", href: "https://ui.shadcn.com" },
-    { name: "pnpm Workspaces", href: "https://pnpm.io/workspaces" },
-    { name: "Drizzle ORM", href: "https://orm.drizzle.team" },
-  ],
-  social: [
-    {
-      name: "GitHub",
-      href: "https://github.com/backpine/saas-kit",
-      icon: FaGithub,
-    },
-    {
-      name: "X",
-      href: "https://x.com/backpinelabs",
-      icon: FaXTwitter,
-    },
-  ],
-};
+import { Link } from "@tanstack/react-router";
+import { useTranslation, Trans } from "react-i18next";
+import { FaXTwitter, FaLinkedin, FaGithub } from "react-icons/fa6";
 
 export function Footer() {
+  const { t } = useTranslation();
+  const currentYear = new Date().getFullYear();
+
+  const socialLinks = [
+    {
+      name: "X",
+      href: "https://x.com/auditmos",
+      icon: FaXTwitter,
+    },
+    {
+      name: "LinkedIn",
+      href: "https://www.linkedin.com/company/auditmos",
+      icon: FaLinkedin,
+    },
+    {
+      name: "GitHub",
+      href: "https://github.com/auditmos",
+      icon: FaGithub,
+    },
+  ];
+
   return (
     <footer className="border-t bg-background">
-      <div className="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-center md:space-x-8 space-y-6 md:space-y-0">
-          <div>
-            <h3 className="text-sm font-semibold text-foreground">
-              TanStack Ecosystem
-            </h3>
-            <ul role="list" className="mt-2 space-y-1">
-              {navigation.main.map((item) => (
-                <li key={item.name}>
+      <div className="mx-auto max-w-7xl px-6 py-4 lg:px-8">
+        <div className="flex flex-col space-y-4 md:flex-row md:justify-between md:items-start md:space-y-0">
+          <div className="text-sm">
+            <p className="text-muted-foreground">
+              <Trans
+                i18nKey="footer.copyright"
+                values={{ year: currentYear }}
+                components={[
+                  <a key="link" href="https://auditmos.com" target="_blank" rel="noopener noreferrer" className="hover:underline" />
+                ]}
+              />
+            </p>
+          </div>
+
+          <div className="text-xs text-muted-foreground">
+            <p className="font-semibold mb-1">{t("footer.headquarters")}</p>
+            <a
+              href="https://ariregister.rik.ee/eng/company/17025406/Auditmos-O%C3%9C?lang=en&"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-foreground hover:underline transition-colors inline-block"
+            >
+              Auditmos OU
+            </a>
+            <address className="not-italic mt-1">
+              Harju maakond, Tallinn, Kesklinna linnaosa,<br />
+              Narva mnt 13-27, 10151
+            </address>
+          </div>
+
+          <div className="flex flex-col space-y-4">
+            <nav className="flex flex-col space-y-2 text-sm">
+              <Link
+                to="/privacy-policy"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {t("footer.privacyPolicy")}
+              </Link>
+              <Link
+                to="/legal"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {t("footer.legal")}
+              </Link>
+            </nav>
+
+            <div className="flex space-x-4">
+              {socialLinks.map((link) => {
+                const IconComponent = link.icon;
+                return (
                   <a
-                    href={item.href}
+                    key={link.name}
+                    href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center group"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                    aria-label={link.name}
                   >
-                    {item.name}
-                    <ExternalLink className="ml-1 h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <IconComponent className="h-4 w-4" />
                   </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-semibold text-foreground">
-              Development Tools
-            </h3>
-            <ul role="list" className="mt-2 space-y-1">
-              {navigation.tools.map((item) => (
-                <li key={item.name}>
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center group"
-                  >
-                    {item.name}
-                    <ExternalLink className="ml-1 h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div className="mt-8 md:mt-0 flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-6">
-          <div className="flex space-x-6">
-            {navigation.social.map((item) => {
-              const IconComponent = item.icon;
-              return (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <span className="sr-only">{item.name}</span>
-                  <IconComponent className="h-5 w-5" />
-                </a>
-              );
-            })}
-          </div>
-
-          <div className="text-center md:text-right">
-            <p className="text-xs text-muted-foreground">
-              Built with TanStack Start
-            </p>
-            <p className="text-xs text-muted-foreground mt-1">
-              &copy; {new Date().getFullYear()} Backpine SaaS Kit. MIT Licensed.
-            </p>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

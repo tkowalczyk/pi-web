@@ -155,5 +155,201 @@
     "stackTrace": "Error Stack Trace:",
     "persistMessage": "If this error persists, please report it to our support team.",
     "reportError": "Report Error"
+  },
+  "footer": {
+    "copyright": "© powiadomienia.info is a product from <0>Auditmos OU</0>.<br />All rights reserved {{year}}",
+    "headquarters": "Headquarters",
+    "privacyPolicy": "Privacy Policy",
+    "legal": "Legal",
+    "termsOfService": "Terms of Service",
+    "cookiePolicy": "Cookie Policy"
+  },
+  "staticPages": {
+    "contentPlaceholder": "Content will be provided soon.",
+    "legalDescription": "Access our legal documents and policies.",
+    "termsOfServiceDescription": "Terms governing use of our service",
+    "cookiePolicyDescription": "How we use cookies on our website",
+    "privacyPolicyDescription": "How we protect your personal data"
+  },
+  "privacyPolicy": {
+    "statementSummary": "Privacy Statement Summary",
+    "statementSummaryContent": "Content will be provided soon.",
+    "whoWillUse": "Who will use my data",
+    "whoWillUseContent": "Content will be provided soon.",
+    "whatFor": "What for?",
+    "whatForContent": "Content will be provided soon.",
+    "whatIfContact": "What will happen if I contact you?",
+    "whatIfContactContent": "Content will be provided soon.",
+    "whatStored": "What data will be stored?",
+    "whatStoredContent": "Content will be provided soon.",
+    "whatShared": "What data will be shared?",
+    "whatSharedContent": "Content will be provided soon.",
+    "howLong": "How long?",
+    "howLongContent": "Content will be provided soon.",
+    "whoAccess": "Who can access my data?",
+    "whoAccessContent": "Content will be provided soon.",
+    "howSecure": "How is my data kept secure?",
+    "howSecureContent": "Content will be provided soon.",
+    "aboutPolicy": "About This Privacy Policy",
+    "aboutPolicyContent": "Content will be provided soon.",
+    "principles": "Principles of Processing Personal Information",
+    "principlesContent": "Content will be provided soon.",
+    "whoWeAre": "Who We Are And How To Contact Us",
+    "whoWeAreContent": "Content will be provided soon.",
+    "article27": "Our Article 27 Representatives",
+    "article27Content": "Content will be provided soon.",
+    "ukRep": "Our UK Representative",
+    "ukRepContent": "Content will be provided soon.",
+    "euRep": "Our EU Representative",
+    "euRepContent": "Content will be provided soon.",
+    "toWhom": "To whom does this privacy policy apply?",
+    "toWhomContent": "Content will be provided soon.",
+    "whatApplies": "What does this policy apply to?",
+    "whatAppliesContent": "Content will be provided soon.",
+    "howCollected": "How will your information be collected and used?",
+    "howCollectedContent": "Content will be provided soon.",
+    "changePrefs": "How to change your preferences",
+    "changePrefsContent": "Content will be provided soon.",
+    "optingOut": "Opting out at a later date",
+    "optingOutContent": "Content will be provided soon.",
+    "howStore": "How we store and process your data",
+    "howStoreContent": "Content will be provided soon.",
+    "obligations": "Our obligations",
+    "obligationsContent": "Content will be provided soon.",
+    "thirdParties": "Third Parties",
+    "thirdPartiesContent": "Content will be provided soon.",
+    "security": "Security",
+    "securityContent": "Content will be provided soon.",
+    "cookies": "Cookies",
+    "cookiesContent": "Content will be provided soon.",
+    "contacting": "Contacting us, exercising your information rights and Complaints",
+    "contactingContent": "Content will be provided soon."
+  },
+  "termsOfService": {
+    "lastUpdate": "Last update: [DATE]",
+    "intro": "[INTRO TEXT IN CAPITAL LETTERS]",
+    "agreementTitle": "AGREEMENT TO TERMS AND CONDITIONS",
+    "agreementContent": "[Agreement content]",
+    "definitionsTitle": "DEFINITIONS",
+    "definitions": {
+      "item1": "[Definition 1]",
+      "item2": "[Definition 2]",
+      "item3": "[Definition 3]"
+    },
+    "privacyNoticeTitle": "PRIVACY NOTICE",
+    "privacyNoticeContent": "[Privacy notice content]",
+    "changesTitle": "CHANGES TO THESE TERMS OR THE SERVICES",
+    "changesContent": "[Changes content]",
+    "accessTitle": "ACCESS AND USE",
+    "access": {
+      "item1": "[Access item 1]",
+      "item2": "[Access item 2]",
+      "item3": "[Access item 3]"
+    },
+    "subscriptionsTitle": "SUBSCRIPTIONS AND FREE TIER",
+    "subscriptionsContent": "[Subscriptions content]",
+    "customerMaterialsTitle": "CUSTOMER MATERIALS",
+    "customerMaterialsContent": "[Customer materials content]",
+    "supportTitle": "SUPPORT AND SERVICE LEVELS",
+    "support": {
+      "title": "Support",
+      "content": "[Support content]"
+    },
+    "serviceLevels": {
+      "title": "Service Levels",
+      "content": "[Service levels content]"
+    },
+    "confidentialTitle": "CONFIDENTIAL INFORMATION",
+    "confidentialContent": "[Confidential information content]",
+    "representationsTitle": "REPRESENTATIONS AND WARRANTIES; DISCLAIMER",
+    "representations": {
+      "mutual": {
+        "title": "Mutual Representations",
+        "content": "[Mutual representations content]"
+      },
+      "customer": {
+        "title": "Customer Additional Representations",
+        "content": "[Customer representations content]"
+      },
+      "disclaimer": {
+        "title": "Disclaimer",
+        "content": "[DISCLAIMER TEXT IN CAPITAL LETTERS]"
+      },
+      "similarity": {
+        "title": "Similarity",
+        "content": "[Similarity content]"
+      }
+    },
+    "terminationTitle": "TERMINATION",
+    "terminationContent": "[Termination content]",
+    "limitationTitle": "LIMITATION OF LIABILITY",
+    "limitationContent": "[Limitation content]",
+    "indemnificationTitle": "INDEMNIFICATION",
+    "indemnificationContent": "[Indemnification content]",
+    "generalTitle": "GENERAL",
+    "general": {
+      "item1": "[General item 1]",
+      "item2": "[General item 2]",
+      "item3": "[General item 3]"
+    },
+    "exhibitA": {
+      "title": "EXHIBIT A – RESPONSIBLE AI POLICY",
+      "item1": "[Exhibit A item 1]",
+      "item2": "[Exhibit A item 2]",
+      "item3": "[Exhibit A item 3]"
+    },
+    "exhibitB": {
+      "title": "EXHIBIT B – SERVICE LEVELS AND SUPPORT",
+      "item1": "[Exhibit B item 1]",
+      "item2": "[Exhibit B item 2]",
+      "item3": "[Exhibit B item 3]"
+    }
+  },
+  "cookiePolicy": {
+    "companyNameLabel": "Company Name:",
+    "companyName": "[COMPANY NAME]",
+    "policyOwnerLabel": "Policy Owner:",
+    "policyOwner": "[POLICY OWNER]",
+    "effectiveDateLabel": "Effective Date:",
+    "effectiveDate": "[EFFECTIVE DATE]",
+    "purposeTitle": "Purpose",
+    "purposeContent": "[Purpose content]",
+    "scopeTitle": "Scope",
+    "scopeContent": "[Scope content]",
+    "policyTitle": "Policy",
+    "howWeUse": {
+      "title": "How we use cookies",
+      "content": "[How we use cookies content]"
+    },
+    "detailedInfo": {
+      "title": "Detailed Cookie Information",
+      "content": "[Detailed cookie information content]"
+    },
+    "strictlyNecessary": {
+      "title": "Strictly Necessary Cookies",
+      "content": "[Strictly necessary cookies content]"
+    },
+    "analytics": {
+      "title": "Analytics & Tracking Cookies",
+      "content": "[Analytics cookies content]"
+    },
+    "marketing": {
+      "title": "Marketing Cookies",
+      "content": "[Marketing cookies content]"
+    },
+    "choicesTitle": "Your Choices and How to Opt-Out",
+    "choices": {
+      "item1": "[Choice item 1]",
+      "item2": "[Choice item 2]",
+      "item3": "[Choice item 3]"
+    },
+    "choicesAdditional": "[Additional choices information]",
+    "exceptionsTitle": "Exceptions",
+    "exceptionsContent": "[Exceptions content]",
+    "violationsTitle": "Violations & Enforcement",
+    "violationsContent": "[Violations content]",
+    "versionTitle": "Version",
+    "versionContent": "[Version content]",
+    "lastReviewed": "[Last reviewed: DATE]"
   }
 }

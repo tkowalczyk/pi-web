@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { MapPin, Phone, Bell, ArrowRight } from "lucide-react";
 import { authClient } from "@/components/auth/client";
 import { LandingNav } from "@/components/navigation/landing-nav";
+import { Footer } from "@/components/landing/footer";
 import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/")({
@@ -17,9 +18,9 @@ function LandingPage() {
   const isLoggedIn = !!session?.user;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen flex flex-col bg-background">
       <LandingNav />
-      <section className="relative px-6 lg:px-8 pt-32 pb-24">
+      <section className="flex-1 relative px-6 lg:px-8 pt-32 pb-12">
         <div className="mx-auto max-w-5xl">
           {/* Hero */}
           <div className="text-center mb-16">
@@ -119,6 +120,7 @@ function LandingPage() {
           />
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

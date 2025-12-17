@@ -4,6 +4,7 @@ import { getMyProfile } from "@/core/functions/profile";
 import { getMyAddresses } from "@/core/functions/addresses";
 import { getMyWasteSchedule } from "@/core/functions/waste";
 import { DashboardNav } from "@/components/navigation/dashboard-nav";
+import { Footer } from "@/components/landing/footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { PhoneForm } from "@/components/profile/phone-form";
@@ -50,11 +51,11 @@ function Dashboard() {
   const setupComplete = hasAddress && hasPhone;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen flex flex-col bg-background">
       <DashboardNav />
 
       {/* Hero Section */}
-      <section className="relative px-6 lg:px-8 pt-32 pb-16">
+      <section className="flex-1 relative px-6 lg:px-8 pt-32 pb-8">
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-12">
             <div className="mb-2 flex justify-center gap-2">
@@ -196,6 +197,7 @@ function Dashboard() {
           />
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

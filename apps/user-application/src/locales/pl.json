@@ -155,5 +155,201 @@
     "stackTrace": "Ślad stosu błędu:",
     "persistMessage": "Jeśli błąd się powtarza, zgłoś go do naszego zespołu wsparcia.",
     "reportError": "Zgłoś błąd"
+  },
+  "footer": {
+    "copyright": "© powiadomienia.info jest produktem <0>Auditmos OU</0>.<br />Wszelkie prawa zastrzeżone {{year}}",
+    "headquarters": "Siedziba",
+    "privacyPolicy": "Polityka Prywatności",
+    "legal": "Informacje Prawne",
+    "termsOfService": "Regulamin",
+    "cookiePolicy": "Polityka Cookies"
+  },
+  "staticPages": {
+    "contentPlaceholder": "Treść zostanie wkrótce dodana.",
+    "legalDescription": "Dostęp do naszych dokumentów prawnych i polityk.",
+    "termsOfServiceDescription": "Warunki korzystania z naszej usługi",
+    "cookiePolicyDescription": "Jak używamy plików cookies na naszej stronie",
+    "privacyPolicyDescription": "Jak chronimy Twoje dane osobowe"
+  },
+  "privacyPolicy": {
+    "statementSummary": "Podsumowanie Oświadczenia o Prywatności",
+    "statementSummaryContent": "Treść zostanie wkrótce dodana.",
+    "whoWillUse": "Kto będzie używał moich danych",
+    "whoWillUseContent": "Treść zostanie wkrótce dodana.",
+    "whatFor": "W jakim celu?",
+    "whatForContent": "Treść zostanie wkrótce dodana.",
+    "whatIfContact": "Co się stanie, jeśli się z Wami skontaktuję?",
+    "whatIfContactContent": "Treść zostanie wkrótce dodana.",
+    "whatStored": "Jakie dane będą przechowywane?",
+    "whatStoredContent": "Treść zostanie wkrótce dodana.",
+    "whatShared": "Jakie dane będą udostępniane?",
+    "whatSharedContent": "Treść zostanie wkrótce dodana.",
+    "howLong": "Jak długo?",
+    "howLongContent": "Treść zostanie wkrótce dodana.",
+    "whoAccess": "Kto może uzyskać dostęp do moich danych?",
+    "whoAccessContent": "Treść zostanie wkrótce dodana.",
+    "howSecure": "Jak moje dane są zabezpieczone?",
+    "howSecureContent": "Treść zostanie wkrótce dodana.",
+    "aboutPolicy": "O Tej Polityce Prywatności",
+    "aboutPolicyContent": "Treść zostanie wkrótce dodana.",
+    "principles": "Zasady Przetwarzania Informacji Osobowych",
+    "principlesContent": "Treść zostanie wkrótce dodana.",
+    "whoWeAre": "Kim Jesteśmy i Jak Się Z Nami Skontaktować",
+    "whoWeAreContent": "Treść zostanie wkrótce dodana.",
+    "article27": "Nasi Przedstawiciele Artykułu 27",
+    "article27Content": "Treść zostanie wkrótce dodana.",
+    "ukRep": "Nasz Przedstawiciel w Wielkiej Brytanii",
+    "ukRepContent": "Treść zostanie wkrótce dodana.",
+    "euRep": "Nasz Przedstawiciel w UE",
+    "euRepContent": "Treść zostanie wkrótce dodana.",
+    "toWhom": "Do kogo odnosi się ta polityka prywatności?",
+    "toWhomContent": "Treść zostanie wkrótce dodana.",
+    "whatApplies": "Do czego odnosi się ta polityka?",
+    "whatAppliesContent": "Treść zostanie wkrótce dodana.",
+    "howCollected": "Jak będą zbierane i wykorzystywane Twoje informacje?",
+    "howCollectedContent": "Treść zostanie wkrótce dodana.",
+    "changePrefs": "Jak zmienić swoje preferencje",
+    "changePrefsContent": "Treść zostanie wkrótce dodana.",
+    "optingOut": "Rezygnacja w późniejszym terminie",
+    "optingOutContent": "Treść zostanie wkrótce dodana.",
+    "howStore": "Jak przechowujemy i przetwarzamy Twoje dane",
+    "howStoreContent": "Treść zostanie wkrótce dodana.",
+    "obligations": "Nasze zobowiązania",
+    "obligationsContent": "Treść zostanie wkrótce dodana.",
+    "thirdParties": "Strony Trzecie",
+    "thirdPartiesContent": "Treść zostanie wkrótce dodana.",
+    "security": "Bezpieczeństwo",
+    "securityContent": "Treść zostanie wkrótce dodana.",
+    "cookies": "Pliki Cookies",
+    "cookiesContent": "Treść zostanie wkrótce dodana.",
+    "contacting": "Kontakt z nami, korzystanie z praw informacyjnych i Skargi",
+    "contactingContent": "Treść zostanie wkrótce dodana."
+  },
+  "termsOfService": {
+    "lastUpdate": "Ostatnia aktualizacja: [DATA]",
+    "intro": "[TEKST WPROWADZENIA WIELKIMI LITERAMI]",
+    "agreementTitle": "ZGODA NA WARUNKI KORZYSTANIA",
+    "agreementContent": "[Treść zgody]",
+    "definitionsTitle": "DEFINICJE",
+    "definitions": {
+      "item1": "[Definicja 1]",
+      "item2": "[Definicja 2]",
+      "item3": "[Definicja 3]"
+    },
+    "privacyNoticeTitle": "OŚWIADCZENIE O PRYWATNOŚCI",
+    "privacyNoticeContent": "[Treść oświadczenia]",
+    "changesTitle": "ZMIANY W WARUNKACH LUB USŁUGACH",
+    "changesContent": "[Treść zmian]",
+    "accessTitle": "DOSTĘP I UŻYTKOWANIE",
+    "access": {
+      "item1": "[Element dostępu 1]",
+      "item2": "[Element dostępu 2]",
+      "item3": "[Element dostępu 3]"
+    },
+    "subscriptionsTitle": "SUBSKRYPCJE I DARMOWA WERSJA",
+    "subscriptionsContent": "[Treść subskrypcji]",
+    "customerMaterialsTitle": "MATERIAŁY KLIENTA",
+    "customerMaterialsContent": "[Treść materiałów]",
+    "supportTitle": "WSPARCIE I POZIOMY USŁUG",
+    "support": {
+      "title": "Wsparcie",
+      "content": "[Treść wsparcia]"
+    },
+    "serviceLevels": {
+      "title": "Poziomy Usług",
+      "content": "[Treść poziomów usług]"
+    },
+    "confidentialTitle": "INFORMACJE POUFNE",
+    "confidentialContent": "[Treść informacji poufnych]",
+    "representationsTitle": "OŚWIADCZENIA I GWARANCJE; ZASTRZEŻENIA",
+    "representations": {
+      "mutual": {
+        "title": "Oświadczenia Wzajemne",
+        "content": "[Treść oświadczeń wzajemnych]"
+      },
+      "customer": {
+        "title": "Dodatkowe Oświadczenia Klienta",
+        "content": "[Treść oświadczeń klienta]"
+      },
+      "disclaimer": {
+        "title": "Zastrzeżenia",
+        "content": "[TEKST ZASTRZEŻEŃ WIELKIMI LITERAMI]"
+      },
+      "similarity": {
+        "title": "Podobieństwo",
+        "content": "[Treść podobieństwa]"
+      }
+    },
+    "terminationTitle": "WYPOWIEDZENIE",
+    "terminationContent": "[Treść wypowiedzenia]",
+    "limitationTitle": "OGRANICZENIE ODPOWIEDZIALNOŚCI",
+    "limitationContent": "[Treść ograniczenia]",
+    "indemnificationTitle": "ODSZKODOWANIE",
+    "indemnificationContent": "[Treść odszkodowania]",
+    "generalTitle": "POSTANOWIENIA OGÓLNE",
+    "general": {
+      "item1": "[Element ogólny 1]",
+      "item2": "[Element ogólny 2]",
+      "item3": "[Element ogólny 3]"
+    },
+    "exhibitA": {
+      "title": "ZAŁĄCZNIK A – POLITYKA ODPOWIEDZIALNEJ AI",
+      "item1": "[Element załącznika A 1]",
+      "item2": "[Element załącznika A 2]",
+      "item3": "[Element załącznika A 3]"
+    },
+    "exhibitB": {
+      "title": "ZAŁĄCZNIK B – POZIOMY USŁUG I WSPARCIE",
+      "item1": "[Element załącznika B 1]",
+      "item2": "[Element załącznika B 2]",
+      "item3": "[Element załącznika B 3]"
+    }
+  },
+  "cookiePolicy": {
+    "companyNameLabel": "Nazwa firmy:",
+    "companyName": "[NAZWA FIRMY]",
+    "policyOwnerLabel": "Właściciel polityki:",
+    "policyOwner": "[WŁAŚCICIEL POLITYKI]",
+    "effectiveDateLabel": "Data wejścia w życie:",
+    "effectiveDate": "[DATA WEJŚCIA W ŻYCIE]",
+    "purposeTitle": "Cel",
+    "purposeContent": "[Treść celu]",
+    "scopeTitle": "Zakres",
+    "scopeContent": "[Treść zakresu]",
+    "policyTitle": "Polityka",
+    "howWeUse": {
+      "title": "Jak używamy plików cookies",
+      "content": "[Treść jak używamy cookies]"
+    },
+    "detailedInfo": {
+      "title": "Szczegółowe Informacje o Cookies",
+      "content": "[Treść szczegółowych informacji]"
+    },
+    "strictlyNecessary": {
+      "title": "Niezbędne Pliki Cookies",
+      "content": "[Treść niezbędnych cookies]"
+    },
+    "analytics": {
+      "title": "Pliki Cookies Analityczne i Śledzące",
+      "content": "[Treść cookies analitycznych]"
+    },
+    "marketing": {
+      "title": "Pliki Cookies Marketingowe",
+      "content": "[Treść cookies marketingowych]"
+    },
+    "choicesTitle": "Twoje Wybory i Jak Zrezygnować",
+    "choices": {
+      "item1": "[Element wyboru 1]",
+      "item2": "[Element wyboru 2]",
+      "item3": "[Element wyboru 3]"
+    },
+    "choicesAdditional": "[Dodatkowe informacje o wyborach]",
+    "exceptionsTitle": "Wyjątki",
+    "exceptionsContent": "[Treść wyjątków]",
+    "violationsTitle": "Naruszenia i Egzekwowanie",
+    "violationsContent": "[Treść naruszeń]",
+    "versionTitle": "Wersja",
+    "versionContent": "[Treść wersji]",
+    "lastReviewed": "[Ostatni przegląd: DATA]"
   }
 }
