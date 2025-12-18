@@ -10,12 +10,18 @@
   },
   "main": "./src/server.ts",
   "env": {
+    /** 
+		* Local / Development environment 
+		*/
     "dev": {
       "name": "pi-web-user-app-dev",
       "vars": {
-        "MY_VAR": "Hello from Cloudflare Dev",
+        "CLOUDFLARE_ENV": "dev",
       },
     },
+    /** 
+		* Remote / Staging environment 
+		*/
     "stage": {
       "name": "pi-web-user-app-stage",
       "routes": [
@@ -24,10 +30,16 @@
           "pattern": "stage.powiadomienia.info"
         }
       ],
-      "vars": {
-        "MY_VAR": "Hello from Cloudflare Stage",
-      },
+      "services": [
+        {
+          "binding": "DATA_SERVICE",
+          "service": "pi-web-data-service-stage"
+        }
+      ]
     },
+    /** 
+		* Remote / Production environment 
+		*/
     "prod": {
       "name": "pi-web-user-app-prod",
       "routes": [
@@ -36,9 +48,12 @@
           "pattern": "powiadomienia.info"
         }
       ],
-      "vars": {
-        "MY_VAR": "Hello from Cloudflare Prod",
-      },
+      "services": [
+        {
+          "binding": "DATA_SERVICE",
+          "service": "pi-web-data-service-prod"
+        }
+      ]
     },
   }
 }

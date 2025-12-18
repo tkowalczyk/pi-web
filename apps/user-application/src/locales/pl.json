@@ -130,6 +130,8 @@
     "coverage": "Zasięg",
     "cities": "Miast",
     "streets": "Ulic",
+    "wasteSchedules": "Harmonogramów",
+    "activeUsers": "Użytkowników",
     "coverageDescription": "Codziennie rośnie"
   },
   "auth": {

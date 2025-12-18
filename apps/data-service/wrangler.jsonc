@@ -1,42 +1,64 @@
-/**
- * For more details on how to configure Wrangler, refer to:
- * https://developers.cloudflare.com/workers/wrangler/configuration/
- */
 {
-  "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "pi-web-data-service",
-  "main": "./src/index.ts",
-  "compatibility_date": "2025-04-01",
-  "compatibility_flags": [
-    "nodejs_compat"
-  ],
-  "observability": {
-    "enabled": true,
-  },
-  "env": {
-    "stage": {
-      "routes": [
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "pi-web-data-service",
+	"main": "./src/index.ts",
+	"compatibility_date": "2025-04-01",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"observability": {
+		"enabled": true,
+	},
+	"env": {
+		/** 
+		* Local / Development environment 
+		*/
+		"dev": {
+			"kv_namespaces": [
+				{
+					"binding": "CACHE",
+					"id": "eed883194c594bf8ac25811ec3d37751",
+					"remote": true
+				}
+			]
+		},
+		/** 
+		* Remote / Staging environment 
+		*/
+		"stage": {
+			"routes": [
 				{
 					"zone_name": "powiadomienia.info",
 					"pattern": "stage.powiadomienia.info/worker/*"
 				}
 			],
-      "name": "pi-web-data-service-stage",
-      "vars": {
-        "MY_VAR": "Hello from Cloudflare Stage",
-      }
-    },
-    "prod": {
-      "routes": [
+			"name": "pi-web-data-service-stage",
+			"kv_namespaces": [
+				{
+					"binding": "CACHE",
+					"id": "eb683052a4dd40b3a87d212c23b36c0c",
+					"remote": false
+				}
+			]
+		},
+		/** 
+		* Remote / Production environment 
+		*/
+		"prod": {
+			"routes": [
 				{
 					"zone_name": "powiadomienia.info",
-					"pattern": "stage.powiadomienia.info/worker/*"
+					"pattern": "powiadomienia.info/worker/*"
 				}
 			],
-      "name": "pi-web-data-service-prod",
-      "vars": {
-        "MY_VAR": "Hello from Cloudflare Prod",
-      }
-    },
-  }
+			"name": "pi-web-data-service-prod",
+			"kv_namespaces": [
+				{
+					"binding": "CACHE",
+					"id": "7688a332f25e416795f71a004b557f65",
+					"remote": false
+				}
+			]
+		},
+	},
 }

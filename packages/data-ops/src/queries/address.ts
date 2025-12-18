@@ -1,6 +1,7 @@
 import { getDb } from "@/database/setup";
-import { addresses, cities, streets } from "@/drizzle/schema";
-import { eq } from "drizzle-orm";
+import { addresses, cities, streets, waste_schedules } from "@/drizzle/schema";
+import { auth_user } from "@/drizzle/auth-schema";
+import { eq, count } from "drizzle-orm";
 
 export async function getUserAddresses(userId: string) {
   const db = getDb();
@@ -88,4 +89,28 @@ export async function getStreetsByCityId(cityId: number) {
   })
   .from(streets)
   .where(eq(streets.cityId, cityId));
+}
+
+export async function getCitiesCount() {
+  const db = getDb();
+  const [result] = await db.select({ count: count() }).from(cities);
+  return result?.count ?? 0;
+}
+
+export async function getStreetsCount() {
+  const db = getDb();
+  const [result] = await db.select({ count: count() }).from(streets);
+  return result?.count ?? 0;
+}
+
+export async function getWasteSchedulesCount() {
+  const db = getDb();
+  const [result] = await db.select({ count: count() }).from(waste_schedules);
+  return result?.count ?? 0;
+}
+
+export async function getActiveUsersCount() {
+  const db = getDb();
+  const [result] = await db.select({ count: count() }).from(auth_user);
+  return result?.count ?? 0;
 }

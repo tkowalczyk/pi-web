@@ -130,6 +130,8 @@
     "coverage": "Coverage",
     "cities": "Cities",
     "streets": "Streets",
+    "wasteSchedules": "Waste Schedules",
+    "activeUsers": "Active Users",
     "coverageDescription": "Growing every day"
   },
   "auth": {
