@@ -15,7 +15,7 @@ app.use("/*", cors({
   }
 }));
 
-app.get("/worker", (c) =>
+app.get("/worker/health", (c) =>
   c.json({
     name: "powiadomienia.info Worker",
     version: "0.0.1",
