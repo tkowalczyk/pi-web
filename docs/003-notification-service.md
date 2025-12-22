@@ -2,7 +2,7 @@
 
 ## Overview
 
-Daily notification system sending SMS reminders about upcoming waste collection. Uses notification_preferences table for customizable times (default: 19:00 day before, 7:00 same day). Cloudflare Cron (hourly) + Queues for reliable delivery via SMSAPI.pl.
+Daily notification system sending SMS reminders about upcoming waste collection. Uses notification_preferences table for customizable times (default: 19:00 day before, 7:00 same day). Cloudflare Cron (hourly) + Queues for reliable delivery via SerwerSMS.
 
 ## Architecture Flow
 
@@ -14,7 +14,7 @@ Database (addresses + notification_preferences + waste_schedules + notification_
   ↓ (batch users into messages)
 Cloudflare Queue (notification_queue)
   ↓ (consumer processes batches)
-SMSAPI.pl API (send SMS)
+SerwerSMS API (send SMS)
   ↓ (log delivery status)
 Database (notification_logs table)
 ```
@@ -22,7 +22,7 @@ Database (notification_logs table)
 **Primitives Used:**
 - **Cron Triggers** - Hourly execution
 - **Queues** - Reliable SMS delivery with retries
-- **Worker Bindings** - SMSAPI.pl credentials
+- **Worker Bindings** - SerwerSMS credentials
 
 ### Detailed Execution Flow
 
@@ -81,13 +81,13 @@ Database (notification_logs table)
 │      - Status: "pending"                                        │
 │      - Store: smsContent, phone, wasteTypeIds[]                 │
 │                                                                 │
-│   5. Rate limit: sleep(100ms)                                   │
-│      - 10 req/s to stay under SMSAPI 100 req/s limit            │
+│   5. Rate limit: sleep(200ms)                                   │
+│      - 5 req/s conservative limit (SerwerSMS batch: 50-200)     │
 │                                                                 │
 │   6. Send SMS: sendSms(token, phone, content)                   │
-│      POST https://api.smsapi.pl/sms.do                          │
-│      - Headers: Bearer token, form-urlencoded                   │
-│      - Response: {id, points, status, error?}                   │
+│      POST https://api2.serwersms.pl/messages/send_sms.json      │
+│      - Headers: Bearer token, JSON content-type                 │
+│      - Response: {success, items[{id, status, parts}]}          │
 │                                                                 │
 │   7a. SUCCESS PATH:                                             │
 │       - Update log: status="sent", smsApiMessageId, cost        │
@@ -153,9 +153,9 @@ export const notification_logs = pgTable("notification_logs", {
   phoneNumber: text("phone_number").notNull(),
   smsContent: text("sms_content").notNull(),
   status: text("status").notNull(), // "pending" | "sent" | "failed" | "delivered"
-  smsApiMessageId: text("sms_api_message_id"),
-  smsApiStatus: text("sms_api_status"),
-  costPln: integer("cost_pln"), // stored in grosze (1/100 PLN)
+  serwerSmsMessageId: text("serwer_sms_message_id"),
+  serwerSmsStatus: text("serwer_sms_status"),
+  messageParts: integer("message_parts"), // number of SMS parts (1=160 chars, 2=320, etc)
   sentAt: timestamp("sent_at"),
   deliveredAt: timestamp("delivered_at"),
   errorMessage: text("error_message"),
@@ -301,9 +301,9 @@ export async function createNotificationLog(data: {
   phoneNumber: string;
   smsContent: string;
   status: "pending" | "sent" | "failed" | "delivered";
-  smsApiMessageId?: string;
-  smsApiStatus?: string;
-  costPln?: number;
+  serwerSmsMessageId?: string;
+  serwerSmsStatus?: string;
+  messageParts?: number;
   sentAt?: Date;
   errorMessage?: string;
 }) {
@@ -318,7 +318,7 @@ export async function updateNotificationStatus(
   id: number,
   status: "sent" | "failed" | "delivered",
   updates: {
-    smsApiStatus?: string;
+    serwerSmsStatus?: string;
     deliveredAt?: Date;
     errorMessage?: string;
   }
@@ -359,7 +359,7 @@ pnpm run build:data-ops
 
 ---
 
-## 3. SMSAPI.pl Integration
+## 3. SerwerSMS Integration
 
 ### 3.1 SMS Service
 **File:** `apps/data-service/src/services/sms.ts` (new)
@@ -367,16 +367,26 @@ pnpm run build:data-ops
 ```ts
 import { z } from "zod";
 
-const SmsApiResponseSchema = z.object({
-  count: z.number(),
-  list: z.array(
+const SerwerSmsResponseSchema = z.object({
+  success: z.boolean(),
+  queued: z.number().optional(),
+  unsent: z.number().optional(),
+  items: z.array(
     z.object({
       id: z.string(),
-      points: z.number(),
-      status: z.string(),
-      error: z.number().optional(),
+      phone: z.string(),
+      status: z.string(), // "queued" | "unsent"
+      queued: z.string().optional(),
+      parts: z.number(),
+      text: z.string(),
+      error_code: z.number().optional(),
     })
-  ),
+  ).optional(),
+  error: z.object({
+    code: z.number(),
+    type: z.string(),
+    message: z.string(),
+  }).optional(),
 });
 
 // Validate Polish phone: +48 followed by 9 digits
@@ -389,42 +399,50 @@ export async function sendSms(
   apiToken: string,
   phoneNumber: string,
   message: string,
-  senderName?: string // Optional - uses default sender if omitted
-): Promise<{ messageId: string; cost: number; status: string } | { error: string }> {
+  senderName?: string // Optional - SMS ECO if omitted, SMS FULL if provided
+): Promise<{ messageId: string; parts: number; status: string } | { error: string }> {
   try {
-    const params = new URLSearchParams({
-      to: phoneNumber,
-      message: message,
-      format: "json",
-    });
+    const body: Record<string, string> = {
+      phone: phoneNumber,
+      text: message,
+    };
 
     if (senderName) {
-      params.append("from", senderName);
+      body.sender = senderName;
     }
 
-    const response = await fetch("https://api.smsapi.pl/sms.do", {
+    const response = await fetch("https://api2.serwersms.pl/messages/send_sms.json", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${apiToken}`,
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/json",
       },
-      body: params,
+      body: JSON.stringify(body),
     });
 
     if (!response.ok) {
       return { error: `HTTP ${response.status}: ${response.statusText}` };
     }
 
-    const data = SmsApiResponseSchema.parse(await response.json());
-    const sms = data.list[0];
+    const data = SerwerSmsResponseSchema.parse(await response.json());
 
-    if (sms.error) {
-      return { error: `SMSAPI error code: ${sms.error}` };
+    if (data.error) {
+      return { error: `SerwerSMS error ${data.error.code}: ${data.error.message}` };
+    }
+
+    if (!data.items || data.items.length === 0) {
+      return { error: "No items in response" };
+    }
+
+    const sms = data.items[0];
+
+    if (sms.error_code) {
+      return { error: `SerwerSMS error code: ${sms.error_code}` };
     }
 
     return {
       messageId: sms.id,
-      cost: sms.points, // SMSAPI uses "points" for cost
+      parts: sms.parts, // Number of SMS parts (1=160 chars, 2=320, etc)
       status: sms.status,
     };
   } catch (error) {
@@ -462,7 +480,7 @@ export function formatWasteNotification(
   "compatibility_date": "2025-04-01",
   "compatibility_flags": ["nodejs_compat"],
 
-  // Add queue configuration
+  // Base queue configuration (dev environment)
   "queues": {
     "producers": [
       { "queue": "notification-queue", "binding": "NOTIFICATION_QUEUE" }
@@ -491,11 +509,39 @@ export function formatWasteNotification(
     "stage": {
       "vars": {
         "ENVIRONMENT": "stage"
+      },
+      "queues": {
+        "producers": [
+          { "queue": "notification-queue-stage", "binding": "NOTIFICATION_QUEUE" }
+        ],
+        "consumers": [
+          {
+            "queue": "notification-queue-stage",
+            "max_batch_size": 10,
+            "max_batch_timeout": 5,
+            "max_retries": 3,
+            "dead_letter_queue": "notification-dlq-stage"
+          }
+        ]
       }
     },
     "prod": {
       "vars": {
         "ENVIRONMENT": "prod"
+      },
+      "queues": {
+        "producers": [
+          { "queue": "notification-queue-prod", "binding": "NOTIFICATION_QUEUE" }
+        ],
+        "consumers": [
+          {
+            "queue": "notification-queue-prod",
+            "max_batch_size": 10,
+            "max_batch_timeout": 5,
+            "max_retries": 3,
+            "dead_letter_queue": "notification-dlq-prod"
+          }
+        ]
       }
     }
   }
@@ -503,13 +549,21 @@ export function formatWasteNotification(
 ```
 
 ### 4.2 Update Worker Types
-**File:** `apps/data-service/worker-configuration.d.ts` (update)
 
+**Auto-generate types from wrangler.jsonc:**
+```bash
+cd apps/data-service
+pnpm run cf-typegen:dev
+```
+
+This generates `worker-configuration.d.ts` with types from your wrangler config.
+
+**Expected generated interface (for reference):**
 ```ts
 interface Env extends BaseEnv {
   NOTIFICATION_QUEUE: Queue<NotificationMessage>;
-  SMSAPI_TOKEN: string;
-  SMSAPI_SENDER_NAME?: string; // Optional - uses account default if not set
+  SERWERSMS_API_TOKEN: string;
+  SERWERSMS_SENDER_NAME?: string; // Optional - SMS ECO if omitted, SMS FULL if provided
 }
 
 interface NotificationMessage {
@@ -524,6 +578,8 @@ interface NotificationMessage {
   scheduledDate: string;
 }
 ```
+
+**Note:** `NotificationMessage` interface may need manual addition if not auto-generated. Add to `worker-configuration.d.ts` if missing.
 
 ---
 
@@ -598,8 +654,8 @@ import { sendSms, formatWasteNotification, isValidPolishPhone } from "./services
 import { createNotificationLog, updateNotificationStatus, getNotificationLog } from "data-ops/queries/notifications";
 import type { NotificationMessage } from "./worker-configuration";
 
-// Rate limiting: 10 req/s to stay under SMSAPI 100 req/s limit
-const RATE_LIMIT_DELAY_MS = 100; // 10 SMS per second
+// Rate limiting: 5 req/s conservative limit (SerwerSMS recommends batch 50-200)
+const RATE_LIMIT_DELAY_MS = 200; // 5 SMS per second
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export async function handleQueue(batch: MessageBatch<NotificationMessage>, env: Env) {
@@ -652,7 +708,12 @@ export async function handleQueue(batch: MessageBatch<NotificationMessage>, env:
       await sleep(RATE_LIMIT_DELAY_MS);
 
       // Send SMS
-      const result = await sendSms(env.SMSAPI_TOKEN, phone, smsContent);
+      const result = await sendSms(
+        env.SERWERSMS_API_TOKEN,
+        phone,
+        smsContent,
+        env.SERWERSMS_SENDER_NAME
+      );
 
       if ("error" in result) {
         // Failed to send
@@ -663,8 +724,9 @@ export async function handleQueue(batch: MessageBatch<NotificationMessage>, env:
       } else {
         // Sent successfully
         await updateNotificationStatus(log.id, "sent", {
-          smsApiStatus: result.status,
-          smsApiMessageId: result.messageId,
+          serwerSmsStatus: result.status,
+          serwerSmsMessageId: result.messageId,
+          messageParts: result.parts,
         });
 
         message.ack();
@@ -712,23 +774,27 @@ export default class DataService extends WorkerEntrypoint<Env> {
 ### 8.1 Set Secrets
 ```bash
 # Required
-wrangler secret put SMSAPI_TOKEN --env stage
-wrangler secret put SMSAPI_TOKEN --env prod
+wrangler secret put SERWERSMS_API_TOKEN --env stage
+wrangler secret put SERWERSMS_API_TOKEN --env prod
 
-# Optional (uses account default if omitted)
-wrangler secret put SMSAPI_SENDER_NAME --env stage
-wrangler secret put SMSAPI_SENDER_NAME --env prod
+# Optional (SMS ECO if omitted, SMS FULL if provided)
+wrangler secret put SERWERSMS_SENDER_NAME --env stage
+wrangler secret put SERWERSMS_SENDER_NAME --env prod
 ```
 
 ### 8.2 Create Queue
 ```bash
+# Dev
+wrangler queues create notification-queue
+wrangler queues create notification-dlq
+
 # Stage
-wrangler queues create notification-queue --env stage
-wrangler queues create notification-dlq --env stage
+wrangler queues create notification-queue-stage
+wrangler queues create notification-dlq-stage
 
 # Prod
-wrangler queues create notification-queue --env prod
-wrangler queues create notification-dlq --env prod
+wrangler queues create notification-queue-prod
+wrangler queues create notification-dlq-prod
 ```
 
 ### 8.3 Deploy
@@ -744,7 +810,7 @@ pnpm run deploy:prod:data-service
 ### 9.1 Local Testing
 
 **Prerequisites:**
-- `.dev.vars` in `apps/data-service/` with `SMSAPI_TOKEN` + `DATABASE_URL`
+- `.dev.vars` in `apps/data-service/` with `SERWERSMS_API_TOKEN` + `DATABASE_URL`
 - `notification_logs` table migrated to dev DB
 
 **Steps:**
@@ -756,8 +822,8 @@ pnpm run deploy:prod:data-service
 
 **SMS Testing Options:**
 
-**Option A: SMSAPI test mode** (recommended first)
-- Add `test: "1"` param in `sendSms()` URLSearchParams
+**Option A: SerwerSMS test mode** (recommended first)
+- Add `test: true` param in `sendSms()` JSON body
 - Free, no actual send
 - Returns fake message ID
 - Update `sms.ts`:
@@ -766,16 +832,20 @@ pnpm run deploy:prod:data-service
     apiToken: string,
     phoneNumber: string,
     message: string,
+    senderName?: string,
     testMode = false
-  ): Promise<{ messageId: string; cost: number; status: string } | { error: string }> {
-    const params = new URLSearchParams({
-      to: phoneNumber,
-      message: message,
-      format: "json",
-    });
+  ): Promise<{ messageId: string; parts: number; status: string } | { error: string }> {
+    const body: Record<string, string | boolean> = {
+      phone: phoneNumber,
+      text: message,
+    };
+
+    if (senderName) {
+      body.sender = senderName;
+    }
 
     if (testMode) {
-      params.append("test", "1"); // Test mode - no send, returns fake ID
+      body.test = true; // Test mode - no send, returns fake ID
     }
 
     // ... rest unchanged
@@ -783,9 +853,9 @@ pnpm run deploy:prod:data-service
   ```
 
 **Option B: Real SMS**
-- Use real SMSAPI token
+- Use real SerwerSMS token
 - Send to test phone
-- ~0.08 PLN per SMS
+- Cost varies by SMS type (ECO/FULL) and parts
 
 **Verification:**
 - Console logs show: cron trigger → query users → queue batch → consumer process → SMS send
@@ -803,7 +873,7 @@ pnpm run deploy:prod:data-service
 - Queue metrics in Cloudflare dashboard
 - Notification logs in database
 - Failed messages in DLQ
-- SMS delivery reports from SMSAPI.pl
+- SMS delivery reports from SerwerSMS
 
 ---
 
@@ -819,7 +889,7 @@ pnpm run deploy:prod:data-service
 - `apps/data-service/src/index.ts` - Add scheduled/queue handlers (UPDATE)
 - `apps/data-service/src/scheduled.ts` - Cron logic (NEW)
 - `apps/data-service/src/queue-consumer.ts` - Queue processing (NEW)
-- `apps/data-service/src/services/sms.ts` - SMSAPI.pl integration (NEW)
+- `apps/data-service/src/services/sms.ts` - SerwerSMS integration (NEW)
 
 **Config:**
 - `apps/data-service/wrangler.jsonc` - Add queues/crons (UPDATE)
@@ -840,7 +910,7 @@ pnpm run deploy:prod:data-service
 9. Create queue consumer
 10. Update worker index.ts
 11. Create queues on Cloudflare
-12. Set SMSAPI_TOKEN secret (optionally SMSAPI_SENDER_NAME)
+12. Set SERWERSMS_API_TOKEN secret (optionally SERWERSMS_SENDER_NAME)
 13. Deploy to stage
 14. Test end-to-end
 15. Deploy to prod
@@ -852,13 +922,13 @@ pnpm run deploy:prod:data-service
 1. **Hourly cron** - Check notification_preferences table every hour
 2. **Cron + Queues** over direct SMS for reliability/scale
 3. **Single SMS per user** listing all waste types
-4. **Store costs in grosze** (1/100 PLN) as integers
+4. **Store message parts** - Number of SMS parts (1=160 chars, 2=320, etc) instead of cost
 5. **Idempotency check** to prevent duplicate sends
 6. **Dead letter queue** for permanent failures
-7. **Batch size 10** for queue consumer (SMSAPI.pl rate limits)
+7. **Batch size 10** for queue consumer (SerwerSMS recommends 50-200 per request)
 8. **notification_preferences replaces notificationsEnabled** - more flexible
 9. **Phone validation** - +48xxxxxxxxx format (9 digits). Validate in query + queue consumer
-10. **Rate limiting** - 100ms delay between SMS sends (10/sec) to stay under SMSAPI 100 req/s limit
+10. **Rate limiting** - 200ms delay between SMS sends (5/sec) conservative limit for SerwerSMS
 
 ---
 
@@ -874,39 +944,57 @@ pnpm run deploy:prod:data-service
 
 ## 14. Cost Estimation
 
-**SMSAPI.pl:**
-- ~0.08 PLN per SMS
+**SerwerSMS:**
+- SMS ECO (no sender name): ~0.03-0.04 PLN per SMS
+- SMS FULL (custom sender): ~0.08-0.10 PLN per SMS
 - 1000 users × 2 notifications/day × 30 days = 60,000 SMS/month
-- Cost: ~4,800 PLN/month
+- Cost ECO: ~1,800-2,400 PLN/month
+- Cost FULL: ~4,800-6,000 PLN/month
 
 **Cloudflare:**
 - Queues: ~$0.40 per million operations (negligible)
 - Worker CPU: Included in Workers plan
 - Cron triggers: Free (runs 24x/day = 720x/month)
 
-**Total:** ~5,000 PLN/month for 1000 active users
+**Total:**
+- SMS ECO: ~2,000-2,500 PLN/month for 1000 active users
+- SMS FULL: ~5,000-6,500 PLN/month for 1000 active users
 
 ---
 
-## 15. Verification Notes (2025-12-16)
+## 15. Verification Notes
 
-### Corrected Issues:
+### 2025-12-16 (Initial Design)
+- **Scheduled handler signature** - Fixed to use `(controller: ScheduledController, env: Env, ctx: ExecutionContext)` per Cloudflare docs
+- **SMSAPI sender field** - Made optional (uses account default if not provided)
+- **Implementation status** - No notification_logs table exists in schema yet, no implementation in data-service
 
-1. **Scheduled handler signature** - Fixed to use `(controller: ScheduledController, env: Env, ctx: ExecutionContext)` per Cloudflare docs
-2. **SMSAPI sender field** - Made optional (uses account default if not provided)
-3. **Implementation status** - No notification_logs table exists in schema yet, no implementation in data-service
+### 2025-12-22 (Provider Migration: SMSAPI.pl → SerwerSMS)
 
-### Verified Correct:
+**API Changes:**
+1. **Endpoint** - Changed from `https://api.smsapi.pl/sms.do` to `https://api2.serwersms.pl/messages/send_sms.json`
+2. **Authentication** - Bearer token remains same, env var: `SERWERSMS_API_TOKEN`
+3. **Request format** - Changed from `application/x-www-form-urlencoded` to `application/json`
+4. **Response structure** - Changed from `{count, list[{id, points, status}]}` to `{success, items[{id, phone, status, parts}]}`
+5. **Cost tracking** - Changed from `points` field to `parts` (SMS segments: 1=160 chars, 2=320, etc)
+6. **Rate limiting** - Changed from 100ms (10/sec) to 200ms (5/sec) conservative limit
 
-1. **SMSAPI.pl endpoint** - `https://api.smsapi.pl/sms.do` with Bearer token auth confirmed
-2. **Queue config syntax** - producers/consumers arrays format correct
-3. **Cron syntax** - `triggers.crons` array correct
-4. **Queue limits** - batch_size: 10, timeout: 5s, retries: 3 all within limits (100/60/100)
-5. **MessageBatch API** - `message.ack()`, `message.retry()`, `Queue.sendBatch()` correct
-6. **Request format** - `application/x-www-form-urlencoded` with `format=json` param correct
+**Schema Changes:**
+- Renamed `smsApiMessageId` → `serwerSmsMessageId`
+- Renamed `smsApiStatus` → `serwerSmsStatus`
+- Renamed `costPln` → `messageParts` (tracks SMS parts instead of cost)
+
+**Secret Names:**
+- `SMSAPI_TOKEN` → `SERWERSMS_API_TOKEN`
+- `SMSAPI_SENDER_NAME` → `SERWERSMS_SENDER_NAME`
+
+**Cost Implications:**
+- SMS ECO (no sender): ~0.03-0.04 PLN/SMS (cheaper than SMSAPI.pl)
+- SMS FULL (custom sender): ~0.08-0.10 PLN/SMS (similar to SMSAPI.pl)
 
 ### Current State:
 
-- Design doc complete but **NOT implemented**
+- Design doc updated for SerwerSMS but **NOT implemented**
 - Missing: notification_logs table, queries, SMS service, scheduled/queue handlers
 - data-service has no queue/cron config in wrangler.jsonc yet
+- API token already exists in `apps/data-service/.dev.vars` as `SERWERSMS_API_TOKEN`
