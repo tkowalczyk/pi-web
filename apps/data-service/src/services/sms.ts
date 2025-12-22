@@ -31,7 +31,7 @@ export async function sendSms(
   apiToken: string,
   phoneNumber: string,
   message: string,
-  senderName: string = "2waySMS"
+  senderName: string = "WywozSmieci"
 ): Promise<{ messageId: string; parts: number; status: string } | { error: string }> {
   try {
     const body: Record<string, string> = {

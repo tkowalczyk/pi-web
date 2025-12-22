@@ -12,7 +12,7 @@ async function testSms() {
   const testPhone = "+48606181071";
 
   // Sender name required for FULL SMS (without it sends ECO)
-  const senderName = process.env.SERWERSMS_SENDER_NAME || "2waySMS";
+  const senderName = process.env.SERWERSMS_SENDER_NAME || "WywozSmieci";
 
   console.log("📱 SMS Test");
   console.log("===========");
