@@ -57,6 +57,7 @@ export const waste_types = pgTable("waste_types", {
 export const waste_schedules = pgTable("waste_schedules", {
   id: serial("id").primaryKey(),
   cityId: integer("city_id").notNull().references(() => cities.id, { onDelete: "cascade" }),
+  streetId: integer("street_id").notNull().references(() => streets.id, { onDelete: "cascade" }),
   wasteTypeId: integer("waste_type_id").notNull().references(() => waste_types.id, { onDelete: "cascade" }),
   year: integer("year").notNull(),
   month: text("month").notNull(),
@@ -65,10 +66,31 @@ export const waste_schedules = pgTable("waste_schedules", {
   updatedAt: timestamp("updated_at").defaultNow().notNull().$onUpdate(() => new Date()),
 }, (table) => [
   index("waste_schedules_city_id_idx").on(table.cityId),
+  index("waste_schedules_street_id_idx").on(table.streetId),
   index("waste_schedules_waste_type_id_idx").on(table.wasteTypeId),
   index("waste_schedules_year_idx").on(table.year),
 ]);
 
-
-
-
+export const notification_logs = pgTable("notification_logs", {
+  id: serial("id").primaryKey(),
+  userId: text("user_id").notNull().references(() => auth_user.id, { onDelete: "cascade" }),
+  addressId: integer("address_id").notNull().references(() => addresses.id, { onDelete: "cascade" }),
+  notificationPreferenceId: integer("notification_preference_id").notNull().references(() => notification_preferences.id),
+  wasteTypeIds: text("waste_type_ids").notNull(),
+  scheduledDate: text("scheduled_date").notNull(),
+  phoneNumber: text("phone_number").notNull(),
+  smsContent: text("sms_content").notNull(),
+  status: text("status").notNull(),
+  serwerSmsMessageId: text("serwer_sms_message_id"),
+  serwerSmsStatus: text("serwer_sms_status"),
+  messageParts: integer("message_parts"),
+  sentAt: timestamp("sent_at"),
+  deliveredAt: timestamp("delivered_at"),
+  errorMessage: text("error_message"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (table) => [
+  index("notification_logs_user_id_idx").on(table.userId),
+  index("notification_logs_address_id_idx").on(table.addressId),
+  index("notification_logs_scheduled_date_idx").on(table.scheduledDate),
+  index("notification_logs_status_idx").on(table.status),
+]);

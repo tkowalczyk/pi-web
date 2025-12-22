@@ -20,7 +20,7 @@ fi
 
 echo "Syncing secrets from $VARS_FILE to Cloudflare Workers environment: $ENV"
 
-while IFS='=' read -r key value; do
+while IFS='=' read -r key value || [ -n "$key" ]; do
   # Skip empty lines and comments
   [[ -z "$key" || "$key" =~ ^#.*$ ]] && continue
 
@@ -29,7 +29,7 @@ while IFS='=' read -r key value; do
   value=$(echo "$value" | xargs)
 
   echo "Setting $key..."
-  echo "$value" | pnpm wrangler variable put "$key" --env "$ENV"
+  echo "$value" | pnpm wrangler secret put "$key" --env "$ENV"
 done < "$VARS_FILE"
 
 echo "✓ All secrets synced to $ENV environment"

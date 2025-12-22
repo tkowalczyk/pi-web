@@ -9,9 +9,12 @@
 	"observability": {
 		"enabled": true,
 	},
+	"triggers": {
+		"crons": ["0 * * * *"]
+	},
 	"env": {
-		/** 
-		* Local / Development environment 
+		/**
+		* Local / Development environment
 		*/
 		"dev": {
 			"kv_namespaces": [
@@ -20,10 +23,24 @@
 					"id": "eed883194c594bf8ac25811ec3d37751",
 					"remote": true
 				}
-			]
+			],
+			"queues": {
+				"producers": [
+					{ "queue": "notification-queue", "binding": "NOTIFICATION_QUEUE" }
+				],
+				"consumers": [
+					{
+						"queue": "notification-queue",
+						"max_batch_size": 10,
+						"max_batch_timeout": 5,
+						"max_retries": 3,
+						"dead_letter_queue": "notification-dlq"
+					}
+				]
+			}
 		},
-		/** 
-		* Remote / Staging environment 
+		/**
+		* Remote / Staging environment
 		*/
 		"stage": {
 			"routes": [
@@ -39,10 +56,24 @@
 					"id": "eb683052a4dd40b3a87d212c23b36c0c",
 					"remote": false
 				}
-			]
+			],
+			"queues": {
+				"producers": [
+					{ "queue": "notification-queue-stage", "binding": "NOTIFICATION_QUEUE" }
+				],
+				"consumers": [
+					{
+						"queue": "notification-queue-stage",
+						"max_batch_size": 10,
+						"max_batch_timeout": 5,
+						"max_retries": 3,
+						"dead_letter_queue": "notification-dlq-stage"
+					}
+				]
+			}
 		},
-		/** 
-		* Remote / Production environment 
+		/**
+		* Remote / Production environment
 		*/
 		"prod": {
 			"routes": [
@@ -58,7 +89,21 @@
 					"id": "7688a332f25e416795f71a004b557f65",
 					"remote": false
 				}
-			]
+			],
+			"queues": {
+				"producers": [
+					{ "queue": "notification-queue-prod", "binding": "NOTIFICATION_QUEUE" }
+				],
+				"consumers": [
+					{
+						"queue": "notification-queue-prod",
+						"max_batch_size": 10,
+						"max_batch_timeout": 5,
+						"max_retries": 3,
+						"dead_letter_queue": "notification-dlq-prod"
+					}
+				]
+			}
 		},
 	},
 }

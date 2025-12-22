@@ -89,7 +89,7 @@ export async function importer(dataDir: string) {
     }
   }
 
-  // Import waste schedules
+  // Import waste schedules (street-level)
   let scheduleCount = 0;
 
   for (const extraction of extractions) {
@@ -104,33 +104,52 @@ export async function importer(dataDir: string) {
 
     if (!cityRecord) continue;
 
+    // Get all streets for this city
+    const cityStreets = await db
+      .select()
+      .from(streets)
+      .where(eq(streets.cityId, cityRecord.id));
+
+    console.log(`  Creating schedules for ${cityStreets.length} streets in ${cityRecord.name}...`);
+
+    // For each waste type schedule
     for (const schedule of extraction.waste_collection_schedule) {
-      const wasteTypeId = wasteTypeMap.get(schedule.waste_type)!;
+      const wasteTypeId = wasteTypeMap.get(schedule.waste_type);
+      if (!wasteTypeId) continue;
 
+      // For each month entry
       for (const entry of schedule.days_of_the_month) {
-        const exists = await db
-          .select()
-          .from(waste_schedules)
-          .where(and(
-            eq(waste_schedules.cityId, cityRecord.id),
-            eq(waste_schedules.wasteTypeId, wasteTypeId),
-            eq(waste_schedules.year, 2025),
-            eq(waste_schedules.month, entry.month)
-          ))
-          .limit(1)
-          .then(rows => rows.length > 0);
+        // Skip if no days
+        if (!entry.days || entry.days.length === 0) continue;
 
-        if (!exists) {
-          await db
-            .insert(waste_schedules)
-            .values({
-              cityId: cityRecord.id,
-              wasteTypeId,
-              year: 2025,
-              month: entry.month,
-              days: JSON.stringify(entry.days),
-            });
-          scheduleCount++;
+        // Create schedule entry for EACH street in the city
+        for (const street of cityStreets) {
+          const exists = await db
+            .select()
+            .from(waste_schedules)
+            .where(and(
+              eq(waste_schedules.cityId, cityRecord.id),
+              eq(waste_schedules.streetId, street.id),
+              eq(waste_schedules.wasteTypeId, wasteTypeId),
+              eq(waste_schedules.year, 2025),
+              eq(waste_schedules.month, entry.month)
+            ))
+            .limit(1)
+            .then(rows => rows.length > 0);
+
+          if (!exists) {
+            await db
+              .insert(waste_schedules)
+              .values({
+                cityId: cityRecord.id,
+                streetId: street.id,
+                wasteTypeId,
+                year: 2025,
+                month: entry.month,
+                days: JSON.stringify(entry.days),
+              });
+            scheduleCount++;
+          }
         }
       }
     }

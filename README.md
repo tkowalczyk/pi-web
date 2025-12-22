@@ -147,3 +147,32 @@ pnpm run deploy:stage:data-service
 ```bash
 pnpm run deploy:prod:data-service
 ```
+
+## Flow
+
+### Hour matching happens BEFORE queuing:
+
+1. Cron runs every hour (e.g., 8:00 AM CET, 9:00 AM CET, etc.)
+2. Scheduled handler queries users where notification_preferences.hour = current_hour
+    - 2.1 At 8:00 AM CET → only finds users with hour = 8
+    - 2.2 At 9:00 AM CET → only finds users with hour = 9
+3. Matched users get queued immediately
+4. Queue consumer processes and sends SMS within seconds (not hours)
+
+### Example Timeline:
+
+7:59 AM CET - Cron hasn't run yet, nothing happens
+
+8:00 AM CET - Cron runs
+
+  └─ 8:00:01 - Query finds users with hour=8
+
+  └─ 8:00:02 - Messages queued to NOTIFICATION_QUEUE
+  
+  └─ 8:00:03 - Queue consumer starts processing
+  
+  └─ 8:00:04 - SMS sent via SerwerSMS
+  
+  └─ 8:00:05 - Notification logged
+
+9:00 AM CET - Cron runs again (different users with hour=9)

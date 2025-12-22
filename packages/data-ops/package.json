@@ -44,7 +44,11 @@
     
     "seed:dev": "dotenvx run -f .env.dev -- tsx src/database/seed/index.ts",
     "seed:stage": "dotenvx run -f .env.stage -- tsx src/database/seed/index.ts",
-    "seed:prod": "dotenvx run -f .env.prod -- tsx src/database/seed/index.ts"
+    "seed:prod": "dotenvx run -f .env.prod -- tsx src/database/seed/index.ts",
+
+    "import:dev": "dotenvx run -f .env.dev -- tsx scripts/clear-and-import.ts",
+    "import:stage": "dotenvx run -f .env.stage -- tsx scripts/clear-and-import.ts",
+    "import:prod": "dotenvx run -f .env.prod -- tsx scripts/clear-and-import.ts"
   },
   "keywords": [],
   "author": "",

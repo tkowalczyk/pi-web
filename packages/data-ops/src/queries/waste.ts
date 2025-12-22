@@ -1,6 +1,6 @@
 import { getDb } from "@/database/setup";
 import { waste_schedules, waste_types, addresses, notification_preferences } from "@/drizzle/schema";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 
 export async function getWasteScheduleByUserId(userId: string) {
   const db = getDb();
@@ -15,17 +15,17 @@ export async function getWasteScheduleByUserId(userId: string) {
 
   if (!notifPref) return [];
 
-  // Get cityId from address
+  // Get cityId and streetId from address
   const address = await db
-    .select({ cityId: addresses.cityId })
+    .select({ cityId: addresses.cityId, streetId: addresses.streetId })
     .from(addresses)
     .where(eq(addresses.id, notifPref.addressId))
     .limit(1)
     .then(rows => rows[0]);
 
-  if (!address) return [];
+  if (!address || !address.cityId || !address.streetId) return [];
 
-  // Get waste schedules for city
+  // Get waste schedules for city and street
   return await db
     .select({
       id: waste_schedules.id,
@@ -37,5 +37,8 @@ export async function getWasteScheduleByUserId(userId: string) {
     })
     .from(waste_schedules)
     .leftJoin(waste_types, eq(waste_schedules.wasteTypeId, waste_types.id))
-    .where(eq(waste_schedules.cityId, address.cityId));
+    .where(and(
+      eq(waste_schedules.cityId, address.cityId),
+      eq(waste_schedules.streetId, address.streetId)
+    ));
 }
