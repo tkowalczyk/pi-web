@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useNavigate, Link } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -17,15 +17,15 @@ import { authClient } from "@/lib/auth-client";
 import { loginSchema } from "@/lib/validation/auth-schemas";
 import { checkRateLimit } from "@/middleware/rate-limit";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useTermsAgreement } from "@/lib/hooks";
 
 export function EmailLogin() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const formRef = useRef<HTMLFormElement>(null);
 
   const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
-  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useTermsAgreement();
 
   const mutation = useMutation({
     mutationFn: async (data: {
@@ -48,9 +48,6 @@ export function EmailLogin() {
       }
 
       return result;
-    },
-    onSuccess: () => {
-      navigate({ to: "/app" });
     },
     onError: (err: { message?: string; code?: string }) => {
       const errorMessage = err.message?.toLowerCase() || "";
