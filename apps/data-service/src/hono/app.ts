@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import { getCoverageStats, refreshCoverageStats } from "@/lib/cache-stats";
+import { getCoverageStats, refreshCoverageStats } from "@/kv/cache-stats";
 import type { CoverageStatsResponse } from "@repo/data-ops/zod-schema/stats";
 
 export const app = new Hono<{ Bindings: Env }>();
