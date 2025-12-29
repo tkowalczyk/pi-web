@@ -29,7 +29,7 @@
   "waste_schedule": {
     "title": "Waste Collection",
     "schedule": "Schedule",
-    "nextTwoWeeks": "Next 2 Weeks",
+    "nextTwoWeeks": "Next 2 weeks",
     "noUpcoming": "No upcoming collections in next 2 weeks",
     "upcomingDescription": "Upcoming collections for notification address",
     "today": "Today",

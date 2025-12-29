@@ -29,7 +29,7 @@
   "waste_schedule": {
     "title": "Wywóz Śmieci",
     "schedule": "Harmonogram",
-    "nextTwoWeeks": "Kolejne 2 Tygodnie",
+    "nextTwoWeeks": "Kolejne 2 tygodnie",
     "noUpcoming": "Brak planowanych wywozów w ciągu 2 tygodni",
     "upcomingDescription": "Nadchodzące wywozy dla Twojego adresu",
     "today": "Dzisiaj",

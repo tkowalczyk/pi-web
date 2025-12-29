@@ -63,35 +63,6 @@ if (result.error) throw result.error; // Important!
 
 ---
 
-### 4. Route Authentication with beforeLoad ❌
-**Mistake:** Used `authClient.getSession()` in `beforeLoad`:
-```typescript
-// ❌ WRONG - Throws serialization errors
-beforeLoad: async () => {
-  const session = await authClient.getSession(); // Throws "Unauthorized"
-  if (!session) throw redirect({ to: "/auth/login" });
-}
-```
-
-**Correct:** Use session hook in component with useEffect:
-```typescript
-// ✅ CORRECT
-function RouteComponent() {
-  const session = authClient.useSession();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!session.isPending && !session.data) {
-      navigate({ to: "/auth/login", replace: true });
-    }
-  }, [session.isPending, session.data, navigate]);
-}
-```
-
-**Lesson:** `getSession()` throws errors that TanStack Router tries to serialize. Use hooks in components instead.
-
----
-
 ### 5. Form Layout & Centering ❌
 **Mistake:** Multiple iterations on form vertical positioning:
 1. First: Used `min-h-screen` in form components → Footer pushed off-screen
