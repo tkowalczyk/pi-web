@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { LandingNav } from "@/components/navigation/landing-nav";
 import { Footer } from "@/components/landing/footer";
 
@@ -27,7 +29,11 @@ function PrivacyPolicyPage() {
               </div>
               <div>
                 <h3 className="text-lg">{t("privacyPolicy.whatFor")}</h3>
-                <p className="text-muted-foreground">{t("privacyPolicy.whatForContent")}</p>
+                <div className="text-muted-foreground">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {t("privacyPolicy.whatForContent")}
+                  </ReactMarkdown>
+                </div>
               </div>
               <div>
                 <h3 className="text-lg">{t("privacyPolicy.whatIfContact")}</h3>
@@ -35,7 +41,11 @@ function PrivacyPolicyPage() {
               </div>
               <div>
                 <h3 className="text-lg">{t("privacyPolicy.whatStored")}</h3>
-                <p className="text-muted-foreground">{t("privacyPolicy.whatStoredContent")}</p>
+                <div className="text-muted-foreground">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {t("privacyPolicy.whatStoredContent")}
+                  </ReactMarkdown>
+                </div>
               </div>
               <div>
                 <h3 className="text-lg">{t("privacyPolicy.whatShared")}</h3>
@@ -68,7 +78,11 @@ function PrivacyPolicyPage() {
 
           <section>
             <h2 className="text-primary border-b pb-2">{t("privacyPolicy.whoWeAre")}</h2>
-            <p className="text-muted-foreground mt-4">{t("privacyPolicy.whoWeAreContent")}</p>
+            <div className="text-muted-foreground mt-4">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {t("privacyPolicy.whoWeAreContent")}
+              </ReactMarkdown>
+            </div>
 
             <div className="ml-6 mt-6 space-y-4">
               <div>
@@ -98,7 +112,11 @@ function PrivacyPolicyPage() {
 
           <section>
             <h2 className="text-primary border-b pb-2">{t("privacyPolicy.howCollected")}</h2>
-            <p className="text-muted-foreground mt-4">{t("privacyPolicy.howCollectedContent")}</p>
+            <div className="text-muted-foreground mt-4">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {t("privacyPolicy.howCollectedContent")}
+              </ReactMarkdown>
+            </div>
           </section>
 
           <section>
@@ -123,7 +141,11 @@ function PrivacyPolicyPage() {
 
           <section>
             <h2 className="text-primary border-b pb-2">{t("privacyPolicy.thirdParties")}</h2>
-            <p className="text-muted-foreground mt-4">{t("privacyPolicy.thirdPartiesContent")}</p>
+            <div className="mt-4 text-sm [&_table]:w-full [&_table]:border-collapse [&_td]:border [&_td]:border-zinc-300 [&_td]:dark:border-zinc-700 [&_td]:px-6 [&_td]:py-3 [&_th]:border [&_th]:border-zinc-300 [&_th]:dark:border-zinc-700 [&_th]:bg-zinc-100 [&_th]:dark:bg-zinc-800 [&_th]:px-6 [&_th]:py-3 [&_th]:font-semibold [&_th]:text-left">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {t("privacyPolicy.thirdPartiesContent")}
+              </ReactMarkdown>
+            </div>
           </section>
 
           <section>
