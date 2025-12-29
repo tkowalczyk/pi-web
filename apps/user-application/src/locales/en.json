@@ -137,7 +137,40 @@
   "auth": {
     "welcomeBack": "Welcome back",
     "signInDescription": "Sign in to your account to continue",
-    "continueWithGoogle": "Continue with Google"
+    "continueWithGoogle": "Continue with Google",
+    "createAccount": "Create Account",
+    "createAccountDescription": "Enter your details to create account",
+    "fullName": "Full Name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "signUp": "Sign Up",
+    "signIn": "Sign In",
+    "rememberMe": "Remember me",
+    "alreadyHaveAccount": "Already have an account? Sign in",
+    "noAccount": "Don't have an account? Sign up",
+    "orContinueWith": "Or",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmNewPassword": "Confirm New Password",
+    "changePassword": "Change Password",
+    "passwordChanged": "Password changed successfully",
+    "passwordChangeFailed": "Failed to change password",
+    "agreeToTerms": "I agree to",
+    "and": "and",
+    "passwordStrength": {
+      "label": "Password strength",
+      "weak": "Weak",
+      "normal": "Normal",
+      "strong": "Strong"
+    },
+    "passwordPolicy": {
+      "title": "Password requirements",
+      "minLength": "At least 8 characters",
+      "uppercase": "At least 1 uppercase letter",
+      "lowercase": "At least 1 lowercase letter",
+      "number": "At least 1 number"
+    }
   },
   "notFound": {
     "title": "Page not found",
@@ -156,7 +189,28 @@
     "technicalDetails": "Technical Details",
     "stackTrace": "Error Stack Trace:",
     "persistMessage": "If this error persists, please report it to our support team.",
-    "reportError": "Report Error"
+    "reportError": "Report Error",
+    "rateLimitExceeded": "Too many attempts. Please try again in 15 minutes.",
+    "invalidCredentials": "Invalid email or password",
+    "emailAlreadyExists": "This email is already registered"
+  },
+  "validation": {
+    "email": {
+      "required": "Email is required",
+      "invalid": "Invalid email format"
+    },
+    "password": {
+      "required": "Password is required",
+      "minLength": "Password must be at least 8 characters",
+      "maxLength": "Password must not exceed 128 characters",
+      "uppercase": "Password must contain at least 1 uppercase letter",
+      "lowercase": "Password must contain at least 1 lowercase letter",
+      "number": "Password must contain at least 1 number",
+      "noMatch": "Passwords do not match"
+    },
+    "name": {
+      "minLength": "Name must be at least 2 characters"
+    }
   },
   "footer": {
     "copyright": "© powiadomienia.info is a product from <0>Auditmos OU</0>.<br />All rights reserved {{year}}",
@@ -165,6 +219,11 @@
     "legal": "Legal",
     "termsOfService": "Terms of Service",
     "cookiePolicy": "Cookie Policy"
+  },
+  "legal": {
+    "termsOfService": "Terms of Service",
+    "cookiePolicy": "Cookie Policy",
+    "privacyPolicy": "Privacy Policy"
   },
   "staticPages": {
     "contentPlaceholder": "Content will be provided soon.",

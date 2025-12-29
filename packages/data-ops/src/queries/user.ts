@@ -1,6 +1,6 @@
 import { getDb } from "@/database/setup";
-import { auth_user } from "@/drizzle/auth-schema";
-import { eq } from "drizzle-orm";
+import { auth_user, auth_account } from "@/drizzle/auth-schema";
+import { eq, and } from "drizzle-orm";
 
 export async function getUserProfile(userId: string) {
   const db = getDb();
@@ -32,4 +32,19 @@ export async function updateUserLanguage(userId: string, language: string) {
     .set({ preferredLanguage: language })
     .where(eq(auth_user.id, userId));
   return { success: true };
+}
+
+export async function hasCredentialAccount(userId: string) {
+  const db = getDb();
+  const [account] = await db
+    .select({ id: auth_account.id })
+    .from(auth_account)
+    .where(
+      and(
+        eq(auth_account.userId, userId),
+        eq(auth_account.providerId, "credential")
+      )
+    )
+    .limit(1);
+  return !!account;
 }

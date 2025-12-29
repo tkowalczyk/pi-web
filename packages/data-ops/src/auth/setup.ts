@@ -9,7 +9,13 @@ export const createBetterAuth = (config: {
     database: config.database,
     secret: config.secret,
     emailAndPassword: {
-      enabled: false,
+      enabled: true,
+      minPasswordLength: 8,
+      maxPasswordLength: 128,
+    },
+    accountLinking: {
+      enabled: true,
+      trustedProviders: ["google", "credential"],
     },
     socialProviders: config.socialProviders,
     user: {

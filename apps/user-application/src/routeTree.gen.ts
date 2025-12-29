@@ -15,8 +15,11 @@ import { Route as LegalRouteImport } from './routes/legal'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRegisterRouteImport } from './routes/auth/register'
+import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as ApiCitiesIndexRouteImport } from './routes/api/cities/index'
 import { Route as AuthAppIndexRouteImport } from './routes/_auth/app/index'
+import { Route as ApiUserHasCredentialAccountRouteImport } from './routes/api/user/has-credential-account'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth.$'
 import { Route as ApiCitiesCityIdStreetsRouteImport } from './routes/api/cities/$cityId/streets'
 
@@ -49,6 +52,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRegisterRoute = AuthRegisterRouteImport.update({
+  id: '/auth/register',
+  path: '/auth/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiCitiesIndexRoute = ApiCitiesIndexRouteImport.update({
   id: '/api/cities/',
   path: '/api/cities/',
@@ -59,6 +72,12 @@ const AuthAppIndexRoute = AuthAppIndexRouteImport.update({
   path: '/app/',
   getParentRoute: () => AuthRouteRoute,
 } as any)
+const ApiUserHasCredentialAccountRoute =
+  ApiUserHasCredentialAccountRouteImport.update({
+    id: '/api/user/has-credential-account',
+    path: '/api/user/has-credential-account',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -76,7 +95,10 @@ export interface FileRoutesByFullPath {
   '/legal': typeof LegalRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
   '/app': typeof AuthAppIndexRoute
   '/api/cities': typeof ApiCitiesIndexRoute
   '/api/cities/$cityId/streets': typeof ApiCitiesCityIdStreetsRoute
@@ -87,7 +109,10 @@ export interface FileRoutesByTo {
   '/legal': typeof LegalRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
   '/app': typeof AuthAppIndexRoute
   '/api/cities': typeof ApiCitiesIndexRoute
   '/api/cities/$cityId/streets': typeof ApiCitiesCityIdStreetsRoute
@@ -100,7 +125,10 @@ export interface FileRoutesById {
   '/legal': typeof LegalRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
   '/_auth/app/': typeof AuthAppIndexRoute
   '/api/cities/': typeof ApiCitiesIndexRoute
   '/api/cities/$cityId/streets': typeof ApiCitiesCityIdStreetsRoute
@@ -113,7 +141,10 @@ export interface FileRouteTypes {
     | '/legal'
     | '/privacy-policy'
     | '/terms-of-service'
+    | '/auth/login'
+    | '/auth/register'
     | '/api/auth/$'
+    | '/api/user/has-credential-account'
     | '/app'
     | '/api/cities'
     | '/api/cities/$cityId/streets'
@@ -124,7 +155,10 @@ export interface FileRouteTypes {
     | '/legal'
     | '/privacy-policy'
     | '/terms-of-service'
+    | '/auth/login'
+    | '/auth/register'
     | '/api/auth/$'
+    | '/api/user/has-credential-account'
     | '/app'
     | '/api/cities'
     | '/api/cities/$cityId/streets'
@@ -136,7 +170,10 @@ export interface FileRouteTypes {
     | '/legal'
     | '/privacy-policy'
     | '/terms-of-service'
+    | '/auth/login'
+    | '/auth/register'
     | '/api/auth/$'
+    | '/api/user/has-credential-account'
     | '/_auth/app/'
     | '/api/cities/'
     | '/api/cities/$cityId/streets'
@@ -149,7 +186,10 @@ export interface RootRouteChildren {
   LegalRoute: typeof LegalRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthRegisterRoute: typeof AuthRegisterRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  ApiUserHasCredentialAccountRoute: typeof ApiUserHasCredentialAccountRoute
   ApiCitiesIndexRoute: typeof ApiCitiesIndexRoute
   ApiCitiesCityIdStreetsRoute: typeof ApiCitiesCityIdStreetsRoute
 }
@@ -198,6 +238,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/register': {
+      id: '/auth/register'
+      path: '/auth/register'
+      fullPath: '/auth/register'
+      preLoaderRoute: typeof AuthRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/cities/': {
       id: '/api/cities/'
       path: '/api/cities'
@@ -211,6 +265,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app'
       preLoaderRoute: typeof AuthAppIndexRouteImport
       parentRoute: typeof AuthRouteRoute
+    }
+    '/api/user/has-credential-account': {
+      id: '/api/user/has-credential-account'
+      path: '/api/user/has-credential-account'
+      fullPath: '/api/user/has-credential-account'
+      preLoaderRoute: typeof ApiUserHasCredentialAccountRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -248,7 +309,10 @@ const rootRouteChildren: RootRouteChildren = {
   LegalRoute: LegalRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
+  AuthLoginRoute: AuthLoginRoute,
+  AuthRegisterRoute: AuthRegisterRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
+  ApiUserHasCredentialAccountRoute: ApiUserHasCredentialAccountRoute,
   ApiCitiesIndexRoute: ApiCitiesIndexRoute,
   ApiCitiesCityIdStreetsRoute: ApiCitiesCityIdStreetsRoute,
 }
