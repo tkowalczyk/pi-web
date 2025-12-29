@@ -309,49 +309,48 @@
   },
   "cookiePolicy": {
     "companyNameLabel": "Company Name:",
-    "companyName": "[COMPANY NAME]",
-    "policyOwnerLabel": "Policy Owner:",
-    "policyOwner": "[POLICY OWNER]",
+    "companyName": "Auditmos OU (the owner of powiadomienia.info)",
+    "policyOwnerLabel": "Policy Owner(s):",
+    "policyOwner": "Tomasz Kowalczyk",
     "effectiveDateLabel": "Effective Date:",
-    "effectiveDate": "[EFFECTIVE DATE]",
+    "effectiveDate": "December 29, 2025",
     "purposeTitle": "Purpose",
-    "purposeContent": "[Purpose content]",
+    "purposeContent": "This policy outlines our use of cookies and similar technologies. We use these technologies to make our website work and ensure the security of our services. This document explains what these technologies are, what they do, and how you can manage your preferences related to them.",
     "scopeTitle": "Scope",
-    "scopeContent": "[Scope content]",
+    "scopeContent": "This policy applies to all visitors and users of the powiadomienia.info website and its related services. The scope covers the use of cookies, which are small text files placed on your device when you visit a site. They allow us to recognize repeat visitors and record specific browsing information (e.g., how you arrive, pages you view, and paths you take).",
     "policyTitle": "Policy",
     "howWeUse": {
-      "title": "How we use cookies",
-      "content": "[How we use cookies content]"
+      "title": "How We Use Cookies",
+      "content": "Our website uses cookies primarily from Auditmos OU and select third-party partners required for infrastructure and payments. These are categorized as Strictly Necessary cookies. Currently, we do not use Analytics or Marketing cookies."
     },
     "detailedInfo": {
       "title": "Detailed Cookie Information",
-      "content": "[Detailed cookie information content]"
+      "content": "Here is a list of the primary technologies we use that may place cookies on your device."
     },
     "strictlyNecessary": {
       "title": "Strictly Necessary Cookies",
-      "content": "[Strictly necessary cookies content]"
+      "content": "These cookies are essential for our site and services to function correctly and cannot be disabled. They are necessary for security, payment processing, and core feature functionality. For example, ensuring you remain logged in while navigating the platform.\n\n1. Source: Auditmos OU / powiadomienia.info\nPurpose: To enable user authentication (via Email/Password or Google), manage active sessions, and log internal system errors for reliability.\n\n2. Source: Stripe\nPurpose: To provide fraud prevention and secure payment processing functionality.\n\n3. Source: Cloudflare\nPurpose: To maximize network resources, manage traffic, and protect the site from malicious traffic and bots."
     },
     "analytics": {
       "title": "Analytics & Tracking Cookies",
-      "content": "[Analytics cookies content]"
+      "content": "These “Not essential” cookies help us recognize repeat visitors and understand how you interact with our site so we can improve our site and services.\n\n* Current Status: We do not currently use third-party analytics cookies."
     },
     "marketing": {
       "title": "Marketing Cookies",
-      "content": "[Marketing cookies content]"
+      "content": "These “Not essential” cookies from partners help us monitor website behavior to use for online advertising.\n\n* Current Status: We do not currently use marketing or advertising cookies."
     },
     "choicesTitle": "Your Choices and How to Opt-Out",
     "choices": {
-      "item1": "[Choice item 1]",
-      "item2": "[Choice item 2]",
-      "item3": "[Choice item 3]"
+      "item1": "Browser Settings: You can block or delete cookies by changing your browser settings. Please refer to your browser’s “help” functionality for advice. Please note that should you block all cookies (including Strictly Necessary ones), you may not be able to log in or process payments on our site.",
+      "item2": "Service-Specific Opt-Outs: Because we currently only use cookies that are strictly necessary for the security and operation of the service (authentication, payments, firewall), there are no optional third-party services to opt-out of without breaking the site functionality."
     },
-    "choicesAdditional": "[Additional choices information]",
+    "choicesAdditional": "For more general information on managing cookies, you can visit https://www.allaboutcookies.org/manage-cookies/index.html",
     "exceptionsTitle": "Exceptions",
-    "exceptionsContent": "[Exceptions content]",
+    "exceptionsContent": "Requests for an exception to this policy must be submitted to our security committee at (legal@powiadomienia.info) for approval.",
     "violationsTitle": "Violations & Enforcement",
-    "violationsContent": "[Violations content]",
+    "violationsContent": "Any known violations of this policy should be reported to our security committee at (legal@powiadomienia.info).",
     "versionTitle": "Version",
-    "versionContent": "[Version content]",
-    "lastReviewed": "[Last reviewed: DATE]"
+    "versionContent": "| Field | Value |\n|-------|-------|\n| Version | 1.0.0 |\n| Date | December 2025 |\n| Description | First Version |\n| Author | Tomasz Kowalczyk |\n| Approved by | Tomasz Kowalczyk |",
+    "lastReviewed": "Last reviewed: December 29, 2025."
   }
 }

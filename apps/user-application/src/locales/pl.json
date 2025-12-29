@@ -309,49 +309,48 @@
   },
   "cookiePolicy": {
     "companyNameLabel": "Nazwa firmy:",
-    "companyName": "[NAZWA FIRMY]",
+    "companyName": "Auditmos OU (właściciel serwisu powiadomienia.info)",
     "policyOwnerLabel": "Właściciel polityki:",
-    "policyOwner": "[WŁAŚCICIEL POLITYKI]",
+    "policyOwner": "Tomasz Kowalczyk",
     "effectiveDateLabel": "Data wejścia w życie:",
-    "effectiveDate": "[DATA WEJŚCIA W ŻYCIE]",
+    "effectiveDate": "29 grudnia 2025",
     "purposeTitle": "Cel",
-    "purposeContent": "[Treść celu]",
+    "purposeContent": "Niniejsza polityka określa zasady korzystania przez nas z plików cookie i podobnych technologii. Używamy tych technologii, aby nasza strona działała poprawnie oraz w celu zapewnienia bezpieczeństwa naszych usług. Dokument ten wyjaśnia, czym są te technologie, co robią i jak możesz zarządzać swoimi preferencjami z nimi związanymi.",
     "scopeTitle": "Zakres",
-    "scopeContent": "[Treść zakresu]",
+    "scopeContent": "Niniejsza polityka dotyczy wszystkich odwiedzających i użytkowników strony powiadomienia.info oraz powiązanych z nią usług. Zakres obejmuje wykorzystanie plików cookie, czyli małych plików tekstowych umieszczanych na Twoim urządzeniu podczas wizyty na stronie. Pozwalają nam one rozpoznawać powracających użytkowników i rejestrować określone informacje o przeglądaniu (np. w jaki sposób trafiłeś na stronę, jakie podstrony przeglądasz i jakie ścieżki wybierasz).",
     "policyTitle": "Polityka",
     "howWeUse": {
-      "title": "Jak używamy plików cookies",
-      "content": "[Treść jak używamy cookies]"
+      "title": "Jak wykorzystujemy pliki cookie",
+      "content": "Nasza strona internetowa wykorzystuje pliki cookie pochodzące głównie od Auditmos OU oraz wybranych partnerów zewnętrznych niezbędnych do obsługi infrastruktury i płatności. Są one skategoryzowane jako Niezbędne pliki cookie. Obecnie nie używamy plików cookie analitycznych ani marketingowych."
     },
     "detailedInfo": {
-      "title": "Szczegółowe Informacje o Cookies",
-      "content": "[Treść szczegółowych informacji]"
+      "title": "Szczegółowe informacje o plikach cookie",
+      "content": "Poniżej znajduje się lista głównych technologii, których używamy i które mogą umieszczać pliki cookie na Twoim urządzeniu."
     },
     "strictlyNecessary": {
-      "title": "Niezbędne Pliki Cookies",
-      "content": "[Treść niezbędnych cookies]"
+      "title": "Niezbędne pliki cookie",
+      "content": "Te pliki cookie są kluczowe dla poprawnego funkcjonowania naszej strony i usług, dlatego nie można ich wyłączyć. Są niezbędne do zapewnienia bezpieczeństwa, przetwarzania płatności i działania podstawowych funkcji. Na przykład zapewniają one utrzymanie zalogowania podczas nawigacji po platformie.\n\n1. Źródło: Auditmos OU / powiadomienia.info\nCel: Umożliwienie uwierzytelniania użytkowników (przez e-mail/hasło lub Google), zarządzanie aktywnymi sesjami i rejestrowanie wewnętrznych błędów systemu w celu zapewnienia niezawodności.\n\n2. Źródło: Stripe\nCel: Zapewnienie zapobiegania oszustwom i bezpiecznego przetwarzania płatności.\n\n3. Źródło: Cloudflare\nCel: Maksymalizacja zasobów sieciowych, zarządzanie ruchem i ochrona witryny przed złośliwym ruchem oraz botami."
     },
     "analytics": {
-      "title": "Pliki Cookies Analityczne i Śledzące",
-      "content": "[Treść cookies analitycznych]"
+      "title": "Analityczne i śledzące pliki cookie",
+      "content": "Te „nieobowiązkowe” pliki cookie pomagają nam rozpoznawać powracających użytkowników i rozumieć, w jaki sposób korzystasz z naszej strony, abyśmy mogli ulepszać nasz serwis i usługi.\n\n* Aktualny status: Obecnie nie używamy zewnętrznych plików cookie analitycznych."
     },
     "marketing": {
-      "title": "Pliki Cookies Marketingowe",
-      "content": "[Treść cookies marketingowych]"
+      "title": "Marketingowe pliki cookie",
+      "content": "Te „nieobowiązkowe” pliki cookie od partnerów pomagają nam monitorować zachowanie na stronie w celu wykorzystania w reklamie internetowej.\n\n* Aktualny status: Obecnie nie używamy plików cookie marketingowych ani reklamowych."
     },
-    "choicesTitle": "Twoje Wybory i Jak Zrezygnować",
+    "choicesTitle": "Twoje wybory i możliwość rezygnacji",
     "choices": {
-      "item1": "[Element wyboru 1]",
-      "item2": "[Element wyboru 2]",
-      "item3": "[Element wyboru 3]"
+      "item1": "Ustawienia przeglądarki: Możesz zablokować lub usunąć pliki cookie, zmieniając ustawienia swojej przeglądarki. Zapoznaj się z funkcją „pomoc” w swojej przeglądarce, aby uzyskać poradę. Pamiętaj, że jeśli zablokujesz wszystkie pliki cookie (w tym te niezbędne), możesz nie być w stanie zalogować się lub przetwarzać płatności na naszej stronie.",
+      "item2": "Rezygnacja z poszczególnych usług: Ponieważ obecnie używamy wyłącznie plików cookie, które są ściśle niezbędne do bezpieczeństwa i działania serwisu (uwierzytelnianie, płatności, firewall), nie istnieją opcjonalne usługi zewnętrzne, z których można zrezygnować bez naruszania funkcjonalności strony."
     },
-    "choicesAdditional": "[Dodatkowe informacje o wyborach]",
+    "choicesAdditional": "Więcej ogólnych informacji na temat zarządzania plikami cookie można znaleźć na stronie https://www.allaboutcookies.org/manage-cookies/index.html",
     "exceptionsTitle": "Wyjątki",
-    "exceptionsContent": "[Treść wyjątków]",
-    "violationsTitle": "Naruszenia i Egzekwowanie",
-    "violationsContent": "[Treść naruszeń]",
+    "exceptionsContent": "Wnioski o odstępstwo od tej polityki muszą być składane do naszego komitetu ds. bezpieczeństwa pod adresem (legal@powiadomienia.info) w celu uzyskania zgody.",
+    "violationsTitle": "Naruszenia i egzekwowanie",
+    "violationsContent": "Wszelkie znane naruszenia niniejszej polityki należy zgłaszać do naszego komitetu ds. bezpieczeństwa pod adresem (legal@powiadomienia.info).",
     "versionTitle": "Wersja",
-    "versionContent": "[Treść wersji]",
-    "lastReviewed": "[Ostatni przegląd: DATA]"
+    "versionContent": "| Pole | Wartość |\n|------|----------|\n| Wersja | 1.0.0 |\n| Data | Grudzień 2025 |\n| Opis | Pierwsza wersja |\n| Autor | Tomasz Kowalczyk |\n| Zatwierdził | Tomasz Kowalczyk |",
+    "lastReviewed": "Ostatni przegląd: 29 grudnia 2025 r."
   }
 }

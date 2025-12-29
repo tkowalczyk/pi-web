@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { LandingNav } from "@/components/navigation/landing-nav";
 import { Footer } from "@/components/landing/footer";
 
@@ -68,7 +70,6 @@ function CookiePolicyPage() {
             <ol className="list-decimal ml-6 mt-4 space-y-2 text-muted-foreground">
               <li>{t("cookiePolicy.choices.item1")}</li>
               <li>{t("cookiePolicy.choices.item2")}</li>
-              <li>{t("cookiePolicy.choices.item3")}</li>
             </ol>
             <p className="text-muted-foreground mt-4">{t("cookiePolicy.choicesAdditional")}</p>
           </section>
@@ -85,7 +86,11 @@ function CookiePolicyPage() {
 
           <section>
             <h2 className="text-primary border-b pb-2">{t("cookiePolicy.versionTitle")}</h2>
-            <p className="text-muted-foreground mt-4">{t("cookiePolicy.versionContent")}</p>
+            <div className="mt-4 text-sm [&_table]:w-full [&_table]:border-collapse [&_td]:border [&_td]:border-zinc-300 [&_td]:dark:border-zinc-700 [&_td]:px-6 [&_td]:py-3 [&_th]:border [&_th]:border-zinc-300 [&_th]:dark:border-zinc-700 [&_th]:bg-zinc-100 [&_th]:dark:bg-zinc-800 [&_th]:px-6 [&_th]:py-3 [&_th]:font-semibold [&_th]:text-left">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {t("cookiePolicy.versionContent")}
+              </ReactMarkdown>
+            </div>
           </section>
 
           <p className="italic text-sm text-muted-foreground mt-8">{t("cookiePolicy.lastReviewed")}</p>
