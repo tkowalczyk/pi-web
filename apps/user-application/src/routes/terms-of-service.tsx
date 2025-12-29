@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { LandingNav } from "@/components/navigation/landing-nav";
 import { Footer } from "@/components/landing/footer";
 
@@ -50,7 +52,11 @@ function TermsOfServicePage() {
             <h2 className="text-primary border-b pb-2">{t("termsOfService.accessTitle")}</h2>
             <ol className="list-decimal ml-6 mt-4 space-y-2 text-muted-foreground">
               <li>{t("termsOfService.access.item1")}</li>
-              <li>{t("termsOfService.access.item2")}</li>
+              <li>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {t("termsOfService.access.item2")}
+                </ReactMarkdown>
+              </li>
               <li>{t("termsOfService.access.item3")}</li>
             </ol>
           </section>

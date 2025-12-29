@@ -228,83 +228,83 @@
     "contactingContent": "Content will be provided soon."
   },
   "termsOfService": {
-    "lastUpdate": "Last update: [DATE]",
-    "intro": "[INTRO TEXT IN CAPITAL LETTERS]",
+    "lastUpdate": "Last updated: December 29, 2025",
+    "intro": "UNLESS SUPERSEDED BY A MASTER SUBSCRIPTION AGREEMENT EXECUTED BY THE PARTIES, THESE TERMS GOVERN YOUR USE OF THE WEBSITE LOCATED AT POWIADOMIENIA.INFO (THE “SITE”) AND THE PLATFORM SERVICES MADE AVAILABLE BY AUDITMOS OU. THE SERVICES ARE NOT INTENDED FOR USE WITH CLASSIFIED INFORMATION OR DATA THAT WOULD REQUIRE ADDITIONAL SECURITY CLEARANCE BEYOND STANDARD GDPR COMPLIANCE.",
     "agreementTitle": "AGREEMENT TO TERMS AND CONDITIONS",
-    "agreementContent": "[Agreement content]",
+    "agreementContent": "By using the Services, you agree to be bound by these Terms. If you don’t agree to be bound by these Terms, do not use the Services. If you are accessing and using the Services on behalf of a company (such as your employer) or other legal entity, you represent and warrant that you have the authority to bind that entity to the terms and conditions of these Terms.",
     "definitionsTitle": "DEFINITIONS",
     "definitions": {
-      "item1": "[Definition 1]",
-      "item2": "[Definition 2]",
-      "item3": "[Definition 3]"
+      "item1": "“Authorized Users” means employees, agents, consultants, contractors, or vendors authorized by Customer to use the Services.",
+      "item2": "“Customer Materials” means all information, data, content (including notification payloads), and other materials submitted or transmitted by Customer through the Services.",
+      "item3": "“Platform Services” means the proprietary notification and monitoring platform, APIs, and associated software made available by Auditmos OU."
     },
     "privacyNoticeTitle": "PRIVACY NOTICE",
-    "privacyNoticeContent": "[Privacy notice content]",
+    "privacyNoticeContent": "Please review Auditmos OU’s Privacy Policy, available on our website, which also governs how we collect, use and share Customer’s and Authorized Users’ information.",
     "changesTitle": "CHANGES TO THESE TERMS OR THE SERVICES",
-    "changesContent": "[Changes content]",
+    "changesContent": "Auditmos OU may update these Terms from time to time. We will post the updated Terms on the Site. Customer’s continued use of the Services after updated Terms have been posted means that Customer accepts and agrees to the changes.",
     "accessTitle": "ACCESS AND USE",
     "access": {
-      "item1": "[Access item 1]",
-      "item2": "[Access item 2]",
-      "item3": "[Access item 3]"
+      "item1": "Services: Subject to these Terms, Auditmos OU grants Customer a limited, non-exclusive, non-transferable right to use the Services in accordance with the Documentation.",
+      "item2": "Use Restrictions: Customer will not:\n\n(i) reverse engineer or attempt to derive source code of the Services;\n\n(ii) resell or sublicense the Services to third parties without permission;\n\n(iii) use the Services to transmit malicious code, spam, or fraudulent content;\n\n(iv) interfere with the integrity or performance of the Services.",
+      "item3": "Ownership: Auditmos OU reserves and solely owns all rights, title, and interest in and to the Platform, the underlying software, and all related Intellectual Property Rights."
     },
     "subscriptionsTitle": "SUBSCRIPTIONS AND FREE TIER",
-    "subscriptionsContent": "[Subscriptions content]",
+    "subscriptionsContent": "Auditmos OU requires payment of a fee for use of the Services as set forth on our pricing page. You agree to pay such fees via our payment processor (Stripe). Subscriptions automatically renew unless cancelled. All payments are non-refundable except as required by applicable law. If you exceed your plan's usage limits (e.g., number of notifications), overage fees may apply as described on the pricing page.",
     "customerMaterialsTitle": "CUSTOMER MATERIALS",
-    "customerMaterialsContent": "[Customer materials content]",
+    "customerMaterialsContent": "Customer grants Auditmos OU a license to use Customer Materials solely for the purpose of operating, improving, and providing the Services (e.g., sending your notifications). As between Customer and Auditmos OU, Customer owns all Customer Materials. Customer represents that they have the right to provide such data and that it does not violate any third-party rights.",
     "supportTitle": "SUPPORT AND SERVICE LEVELS",
     "support": {
       "title": "Support",
-      "content": "[Support content]"
+      "content": "Auditmos OU will provide Customer with support for the Services via email or our help center documentation."
     },
     "serviceLevels": {
       "title": "Service Levels",
-      "content": "[Service levels content]"
+      "content": "Auditmos OU will use commercially reasonable efforts to make the Services available 24/7, excluding planned downtime for maintenance and force majeure events. Service levels are performance targets and not guarantees."
     },
     "confidentialTitle": "CONFIDENTIAL INFORMATION",
-    "confidentialContent": "[Confidential information content]",
+    "confidentialContent": "Each party agrees to protect the other party’s Confidential Information with the same degree of care it uses to protect its own. Confidential Information includes business technical information, pricing, and non-public product details. This obligation does not apply to information that is public, independently developed, or rightfully obtained from third parties.",
     "representationsTitle": "REPRESENTATIONS AND WARRANTIES; DISCLAIMER",
     "representations": {
       "mutual": {
         "title": "Mutual Representations",
-        "content": "[Mutual representations content]"
+        "content": "Each Party represents that it has full power and authority to enter into these Terms."
       },
       "customer": {
         "title": "Customer Additional Representations",
-        "content": "[Customer representations content]"
+        "content": "Customer represents that its use of the Services will not violate any applicable laws (including anti-spam laws) or infringe on the rights of any third party."
       },
       "disclaimer": {
         "title": "Disclaimer",
-        "content": "[DISCLAIMER TEXT IN CAPITAL LETTERS]"
+        "content": "THE SERVICES ARE PROVIDED ON AN “AS IS” BASIS. AUDITMOS OU MAKES NO WARRANTIES, EXPRESS OR IMPLIED, REGARDING THE RELIABILITY OR AVAILABILITY OF THE SERVICES."
       },
       "similarity": {
-        "title": "Similarity",
-        "content": "[Similarity content]"
+        "title": "Service Reliability",
+        "content": "Due to the nature of internet communications, Auditmos OU cannot guarantee the delivery of every single notification if failure occurs due to third-party networks, ISPs, or the recipient's device settings. Auditmos OU is not liable for delays or delivery failures caused by external factors."
       }
     },
     "terminationTitle": "TERMINATION",
-    "terminationContent": "[Termination content]",
+    "terminationContent": "Auditmos OU may terminate or suspend access immediately if Customer breaches these Terms. Customer may terminate their subscription at any time via the Platform settings; such termination will take effect at the end of the current billing cycle. Upon termination, Customer’s right to use the Services ceases.",
     "limitationTitle": "LIMITATION OF LIABILITY",
-    "limitationContent": "[Limitation content]",
+    "limitationContent": "IN NO EVENT WILL AUDITMOS OU BE LIABLE FOR ANY INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES. TOTAL LIABILITY SHALL NOT EXCEED THE FEES PAID BY CUSTOMER IN THE SIX (6) MONTHS PRECEDING THE CLAIM.",
     "indemnificationTitle": "INDEMNIFICATION",
-    "indemnificationContent": "[Indemnification content]",
+    "indemnificationContent": "Customer will indemnify and hold Auditmos OU harmless from any claims arising out of Customer’s use of the Services, Customer Materials, or violation of these Terms.",
     "generalTitle": "GENERAL",
     "general": {
-      "item1": "[General item 1]",
-      "item2": "[General item 2]",
-      "item3": "[General item 3]"
+      "item1": "Governing Law: These Terms will be governed by the laws of Estonia. Any legal action will be brought exclusively in the courts located in Tallinn, Estonia.",
+      "item2": "Assignment: Customer may not assign these Terms without prior written consent. Auditmos OU may assign these Terms freely.",
+      "item3": "Notices: Notices to Auditmos OU should be sent to legal@powiadomienia.info."
     },
     "exhibitA": {
-      "title": "EXHIBIT A – RESPONSIBLE AI POLICY",
-      "item1": "[Exhibit A item 1]",
-      "item2": "[Exhibit A item 2]",
-      "item3": "[Exhibit A item 3]"
+      "title": "EXHIBIT A – ACCEPTABLE USE POLICY",
+      "item1": "You agree not to use the Services to transmit any content that is illegal, harmful, threatening, abusive, or defamatory.",
+      "item2": "You agree not to use the Services to send unsolicited bulk messages (spam) or to harass individuals.",
+      "item3": "You agree not to use the Services to attempt to deceive others, spread malware, or engage in phishing activities."
     },
     "exhibitB": {
       "title": "EXHIBIT B – SERVICE LEVELS AND SUPPORT",
-      "item1": "[Exhibit B item 1]",
-      "item2": "[Exhibit B item 2]",
-      "item3": "[Exhibit B item 3]"
+      "item1": "Uptime Goal: We aim for 99.9% availability.",
+      "item2": "Maintenance: We will provide notice for scheduled maintenance windows.",
+      "item3": "Support: Support is available via email at legal@powiadomienia.info during business hours (EET)."
     }
   },
   "cookiePolicy": {

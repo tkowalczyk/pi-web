@@ -228,83 +228,83 @@
     "contactingContent": "Treść zostanie wkrótce dodana."
   },
   "termsOfService": {
-    "lastUpdate": "Ostatnia aktualizacja: [DATA]",
-    "intro": "[TEKST WPROWADZENIA WIELKIMI LITERAMI]",
-    "agreementTitle": "ZGODA NA WARUNKI KORZYSTANIA",
-    "agreementContent": "[Treść zgody]",
+    "lastUpdate": "Ostatnia aktualizacja: 29 grudnia 2025 r.",
+    "intro": "O ILE NIE ZOSTAŁA ZAWARTA ODRĘBNA UMOWA RAMOWA O ŚWIADCZENIE USŁUG PRZEZ STRONY, NINIEJSZE WARUNKI REGULUJĄ KORZYSTANIE Z WITRYNY POWIADOMIENIA.INFO („WITRYNA”) ORAZ USŁUG PLATFORMY UDOSTĘPNIANYCH PRZEZ AUDITMOS OU. USŁUGI NIE SĄ PRZEZNACZONE DO UŻYTKU Z INFORMACJAMI NIEJAWNYMI LUB DANYMI WYMAGAJĄCYMI DODATKOWYCH POZIOMÓW BEZPIECZEŃSTWA POZA STANDARDOWĄ ZGODNOŚCIĄ Z RODO.",
+    "agreementTitle": "ZGODA NA WARUNKI I POSTANOWIENIA",
+    "agreementContent": "Korzystając z Usług, wyrażasz zgodę na przestrzeganie niniejszych Warunków. Jeśli nie zgadzasz się na te Warunki, nie korzystaj z Usług. Jeśli uzyskujesz dostęp i korzystasz z Usług w imieniu firmy (np. swojego pracodawcy) lub innej osoby prawnej, oświadczasz i gwarantujesz, że masz upoważnienie do związania tego podmiotu niniejszymi Warunkami.",
     "definitionsTitle": "DEFINICJE",
     "definitions": {
-      "item1": "[Definicja 1]",
-      "item2": "[Definicja 2]",
-      "item3": "[Definicja 3]"
+      "item1": "„Autoryzowani Użytkownicy” oznaczają pracowników, agentów, konsultantów, wykonawców lub sprzedawców upoważnionych przez Klienta do korzystania z Usług.",
+      "item2": "„Materiały Klienta” oznaczają wszelkie informacje, dane, treści (w tym treści powiadomień) oraz inne materiały przesłane lub przekazane przez Klienta za pośrednictwem Usług.",
+      "item3": "„Usługi Platformy” oznaczają autorską platformę powiadomień i monitorowania, interfejsy API oraz powiązane oprogramowanie udostępniane przez Auditmos OU."
     },
-    "privacyNoticeTitle": "OŚWIADCZENIE O PRYWATNOŚCI",
-    "privacyNoticeContent": "[Treść oświadczenia]",
-    "changesTitle": "ZMIANY W WARUNKACH LUB USŁUGACH",
-    "changesContent": "[Treść zmian]",
-    "accessTitle": "DOSTĘP I UŻYTKOWANIE",
+    "privacyNoticeTitle": "NOTA O PRYWATNOŚCI",
+    "privacyNoticeContent": "Prosimy o zapoznanie się z Polityką Prywatności Auditmos OU, dostępną na naszej stronie internetowej, która również reguluje sposób, w jaki zbieramy, wykorzystujemy i udostępniamy informacje o Kliencie i Autoryzowanych Użytkownikach.",
+    "changesTitle": "ZMIANY W NINIEJSZYCH WARUNKACH LUB USŁUGACH",
+    "changesContent": "Auditmos OU może od czasu do czasu aktualizować niniejsze Warunki. Zaktualizowane Warunki zostaną opublikowane w Witrynie. Dalsze korzystanie z Usług przez Klienta po opublikowaniu zaktualizowanych Warunków oznacza akceptację i zgodę na zmiany.",
+    "accessTitle": "DOSTĘP I KORZYSTANIE",
     "access": {
-      "item1": "[Element dostępu 1]",
-      "item2": "[Element dostępu 2]",
-      "item3": "[Element dostępu 3]"
+      "item1": "Usługi: Z zastrzeżeniem niniejszych Warunków, Auditmos OU udziela Klientowi ograniczonego, niewyłącznego, nieprzenoszalnego prawa do korzystania z Usług zgodnie z Dokumentacją.",
+      "item2": "Ograniczenia użytkowania: Klient nie będzie:\n\n(i) dokonywać inżynierii wstecznej ani próbować uzyskać kodu źródłowego Usług;\n\n(ii) odsprzedawać ani udzielać sublicencji na Usługi podmiotom trzecim bez zezwolenia;\n\n(iii) używać Usług do przesyłania złośliwego kodu, spamu lub treści oszukańczych;\n\n(iv) zakłócać integralności lub działania Usług.",
+      "item3": "Własność: Auditmos OU zachowuje i posiada wszelkie prawa, tytuły i udziały w Platformie, podstawowym oprogramowaniu oraz wszelkich powiązanych Prawach Własności Intelektualnej."
     },
-    "subscriptionsTitle": "SUBSKRYPCJE I DARMOWA WERSJA",
-    "subscriptionsContent": "[Treść subskrypcji]",
+    "subscriptionsTitle": "SUBSKRYPCJE I POZIOM DARMOWY",
+    "subscriptionsContent": "Auditmos OU wymaga uiszczenia opłaty za korzystanie z Usług zgodnie z cennikiem na naszej stronie. Zgadzasz się na uiszczanie takich opłat za pośrednictwem naszego procesora płatności (Stripe). Subskrypcje odnawiają się automatycznie, chyba że zostaną anulowane. Wszystkie płatności są bezzwrotne, chyba że obowiązujące prawo stanowi inaczej. W przypadku przekroczenia limitów użytkowania planu (np. liczby powiadomień), mogą zostać naliczone dodatkowe opłaty zgodnie z opisem na stronie cennika.",
     "customerMaterialsTitle": "MATERIAŁY KLIENTA",
-    "customerMaterialsContent": "[Treść materiałów]",
-    "supportTitle": "WSPARCIE I POZIOMY USŁUG",
+    "customerMaterialsContent": "Klient udziela Auditmos OU licencji na wykorzystanie Materiałów Klienta wyłącznie w celu obsługi, ulepszania i świadczenia Usług (np. wysyłania powiadomień). W relacji między Klientem a Auditmos OU, Klient jest właścicielem wszystkich Materiałów Klienta. Klient oświadcza, że ma prawo do dostarczania takich danych i że nie naruszają one praw osób trzecich.",
+    "supportTitle": "WSPARCIE I POZIOMY USŁUG (SLA)",
     "support": {
       "title": "Wsparcie",
-      "content": "[Treść wsparcia]"
+      "content": "Auditmos OU zapewni Klientowi wsparcie w zakresie Usług za pośrednictwem poczty elektronicznej lub dokumentacji w centrum pomocy."
     },
     "serviceLevels": {
       "title": "Poziomy Usług",
-      "content": "[Treść poziomów usług]"
+      "content": "Auditmos OU dołoży wszelkich starań handlowych, aby Usługi były dostępne 24/7, z wyłączeniem planowanych przestojów konserwacyjnych i zdarzeń siły wyższej. Poziomy usług są celami wydajnościowymi, a nie gwarancjami."
     },
     "confidentialTitle": "INFORMACJE POUFNE",
-    "confidentialContent": "[Treść informacji poufnych]",
+    "confidentialContent": "Każda ze stron zobowiązuje się chronić Informacje Poufne drugiej strony z taką samą starannością, z jaką chroni własne. Informacje Poufne obejmują techniczne informacje biznesowe, ceny i niepubliczne szczegóły produktu. Obowiązek ten nie dotyczy informacji, które są publiczne, niezależnie opracowane lub legalnie uzyskane od osób trzecich.",
     "representationsTitle": "OŚWIADCZENIA I GWARANCJE; ZASTRZEŻENIA",
     "representations": {
       "mutual": {
-        "title": "Oświadczenia Wzajemne",
-        "content": "[Treść oświadczeń wzajemnych]"
+        "title": "Wzajemne oświadczenia",
+        "content": "Każda ze Stron oświadcza, że posiada pełną moc i uprawnienia do zawarcia niniejszych Warunków."
       },
       "customer": {
-        "title": "Dodatkowe Oświadczenia Klienta",
-        "content": "[Treść oświadczeń klienta]"
+        "title": "Dodatkowe oświadczenia Klienta",
+        "content": "Klient oświadcza, że korzystanie z Usług nie będzie naruszać żadnych obowiązujących przepisów prawa (w tym przepisów antyspamowych) ani praw osób trzecich."
       },
       "disclaimer": {
-        "title": "Zastrzeżenia",
-        "content": "[TEKST ZASTRZEŻEŃ WIELKIMI LITERAMI]"
+        "title": "Zastrzeżenie",
+        "content": "USŁUGI SĄ DOSTARCZANE W STANIE „TAKIM, W JAKIM SĄ” („AS IS”). AUDITMOS OU NIE UDZIELA ŻADNYCH GWARANCJI, WYRAŹNYCH ANI DOROZUMIANYCH, DOTYCZĄCYCH NIEZAWODNOŚCI LUB DOSTĘPNOŚCI USŁUG."
       },
       "similarity": {
-        "title": "Podobieństwo",
-        "content": "[Treść podobieństwa]"
+        "title": "Niezawodność Usługi",
+        "content": "Ze względu na charakter komunikacji internetowej, Auditmos OU nie może zagwarantować dostarczenia każdego pojedynczego powiadomienia, jeśli awaria nastąpi z powodu sieci stron trzecich, dostawców usług internetowych (ISP) lub ustawień urządzenia odbiorcy. Auditmos OU nie ponosi odpowiedzialności za opóźnienia lub błędy w dostarczaniu spowodowane czynnikami zewnętrznymi."
       }
     },
-    "terminationTitle": "WYPOWIEDZENIE",
-    "terminationContent": "[Treść wypowiedzenia]",
+    "terminationTitle": "ROZWIĄZANIE UMOWY",
+    "terminationContent": "Auditmos OU może natychmiast rozwiązać umowę lub zawiesić dostęp, jeśli Klient naruszy niniejsze Warunki. Klient może zakończyć subskrypcję w dowolnym momencie w ustawieniach Platformy; takie zakończenie wejdzie w życie z końcem bieżącego okresu rozliczeniowego. Po rozwiązaniu umowy prawo Klienta do korzystania z Usług wygasa.",
     "limitationTitle": "OGRANICZENIE ODPOWIEDZIALNOŚCI",
-    "limitationContent": "[Treść ograniczenia]",
-    "indemnificationTitle": "ODSZKODOWANIE",
-    "indemnificationContent": "[Treść odszkodowania]",
+    "limitationContent": "W ŻADNYM WYPADKU AUDITMOS OU NIE PONOSI ODPOWIEDZIALNOŚCI ZA JAKIEKOLWIEK SZKODY POŚREDNIE, PRZYPADKOWE LUB WTÓRNE. CAŁKOWITA ODPOWIEDZIALNOŚĆ NIE MOŻE PRZEKROCZYĆ OPŁAT UISZCZONYCH PRZEZ KLIENTA W CIĄGU SZEŚCIU (6) MIESIĘCY POPRZEDZAJĄCYCH ROSZCZENIE.",
+    "indemnificationTitle": "ODSZKODOWANIE (INDEMNIFICATION)",
+    "indemnificationContent": "Klient zwolni Auditmos OU z odpowiedzialności i chroni przed wszelkimi roszczeniami wynikającymi z korzystania przez Klienta z Usług, Materiałów Klienta lub naruszenia niniejszych Warunków.",
     "generalTitle": "POSTANOWIENIA OGÓLNE",
     "general": {
-      "item1": "[Element ogólny 1]",
-      "item2": "[Element ogólny 2]",
-      "item3": "[Element ogólny 3]"
+      "item1": "Prawo właściwe: Niniejsze Warunki podlegają prawu Estonii. Wszelkie działania prawne będą rozstrzygane wyłącznie przez sądy w Tallinnie, w Estonii.",
+      "item2": "Cesja: Klient nie może przenieść niniejszych Warunków bez uprzedniej pisemnej zgody. Auditmos OU może swobodnie przenosić niniejsze Warunki.",
+      "item3": "Powiadomienia: Powiadomienia do Auditmos OU należy przesyłać na adres legal@powiadomienia.info."
     },
     "exhibitA": {
-      "title": "ZAŁĄCZNIK A – POLITYKA ODPOWIEDZIALNEJ AI",
-      "item1": "[Element załącznika A 1]",
-      "item2": "[Element załącznika A 2]",
-      "item3": "[Element załącznika A 3]"
+      "title": "ZAŁĄCZNIK A – POLITYKA DOPUSZCZALNEGO UŻYTKOWANIA",
+      "item1": "Zgadzasz się nie używać Usług do przesyłania treści nielegalnych, szkodliwych, grożących, obraźliwych lub zniesławiających.",
+      "item2": "Zgadzasz się nie używać Usług do wysyłania niechcianych wiadomości masowych (spam) ani do nękania osób.",
+      "item3": "Zgadzasz się nie używać Usług do prób oszukania innych, rozpowszechniania złośliwego oprogramowania lub angażowania się w działania phishingowe."
     },
     "exhibitB": {
       "title": "ZAŁĄCZNIK B – POZIOMY USŁUG I WSPARCIE",
-      "item1": "[Element załącznika B 1]",
-      "item2": "[Element załącznika B 2]",
-      "item3": "[Element załącznika B 3]"
+      "item1": "Cel dostępności: Dążymy do dostępności na poziomie 99,9%.",
+      "item2": "Konserwacja: Będziemy powiadamiać o planowanych oknach serwisowych.",
+      "item3": "Wsparcie: Wsparcie jest dostępne pod adresem legal@powiadomienia.info w godzinach pracy (czasu wschodnioeuropejskiego EET)."
     }
   },
   "cookiePolicy": {
