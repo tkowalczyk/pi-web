@@ -9,6 +9,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import * as React from "react";
 import type { QueryClient } from "@tanstack/react-query";
+import type { User } from "better-auth/types";
 import { DefaultCatchBoundary } from "@/components/default-catch-boundary";
 import { NotFound } from "@/components/not-found";
 import { ThemeProvider } from "@/components/theme";
@@ -20,6 +21,7 @@ import i18n from "@/lib/i18n";
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
+  user?: User;
 }>()({
   head: () => ({
     meta: [

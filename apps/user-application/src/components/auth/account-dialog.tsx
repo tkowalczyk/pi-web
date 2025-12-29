@@ -25,6 +25,17 @@ export function AccountDialog({ children }: AccountDialogProps) {
   const navigate = useNavigate();
   const { data: session } = authClient.useSession();
 
+  const { data: credentialCheck } = useQuery({
+    queryKey: ["has-credential-account", session?.user.id],
+    queryFn: async () => {
+      if (!session?.user.id) return { hasCredentialAccount: false };
+      const res = await fetch("/api/user/has-credential-account");
+      if (!res.ok) return { hasCredentialAccount: false };
+      return res.json() as Promise<{ hasCredentialAccount: boolean }>;
+    },
+    enabled: !!session?.user.id,
+  });
+
   const signOut = async () => {
     await authClient.signOut();
     navigate({ to: "/auth/login" });
@@ -38,15 +49,6 @@ export function AccountDialog({ children }: AccountDialogProps) {
   const fallbackText = user.name
     ? user.name.charAt(0).toUpperCase()
     : user.email?.charAt(0).toUpperCase() || "U";
-
-  const { data: credentialCheck } = useQuery({
-    queryKey: ["has-credential-account", user.id],
-    queryFn: async () => {
-      const res = await fetch("/api/user/has-credential-account");
-      if (!res.ok) return { hasCredentialAccount: false };
-      return res.json() as Promise<{ hasCredentialAccount: boolean }>;
-    },
-  });
 
   const hasCredentialAccount = credentialCheck?.hasCredentialAccount ?? false;
 
