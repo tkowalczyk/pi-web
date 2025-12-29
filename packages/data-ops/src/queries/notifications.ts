@@ -84,7 +84,11 @@ export async function getUsersNeedingNotification(
     );
 
   const now = new Date();
+  const nowDate = new Date(now);
+  nowDate.setUTCHours(0, 0, 0, 0);
+
   const target = new Date(targetDate);
+  target.setUTCHours(0, 0, 0, 0);
 
   return users
     .filter(u => {
@@ -93,7 +97,7 @@ export async function getUsersNeedingNotification(
     })
     .filter(u => u.phone && isValidPolishPhone(u.phone))
     .map(u => {
-      const daysDiff = Math.floor((target.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+      const daysDiff = Math.floor((target.getTime() - nowDate.getTime()) / (1000 * 60 * 60 * 24));
       const isDayBefore = daysDiff === 1 && u.notificationType === "day_before";
       const isSameDay = daysDiff === 0 && u.notificationType === "same_day";
 
