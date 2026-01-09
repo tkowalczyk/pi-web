@@ -18,7 +18,11 @@
 
     "seed:dev": "pnpm run --filter data-ops seed:dev",
     "seed:stage": "pnpm run --filter data-ops seed:stage",
-    "seed:prod": "pnpm run --filter data-ops seed:prod"
+    "seed:prod": "pnpm run --filter data-ops seed:prod",
+
+    "import:dev": "pnpm run --filter data-ops import:dev",
+    "import:stage": "pnpm run --filter data-ops import:stage",
+    "import:prod": "pnpm run --filter data-ops import:prod"
   },
   "keywords": [],
   "author": "",

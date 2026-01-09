@@ -27,7 +27,7 @@ export type LoadedDataFile = {
 
 export async function loadDataFiles(dir: string): Promise<LoadedDataFile[]> {
   const files = await readdir(dir);
-  const jsonFiles = files.filter(f => f.endsWith('.json'));
+  const jsonFiles = files.filter(f => f.endsWith('.json')).sort();
 
   const data: LoadedDataFile[] = [];
   for (const file of jsonFiles) {

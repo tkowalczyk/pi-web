@@ -19,6 +19,7 @@ export function AddressList({ addresses }: { addresses: AddressResponse[] }) {
     mutationFn: (id: number) => deleteMyAddress({ data: { id } }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["addresses"] });
+      queryClient.invalidateQueries({ queryKey: ["waste-schedule"] });
       setDeleteConfirmId(null);
     },
   });
@@ -155,6 +156,7 @@ function EditAddressForm({
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["addresses"] });
+      queryClient.invalidateQueries({ queryKey: ["waste-schedule"] });
       onSuccess();
     },
   });

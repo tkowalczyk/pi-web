@@ -36,6 +36,7 @@ export function AddressForm() {
       await createMyAddress({ data }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["addresses"] });
+      queryClient.invalidateQueries({ queryKey: ["waste-schedule"] });
       formRef.current?.reset();
       setCityId(null);
     },

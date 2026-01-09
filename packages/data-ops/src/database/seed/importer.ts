@@ -126,14 +126,10 @@ export async function importer(dataDir: string) {
 
       if (!cityRecord) continue;
 
-      // Get all streets for this city
-      let cityStreets = await db
-        .select()
-        .from(streets)
-        .where(eq(streets.cityId, cityRecord.id));
-
-      // If city has no streets, create a city-wide street entry for schedules
-      if (cityStreets.length === 0) {
+      // Get only streets defined in THIS file for this city
+      let cityStreets: Array<{ id: number; name: string; cityId: number; createdAt: Date; updatedAt: Date }> = [];
+      if (addr.streets.length === 0) {
+        // If no streets listed, create/use city-wide street entry
         const cityWideStreetName = '---';
         const existingCityWide = await db
           .select()
@@ -160,6 +156,23 @@ export async function importer(dataDir: string) {
           }
         } else {
           cityStreets = [existingCityWide];
+        }
+      } else {
+        // Get only the streets from THIS file
+        for (const streetName of addr.streets) {
+          const streetRecord = await db
+            .select()
+            .from(streets)
+            .where(and(
+              eq(streets.name, streetName),
+              eq(streets.cityId, cityRecord.id)
+            ))
+            .limit(1)
+            .then(rows => rows[0]);
+
+          if (streetRecord) {
+            cityStreets.push(streetRecord);
+          }
         }
       }
 

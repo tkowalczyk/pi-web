@@ -151,6 +151,13 @@ function getUpcomingCollections(schedules: any[], t: any, locale: "pl" | "en"): 
 }
 
 function monthNameToIndex(month: string): number {
+  // Handle numeric month strings ("1", "2", ...) from new data format
+  const numericMonth = parseInt(month, 10);
+  if (!isNaN(numericMonth)) {
+    return numericMonth - 1; // Convert to 0-based index
+  }
+
+  // Fallback: handle old month name format ("January", "February", ...)
   const months = ["January", "February", "March", "April", "May", "June",
                   "July", "August", "September", "October", "November", "December"];
   return months.indexOf(month);
@@ -179,8 +186,8 @@ function getWasteTypeColor(wasteType: string): string {
     return "bg-green-600 hover:bg-green-700 text-white border-green-700";
   }
 
-  // Plastik/Plastic - yellow
-  if (type.includes("plastik") || type.includes("plastic")) {
+  // Metale i tworzywa/Metals & Plastics - yellow
+  if (type.includes("metal") || type.includes("tworzywa") || type.includes("plastik") || type.includes("plastic")) {
     return "bg-yellow-500 hover:bg-yellow-600 text-black border-yellow-600";
   }
 

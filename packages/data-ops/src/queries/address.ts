@@ -1,7 +1,7 @@
 import { getDb } from "@/database/setup";
 import { addresses, cities, streets, waste_schedules } from "@/drizzle/schema";
 import { auth_user } from "@/drizzle/auth-schema";
-import { eq, count } from "drizzle-orm";
+import { eq, count, asc } from "drizzle-orm";
 
 export async function getUserAddresses(userId: string) {
   const db = getDb();
@@ -78,7 +78,7 @@ export async function getCities() {
   return await db.select({
     id: cities.id,
     name: cities.name,
-  }).from(cities);
+  }).from(cities).orderBy(asc(cities.name));
 }
 
 export async function getStreetsByCityId(cityId: number) {
@@ -88,7 +88,8 @@ export async function getStreetsByCityId(cityId: number) {
     name: streets.name,
   })
   .from(streets)
-  .where(eq(streets.cityId, cityId));
+  .where(eq(streets.cityId, cityId))
+  .orderBy(asc(streets.name));
 }
 
 export async function getCitiesCount() {
