@@ -1,9 +1,10 @@
 #!/usr/bin/env tsx
 
-import { initDatabase } from '../src/database/setup';
-import { cities, streets, waste_schedules, waste_types, addresses, notification_preferences, notification_logs } from '../src/drizzle/schema';
+import { join } from 'node:path';
+import { initDatabase } from './setup';
+import { cities, streets, waste_schedules, waste_types, addresses, notification_preferences, notification_logs } from '../drizzle/schema';
 import { sql } from 'drizzle-orm';
-import { importer } from '../src/database/seed/importer';
+import { importer } from './seed/importer';
 
 async function clearAndImport() {
   console.log('Initializing database connection...');
@@ -41,9 +42,9 @@ async function clearAndImport() {
   console.log('\n✅ All data cleared!\n');
 
   // Import data
-  console.log('📥 Importing data from .data-to-import/2025/...\n');
+  console.log('📥 Importing data from .data-to-import/raw/...\n');
 
-  const dataDir = process.cwd() + '/../../.data-to-import/2025';
+  const dataDir = join(process.cwd(), '../../.data-to-import/raw');
   await importer(dataDir);
 
   console.log('\n✅ Import complete!\n');
@@ -55,10 +56,10 @@ async function clearAndImport() {
   const [typesCount] = await db.select({ count: sql<number>`count(*)` }).from(waste_types);
 
   console.log('Final counts:');
-  console.log(`  Cities: ${citiesCount.count}`);
-  console.log(`  Streets: ${streetsCount.count}`);
-  console.log(`  Waste types: ${typesCount.count}`);
-  console.log(`  Waste schedules: ${schedulesCount.count}`);
+  console.log(`  Cities: ${citiesCount?.count ?? 0}`);
+  console.log(`  Streets: ${streetsCount?.count ?? 0}`);
+  console.log(`  Waste types: ${typesCount?.count ?? 0}`);
+  console.log(`  Waste schedules: ${schedulesCount?.count ?? 0}`);
 
   process.exit(0);
 }

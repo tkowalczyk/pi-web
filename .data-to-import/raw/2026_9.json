@@ -1,0 +1,258 @@
+{
+  "region": "Gmina Nieporęt",
+  "addresses": [
+    {
+      "city": "Józefów",
+      "streets": [
+        "Ateny",
+        "Borki",
+        "Dębowa",
+        "Diamentowa",
+        "Dzika",
+        "Główna",
+        "Gwiaździsta",
+        "H. Sienkiewicza",
+        "Krótka",
+        "Leszczynowa",
+        "Leśna",
+        "Leśne Osiedle",
+        "Migdałowa",
+        "Miodowa",
+        "Niecała",
+        "Objazdowa",
+        "Olimpijska",
+        "Orzechowa",
+        "Piaskowa",
+        "Piastowska",
+        "Polna",
+        "Polnej Róży",
+        "Rodziny Kalińskich",
+        "Równa",
+        "Runa Leśnego",
+        "Sezamkowa",
+        "Sienna",
+        "Słonecznego Poranka",
+        "Szczęśliwa",
+        "Szkolna",
+        "Wiosenna",
+        "Wspólna",
+        "Zacisze",
+        "Zielona",
+        "Zielone Wzgórze",
+        "Złota",
+        "Żytnia"
+      ]
+    }
+  ],
+  "wasteCollectionSchedule": {
+    "1": {
+      "mixed": [
+        7,
+        21
+      ],
+      "metalsAndPlastics": [
+        20
+      ],
+      "paper": [
+        22
+      ],
+      "glass": [
+        16
+      ],
+      "bioWaste": [
+        3,
+        30
+      ]
+    },
+    "2": {
+      "mixed": [
+        4,
+        18
+      ],
+      "metalsAndPlastics": [
+        17
+      ],
+      "paper": [
+        19
+      ],
+      "glass": [
+        13
+      ],
+      "bioWaste": [
+        27
+      ],
+      "christmasTrees": [
+        26
+      ]
+    },
+    "3": {
+      "mixed": [
+        4,
+        18
+      ],
+      "metalsAndPlastics": [
+        17
+      ],
+      "paper": [
+        19
+      ],
+      "glass": [
+        13
+      ],
+      "bioWaste": [
+        27
+      ],
+      "bulkyWaste": [
+        10
+      ]
+    },
+    "4": {
+      "mixed": [
+        1,
+        15,
+        29
+      ],
+      "metalsAndPlastics": [
+        14
+      ],
+      "paper": [
+        16
+      ],
+      "glass": [
+        10
+      ],
+      "bioWaste": [
+        9,
+        24
+      ]
+    },
+    "5": {
+      "mixed": [
+        13,
+        27
+      ],
+      "metalsAndPlastics": [
+        12
+      ],
+      "paper": [
+        14
+      ],
+      "glass": [
+        8
+      ],
+      "bioWaste": [
+        7,
+        22
+      ]
+    },
+    "6": {
+      "mixed": [
+        10,
+        24
+      ],
+      "metalsAndPlastics": [
+        9
+      ],
+      "paper": [
+        11
+      ],
+      "glass": [
+        5
+      ],
+      "bioWaste": [
+        6,
+        19
+      ]
+    },
+    "7": {
+      "mixed": [
+        8,
+        22
+      ],
+      "metalsAndPlastics": [
+        7
+      ],
+      "paper": [
+        9
+      ],
+      "glass": [
+        3,
+        31
+      ],
+      "bioWaste": [
+        2,
+        17,
+        30
+      ]
+    },
+    "8": {
+      "mixed": [
+        5,
+        19
+      ],
+      "metalsAndPlastics": [
+        4
+      ],
+      "paper": [
+        6
+      ],
+      "glass": [
+        28
+      ],
+      "bioWaste": [
+        14,
+        27
+      ]
+    },
+    "9": {
+      "mixed": [
+        2,
+        16,
+        30
+      ],
+      "metalsAndPlastics": [
+        1,
+        29
+      ],
+      "paper": [
+        3
+      ],
+      "glass": [
+        25
+      ],
+      "bioWaste": [
+        11,
+        24
+      ]
+    },
+    "10": {
+      "mixed": [
+        14,
+        28
+      ],
+      "metalsAndPlastics": [
+        27
+      ],
+      "paper": [
+        1,
+        29
+      ],
+      "glass": [
+        23
+      ],
+      "bioWaste": [
+        9,
+        22
+      ]
+    }
+  },
+  "wasteTypes": {
+    "mixed": "Zmieszane - pozostałości po sortowaniu",
+    "metalsAndPlastics": "Metale i tworzywa sztuczne",
+    "paper": "Papier",
+    "glass": "Szkło",
+    "bioWaste": "Bioodpady",
+    "christmasTrees": "Odbiór naturalnych drzewek świątecznych (choinki)",
+    "bulkyWaste": "Odpady wielkogabarytowe, odzież, tekstylia, elektroodpady, zużyte opony"
+  }
+}

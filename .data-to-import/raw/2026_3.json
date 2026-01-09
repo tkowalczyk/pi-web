@@ -1,0 +1,252 @@
+{
+  "region": "Gmina Nieporęt",
+  "addresses": [
+    {
+      "city": "Nieporęt",
+      "streets": [
+        "Adam Mickiewicza",
+        "Asesora",
+        "Babinicza",
+        "Butryma",
+        "Chabrowa",
+        "Chłodna",
+        "Dworcowa",
+        "Dzikiej Róży",
+        "Epopei",
+        "Gerwazego",
+        "Irysowa",
+        "Jacka Soplicy",
+        "Jana III",
+        "Jana Kazimierza",
+        "Lazurowa",
+        "Myśliwska",
+        "Ogrodowa",
+        "Pana Tadeusza",
+        "Pionierska",
+        "Plac Wolności",
+        "Podkomorzego",
+        "Podleśna",
+        "Protazego",
+        "Rejenta",
+        "Rejtana",
+        "Różana",
+        "Sasankowa",
+        "Soplicowo",
+        "Szafirowa",
+        "Szkolna",
+        "Szlachecka",
+        "Telimeny",
+        "Tulipanowa",
+        "Zamkowa"
+      ]
+    }
+  ],
+  "wasteCollectionSchedule": {
+    "1": {
+      "mixed": [
+        13,
+        27
+      ],
+      "metalsAndPlastics": [
+        26
+      ],
+      "paper": [
+        28
+      ],
+      "glass": [
+        2,
+        29
+      ],
+      "bioWaste": [
+        7
+      ]
+    },
+    "2": {
+      "mixed": [
+        10,
+        24
+      ],
+      "metalsAndPlastics": [
+        23
+      ],
+      "paper": [
+        25
+      ],
+      "glass": [
+        26
+      ],
+      "bioWaste": [
+        4
+      ],
+      "christmasTrees": [
+        4
+      ]
+    },
+    "3": {
+      "mixed": [
+        10,
+        24
+      ],
+      "metalsAndPlastics": [
+        23
+      ],
+      "paper": [
+        25
+      ],
+      "glass": [
+        26
+      ],
+      "bioWaste": [
+        4
+      ],
+      "bulkyWaste": [
+        16
+      ]
+    },
+    "4": {
+      "mixed": [
+        7,
+        21
+      ],
+      "metalsAndPlastics": [
+        20
+      ],
+      "paper": [
+        22
+      ],
+      "glass": [
+        23
+      ],
+      "bioWaste": [
+        1,
+        15,
+        29
+      ]
+    },
+    "5": {
+      "mixed": [
+        5,
+        19
+      ],
+      "metalsAndPlastics": [
+        18
+      ],
+      "paper": [
+        20
+      ],
+      "glass": [
+        21
+      ],
+      "bioWaste": [
+        13,
+        27
+      ]
+    },
+    "6": {
+      "mixed": [
+        2,
+        16,
+        30
+      ],
+      "metalsAndPlastics": [
+        15
+      ],
+      "paper": [
+        17
+      ],
+      "glass": [
+        18
+      ],
+      "bioWaste": [
+        10,
+        24
+      ]
+    },
+    "7": {
+      "mixed": [
+        14,
+        28
+      ],
+      "metalsAndPlastics": [
+        13
+      ],
+      "paper": [
+        15
+      ],
+      "glass": [
+        16
+      ],
+      "bioWaste": [
+        8,
+        22
+      ]
+    },
+    "8": {
+      "mixed": [
+        11,
+        25
+      ],
+      "metalsAndPlastics": [
+        10
+      ],
+      "paper": [
+        12
+      ],
+      "glass": [
+        13
+      ],
+      "bioWaste": [
+        5,
+        19
+      ]
+    },
+    "9": {
+      "mixed": [
+        8,
+        22
+      ],
+      "metalsAndPlastics": [
+        7
+      ],
+      "paper": [
+        9
+      ],
+      "glass": [
+        10
+      ],
+      "bioWaste": [
+        2,
+        16,
+        30
+      ]
+    },
+    "10": {
+      "mixed": [
+        6,
+        20
+      ],
+      "metalsAndPlastics": [
+        5
+      ],
+      "paper": [
+        7
+      ],
+      "glass": [
+        8
+      ],
+      "bioWaste": [
+        14,
+        28
+      ]
+    }
+  },
+  "wasteTypes": {
+    "mixed": "Zmieszane - pozostałości po sortowaniu",
+    "metalsAndPlastics": "Metale i tworzywa sztuczne",
+    "paper": "Papier",
+    "glass": "Szkło",
+    "bioWaste": "Bioodpady",
+    "christmasTrees": "Odbiór naturalnych drzewek świątecznych (choinki)",
+    "bulkyWaste": "Odpady wielkogabarytowe, odzież, tekstylia, elektroodpady, zużyte opony"
+  }
+}

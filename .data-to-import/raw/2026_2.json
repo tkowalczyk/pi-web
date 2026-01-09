@@ -1,0 +1,262 @@
+{
+  "region": "Gmina Nieporęt",
+  "addresses": [
+    {
+      "city": "Stanisławów Pierwszy",
+      "streets": [
+        "Allegro",
+        "Barokowa",
+        "Borówkowa",
+        "Brukowa",
+        "Brzozy",
+        "Cyprysowa",
+        "Drozdowa",
+        "Geodetów",
+        "Harmonii",
+        "Iglasta",
+        "Jagodowa",
+        "Jana Kazimierza",
+        "Jarzębiny",
+        "Jasna",
+        "Jodłowa",
+        "Kalinowa",
+        "Koncertowa",
+        "Konwaliowa",
+        "Leśny Zakątek",
+        "Lisia",
+        "Operowa",
+        "Paproci",
+        "Pięciolinii",
+        "Pogodna",
+        "Promykowa",
+        "Rajska",
+        "Regatowa",
+        "Słoneczna",
+        "Smyczkowa",
+        "Sokoła",
+        "Sonaty",
+        "Spełnionych Marzeń",
+        "Stolnika",
+        "Strużańska",
+        "Swingowa",
+        "Świerkowa",
+        "Tęczowa",
+        "Warsztatowa",
+        "Wesoła",
+        "Wiolinowa",
+        "Wojskiego",
+        "Wolfganga A. Mozarta",
+        "Zajazdowa",
+        "Złotych Piasków"
+      ]
+    }
+  ],
+  "wasteCollectionSchedule": {
+    "1": {
+      "mixed": [
+        12,
+        26
+      ],
+      "metalsAndPlastics": [
+        8
+      ],
+      "paper": [
+        27
+      ],
+      "glass": [
+        9
+      ],
+      "bioWaste": [
+        28
+      ]
+    },
+    "2": {
+      "mixed": [
+        9,
+        23
+      ],
+      "metalsAndPlastics": [
+        5
+      ],
+      "paper": [
+        24
+      ],
+      "glass": [
+        6
+      ],
+      "bioWaste": [
+        25
+      ],
+      "christmasTrees": [
+        25
+      ]
+    },
+    "3": {
+      "mixed": [
+        9,
+        23
+      ],
+      "metalsAndPlastics": [
+        5
+      ],
+      "paper": [
+        24
+      ],
+      "glass": [
+        6
+      ],
+      "bioWaste": [
+        25
+      ],
+      "bulkyWaste": [
+        12
+      ]
+    },
+    "4": {
+      "mixed": [
+        3,
+        20
+      ],
+      "metalsAndPlastics": [
+        2,
+        30
+      ],
+      "paper": [
+        21
+      ],
+      "glass": [
+        4
+      ],
+      "bioWaste": [
+        8,
+        22
+      ]
+    },
+    "5": {
+      "mixed": [
+        4,
+        18
+      ],
+      "metalsAndPlastics": [
+        28
+      ],
+      "paper": [
+        19
+      ],
+      "glass": [
+        2,
+        29
+      ],
+      "bioWaste": [
+        6,
+        20
+      ]
+    },
+    "6": {
+      "mixed": [
+        1,
+        15,
+        29
+      ],
+      "metalsAndPlastics": [
+        25
+      ],
+      "paper": [
+        16
+      ],
+      "glass": [
+        26
+      ],
+      "bioWaste": [
+        3,
+        17
+      ]
+    },
+    "7": {
+      "mixed": [
+        13,
+        27
+      ],
+      "metalsAndPlastics": [
+        23
+      ],
+      "paper": [
+        14
+      ],
+      "glass": [
+        24
+      ],
+      "bioWaste": [
+        1,
+        15,
+        29
+      ]
+    },
+    "8": {
+      "mixed": [
+        10,
+        24
+      ],
+      "metalsAndPlastics": [
+        20
+      ],
+      "paper": [
+        11
+      ],
+      "glass": [
+        21
+      ],
+      "bioWaste": [
+        12,
+        26
+      ]
+    },
+    "9": {
+      "mixed": [
+        7,
+        21
+      ],
+      "metalsAndPlastics": [
+        17
+      ],
+      "paper": [
+        8
+      ],
+      "glass": [
+        18
+      ],
+      "bioWaste": [
+        9,
+        23
+      ]
+    },
+    "10": {
+      "mixed": [
+        5,
+        19
+      ],
+      "metalsAndPlastics": [
+        15
+      ],
+      "paper": [
+        6
+      ],
+      "glass": [
+        16
+      ],
+      "bioWaste": [
+        7,
+        21
+      ]
+    }
+  },
+  "wasteTypes": {
+    "mixed": "Zmieszane - pozostałości po sortowaniu",
+    "metalsAndPlastics": "Metale i tworzywa sztuczne",
+    "paper": "Papier",
+    "glass": "Szkło",
+    "bioWaste": "Bioodpady",
+    "christmasTrees": "Odbiór naturalnych drzewek świątecznych (choinki)",
+    "bulkyWaste": "Odpady wielkogabarytowe, odzież, tekstylia, elektroodpady, zużyte opony"
+  }
+}

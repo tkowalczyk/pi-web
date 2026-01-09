@@ -1,0 +1,239 @@
+{
+  "region": "Gmina Nieporęt",
+  "addresses": [
+    {
+      "city": "Wólka Radzymińska",
+      "streets": []
+    },
+    {
+      "city": "Zegrze Południowe",
+      "streets": []
+    },
+    {
+      "city": "Nieporęt",
+      "streets": [
+        "Białego Bzu",
+        "Brzozowa",
+        "Fiołkowa",
+        "Kwitnącej Wiśni",
+        "Maciejki",
+        "Pszeniczna",
+        "Rumiankowa",
+        "Spokojna",
+        "Stokrotki",
+        "Zegrzyńska"
+      ]
+    }
+  ],
+  "wasteCollectionSchedule": {
+    "1": {
+      "mixed": [
+        2,
+        15,
+        29
+      ],
+      "metalsAndPlastics": [
+        10
+      ],
+      "paper": [
+        3,
+        31
+      ],
+      "glass": [
+        23
+      ],
+      "bioWaste": [
+        7
+      ]
+    },
+    "2": {
+      "mixed": [
+        12,
+        26
+      ],
+      "metalsAndPlastics": [
+        5
+      ],
+      "paper": [
+        28
+      ],
+      "glass": [
+        20
+      ],
+      "bioWaste": [
+        4
+      ],
+      "christmasTrees": [
+        4
+      ]
+    },
+    "3": {
+      "mixed": [
+        12,
+        26
+      ],
+      "metalsAndPlastics": [
+        5
+      ],
+      "paper": [
+        28
+      ],
+      "glass": [
+        20
+      ],
+      "bioWaste": [
+        4
+      ],
+      "bulkyWaste": [
+        7
+      ]
+    },
+    "4": {
+      "mixed": [
+        9,
+        23
+      ],
+      "metalsAndPlastics": [
+        2,
+        30
+      ],
+      "paper": [
+        25
+      ],
+      "glass": [
+        17
+      ],
+      "bioWaste": [
+        1,
+        15,
+        29
+      ]
+    },
+    "5": {
+      "mixed": [
+        7,
+        21
+      ],
+      "metalsAndPlastics": [
+        28
+      ],
+      "paper": [
+        23
+      ],
+      "glass": [
+        15
+      ],
+      "bioWaste": [
+        13,
+        27
+      ]
+    },
+    "6": {
+      "mixed": [
+        6,
+        18
+      ],
+      "metalsAndPlastics": [
+        25
+      ],
+      "paper": [
+        20
+      ],
+      "glass": [
+        12
+      ],
+      "bioWaste": [
+        10,
+        24
+      ]
+    },
+    "7": {
+      "mixed": [
+        2,
+        16,
+        30
+      ],
+      "metalsAndPlastics": [
+        23
+      ],
+      "paper": [
+        18
+      ],
+      "glass": [
+        10
+      ],
+      "bioWaste": [
+        8,
+        22
+      ]
+    },
+    "8": {
+      "mixed": [
+        13,
+        27
+      ],
+      "metalsAndPlastics": [
+        20
+      ],
+      "paper": [
+        18
+      ],
+      "glass": [
+        7
+      ],
+      "bioWaste": [
+        5,
+        19
+      ]
+    },
+    "9": {
+      "mixed": [
+        10,
+        24
+      ],
+      "metalsAndPlastics": [
+        17
+      ],
+      "paper": [
+        12
+      ],
+      "glass": [
+        4
+      ],
+      "bioWaste": [
+        2,
+        16,
+        30
+      ]
+    },
+    "10": {
+      "mixed": [
+        8,
+        22
+      ],
+      "metalsAndPlastics": [
+        15
+      ],
+      "paper": [
+        10
+      ],
+      "glass": [
+        2,
+        30
+      ],
+      "bioWaste": [
+        14,
+        28
+      ]
+    }
+  },
+  "wasteTypes": {
+    "mixed": "Zmieszane - pozostałości po sortowaniu",
+    "metalsAndPlastics": "Metale i tworzywa sztuczne",
+    "paper": "Papier",
+    "glass": "Szkło",
+    "bioWaste": "Bioodpady",
+    "christmasTrees": "Odbiór naturalnych drzewek świątecznych (choinki)",
+    "bulkyWaste": "Odpady wielkogabarytowe, odzież, tekstylia, elektroodpady, zużyte opony"
+  }
+}

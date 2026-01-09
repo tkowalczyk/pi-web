@@ -1,0 +1,230 @@
+{
+  "region": "Gmina Nieporęt",
+  "addresses": [
+    {
+      "city": "Kąty Węgierskie",
+      "streets": []
+    },
+    {
+      "city": "Józefów",
+      "streets": [
+        "Leśna",
+        "Polana",
+        "Polnych Maków",
+        "Poziomkowa",
+        "Strużańska (od nr 2A do ul. Kościelnej)",
+        "Wyścigowa"
+      ]
+    }
+  ],
+  "wasteCollectionSchedule": {
+    "1": {
+      "mixed": [
+        7,
+        20
+      ],
+      "metalsAndPlastics": [
+        27
+      ],
+      "paper": [
+        9
+      ],
+      "glass": [
+        2,
+        30
+      ],
+      "bioWaste": [
+        5
+      ]
+    },
+    "2": {
+      "mixed": [
+        3,
+        17
+      ],
+      "metalsAndPlastics": [
+        24
+      ],
+      "paper": [
+        6
+      ],
+      "glass": [
+        27
+      ],
+      "bioWaste": [
+        2
+      ],
+      "christmasTrees": [
+        2
+      ]
+    },
+    "3": {
+      "mixed": [
+        3,
+        17,
+        31
+      ],
+      "metalsAndPlastics": [
+        24
+      ],
+      "paper": [
+        6
+      ],
+      "glass": [
+        27
+      ],
+      "bioWaste": [
+        2,
+        30
+      ],
+      "bulkyWaste": [
+        11
+      ]
+    },
+    "4": {
+      "mixed": [
+        14,
+        28
+      ],
+      "metalsAndPlastics": [
+        21
+      ],
+      "paper": [
+        3
+      ],
+      "glass": [
+        24
+      ],
+      "bioWaste": [
+        13,
+        27
+      ]
+    },
+    "5": {
+      "mixed": [
+        12,
+        26
+      ],
+      "metalsAndPlastics": [
+        19
+      ],
+      "paper": [
+        2,
+        29
+      ],
+      "glass": [
+        22
+      ],
+      "bioWaste": [
+        11,
+        25
+      ]
+    },
+    "6": {
+      "mixed": [
+        9,
+        23
+      ],
+      "metalsAndPlastics": [
+        16
+      ],
+      "paper": [
+        26
+      ],
+      "glass": [
+        19
+      ],
+      "bioWaste": [
+        8,
+        22
+      ]
+    },
+    "7": {
+      "mixed": [
+        7,
+        21
+      ],
+      "metalsAndPlastics": [
+        14
+      ],
+      "paper": [
+        24
+      ],
+      "glass": [
+        17
+      ],
+      "bioWaste": [
+        6,
+        20
+      ]
+    },
+    "8": {
+      "mixed": [
+        4,
+        18
+      ],
+      "metalsAndPlastics": [
+        11
+      ],
+      "paper": [
+        21
+      ],
+      "glass": [
+        14
+      ],
+      "bioWaste": [
+        3,
+        17,
+        31
+      ]
+    },
+    "9": {
+      "mixed": [
+        1,
+        15,
+        29
+      ],
+      "metalsAndPlastics": [
+        8
+      ],
+      "paper": [
+        18
+      ],
+      "glass": [
+        11
+      ],
+      "bioWaste": [
+        14,
+        28
+      ]
+    },
+    "10": {
+      "mixed": [
+        13,
+        27
+      ],
+      "metalsAndPlastics": [
+        6
+      ],
+      "paper": [
+        16
+      ],
+      "glass": [
+        9
+      ],
+      "bioWaste": [
+        12,
+        26
+      ]
+    }
+  },
+  "wasteTypes": {
+    "mixed": "Zmieszane - pozostałości po sortowaniu",
+    "metalsAndPlastics": "Metale i tworzywa sztuczne",
+    "paper": "Papier",
+    "glass": "Szkło",
+    "bioWaste": "Bioodpady",
+    "christmasTrees": "Odbiór naturalnych drzewek świątecznych (choinki)",
+    "bulkyWaste": "Odpady wielkogabarytowe, odzież, tekstylia, elektroodpady, zużyte opony"
+  }
+}

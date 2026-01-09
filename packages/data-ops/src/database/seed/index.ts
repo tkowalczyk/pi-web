@@ -1,7 +1,6 @@
 import { importer } from './importer';
 
-const year = '2025';
-const dataDir = `../../.data-to-import/${year}`;
+const dataDir = `../../.data-to-import/raw`;
 
 importer(dataDir)
   .then(() => {

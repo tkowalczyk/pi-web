@@ -1,0 +1,223 @@
+{
+  "region": "Gmina Nieporęt",
+  "addresses": [
+    {
+      "city": "Michałów Grabina",
+      "streets": []
+    },
+    {
+      "city": "Rembelszczyzna",
+      "streets": []
+    }
+  ],
+  "wasteCollectionSchedule": {
+    "1": {
+      "mixed": [
+        8,
+        22
+      ],
+      "metalsAndPlastics": [
+        12
+      ],
+      "paper": [
+        26
+      ],
+      "glass": [
+        21
+      ],
+      "bioWaste": [
+        5
+      ]
+    },
+    "2": {
+      "mixed": [
+        5,
+        19
+      ],
+      "metalsAndPlastics": [
+        9
+      ],
+      "paper": [
+        23
+      ],
+      "glass": [
+        18
+      ],
+      "bioWaste": [
+        2
+      ],
+      "christmasTrees": [
+        2
+      ]
+    },
+    "3": {
+      "mixed": [
+        5,
+        19
+      ],
+      "metalsAndPlastics": [
+        9
+      ],
+      "paper": [
+        23
+      ],
+      "glass": [
+        18
+      ],
+      "bioWaste": [
+        2,
+        30
+      ],
+      "bulkyWaste": [
+        20
+      ]
+    },
+    "4": {
+      "mixed": [
+        2,
+        16,
+        30
+      ],
+      "metalsAndPlastics": [
+        3
+      ],
+      "paper": [
+        20
+      ],
+      "glass": [
+        15
+      ],
+      "bioWaste": [
+        13,
+        27
+      ]
+    },
+    "5": {
+      "mixed": [
+        14,
+        28
+      ],
+      "metalsAndPlastics": [
+        4
+      ],
+      "paper": [
+        18
+      ],
+      "glass": [
+        13
+      ],
+      "bioWaste": [
+        11,
+        25
+      ]
+    },
+    "6": {
+      "mixed": [
+        11,
+        25
+      ],
+      "metalsAndPlastics": [
+        1,
+        29
+      ],
+      "paper": [
+        15
+      ],
+      "glass": [
+        10
+      ],
+      "bioWaste": [
+        8,
+        22
+      ]
+    },
+    "7": {
+      "mixed": [
+        9,
+        23
+      ],
+      "metalsAndPlastics": [
+        27
+      ],
+      "paper": [
+        13
+      ],
+      "glass": [
+        8
+      ],
+      "bioWaste": [
+        6,
+        20
+      ]
+    },
+    "8": {
+      "mixed": [
+        6,
+        20
+      ],
+      "metalsAndPlastics": [
+        24
+      ],
+      "paper": [
+        10
+      ],
+      "glass": [
+        5
+      ],
+      "bioWaste": [
+        3,
+        17,
+        31
+      ]
+    },
+    "9": {
+      "mixed": [
+        3,
+        17
+      ],
+      "metalsAndPlastics": [
+        21
+      ],
+      "paper": [
+        7
+      ],
+      "glass": [
+        2,
+        30
+      ],
+      "bioWaste": [
+        14,
+        28
+      ]
+    },
+    "10": {
+      "mixed": [
+        1,
+        15,
+        29
+      ],
+      "metalsAndPlastics": [
+        19
+      ],
+      "paper": [
+        5
+      ],
+      "glass": [
+        28
+      ],
+      "bioWaste": [
+        12,
+        26
+      ]
+    }
+  },
+  "wasteTypes": {
+    "mixed": "Zmieszane - pozostałości po sortowaniu",
+    "metalsAndPlastics": "Metale i tworzywa sztuczne",
+    "paper": "Papier",
+    "glass": "Szkło",
+    "bioWaste": "Bioodpady",
+    "christmasTrees": "Odbiór naturalnych drzewek świątecznych (choinki)",
+    "bulkyWaste": "Odpady wielkogabarytowe, odzież, tekstylia, elektroodpady, zużyte opony"
+  }
+}

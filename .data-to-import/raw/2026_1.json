@@ -1,0 +1,236 @@
+{
+  "region": "Gmina Nieporęt",
+  "addresses": [
+    {
+      "city": "Beniaminów",
+      "streets": []
+    },
+    {
+      "city": "Białobrzegi",
+      "streets": []
+    },
+    {
+      "city": "Rynia",
+      "streets": []
+    },
+    {
+      "city": "Nieporęt",
+      "streets": [
+        "Kapitana Stefana Pogonowskiego",
+        "Pilawa",
+        "Wieczornej Bryzy",
+        "Wojska Polskiego"
+      ]
+    }
+  ],
+  "wasteCollectionSchedule": {
+    "1": {
+      "mixed": [
+        9,
+        23
+      ],
+      "metalsAndPlastics": [
+        28
+      ],
+      "paper": [
+        5
+      ],
+      "glass": [
+        2,
+        29
+      ],
+      "bioWaste": [
+        8
+      ]
+    },
+    "2": {
+      "mixed": [
+        6,
+        20
+      ],
+      "metalsAndPlastics": [
+        25
+      ],
+      "paper": [
+        2
+      ],
+      "glass": [
+        26
+      ],
+      "bioWaste": [
+        5
+      ],
+      "christmasTrees": [
+        5
+      ]
+    },
+    "3": {
+      "mixed": [
+        6,
+        20
+      ],
+      "metalsAndPlastics": [
+        25
+      ],
+      "paper": [
+        2,
+        30
+      ],
+      "glass": [
+        26
+      ],
+      "bioWaste": [
+        5
+      ],
+      "bulkyWaste": [
+        12
+      ]
+    },
+    "4": {
+      "mixed": [
+        3,
+        17
+      ],
+      "metalsAndPlastics": [
+        22
+      ],
+      "paper": [
+        27
+      ],
+      "glass": [
+        23
+      ],
+      "bioWaste": [
+        2,
+        16,
+        30
+      ]
+    },
+    "5": {
+      "mixed": [
+        2,
+        15,
+        29
+      ],
+      "metalsAndPlastics": [
+        20
+      ],
+      "paper": [
+        25
+      ],
+      "glass": [
+        21
+      ],
+      "bioWaste": [
+        14,
+        28
+      ]
+    },
+    "6": {
+      "mixed": [
+        12,
+        26
+      ],
+      "metalsAndPlastics": [
+        17
+      ],
+      "paper": [
+        22
+      ],
+      "glass": [
+        18
+      ],
+      "bioWaste": [
+        11,
+        25
+      ]
+    },
+    "7": {
+      "mixed": [
+        10,
+        24
+      ],
+      "metalsAndPlastics": [
+        15
+      ],
+      "paper": [
+        20
+      ],
+      "glass": [
+        16
+      ],
+      "bioWaste": [
+        9,
+        23
+      ]
+    },
+    "8": {
+      "mixed": [
+        7,
+        21
+      ],
+      "metalsAndPlastics": [
+        12
+      ],
+      "paper": [
+        17
+      ],
+      "glass": [
+        13
+      ],
+      "bioWaste": [
+        6,
+        20
+      ]
+    },
+    "9": {
+      "mixed": [
+        4,
+        18
+      ],
+      "metalsAndPlastics": [
+        9
+      ],
+      "paper": [
+        14
+      ],
+      "glass": [
+        10
+      ],
+      "bioWaste": [
+        3,
+        17
+      ]
+    },
+    "10": {
+      "mixed": [
+        2,
+        16,
+        30
+      ],
+      "metalsAndPlastics": [
+        7
+      ],
+      "paper": [
+        12
+      ],
+      "glass": [
+        8
+      ],
+      "bioWaste": [
+        1,
+        15,
+        29
+      ]
+    }
+  },
+  "wasteTypes": {
+    "mixed": "Zmieszane - pozostałości po sortowaniu",
+    "metalsAndPlastics": "Metale i tworzywa sztuczne",
+    "paper": "Papier",
+    "glass": "Szkło",
+    "bioWaste": "Bioodpady",
+    "christmasTrees": "Odbiór naturalnych drzewek świątecznych (choinki)",
+    "bulkyWaste": "Odpady wielkogabarytowe, odzież, tekstylia, elektroodpady, zużyte opony"
+  }
+}
