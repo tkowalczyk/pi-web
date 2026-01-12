@@ -1,66 +1,145 @@
-# CLAUDE.md
+# powiadomienia.info
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+SMS notification system for Polish waste collection schedules. Users add addresses → receive automated SMS reminders.
+
+## Architecture
+
+Pnpm monorepo with shared DB layer deploying to Cloudflare Workers.
+
+```
+apps/
+├── user-application/    # TanStack Start frontend (React 19)
+│   └── CLAUDE.md       # Frontend-specific docs
+├── data-service/        # Backend worker (cron + queues + SMS)
+│   └── CLAUDE.md       # Worker-specific docs
+packages/
+└── data-ops/            # Shared DB layer (schemas + queries)
+    └── CLAUDE.md       # DB package docs
+```
+
+**See package-specific CLAUDE.md for detailed patterns:**
+- [apps/user-application/CLAUDE.md](apps/user-application/CLAUDE.md) - Frontend app (TanStack Start, auth, forms)
+- [apps/data-service/CLAUDE.md](apps/data-service/CLAUDE.md) - Backend worker (notifications, cron, queues)
+- [packages/data-ops/CLAUDE.md](packages/data-ops/CLAUDE.md) - DB layer (schemas, migrations, queries)
+
+## Stack
+
+- **Frontend:** TanStack Start (Router + Query), React 19, Tailwind v4, Shadcn UI
+- **Backend:** Cloudflare Workers (WorkerEntrypoint), Hono, Queues, KV, Cron
+- **Database:** Neon Postgres (Drizzle ORM)
+- **Auth:** Better Auth (email/password + Google OAuth)
+- **SMS:** SerwerSMS API
 
 ## Commands
 
 ### Setup
-- `pnpm run setup` - Install deps + build data-ops (required first step)
-- `pnpm run build:data-ops` - Rebuild data-ops after schema changes
+```bash
+pnpm setup                # Install deps + build data-ops (required first)
+```
 
 ### Development
-- `pnpm run dev:user-application` - Run TanStack Start app (port 3000)
-- `pnpm run dev:data-service` - Run Hono Worker service
+```bash
+pnpm dev:user-application # TanStack Start app (:3000)
+pnpm dev:data-service     # Worker service (:8788)
+```
 
 ### Deployment
-- `pnpm run deploy:stage:user-application` - Deploy user app to stage
-- `pnpm run deploy:prod:user-application` - Deploy user app to prod
-- `pnpm run deploy:stage:data-service` - Deploy data service to stage
-- `pnpm run deploy:prod:data-service` - Deploy data service to prod
+```bash
+pnpm deploy:stage:user-application   # Deploy frontend to stage
+pnpm deploy:prod:user-application    # Deploy frontend to prod
+pnpm deploy:stage:data-service       # Deploy worker to stage
+pnpm deploy:prod:data-service        # Deploy worker to prod
+```
 
-### Database (in packages/data-ops/)
-- `pnpm run drizzle:{env}:generate` - Generate migration for env (dev/stage/prod)
-- `pnpm run drizzle:{env}:migrate` - Apply migration to env database
-- `pnpm run drizzle:{env}:pull` - Pull schema from env database
-- `pnpm run better-auth:generate` - Regen Better Auth schema
+### Database
+```bash
+cd packages/data-ops
 
-Replace `{env}` with `dev`, `stage`, or `prod`.
+# Migrations
+pnpm drizzle:{env}:generate  # Generate migration (dev/stage/prod)
+pnpm drizzle:{env}:migrate   # Apply to DB
+pnpm drizzle:{env}:pull      # Pull schema from DB
 
-## Architecture
+# Auth schema
+pnpm better-auth:generate    # Regenerate from config/auth.ts
 
-Pnpm monorepo with shared packages across multiple apps deploying to Cloudflare Workers.
+# Data seeding
+pnpm seed:{env}              # Seed initial data
+pnpm import:{env}            # Clear + import from files
+```
 
-### Core Structure
-- `apps/user-application/` - TanStack Start frontend (React 19, TanStack Router/Query, Tailwind v4)
-- `apps/data-service/` - Hono backend for long-running tasks (Cloudflare Worker entrypoint)
-- `packages/data-ops/` - Shared package: Drizzle schemas, DB clients, queries, auth config
+## Key Workflows
 
-### Key Patterns
+### Schema Changes
+```bash
+# 1. Edit packages/data-ops/src/drizzle/schema.ts
+# 2. Generate migration
+cd packages/data-ops
+pnpm drizzle:dev:generate
 
-**data-ops package** - Central source of truth for:
-- Drizzle schemas (`src/drizzle/`)
-- DB setup (`src/database/setup.ts`)
-- Queries (`src/queries/`)
-- Auth config (`src/auth/`)
-- Zod schemas (`src/zod-schema/`)
+# 3. Apply migration
+pnpm drizzle:dev:migrate
 
-**Environment isolation** - Migrations tracked separately per env in `packages/data-ops/src/drizzle/migrations/{dev|stage|prod}/`
+# 4. Rebuild data-ops (from root or packages/data-ops/)
+pnpm build:data-ops
 
-**Build dependency** - data-ops must build before apps can run (exports to `dist/`)
+# 5. Apps auto-reload with new schema
+```
 
-**Auth** - Better Auth + Polar.sh integration. Schema auto-generated from `config/auth.ts`.
+### Adding Features
+1. **DB Schema** - Edit [packages/data-ops/src/drizzle/schema.ts](packages/data-ops/src/drizzle/schema.ts)
+2. **Queries** - Add to [packages/data-ops/src/queries/](packages/data-ops/src/queries/)
+3. **Validation** - Add Zod schemas to [packages/data-ops/src/zod-schema/](packages/data-ops/src/zod-schema/)
+4. **Server Functions** - Add to [apps/user-application/src/core/functions/](apps/user-application/src/core/functions/)
+5. **UI Components** - Add to [apps/user-application/src/components/](apps/user-application/src/components/)
 
-**Database** - Neon Postgres via Drizzle ORM. Uses @neondatabase/serverless driver.
+## Design Docs
 
-**Deployment** - Both apps deploy to Cloudflare Workers. Config in `wrangler.jsonc` per app. Envs managed via wrangler --env flag.
+Detailed feature specs in [/docs/](docs/):
+- [001-user-profile-and-addresses.md](docs/001-user-profile-and-addresses.md) - User profiles + address management
+- [002-cities-streets-database.md](docs/002-cities-streets-database.md) - Cities + streets schema
+- [003-notification-service.md](docs/003-notification-service.md) - SMS notification system (cron + queues)
+- [004-db-feeder.md](docs/004-db-feeder.md) - Data import from files
+- [005-waste-collection-schedule-component.md](docs/005-waste-collection-schedule-component.md) - Schedule UI component
+- [006-multilingual-interface.md](docs/006-multilingual-interface.md) - i18n implementation
+- [007-footer-component.md](docs/007-footer-component.md) - Footer UI
+- [008-coverage-stats-cache.md](docs/008-coverage-stats-cache.md) - KV caching strategy
+- [009-email-password-authentication.md](docs/009-email-password-authentication.md) - Auth implementation
+- [010-payments.md](docs/010-payments.md) - Payment integration
+- [IMPLEMENTATION_NOTES.md](docs/IMPLEMENTATION_NOTES.md) - Common mistakes + lessons learned
 
-**Data service** - Uses WorkerEntrypoint pattern. Main router in `src/hono/app.ts`.
+## Core Patterns
 
-**User application** - File-based routing in `src/routes/`. See apps/user-application/CLAUDE.md for TanStack Start specifics.
+### data-ops Package
+Central source of truth consumed by both apps:
+- **Schemas:** [packages/data-ops/src/drizzle/](packages/data-ops/src/drizzle/)
+- **Queries:** [packages/data-ops/src/queries/](packages/data-ops/src/queries/)
+- **Auth:** [packages/data-ops/src/auth/](packages/data-ops/src/auth/)
+- **Validation:** [packages/data-ops/src/zod-schema/](packages/data-ops/src/zod-schema/)
 
-### Development Flow
-1. Make schema changes in `packages/data-ops/src/drizzle/`
-2. Generate migration: `cd packages/data-ops && pnpm run drizzle:dev:generate`
-3. Apply migration: `pnpm run drizzle:dev:migrate`
-4. Rebuild data-ops: `pnpm run build:data-ops` (or from root)
-5. Apps auto-reload with new schema
+Must rebuild after changes: `pnpm build:data-ops`
+
+### Environment Isolation
+Migrations tracked separately per env:
+- `packages/data-ops/src/drizzle/migrations/dev/`
+- `packages/data-ops/src/drizzle/migrations/stage/`
+- `packages/data-ops/src/drizzle/migrations/prod/`
+
+Env files:
+- `packages/data-ops/.env.dev` - Local development
+- `packages/data-ops/.env.stage` - Staging
+- `packages/data-ops/.env.prod` - Production
+
+### Deployment
+Both apps use Cloudflare Workers:
+- Config: `wrangler.jsonc` per app
+- Secrets: Via `wrangler secret put`
+- Envs: Managed via `--env` flag (stage/prod)
+
+## Dev Notes
+
+- Monorepo: pnpm workspaces
+- Build order: data-ops → apps (data-ops must build first)
+- Path aliases: `@/*` → `src/*` (per package)
+- Translations: i18next (pl/en) in [apps/user-application/src/locales/](apps/user-application/src/locales/)
+- Auth schema: Auto-generated from [packages/data-ops/config/auth.ts](packages/data-ops/config/auth.ts) - don't edit `auth-schema.ts` manually

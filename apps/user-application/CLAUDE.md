@@ -1,53 +1,112 @@
-# CLAUDE.md
+# user-application
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+SMS notification web app for Polish waste collection schedules. Users add addresses → receive SMS reminders via Better Auth + TanStack Start.
+
+## Stack
+
+- **TanStack Start** - SSR React framework (Router + Query integrated)
+- **React 19** - Concurrent features enabled
+- **Cloudflare Workers** - Deployment target
+- **Better Auth** - Auth system (email/password + Google OAuth)
+- **@repo/data-ops** - Shared DB layer (Drizzle + Neon Postgres)
+- **i18next** - Translations (pl/en)
+- **Shadcn UI** - Component library (Tailwind v4, new-york style)
+- **Vite** - Build tool
 
 ## Commands
 
-### Development
-- `pnpm dev` - Start development server on port 3000
-- `pnpm build` - Build for production
-- `pnpm serve` - Preview production build
-- `pnpm test` - Run tests with Vitest
+```bash
+pnpm dev                    # Dev server on :3000
+pnpm build:stage            # Build for staging
+pnpm build:prod             # Build for production
+pnpm deploy:stage           # Deploy to Cloudflare (stage)
+pnpm deploy:prod            # Deploy to Cloudflare (prod)
+pnpx shadcn@latest add <c>  # Add Shadcn component
+```
 
-### Shadcn Components
-- `pnpx shadcn@latest add <component>` - Add new Shadcn components (use latest version)
+## Structure
 
-## Architecture
+```
+src/
+├── routes/                 # File-based routing (generates routeTree.gen.ts)
+│   ├── __root.tsx         # Root layout (HTML shell, nav, devtools)
+│   ├── _auth/             # Protected routes (require auth)
+│   │   └── app/           # Dashboard & user features
+│   ├── auth/              # Auth routes (login, register)
+│   └── api/               # API endpoints
+├── core/
+│   ├── functions/         # Server functions (protected by middleware)
+│   └── middleware/        # Auth middleware (session checks)
+├── components/
+│   ├── ui/                # Shadcn components
+│   ├── auth/              # Auth-specific (login, register, password)
+│   ├── addresses/         # Address management
+│   └── landing/           # Landing page components
+└── integrations/
+    └── tanstack-query/    # Query client setup + SSR integration
+```
 
-This is a TanStack Start application - a type-safe, client-first, full-stack React framework built on top of:
+## Key Patterns
 
-### Core Stack
-- **TanStack Router**: File-based routing with type-safe navigation
-- **TanStack Query**: Server state management with SSR integration
-- **React 19**: Latest React with concurrent features
-- **Vite**: Build tool and dev server
-- **TypeScript**: Strict type checking enabled
-- **Tailwind CSS v4**: Utility-first styling with CSS variables
+### Server Functions
+**Location:** [src/core/functions/](src/core/functions/)
 
-### Project Structure
-- `src/routes/` - File-based routes (auto-generates `routeTree.gen.ts`)
-- `src/components/` - Reusable React components  
-- `src/integrations/tanstack-query/` - Query client setup and providers
-- `src/lib/utils.ts` - Utility functions (includes clsx/tailwind-merge)
-- `src/utils/seo.ts` - SEO helper functions
-- Path aliases: `@/*` maps to `src/*`
+Protected endpoints using TanStack Start's `createServerFn()` + `protectedFunctionMiddleware`:
 
-### Key Architecture Patterns
+```typescript
+// Example: src/core/functions/profile.ts
+import { createServerFn } from "@tanstack/start";
+import { protectedFunctionMiddleware } from "@/core/middleware/auth";
+import { getUserProfile } from "data-ops/queries/user";
 
-**Router Setup**: The router is created via `getRouter()` in `src/router.tsx` which integrates TanStack Query context and SSR. Routes are auto-generated from the file system.
+const baseFunction = createServerFn().middleware([protectedFunctionMiddleware]);
 
-**Query Integration**: TanStack Query is pre-configured with SSR support through `setupRouterSsrQueryIntegration`. The query client is accessible in route contexts.
+export const getMyProfile = baseFunction.handler(async (ctx) => {
+  return getUserProfile(ctx.context.userId); // userId from middleware
+});
+```
 
-**Root Layout**: `src/routes/__root.tsx` defines the HTML document structure, includes devtools, and provides navigation links. It uses `createRootRouteWithContext` for type-safe context passing.
+### Forms
+**Pattern:** FormData + useMutation (NOT controlled inputs)
 
-**Styling**: Uses Tailwind CSS v4 with the Vite plugin. Shadcn components are configured with "new-york" style, Zinc base color, and CSS variables enabled.
+Reference: [src/components/addresses/address-form.tsx](src/components/addresses/address-form.tsx)
 
-**TypeScript**: Strict mode with additional linting rules (`noUnusedLocals`, `noUnusedParameters`, etc.). Uses modern ESNext module resolution.
+```typescript
+const mutation = useMutation({ mutationFn: createMyAddress });
+const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  const formData = new FormData(e.currentTarget);
+  mutation.mutate({ data: Object.fromEntries(formData) });
+};
+```
 
-### Development Notes
-- Demo files (prefixed with `demo`) can be safely deleted
-- The project uses pnpm as the package manager
-- Devtools are included for both Router and Query in development
-- Routes support loaders, error boundaries, and not-found components
-- File-based routing automatically generates type-safe route definitions
+### Auth
+**Client:** [src/components/auth/client.ts](src/components/auth/client.ts) - Better Auth client instance
+**Providers:** Email/password + Google OAuth
+**Protected Routes:** Use `_auth` route group ([src/routes/_auth/route.tsx](src/routes/_auth/route.tsx))
+
+Check auth provider before showing features:
+```typescript
+const hasCredentialAccount = user.email && user.emailVerified !== undefined;
+{hasCredentialAccount && <ChangePassword />} // Hide for OAuth-only users
+```
+
+### Routing
+**Type-safe:** File structure generates [src/routeTree.gen.ts](src/routeTree.gen.ts)
+**Router setup:** [src/router.tsx](src/router.tsx) - integrates TanStack Query context + SSR
+**Root layout:** [src/routes/__root.tsx](src/routes/__root.tsx) - HTML shell, meta tags, nav
+
+## Design Docs
+
+Feature specs in [/docs/](../../docs/):
+- [001-user-profile-and-addresses.md](../../docs/001-user-profile-and-addresses.md) - User profiles, address management, notification preferences
+- [003-notification-service.md](../../docs/003-notification-service.md) - SMS notification system (cron + queues)
+- [009-email-password-authentication.md](../../docs/009-email-password-authentication.md) - Auth implementation
+- [IMPLEMENTATION_NOTES.md](../../docs/IMPLEMENTATION_NOTES.md) - Common mistakes & lessons learned
+
+## Dev Notes
+
+- Path alias: `@/*` → `src/*`
+- Translations: [src/locales/](src/locales/) - use `useTranslation()` hook
+- DB dependency: Changes to `@repo/data-ops` schema require rebuild (`pnpm run build:data-ops` from root)
+- Wrangler config: [wrangler.jsonc](wrangler.jsonc) - Cloudflare Workers bindings
