@@ -10,12 +10,15 @@ export const auth_user = pgTable("auth_user", {
   image: text("image"),
   phone: text("phone"),
   preferredLanguage: text("preferred_language").default("pl"),
+  stripeCustomerId: text("stripe_customer_id"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
     .defaultNow()
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
-});
+}, (table) => [
+  index("auth_user_stripe_customer_id_idx").on(table.stripeCustomerId),
+]);
 
 export const auth_session = pgTable(
   "auth_session",

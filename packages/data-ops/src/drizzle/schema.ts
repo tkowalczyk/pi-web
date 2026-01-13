@@ -94,3 +94,69 @@ export const notification_logs = pgTable("notification_logs", {
   index("notification_logs_scheduled_date_idx").on(table.scheduledDate),
   index("notification_logs_status_idx").on(table.status),
 ]);
+
+export const subscription_plans = pgTable("subscription_plans", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  stripeProductId: text("stripe_product_id").notNull().unique(),
+  stripePriceId: text("stripe_price_id").notNull().unique(),
+  currency: text("currency").notNull().default("PLN"),
+  amount: integer("amount").notNull(),
+  interval: text("interval").notNull(),
+  intervalCount: integer("interval_count").notNull().default(1),
+  isActive: boolean("is_active").notNull().default(true),
+  paymentMethod: text("payment_method").notNull(),
+  description: text("description"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull().$onUpdate(() => new Date()),
+}, (table) => [
+  index("subscription_plans_stripe_product_id_idx").on(table.stripeProductId),
+  index("subscription_plans_stripe_price_id_idx").on(table.stripePriceId),
+]);
+
+export const subscriptions = pgTable("subscriptions", {
+  id: serial("id").primaryKey(),
+  userId: text("user_id").notNull().references(() => auth_user.id, { onDelete: "cascade" }),
+  subscriptionPlanId: integer("subscription_plan_id").notNull().references(() => subscription_plans.id, { onDelete: "restrict" }),
+  stripeCustomerId: text("stripe_customer_id").notNull(),
+  stripeSubscriptionId: text("stripe_subscription_id"),
+  stripePaymentIntentId: text("stripe_payment_intent_id"),
+  status: text("status").notNull(),
+  currentPeriodStart: timestamp("current_period_start").notNull(),
+  currentPeriodEnd: timestamp("current_period_end").notNull(),
+  cancelAtPeriodEnd: boolean("cancel_at_period_end").notNull().default(false),
+  canceledAt: timestamp("canceled_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull().$onUpdate(() => new Date()),
+}, (table) => [
+  index("subscriptions_user_id_idx").on(table.userId),
+  index("subscriptions_stripe_customer_id_idx").on(table.stripeCustomerId),
+  index("subscriptions_stripe_subscription_id_idx").on(table.stripeSubscriptionId),
+  index("subscriptions_stripe_payment_intent_id_idx").on(table.stripePaymentIntentId),
+  index("subscriptions_status_idx").on(table.status),
+  index("subscriptions_current_period_end_idx").on(table.currentPeriodEnd),
+]);
+
+export const payments = pgTable("payments", {
+  id: serial("id").primaryKey(),
+  userId: text("user_id").notNull().references(() => auth_user.id, { onDelete: "cascade" }),
+  subscriptionId: integer("subscription_id").references(() => subscriptions.id, { onDelete: "set null" }),
+  stripePaymentIntentId: text("stripe_payment_intent_id").notNull().unique(),
+  stripeChargeId: text("stripe_charge_id"),
+  amount: integer("amount").notNull(),
+  currency: text("currency").notNull().default("PLN"),
+  status: text("status").notNull(),
+  paymentMethod: text("payment_method").notNull(),
+  failureCode: text("failure_code"),
+  failureMessage: text("failure_message"),
+  receiptUrl: text("receipt_url"),
+  paidAt: timestamp("paid_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull().$onUpdate(() => new Date()),
+}, (table) => [
+  index("payments_user_id_idx").on(table.userId),
+  index("payments_subscription_id_idx").on(table.subscriptionId),
+  index("payments_stripe_payment_intent_id_idx").on(table.stripePaymentIntentId),
+  index("payments_status_idx").on(table.status),
+  index("payments_paid_at_idx").on(table.paidAt),
+]);

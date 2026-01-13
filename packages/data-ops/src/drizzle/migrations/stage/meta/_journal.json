@@ -57,6 +57,13 @@
       "when": 1766418465123,
       "tag": "0007_productive_roulette",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1768299899961,
+      "tag": "0008_lonely_switch",
+      "breakpoints": true
     }
   ]
 }
