@@ -24,6 +24,8 @@ Complete webhook infrastructure with all event handlers: subscription updates, d
 
 ## Implementation
 
+**Pattern Note:** All DB operations must go through query functions in `packages/data-ops/src/queries/`. Webhook handlers import these functions, never do direct DB calls. This matches codebase patterns (see [cache-stats.ts](../apps/data-service/src/kv/cache-stats.ts)).
+
 ### 1. Idempotency Tracking (Optional but Recommended)
 
 **File:** `packages/data-ops/src/drizzle/schema.ts`
@@ -73,19 +75,104 @@ export async function markEventProcessed(eventId: string, eventType: string): Pr
 }
 ```
 
-### 2. Subscription Updated Handler
+### 2. Add Subscription Queries
+
+**File:** `packages/data-ops/src/queries/subscription.ts`
+
+Add these functions:
+
+```typescript
+export async function updateSubscriptionByStripeId(
+  stripeSubscriptionId: string,
+  data: {
+    status: string;
+    currentPeriodStart?: Date;
+    currentPeriodEnd?: Date;
+    cancelAtPeriodEnd?: boolean;
+    canceledAt?: Date | null;
+  }
+) {
+  const db = getDb();
+  await db
+    .update(subscriptions)
+    .set({ ...data, updatedAt: new Date() })
+    .where(eq(subscriptions.stripeSubscriptionId, stripeSubscriptionId));
+}
+
+export async function getSubscriptionByStripeId(stripeSubscriptionId: string) {
+  const db = getDb();
+  const [sub] = await db
+    .select()
+    .from(subscriptions)
+    .where(eq(subscriptions.stripeSubscriptionId, stripeSubscriptionId))
+    .limit(1);
+  return sub;
+}
+
+export async function cancelSubscription(stripeSubscriptionId: string) {
+  const db = getDb();
+  await db
+    .update(subscriptions)
+    .set({
+      status: "canceled",
+      canceledAt: new Date(),
+      updatedAt: new Date(),
+    })
+    .where(eq(subscriptions.stripeSubscriptionId, stripeSubscriptionId));
+}
+```
+
+Rebuild data-ops:
+```bash
+cd packages/data-ops
+pnpm build
+```
+
+### 3. Add Payment Queries
+
+**File:** `packages/data-ops/src/queries/payment.ts` (new file)
+
+```typescript
+import { getDb } from "@/database/setup";
+import { payments } from "@/drizzle/schema";
+
+interface CreatePaymentData {
+  userId: string;
+  subscriptionId: number;
+  stripePaymentIntentId: string;
+  stripeChargeId?: string | null;
+  amount: number;
+  currency: string;
+  status: string;
+  paymentMethod: string;
+  receiptUrl?: string | null;
+  failureCode?: string | null;
+  failureMessage?: string | null;
+  paidAt: Date | null;
+}
+
+export async function createPayment(data: CreatePaymentData) {
+  const db = getDb();
+  const [payment] = await db.insert(payments).values(data).returning();
+  return payment;
+}
+```
+
+Rebuild data-ops:
+```bash
+cd packages/data-ops
+pnpm build
+```
+
+### 4. Subscription Updated Handler
 
 **File:** `apps/data-service/src/stripe/webhooks/subscription-updated.ts`
 
 ```typescript
 import Stripe from "stripe";
-import { getDb } from "@repo/data-ops/database/setup";
-import { subscriptions } from "@repo/data-ops/drizzle/schema";
-import { eq } from "drizzle-orm";
+import { updateSubscriptionByStripeId } from "@repo/data-ops/queries/subscription";
 
 export async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
-  const db = getDb();
-
   const status = subscription.status === "active" || subscription.status === "trialing"
     ? "active"
     : subscription.status === "past_due"
@@ -94,57 +181,40 @@ export async function handleSubscriptionUpdated(subscription: Stripe.Subscriptio
     ? "canceled"
     : "expired";
 
-  await db
-    .update(subscriptions)
-    .set({
-      status,
-      currentPeriodStart: new Date(subscription.current_period_start * 1000),
-      currentPeriodEnd: new Date(subscription.current_period_end * 1000),
-      cancelAtPeriodEnd: subscription.cancel_at_period_end,
-      canceledAt: subscription.canceled_at ? new Date(subscription.canceled_at * 1000) : null,
-      updatedAt: new Date(),
-    })
-    .where(eq(subscriptions.stripeSubscriptionId, subscription.id));
+  await updateSubscriptionByStripeId(subscription.id, {
+    status,
+    currentPeriodStart: new Date(subscription.current_period_start * 1000),
+    currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+    cancelAtPeriodEnd: subscription.cancel_at_period_end,
+    canceledAt: subscription.canceled_at ? new Date(subscription.canceled_at * 1000) : null,
+  });
 
   console.log(`Updated subscription ${subscription.id} to status ${status}`);
 }
 ```
 
-### 3. Subscription Deleted Handler
+### 5. Subscription Deleted Handler
 
 **File:** `apps/data-service/src/stripe/webhooks/subscription-deleted.ts`
 
 ```typescript
 import Stripe from "stripe";
-import { getDb } from "@repo/data-ops/database/setup";
-import { subscriptions } from "@repo/data-ops/drizzle/schema";
-import { eq } from "drizzle-orm";
+import { cancelSubscription } from "@repo/data-ops/queries/subscription";
 
 export async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
-  const db = getDb();
-
-  await db
-    .update(subscriptions)
-    .set({
-      status: "canceled",
-      canceledAt: new Date(),
-      updatedAt: new Date(),
-    })
-    .where(eq(subscriptions.stripeSubscriptionId, subscription.id));
-
+  await cancelSubscription(subscription.id);
   console.log(`Deleted subscription ${subscription.id}`);
 }
 ```
 
-### 4. Invoice Payment Succeeded Handler
+### 6. Invoice Payment Succeeded Handler
 
 **File:** `apps/data-service/src/stripe/webhooks/invoice-payment-succeeded.ts`
 
 ```typescript
 import Stripe from "stripe";
-import { getDb } from "@repo/data-ops/database/setup";
-import { subscriptions, payments } from "@repo/data-ops/drizzle/schema";
-import { eq } from "drizzle-orm";
+import { getSubscriptionByStripeId } from "@repo/data-ops/queries/subscription";
+import { createPayment } from "@repo/data-ops/queries/payment";
 
 export async function handleInvoicePaymentSucceeded(invoice: Stripe.Invoice) {
   const subscriptionId = invoice.subscription as string;
@@ -154,19 +224,14 @@ export async function handleInvoicePaymentSucceeded(invoice: Stripe.Invoice) {
     return;
   }
 
-  const db = getDb();
-  const [subscription] = await db
-    .select()
-    .from(subscriptions)
-    .where(eq(subscriptions.stripeSubscriptionId, subscriptionId))
-    .limit(1);
+  const subscription = await getSubscriptionByStripeId(subscriptionId);
 
   if (!subscription) {
     console.error(`No subscription found for ID: ${subscriptionId}`);
     return;
   }
 
-  await db.insert(payments).values({
+  await createPayment({
     userId: subscription.userId,
     subscriptionId: subscription.id,
     stripePaymentIntentId: invoice.payment_intent as string,
@@ -183,15 +248,14 @@ export async function handleInvoicePaymentSucceeded(invoice: Stripe.Invoice) {
 }
 ```
 
-### 5. Invoice Payment Failed Handler
+### 7. Invoice Payment Failed Handler
 
 **File:** `apps/data-service/src/stripe/webhooks/invoice-payment-failed.ts`
 
 ```typescript
 import Stripe from "stripe";
-import { getDb } from "@repo/data-ops/database/setup";
-import { subscriptions, payments } from "@repo/data-ops/drizzle/schema";
-import { eq } from "drizzle-orm";
+import { getSubscriptionByStripeId, updateSubscriptionByStripeId } from "@repo/data-ops/queries/subscription";
+import { createPayment } from "@repo/data-ops/queries/payment";
 
 export async function handleInvoicePaymentFailed(invoice: Stripe.Invoice) {
   const subscriptionId = invoice.subscription as string;
@@ -201,27 +265,18 @@ export async function handleInvoicePaymentFailed(invoice: Stripe.Invoice) {
     return;
   }
 
-  const db = getDb();
-  const [subscription] = await db
-    .select()
-    .from(subscriptions)
-    .where(eq(subscriptions.stripeSubscriptionId, subscriptionId))
-    .limit(1);
+  const subscription = await getSubscriptionByStripeId(subscriptionId);
 
   if (!subscription) {
     console.error(`No subscription found for ID: ${subscriptionId}`);
     return;
   }
 
-  await db
-    .update(subscriptions)
-    .set({
-      status: "past_due",
-      updatedAt: new Date(),
-    })
-    .where(eq(subscriptions.id, subscription.id));
+  await updateSubscriptionByStripeId(subscriptionId, {
+    status: "past_due",
+  });
 
-  await db.insert(payments).values({
+  await createPayment({
     userId: subscription.userId,
     subscriptionId: subscription.id,
     stripePaymentIntentId: invoice.payment_intent as string,
@@ -238,7 +293,7 @@ export async function handleInvoicePaymentFailed(invoice: Stripe.Invoice) {
 }
 ```
 
-### 6. Update Webhook Route
+### 8. Update Webhook Route
 
 **File:** `apps/data-service/src/hono/routes/webhooks.ts`
 
@@ -429,7 +484,14 @@ ORDER BY created_at DESC;
 
 ## Acceptance Criteria
 
+**Data-ops queries:**
+- [ ] Subscription queries added to `packages/data-ops/src/queries/subscription.ts`
+- [ ] Payment queries created in `packages/data-ops/src/queries/payment.ts`
+- [ ] data-ops rebuilt after adding queries
+
+**Webhook handlers:**
 - [ ] All 5 webhook handlers implemented
+- [ ] All handlers use data-ops query functions (no direct DB calls)
 - [ ] Idempotency tracking table created
 - [ ] Event deduplication works (same event twice = no duplicate)
 - [ ] subscription.updated changes status correctly
@@ -439,6 +501,8 @@ ORDER BY created_at DESC;
 - [ ] All handlers log to console
 - [ ] Error handling returns 500 (Stripe retries)
 - [ ] Signature verification rejects invalid webhooks
+
+**Configuration:**
 - [ ] Webhook endpoint configured in Stripe Dashboard
 - [ ] Test events trigger successfully via Stripe CLI
 

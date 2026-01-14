@@ -28,12 +28,117 @@ Implement BLIK annual payment flow using Payment Intent API and Stripe Payment E
 
 ## Implementation
 
-### 1. Backend - Payment Intent Endpoint
+### 1. Data-ops - Payment Queries
+
+**File:** `packages/data-ops/src/queries/payments.ts`
+
+```typescript
+import { getDb } from "../database/setup";
+import { auth_user, subscription_plans, subscriptions, payments } from "../drizzle/schema";
+import { eq } from "drizzle-orm";
+
+export async function getUserById(userId: string) {
+  const db = getDb();
+  const [user] = await db
+    .select()
+    .from(auth_user)
+    .where(eq(auth_user.id, userId))
+    .limit(1);
+  return user;
+}
+
+export async function getPlanByPriceId(priceId: string) {
+  const db = getDb();
+  const [plan] = await db
+    .select()
+    .from(subscription_plans)
+    .where(eq(subscription_plans.stripePriceId, priceId))
+    .limit(1);
+  return plan;
+}
+
+export async function getPlanById(planId: number) {
+  const db = getDb();
+  const [plan] = await db
+    .select()
+    .from(subscription_plans)
+    .where(eq(subscription_plans.id, planId))
+    .limit(1);
+  return plan;
+}
+
+interface CreateBlikSubscriptionParams {
+  userId: string;
+  subscriptionPlanId: number;
+  stripeCustomerId: string;
+  stripePaymentIntentId: string;
+  amount: number;
+  currency: string;
+  stripeChargeId?: string;
+  receiptUrl?: string;
+}
+
+export async function createBlikSubscription({
+  userId,
+  subscriptionPlanId,
+  stripeCustomerId,
+  stripePaymentIntentId,
+  amount,
+  currency,
+  stripeChargeId,
+  receiptUrl,
+}: CreateBlikSubscriptionParams) {
+  const db = getDb();
+
+  const currentPeriodStart = new Date();
+  const currentPeriodEnd = new Date();
+  currentPeriodEnd.setFullYear(currentPeriodEnd.getFullYear() + 1);
+
+  const [subscription] = await db.insert(subscriptions).values({
+    userId,
+    subscriptionPlanId,
+    stripeCustomerId,
+    stripePaymentIntentId,
+    status: "active",
+    currentPeriodStart,
+    currentPeriodEnd,
+    cancelAtPeriodEnd: false,
+  }).returning();
+
+  await db.insert(payments).values({
+    userId,
+    subscriptionId: subscription.id,
+    stripePaymentIntentId,
+    stripeChargeId,
+    amount,
+    currency,
+    status: "succeeded",
+    paymentMethod: "blik",
+    receiptUrl,
+    paidAt: new Date(),
+  });
+
+  return subscription;
+}
+```
+
+**File:** `packages/data-ops/src/queries/index.ts` (add exports)
+
+```typescript
+export * from "./payments";
+```
+
+After creating queries, rebuild data-ops:
+```bash
+pnpm build:data-ops
+```
+
+### 2. Backend - Payment Intent Endpoint
 
 **File:** `apps/data-service/src/hono/routes/checkout.ts` (add to existing)
 
 ```typescript
-import { subscription_plans } from "@repo/data-ops/drizzle/schema";
+import { getUserById, getPlanByPriceId } from "@repo/data-ops/queries/payments";
 
 checkout.post("/create-payment-intent", async (c) => {
   const body = await c.req.json();
@@ -43,23 +148,12 @@ checkout.post("/create-payment-intent", async (c) => {
     return c.json({ error: "Missing required fields" }, 400);
   }
 
-  const db = getDb();
-  const [user] = await db
-    .select()
-    .from(auth_user)
-    .where(eq(auth_user.id, userId))
-    .limit(1);
-
+  const user = await getUserById(userId);
   if (!user) {
     return c.json({ error: "User not found" }, 404);
   }
 
-  const [plan] = await db
-    .select()
-    .from(subscription_plans)
-    .where(eq(subscription_plans.stripePriceId, priceId))
-    .limit(1);
-
+  const plan = await getPlanByPriceId(priceId);
   if (!plan) {
     return c.json({ error: "Plan not found" }, 404);
   }
@@ -90,15 +184,13 @@ checkout.post("/create-payment-intent", async (c) => {
 });
 ```
 
-### 2. Backend - Payment Intent Webhook Handler
+### 3. Backend - Payment Intent Webhook Handler
 
 **File:** `apps/data-service/src/stripe/webhooks/payment-intent-succeeded.ts`
 
 ```typescript
 import Stripe from "stripe";
-import { getDb } from "@repo/data-ops/database/setup";
-import { subscriptions, subscription_plans, payments } from "@repo/data-ops/drizzle/schema";
-import { eq } from "drizzle-orm";
+import { getPlanById, createBlikSubscription } from "@repo/data-ops/queries/payments";
 
 export async function handlePaymentIntentSucceeded(paymentIntent: Stripe.PaymentIntent) {
   const userId = paymentIntent.metadata?.userId;
@@ -109,45 +201,21 @@ export async function handlePaymentIntentSucceeded(paymentIntent: Stripe.Payment
     return;
   }
 
-  const db = getDb();
-  const [plan] = await db
-    .select()
-    .from(subscription_plans)
-    .where(eq(subscription_plans.id, parseInt(subscriptionPlanId)))
-    .limit(1);
-
+  const plan = await getPlanById(parseInt(subscriptionPlanId));
   if (!plan) {
     console.error(`No plan found for ID: ${subscriptionPlanId}`);
     return;
   }
 
-  // BLIK annual payment = create 1-year subscription manually
-  const currentPeriodStart = new Date();
-  const currentPeriodEnd = new Date();
-  currentPeriodEnd.setFullYear(currentPeriodEnd.getFullYear() + 1);
-
-  const [subscription] = await db.insert(subscriptions).values({
+  await createBlikSubscription({
     userId,
     subscriptionPlanId: plan.id,
     stripeCustomerId: paymentIntent.customer as string,
     stripePaymentIntentId: paymentIntent.id,
-    status: "active",
-    currentPeriodStart,
-    currentPeriodEnd,
-    cancelAtPeriodEnd: false,
-  }).returning();
-
-  await db.insert(payments).values({
-    userId,
-    subscriptionId: subscription.id,
-    stripePaymentIntentId: paymentIntent.id,
-    stripeChargeId: paymentIntent.charges.data[0]?.id,
     amount: paymentIntent.amount,
     currency: paymentIntent.currency.toUpperCase(),
-    status: "succeeded",
-    paymentMethod: "blik",
+    stripeChargeId: paymentIntent.charges.data[0]?.id,
     receiptUrl: paymentIntent.charges.data[0]?.receipt_url,
-    paidAt: new Date(),
   });
 
   console.log(`Created BLIK annual subscription for user ${userId}`);
@@ -165,13 +233,13 @@ case "payment_intent.succeeded":
   break;
 ```
 
-### 3. Frontend - Install Stripe React
+### 4. Frontend - Install Stripe React
 
 ```bash
 pnpm add @stripe/stripe-js @stripe/react-stripe-js --filter user-application
 ```
 
-### 4. Frontend - BLIK Payment Page
+### 5. Frontend - BLIK Payment Page
 
 **File:** `apps/user-application/src/routes/_auth/app/payment/blik.tsx`
 
@@ -179,7 +247,8 @@ pnpm add @stripe/stripe-js @stripe/react-stripe-js --filter user-application
 import { createFileRoute } from "@tanstack/react-router";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
@@ -189,12 +258,17 @@ export const Route = createFileRoute("/_auth/app/payment/blik")({
   component: BlikPaymentPage,
 });
 
+interface PaymentIntentResponse {
+  clientSecret: string;
+  paymentIntentId: string;
+}
+
 function BlikPaymentPage() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
 
-  useEffect(() => {
-    async function createPaymentIntent() {
-      const response = await fetch("YOUR_DATA_SERVICE_URL/api/checkout/create-payment-intent", {
+  const mutation = useMutation({
+    mutationFn: async (): Promise<PaymentIntentResponse> => {
+      const response = await fetch(`${import.meta.env.VITE_DATA_SERVICE_URL}/api/checkout/create-payment-intent`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -203,20 +277,46 @@ function BlikPaymentPage() {
           returnUrl: window.location.origin + "/app/payment-success",
         }),
       });
-
-      const { clientSecret } = await response.json();
+      if (!response.ok) {
+        throw new Error("Failed to create payment intent");
+      }
+      return response.json();
+    },
+    onSuccess: ({ clientSecret }) => {
       setClientSecret(clientSecret);
-    }
+    },
+    onError: (err) => {
+      console.error("Failed to create payment intent:", err);
+      alert("Failed to initialize payment. Please try again.");
+    },
+  });
 
-    createPaymentIntent();
-  }, []);
+  // Trigger payment intent creation on mount
+  if (!clientSecret && !mutation.isPending && !mutation.isError) {
+    mutation.mutate();
+  }
 
-  if (!clientSecret) {
+  if (mutation.isPending || !clientSecret) {
     return (
       <div className="container mx-auto px-4 py-16">
         <Card>
           <CardContent className="pt-6">
             <p className="text-center">Loading payment...</p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  if (mutation.isError) {
+    return (
+      <div className="container mx-auto px-4 py-16">
+        <Card>
+          <CardContent className="pt-6">
+            <p className="text-center text-destructive">Failed to initialize payment</p>
+            <Button onClick={() => mutation.mutate()} className="mt-4 w-full">
+              Retry
+            </Button>
           </CardContent>
         </Card>
       </div>
@@ -289,7 +389,7 @@ function BlikPaymentForm() {
 }
 ```
 
-### 5. Frontend - Add Navigation
+### 6. Frontend - Add Navigation
 
 **File:** `apps/user-application/src/components/pricing/blik-payment-button.tsx`
 
@@ -442,6 +542,11 @@ Expected:
 
 ## Acceptance Criteria
 
+- [ ] Payment queries created in data-ops package
+- [ ] data-ops rebuilt after adding queries
+- [ ] Payment Intent endpoint uses data-ops queries
+- [ ] Webhook handler uses data-ops queries
+- [ ] Frontend uses TanStack mutation for payment intent
 - [ ] Payment Intent endpoint creates intent with BLIK
 - [ ] Frontend Payment Element shows BLIK option
 - [ ] Test BLIK code 000000 completes payment
