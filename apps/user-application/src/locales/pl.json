@@ -9,6 +9,20 @@
     "signOut": "Wyloguj się",
     "account": "Konto"
   },
+  "payment": {
+    "subscription": "Subskrypcja",
+    "subscribeTitle": "Subskrybuj",
+    "subscribeDescription": "Otrzymuj powiadomienia SMS o wywozach śmieci",
+    "subscribeButton": "Subskrybuj - Karta Miesięcznie",
+    "loading": "Ładowanie...",
+    "errorAlert": "Płatność nie powiodła się. Spróbuj ponownie.",
+    "successTitle": "Płatność Zakończona Sukcesem!",
+    "successMessage": "Twoja subskrypcja jest aktywna. Będziesz otrzymywać powiadomienia SMS.",
+    "cancelTitle": "Płatność Anulowana",
+    "cancelMessage": "Możesz spróbować ponownie w każdej chwili.",
+    "goToDashboard": "Przejdź do Panelu",
+    "backToDashboard": "Powrót do Panelu"
+  },
   "theme": {
     "toggle": "Zmień motyw",
     "light": "Jasny",

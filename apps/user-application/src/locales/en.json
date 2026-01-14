@@ -9,6 +9,20 @@
     "signOut": "Sign Out",
     "account": "Account"
   },
+  "payment": {
+    "subscription": "Subscription",
+    "subscribeTitle": "Subscribe",
+    "subscribeDescription": "Get SMS notifications for waste collection",
+    "subscribeButton": "Subscribe - Card Monthly",
+    "loading": "Loading...",
+    "errorAlert": "Payment failed. Please try again.",
+    "successTitle": "Payment Successful!",
+    "successMessage": "Your subscription is now active. You will receive SMS notifications.",
+    "cancelTitle": "Payment Canceled",
+    "cancelMessage": "You can try again anytime.",
+    "goToDashboard": "Go to Dashboard",
+    "backToDashboard": "Back to Dashboard"
+  },
   "theme": {
     "toggle": "Toggle theme",
     "light": "Light",

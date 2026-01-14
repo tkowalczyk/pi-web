@@ -2,8 +2,12 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { getCoverageStats, refreshCoverageStats } from "@/kv/cache-stats";
 import type { CoverageStatsResponse } from "@repo/data-ops/zod-schema/stats";
+import webhooks from "@/hono/routes/webhooks";
+import checkout from "@/hono/routes/checkout";
 
 export const app = new Hono<{ Bindings: Env }>();
+
+app.route("/webhooks", webhooks);
 
 app.use("/*", cors({
   origin: (origin, c) => {
@@ -25,6 +29,8 @@ app.get("/worker/health", (c) =>
     }
   }),
 );
+
+app.route("/api/checkout", checkout);
 
 app.get("/worker/stats", async (c) => {
   try {

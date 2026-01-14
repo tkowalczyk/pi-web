@@ -1,8 +1,12 @@
-import { getDb } from "../setup";
+import { initDatabase } from '../setup';
 import { subscription_plans } from "../../drizzle/schema";
 
 export async function seedSubscriptionPlans() {
-  const db = getDb();
+  const db = initDatabase({
+      host: process.env.DATABASE_HOST!,
+      username: process.env.DATABASE_USERNAME!,
+      password: process.env.DATABASE_PASSWORD!
+    });
 
   await db.insert(subscription_plans).values([
     {
@@ -27,7 +31,7 @@ export async function seedSubscriptionPlans() {
       paymentMethod: "blik",
       description: "Annual payment with BLIK - PLN 100/year (save 2 months)",
     },
-  ]);
+  ]).onConflictDoNothing();
 
-  console.log("Subscription plans seeded successfully");
+  console.log("✓ Subscription plans seeded");
 }

@@ -11,8 +11,9 @@ import { PhoneForm } from "@/components/profile/phone-form";
 import { AddressList } from "@/components/addresses/address-list";
 import { AddressForm } from "@/components/addresses/address-form";
 import { WasteScheduleCard } from "@/components/dashboard/waste-schedule-card";
-import { Phone, MapPin, Bell, CheckCircle2, AlertCircle } from "lucide-react";
+import { Phone, MapPin, Bell, CheckCircle2, AlertCircle, CreditCard } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { CardSubscriptionButton } from "@/components/pricing/card-subscription-button";
 
 export const Route = createFileRoute("/_auth/app/")({
   component: Dashboard,
@@ -36,6 +37,7 @@ export const Route = createFileRoute("/_auth/app/")({
 
 function Dashboard() {
   const { t } = useTranslation();
+  const { user } = Route.useRouteContext();
   const { data: profile } = useSuspenseQuery({
     queryKey: ["profile"],
     queryFn: () => getMyProfile(),
@@ -177,6 +179,23 @@ function Dashboard() {
               </CardContent>
             </Card>
           </div>
+
+          {/* Subscription Card */}
+          <Card className="mt-8 group hover:shadow-xl transition-all duration-300">
+            <CardHeader>
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+                  <CreditCard className="h-5 w-5 text-primary" />
+                </div>
+                <Badge variant="outline">{t("payment.subscription")}</Badge>
+              </div>
+              <CardTitle>{t("payment.subscribeTitle")}</CardTitle>
+              <CardDescription>{t("payment.subscribeDescription")}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <CardSubscriptionButton userId={user.id} />
+            </CardContent>
+          </Card>
 
           {/* Waste Collection Schedule */}
           {setupComplete && (

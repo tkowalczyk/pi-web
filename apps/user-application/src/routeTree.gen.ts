@@ -21,6 +21,8 @@ import { Route as ApiCitiesIndexRouteImport } from './routes/api/cities/index'
 import { Route as AuthAppIndexRouteImport } from './routes/_auth/app/index'
 import { Route as ApiUserHasCredentialAccountRouteImport } from './routes/api/user/has-credential-account'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth.$'
+import { Route as AuthAppPaymentSuccessRouteImport } from './routes/_auth/app/payment-success'
+import { Route as AuthAppPaymentCancelRouteImport } from './routes/_auth/app/payment-cancel'
 import { Route as ApiCitiesCityIdStreetsRouteImport } from './routes/api/cities/$cityId/streets'
 
 const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
@@ -83,6 +85,16 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthAppPaymentSuccessRoute = AuthAppPaymentSuccessRouteImport.update({
+  id: '/app/payment-success',
+  path: '/app/payment-success',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
+const AuthAppPaymentCancelRoute = AuthAppPaymentCancelRouteImport.update({
+  id: '/app/payment-cancel',
+  path: '/app/payment-cancel',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
 const ApiCitiesCityIdStreetsRoute = ApiCitiesCityIdStreetsRouteImport.update({
   id: '/api/cities/$cityId/streets',
   path: '/api/cities/$cityId/streets',
@@ -97,6 +109,8 @@ export interface FileRoutesByFullPath {
   '/terms-of-service': typeof TermsOfServiceRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/app/payment-cancel': typeof AuthAppPaymentCancelRoute
+  '/app/payment-success': typeof AuthAppPaymentSuccessRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
   '/app': typeof AuthAppIndexRoute
@@ -111,6 +125,8 @@ export interface FileRoutesByTo {
   '/terms-of-service': typeof TermsOfServiceRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/app/payment-cancel': typeof AuthAppPaymentCancelRoute
+  '/app/payment-success': typeof AuthAppPaymentSuccessRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
   '/app': typeof AuthAppIndexRoute
@@ -127,6 +143,8 @@ export interface FileRoutesById {
   '/terms-of-service': typeof TermsOfServiceRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/_auth/app/payment-cancel': typeof AuthAppPaymentCancelRoute
+  '/_auth/app/payment-success': typeof AuthAppPaymentSuccessRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
   '/_auth/app/': typeof AuthAppIndexRoute
@@ -143,6 +161,8 @@ export interface FileRouteTypes {
     | '/terms-of-service'
     | '/auth/login'
     | '/auth/register'
+    | '/app/payment-cancel'
+    | '/app/payment-success'
     | '/api/auth/$'
     | '/api/user/has-credential-account'
     | '/app'
@@ -157,6 +177,8 @@ export interface FileRouteTypes {
     | '/terms-of-service'
     | '/auth/login'
     | '/auth/register'
+    | '/app/payment-cancel'
+    | '/app/payment-success'
     | '/api/auth/$'
     | '/api/user/has-credential-account'
     | '/app'
@@ -172,6 +194,8 @@ export interface FileRouteTypes {
     | '/terms-of-service'
     | '/auth/login'
     | '/auth/register'
+    | '/_auth/app/payment-cancel'
+    | '/_auth/app/payment-success'
     | '/api/auth/$'
     | '/api/user/has-credential-account'
     | '/_auth/app/'
@@ -280,6 +304,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_auth/app/payment-success': {
+      id: '/_auth/app/payment-success'
+      path: '/app/payment-success'
+      fullPath: '/app/payment-success'
+      preLoaderRoute: typeof AuthAppPaymentSuccessRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/_auth/app/payment-cancel': {
+      id: '/_auth/app/payment-cancel'
+      path: '/app/payment-cancel'
+      fullPath: '/app/payment-cancel'
+      preLoaderRoute: typeof AuthAppPaymentCancelRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
     '/api/cities/$cityId/streets': {
       id: '/api/cities/$cityId/streets'
       path: '/api/cities/$cityId/streets'
@@ -291,10 +329,14 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthRouteRouteChildren {
+  AuthAppPaymentCancelRoute: typeof AuthAppPaymentCancelRoute
+  AuthAppPaymentSuccessRoute: typeof AuthAppPaymentSuccessRoute
   AuthAppIndexRoute: typeof AuthAppIndexRoute
 }
 
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
+  AuthAppPaymentCancelRoute: AuthAppPaymentCancelRoute,
+  AuthAppPaymentSuccessRoute: AuthAppPaymentSuccessRoute,
   AuthAppIndexRoute: AuthAppIndexRoute,
 }
 
