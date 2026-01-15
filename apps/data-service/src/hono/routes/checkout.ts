@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { getStripe } from "@/stripe/client";
 import { getOrCreateStripeCustomer } from "@/stripe/customer";
 import { getUserProfile } from "@repo/data-ops/queries/user";
+import { getActiveSubscriptionByUserId } from "@repo/data-ops/queries/subscription";
 
 const checkout = new Hono<{ Bindings: Env }>();
 
@@ -17,6 +18,11 @@ checkout.post("/create-session", async (c) => {
 
   if (!user) {
     return c.json({ error: "User not found" }, 404);
+  }
+
+  const existingSub = await getActiveSubscriptionByUserId(userId);
+  if (existingSub) {
+    return c.json({ error: "User already has active subscription" }, 400);
   }
 
   const stripe = getStripe();

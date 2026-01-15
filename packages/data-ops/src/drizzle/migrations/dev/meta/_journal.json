@@ -71,6 +71,13 @@
       "when": 1768299519625,
       "tag": "0009_optimal_hiroim",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1768475013148,
+      "tag": "0010_graceful_golden_guardian",
+      "breakpoints": true
     }
   ]
 }

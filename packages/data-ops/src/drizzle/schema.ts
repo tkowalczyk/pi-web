@@ -160,3 +160,10 @@ export const payments = pgTable("payments", {
   index("payments_status_idx").on(table.status),
   index("payments_paid_at_idx").on(table.paidAt),
 ]);
+
+export const webhook_events = pgTable("webhook_events", {
+  id: text("id").primaryKey(),
+  type: text("type").notNull(),
+  processed: boolean("processed").notNull().default(false),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});

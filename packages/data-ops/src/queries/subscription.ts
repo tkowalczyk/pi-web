@@ -29,3 +29,56 @@ export async function createSubscription(data: CreateSubscriptionData) {
   const [subscription] = await db.insert(subscriptions).values(data).returning();
   return subscription;
 }
+
+export async function updateSubscriptionByStripeId(
+  stripeSubscriptionId: string,
+  data: {
+    status: string;
+    currentPeriodStart?: Date;
+    currentPeriodEnd?: Date;
+    cancelAtPeriodEnd?: boolean;
+    canceledAt?: Date | null;
+  }
+) {
+  const db = getDb();
+  await db
+    .update(subscriptions)
+    .set({ ...data, updatedAt: new Date() })
+    .where(eq(subscriptions.stripeSubscriptionId, stripeSubscriptionId));
+}
+
+export async function getSubscriptionByStripeId(stripeSubscriptionId: string) {
+  const db = getDb();
+  const [sub] = await db
+    .select()
+    .from(subscriptions)
+    .where(eq(subscriptions.stripeSubscriptionId, stripeSubscriptionId))
+    .limit(1);
+  return sub;
+}
+
+export async function cancelSubscription(stripeSubscriptionId: string) {
+  const db = getDb();
+  await db
+    .update(subscriptions)
+    .set({
+      status: "canceled",
+      canceledAt: new Date(),
+      updatedAt: new Date(),
+    })
+    .where(eq(subscriptions.stripeSubscriptionId, stripeSubscriptionId));
+}
+
+export async function getActiveSubscriptionByUserId(userId: string) {
+  const db = getDb();
+  const [sub] = await db
+    .select()
+    .from(subscriptions)
+    .where(eq(subscriptions.userId, userId))
+    .limit(1);
+
+  if (!sub || sub.status === "canceled" || sub.status === "expired") {
+    return null;
+  }
+  return sub;
+}
