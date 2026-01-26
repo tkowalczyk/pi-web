@@ -13,10 +13,10 @@ function CookiePolicyPage() {
   const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-dvh flex flex-col">
       <LandingNav />
       <main className="flex-1 px-6 py-16 w-full">
-        <h1 className="text-4xl font-bold mb-12 text-center">{t("footer.cookiePolicy")}</h1>
+        <h1 className="text-4xl font-bold mb-12 text-center text-balance">{t("footer.cookiePolicy")}</h1>
         <div className="prose prose-zinc dark:prose-invert max-w-none space-y-8">
           <div className="space-y-2">
             <p className="text-sm"><strong>{t("cookiePolicy.companyNameLabel")}</strong> {t("cookiePolicy.companyName")}</p>

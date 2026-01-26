@@ -104,7 +104,7 @@ export function EmailLogin() {
     <div className="flex items-center justify-center p-4 py-16">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">
+          <CardTitle className="text-2xl font-bold text-balance">
             {t("auth.signIn")}
           </CardTitle>
           <CardDescription>{t("auth.signInDescription")}</CardDescription>

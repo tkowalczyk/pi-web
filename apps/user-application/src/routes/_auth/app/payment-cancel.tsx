@@ -19,7 +19,7 @@ function PaymentCancel() {
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-orange-100">
             <XCircle className="h-10 w-10 text-orange-600" />
           </div>
-          <CardTitle className="text-2xl">{t("payment.cancelTitle")}</CardTitle>
+          <CardTitle className="text-2xl text-balance">{t("payment.cancelTitle")}</CardTitle>
         </CardHeader>
         <CardContent>
           <p className="mb-4">{t("payment.cancelMessage")}</p>

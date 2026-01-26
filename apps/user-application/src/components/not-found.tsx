@@ -18,7 +18,7 @@ export function NotFound({ children }: { children?: any }) {
 
             {/* Heading */}
             <div className="space-y-2">
-              <h1 className="text-2xl font-semibold tracking-tight">
+              <h1 className="text-2xl font-semibold tracking-tight text-balance">
                 {t("notFound.title")}
               </h1>
               <div className="text-muted-foreground">

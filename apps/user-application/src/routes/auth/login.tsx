@@ -16,7 +16,7 @@ export const Route = createFileRoute("/auth/login")({
 
 function RouteComponent() {
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-dvh flex flex-col bg-background">
       <LandingNav />
       <div className="flex-1">
         <EmailLogin />

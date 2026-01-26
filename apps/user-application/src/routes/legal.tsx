@@ -17,11 +17,11 @@ function LegalPage() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-dvh flex flex-col">
       <LandingNav />
       <main className="flex-1 px-6 py-16 w-full">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">{t("footer.legal")}</h1>
+          <h1 className="text-4xl font-bold mb-4 text-balance">{t("footer.legal")}</h1>
           <p className="text-muted-foreground text-lg">{t("staticPages.legalDescription")}</p>
         </div>
 

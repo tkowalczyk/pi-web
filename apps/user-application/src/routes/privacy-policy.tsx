@@ -13,10 +13,10 @@ function PrivacyPolicyPage() {
   const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-dvh flex flex-col">
       <LandingNav />
       <main className="flex-1 px-6 py-16 w-full">
-        <h1 className="text-4xl font-bold mb-12 text-center">{t("footer.privacyPolicy")}</h1>
+        <h1 className="text-4xl font-bold mb-12 text-center text-balance">{t("footer.privacyPolicy")}</h1>
         <div className="prose prose-zinc dark:prose-invert max-w-none space-y-8">
           <section className="border-l-4 border-primary/20 pl-6">
             <h2 className="text-primary">{t("privacyPolicy.statementSummary")}</h2>

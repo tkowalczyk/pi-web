@@ -30,7 +30,7 @@ export function DashboardNav() {
   return (
     <nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out",
+        "fixed top-0 left-0 right-0 z-10 transition-all duration-200 ease-out",
         isScrolled
           ? "bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-lg shadow-primary/5"
           : "bg-transparent",

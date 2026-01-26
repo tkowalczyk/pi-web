@@ -40,7 +40,7 @@ function LandingPage() {
   });
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-dvh flex flex-col bg-background">
       <LandingNav />
       <section className="flex-1 relative px-6 lg:px-8 pt-32 pb-12">
         <div className="mx-auto max-w-5xl">
@@ -49,7 +49,7 @@ function LandingPage() {
             <Badge variant="outline" className="mb-4">
               {t("landing.badge")}
             </Badge>
-            <h1 className="text-5xl font-bold tracking-tight text-foreground sm:text-6xl mb-6">
+            <h1 className="text-5xl font-bold tracking-tight text-foreground sm:text-6xl mb-6 text-balance">
               {t("landing.neverMiss")} <span className="text-primary">{t("landing.collectionDay")}</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
@@ -64,9 +64,9 @@ function LandingPage() {
           </div>
 
           {/* How it works */}
-          <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
+          <Card className="border-primary/20 bg-primary/5">
             <CardHeader>
-              <CardTitle className="text-2xl">{t("landing.howItWorks")}</CardTitle>
+              <CardTitle className="text-2xl text-balance">{t("landing.howItWorks")}</CardTitle>
               <CardDescription>{t("landing.simpleSetup")}</CardDescription>
             </CardHeader>
             <CardContent>
@@ -111,37 +111,37 @@ function LandingPage() {
           {/* Coverage Stats */}
           <div className="mb-16">
             <div className="text-center mb-6">
-              <h2 className="text-2xl font-semibold text-foreground mb-2">{t("landing.coverage")}</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-2 text-balance">{t("landing.coverage")}</h2>
               <p className="text-muted-foreground">{t("landing.coverageDescription")}</p>
             </div>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 max-w-5xl mx-auto">
-              <Card className="border-primary/20 bg-gradient-to-br from-primary/10 to-transparent">
+              <Card className="border-primary/20 bg-primary/10">
                 <CardContent className="pt-6 text-center">
-                  <div className="text-5xl font-bold text-primary mb-2">
+                  <div className="text-5xl font-bold text-primary mb-2 tabular-nums">
                     {stats?.citiesCount ?? 12}
                   </div>
                   <div className="text-lg text-muted-foreground">{t("landing.cities")}</div>
                 </CardContent>
               </Card>
-              <Card className="border-primary/20 bg-gradient-to-br from-secondary/10 to-transparent">
+              <Card className="border-primary/20 bg-secondary/10">
                 <CardContent className="pt-6 text-center">
-                  <div className="text-5xl font-bold text-primary mb-2">
+                  <div className="text-5xl font-bold text-primary mb-2 tabular-nums">
                     {stats?.streetsCount.toLocaleString() ?? "1,200+"}
                   </div>
                   <div className="text-lg text-muted-foreground">{t("landing.streets")}</div>
                 </CardContent>
               </Card>
-              <Card className="border-primary/20 bg-gradient-to-br from-primary/10 to-transparent">
+              <Card className="border-primary/20 bg-primary/10">
                 <CardContent className="pt-6 text-center">
-                  <div className="text-5xl font-bold text-primary mb-2">
+                  <div className="text-5xl font-bold text-primary mb-2 tabular-nums">
                     {stats?.wasteSchedulesCount.toLocaleString() ?? "0"}
                   </div>
                   <div className="text-lg text-muted-foreground">{t("landing.wasteSchedules")}</div>
                 </CardContent>
               </Card>
-              <Card className="border-primary/20 bg-gradient-to-br from-secondary/10 to-transparent">
+              <Card className="border-primary/20 bg-secondary/10">
                 <CardContent className="pt-6 text-center">
-                  <div className="text-5xl font-bold text-primary mb-2">
+                  <div className="text-5xl font-bold text-primary mb-2 tabular-nums">
                     {stats?.activeUsersCount.toLocaleString() ?? "0"}
                   </div>
                   <div className="text-lg text-muted-foreground">{t("landing.activeUsers")}</div>
@@ -154,16 +154,6 @@ function LandingPage() {
           <PricingSection />
         </div>
 
-        {/* Background gradient */}
-        <div className="absolute inset-x-0 top-0 -z-10 transform-gpu overflow-hidden blur-3xl">
-          <div
-            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-primary to-secondary opacity-10 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-            style={{
-              clipPath:
-                "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
-            }}
-          />
-        </div>
       </section>
       <Footer />
     </div>

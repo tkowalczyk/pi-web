@@ -29,8 +29,8 @@ export function ThemeToggle({
 
   // Animation variants for icons
   const iconVariants = {
-    sun: "transition-all duration-500 ease-in-out",
-    moon: "transition-all duration-500 ease-in-out",
+    sun: "transition-all duration-200 ease-in-out",
+    moon: "transition-all duration-200 ease-in-out",
     system: "transition-all duration-300 ease-in-out",
   };
 
@@ -214,10 +214,10 @@ export function ThemeToggleSimple() {
           <Monitor className="h-4 w-4 transition-all duration-300 ease-in-out rotate-0 scale-100" />
         )}
         {resolvedTheme === "dark" && theme !== "system" && (
-          <Moon className="h-4 w-4 transition-all duration-500 ease-in-out rotate-0 scale-100" />
+          <Moon className="h-4 w-4 transition-all duration-200 ease-in-out rotate-0 scale-100" />
         )}
         {resolvedTheme === "light" && theme !== "system" && (
-          <Sun className="h-4 w-4 transition-all duration-500 ease-in-out rotate-0 scale-100" />
+          <Sun className="h-4 w-4 transition-all duration-200 ease-in-out rotate-0 scale-100" />
         )}
       </div>
       <span className="sr-only">

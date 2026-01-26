@@ -19,10 +19,10 @@ export function GoogleLogin() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
+    <div className="min-h-dvh flex items-center justify-center bg-background p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">{t("auth.welcomeBack")}</CardTitle>
+          <CardTitle className="text-2xl font-bold text-balance">{t("auth.welcomeBack")}</CardTitle>
           <CardDescription>{t("auth.signInDescription")}</CardDescription>
         </CardHeader>
         <CardContent>

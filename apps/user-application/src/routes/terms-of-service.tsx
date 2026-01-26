@@ -13,10 +13,10 @@ function TermsOfServicePage() {
   const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-dvh flex flex-col">
       <LandingNav />
       <main className="flex-1 px-6 py-16 w-full">
-        <h1 className="text-4xl font-bold mb-12 text-center">{t("footer.termsOfService")}</h1>
+        <h1 className="text-4xl font-bold mb-12 text-center text-balance">{t("footer.termsOfService")}</h1>
         <div className="prose prose-zinc dark:prose-invert max-w-none space-y-8">
           <div className="text-sm text-muted-foreground">
             <p>{t("termsOfService.lastUpdate")}</p>

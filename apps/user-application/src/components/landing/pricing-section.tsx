@@ -11,7 +11,7 @@ export function PricingSection() {
   return (
     <div className="mb-16">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold mb-4">{t("pricing.title")}</h2>
+        <h2 className="text-3xl font-bold mb-4 text-balance">{t("pricing.title")}</h2>
         <p className="text-lg text-muted-foreground">{t("pricing.subtitle")}</p>
       </div>
 
@@ -21,7 +21,7 @@ export function PricingSection() {
           <CardHeader>
             <CardTitle>{t("pricing.free.title")}</CardTitle>
             <CardDescription>{t("pricing.free.description")}</CardDescription>
-            <div className="text-3xl font-bold mt-4">{t("pricing.free.price")}</div>
+            <div className="text-3xl font-bold mt-4 tabular-nums">{t("pricing.free.price")}</div>
           </CardHeader>
           <CardContent>
             <ul className="space-y-3">
@@ -50,7 +50,7 @@ export function PricingSection() {
             <Badge className="w-fit mb-2">{t("pricing.card.badge")}</Badge>
             <CardTitle>{t("pricing.card.title")}</CardTitle>
             <CardDescription>{t("pricing.card.description")}</CardDescription>
-            <div className="text-3xl font-bold mt-4">
+            <div className="text-3xl font-bold mt-4 tabular-nums">
               10 PLN
               <span className="text-base font-normal text-muted-foreground">/m</span>
             </div>
@@ -84,7 +84,7 @@ export function PricingSection() {
             <Badge className="w-fit mb-2 bg-green-500">{t("pricing.blik.badge")}</Badge>
             <CardTitle>{t("pricing.blik.title")}</CardTitle>
             <CardDescription>{t("pricing.blik.description")}</CardDescription>
-            <div className="text-3xl font-bold mt-4">
+            <div className="text-3xl font-bold mt-4 tabular-nums">
               100 PLN
               <span className="text-base font-normal text-muted-foreground">/rok</span>
             </div>
