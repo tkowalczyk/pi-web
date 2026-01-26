@@ -39,6 +39,7 @@ export const Route = createRootRouteWithContext<{
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "canonical", href: "https://powiadomienia.info" },
       {
         rel: "icon",
         type: "image/svg+xml",
@@ -78,9 +79,11 @@ function RootComponent() {
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html>
+    <html lang={i18n.language}>
       <head>
         <HeadContent />
+        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)" />
       </head>
       <body>
         {children}

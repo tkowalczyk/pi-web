@@ -171,7 +171,9 @@
     "streets": "Ulic",
     "wasteSchedules": "Harmonogramów",
     "activeUsers": "Użytkowników",
-    "coverageDescription": "Codziennie rośnie"
+    "coverageDescription": "Codziennie rośnie",
+    "metaTitle": "powiadomienia.info - Przypomnienia SMS o wywozie śmieci",
+    "metaDescription": "Nigdy nie przegap dnia odbioru odpadów. Wpisz adres i otrzymuj bezpłatne przypomnienia SMS o harmonogramie wywozu śmieci w Twojej okolicy."
   },
   "auth": {
     "welcomeBack": "Witaj ponownie",

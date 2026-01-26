@@ -171,7 +171,9 @@
     "streets": "Streets",
     "wasteSchedules": "Waste Schedules",
     "activeUsers": "Active Users",
-    "coverageDescription": "Growing every day"
+    "coverageDescription": "Growing every day",
+    "metaTitle": "powiadomienia.info - Waste Pickup SMS Reminders",
+    "metaDescription": "Never miss waste collection day. Enter your address and get free SMS reminders about trash pickup schedules in your area."
   },
   "auth": {
     "welcomeBack": "Welcome back",
