@@ -6,6 +6,7 @@ import { MapPin, Phone, Bell, ArrowRight } from "lucide-react";
 import { authClient } from "@/components/auth/client";
 import { LandingNav } from "@/components/navigation/landing-nav";
 import { Footer } from "@/components/landing/footer";
+import { PricingSection } from "@/components/landing/pricing-section";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import type { CoverageStatsResponse } from "@repo/data-ops/zod-schema/stats";
@@ -148,6 +149,9 @@ function LandingPage() {
               </Card>
             </div>
           </div>
+
+          {/* Pricing */}
+          <PricingSection />
         </div>
 
         {/* Background gradient */}

@@ -1,4 +1,10 @@
 {
+  "common": {
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "close": "Close"
+  },
   "nav": {
     "appName": "Waste Alerts",
     "home": "Home",
@@ -7,7 +13,8 @@
     "documentation": "Documentation",
     "signIn": "Sign In",
     "signOut": "Sign Out",
-    "account": "Account"
+    "account": "Account",
+    "pricing": "Pricing"
   },
   "payment": {
     "subscription": "Subscription",
@@ -47,7 +54,8 @@
     "toggle": "Change language",
     "label": "Language",
     "polish": "Polish",
-    "english": "English"
+    "english": "English",
+    "code": "en"
   },
   "waste_schedule": {
     "title": "Waste Collection",
@@ -114,12 +122,20 @@
     "phoneNumberDescription": "Required for SMS notifications",
     "addressLabel": "Address",
     "addressDescription": "To match waste collection schedule",
+    "subscription": "Premium Subscription",
+    "subscriptionDescription": "Required to receive SMS notifications",
     "profile": "Profile",
     "contactInformation": "Contact Information",
     "contactDescription": "Manage your phone number for SMS notifications",
     "addresses": "Addresses",
     "yourAddresses": "Your Addresses",
-    "addressesDescription": "Manage locations for waste collection notifications"
+    "addressesDescription": "Manage locations for waste collection notifications",
+    "premiumActive": "Premium Active",
+    "smsEnabled": "SMS Enabled",
+    "freePlan": "Free Plan - View Only",
+    "upgradeMessage": "Upgrade to Premium to receive SMS notifications.",
+    "upgradeCta": "Upgrade to Premium",
+    "subscriptionValid": "Valid until"
   },
   "phone": {
     "label": "Phone Number",
@@ -434,5 +450,44 @@
     "versionTitle": "Version",
     "versionContent": "| Field | Value |\n|-------|-------|\n| Version | 1.0.0 |\n| Date | December 2025 |\n| Description | First Version |\n| Author | Tomasz Kowalczyk |\n| Approved by | Tomasz Kowalczyk |",
     "lastReviewed": "Last reviewed: December 29, 2025."
+  },
+  "pricing": {
+    "title": "Choose Your Plan",
+    "subtitle": "Get SMS reminders for waste collection schedules",
+    "free": {
+      "title": "Free",
+      "description": "View waste schedules",
+      "price": "0 PLN",
+      "feature1": "Full schedule (2 weeks)",
+      "feature2": "Multiple addresses"
+    },
+    "card": {
+      "title": "Card Monthly",
+      "badge": "Popular",
+      "description": "Automatic monthly payments",
+      "feature1": "SMS notifications",
+      "feature2": "All addresses covered",
+      "feature3": "Cancel anytime",
+      "cta": "Subscribe - Card"
+    },
+    "blik": {
+      "title": "BLIK Annual",
+      "badge": "Best Value",
+      "description": "One-time payment, save 2 months",
+      "savings": "Save 20 PLN vs monthly",
+      "feature1": "SMS notifications",
+      "feature2": "All addresses covered",
+      "feature3": "No recurring charges",
+      "feature4": "BLIK instant payment",
+      "cta": "Pay with BLIK"
+    },
+    "currentPlan": "Current Plan",
+    "yourPlan": "Your Plan",
+    "cancelSubscription": "Cancel Subscription",
+    "canceling": "Canceling...",
+    "cancelConfirm": "Cancel subscription?",
+    "cancelWarning": "Subscription will remain active until end of billing period",
+    "willExpire": "Expires",
+    "loading": "Loading..."
   }
 }

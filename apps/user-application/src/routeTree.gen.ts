@@ -21,6 +21,7 @@ import { Route as ApiCitiesIndexRouteImport } from './routes/api/cities/index'
 import { Route as AuthAppIndexRouteImport } from './routes/_auth/app/index'
 import { Route as ApiUserHasCredentialAccountRouteImport } from './routes/api/user/has-credential-account'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth.$'
+import { Route as AuthAppPricingRouteImport } from './routes/_auth/app/pricing'
 import { Route as AuthAppPaymentSuccessRouteImport } from './routes/_auth/app/payment-success'
 import { Route as AuthAppPaymentCancelRouteImport } from './routes/_auth/app/payment-cancel'
 import { Route as ApiCitiesCityIdStreetsRouteImport } from './routes/api/cities/$cityId/streets'
@@ -86,6 +87,11 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthAppPricingRoute = AuthAppPricingRouteImport.update({
+  id: '/app/pricing',
+  path: '/app/pricing',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
 const AuthAppPaymentSuccessRoute = AuthAppPaymentSuccessRouteImport.update({
   id: '/app/payment-success',
   path: '/app/payment-success',
@@ -117,6 +123,7 @@ export interface FileRoutesByFullPath {
   '/auth/register': typeof AuthRegisterRoute
   '/app/payment-cancel': typeof AuthAppPaymentCancelRoute
   '/app/payment-success': typeof AuthAppPaymentSuccessRoute
+  '/app/pricing': typeof AuthAppPricingRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
   '/app': typeof AuthAppIndexRoute
@@ -134,6 +141,7 @@ export interface FileRoutesByTo {
   '/auth/register': typeof AuthRegisterRoute
   '/app/payment-cancel': typeof AuthAppPaymentCancelRoute
   '/app/payment-success': typeof AuthAppPaymentSuccessRoute
+  '/app/pricing': typeof AuthAppPricingRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
   '/app': typeof AuthAppIndexRoute
@@ -153,6 +161,7 @@ export interface FileRoutesById {
   '/auth/register': typeof AuthRegisterRoute
   '/_auth/app/payment-cancel': typeof AuthAppPaymentCancelRoute
   '/_auth/app/payment-success': typeof AuthAppPaymentSuccessRoute
+  '/_auth/app/pricing': typeof AuthAppPricingRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
   '/_auth/app/': typeof AuthAppIndexRoute
@@ -172,6 +181,7 @@ export interface FileRouteTypes {
     | '/auth/register'
     | '/app/payment-cancel'
     | '/app/payment-success'
+    | '/app/pricing'
     | '/api/auth/$'
     | '/api/user/has-credential-account'
     | '/app'
@@ -189,6 +199,7 @@ export interface FileRouteTypes {
     | '/auth/register'
     | '/app/payment-cancel'
     | '/app/payment-success'
+    | '/app/pricing'
     | '/api/auth/$'
     | '/api/user/has-credential-account'
     | '/app'
@@ -207,6 +218,7 @@ export interface FileRouteTypes {
     | '/auth/register'
     | '/_auth/app/payment-cancel'
     | '/_auth/app/payment-success'
+    | '/_auth/app/pricing'
     | '/api/auth/$'
     | '/api/user/has-credential-account'
     | '/_auth/app/'
@@ -316,6 +328,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_auth/app/pricing': {
+      id: '/_auth/app/pricing'
+      path: '/app/pricing'
+      fullPath: '/app/pricing'
+      preLoaderRoute: typeof AuthAppPricingRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
     '/_auth/app/payment-success': {
       id: '/_auth/app/payment-success'
       path: '/app/payment-success'
@@ -350,6 +369,7 @@ declare module '@tanstack/react-router' {
 interface AuthRouteRouteChildren {
   AuthAppPaymentCancelRoute: typeof AuthAppPaymentCancelRoute
   AuthAppPaymentSuccessRoute: typeof AuthAppPaymentSuccessRoute
+  AuthAppPricingRoute: typeof AuthAppPricingRoute
   AuthAppIndexRoute: typeof AuthAppIndexRoute
   AuthAppPaymentBlikRoute: typeof AuthAppPaymentBlikRoute
 }
@@ -357,6 +377,7 @@ interface AuthRouteRouteChildren {
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
   AuthAppPaymentCancelRoute: AuthAppPaymentCancelRoute,
   AuthAppPaymentSuccessRoute: AuthAppPaymentSuccessRoute,
+  AuthAppPricingRoute: AuthAppPricingRoute,
   AuthAppIndexRoute: AuthAppIndexRoute,
   AuthAppPaymentBlikRoute: AuthAppPaymentBlikRoute,
 }

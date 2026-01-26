@@ -1,6 +1,6 @@
 import { getDb } from "@/database/setup";
 import { subscriptions, subscription_plans } from "@/drizzle/schema";
-import { eq, and, gte, inArray } from "drizzle-orm";
+import { eq, and, gte, inArray, desc } from "drizzle-orm";
 
 export async function getSubscriptionPlanByPriceId(priceId: string) {
   const db = getDb();
@@ -120,4 +120,38 @@ export async function getActiveUserIds(userIds: string[]): Promise<Set<string>> 
     );
 
   return new Set(activeSubscriptions.map(s => s.userId));
+}
+
+export async function getMySubscription(userId: string) {
+  const db = getDb();
+  const now = new Date();
+
+  const [subscription] = await db
+    .select({
+      id: subscriptions.id,
+      status: subscriptions.status,
+      stripeSubscriptionId: subscriptions.stripeSubscriptionId,
+      currentPeriodStart: subscriptions.currentPeriodStart,
+      currentPeriodEnd: subscriptions.currentPeriodEnd,
+      cancelAtPeriodEnd: subscriptions.cancelAtPeriodEnd,
+      plan: {
+        name: subscription_plans.name,
+        amount: subscription_plans.amount,
+        interval: subscription_plans.interval,
+        paymentMethod: subscription_plans.paymentMethod,
+      },
+    })
+    .from(subscriptions)
+    .innerJoin(subscription_plans, eq(subscriptions.subscriptionPlanId, subscription_plans.id))
+    .where(
+      and(
+        eq(subscriptions.userId, userId),
+        eq(subscriptions.status, "active"),
+        gte(subscriptions.currentPeriodEnd, now)
+      )
+    )
+    .orderBy(desc(subscriptions.currentPeriodEnd))
+    .limit(1);
+
+  return subscription;
 }

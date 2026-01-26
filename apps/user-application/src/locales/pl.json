@@ -1,4 +1,10 @@
 {
+  "common": {
+    "cancel": "Anuluj",
+    "confirm": "Potwierdź",
+    "save": "Zapisz",
+    "close": "Zamknij"
+  },
   "nav": {
     "appName": "powiadomienia.info - wywóz śmieci",
     "home": "Strona główna",
@@ -7,7 +13,8 @@
     "documentation": "Dokumentacja",
     "signIn": "Zaloguj się",
     "signOut": "Wyloguj się",
-    "account": "Konto"
+    "account": "Konto",
+    "pricing": "Cennik"
   },
   "payment": {
     "subscription": "Subskrypcja",
@@ -47,7 +54,8 @@
     "toggle": "Zmień język",
     "label": "Język",
     "polish": "Polski",
-    "english": "Angielski"
+    "english": "Angielski",
+    "code": "pl"
   },
   "waste_schedule": {
     "title": "Wywóz Śmieci",
@@ -114,12 +122,20 @@
     "phoneNumberDescription": "Wymagany do powiadomień SMS",
     "addressLabel": "Adres",
     "addressDescription": "Do dopasowania harmonogramu wywozu",
+    "subscription": "Subskrypcja Premium",
+    "subscriptionDescription": "Wymagana do otrzymywania powiadomień SMS",
     "profile": "Profil",
     "contactInformation": "Dane Kontaktowe",
     "contactDescription": "Podaj numer telefonu do powiadomień SMS",
     "addresses": "Adresy",
     "yourAddresses": "Twoje Adresy",
-    "addressesDescription": "Podaj lokalizację dla której interesuje Cię harmonogram wywozu śmieci"
+    "addressesDescription": "Podaj lokalizację dla której interesuje Cię harmonogram wywozu śmieci",
+    "premiumActive": "Premium Aktywne",
+    "smsEnabled": "SMS Włączone",
+    "freePlan": "Darmowy Plan - Tylko Podgląd",
+    "upgradeMessage": "Przejdź na Premium, aby otrzymywać powiadomienia SMS.",
+    "upgradeCta": "Przejdź na Premium",
+    "subscriptionValid": "Ważna do"
   },
   "phone": {
     "label": "Numer telefonu",
@@ -434,5 +450,44 @@
     "versionTitle": "Wersja",
     "versionContent": "| Pole | Wartość |\n|------|----------|\n| Wersja | 1.0.0 |\n| Data | Grudzień 2025 |\n| Opis | Pierwsza wersja |\n| Autor | Tomasz Kowalczyk |\n| Zatwierdził | Tomasz Kowalczyk |",
     "lastReviewed": "Ostatni przegląd: 29 grudnia 2025 r."
+  },
+  "pricing": {
+    "title": "Wybierz Plan",
+    "subtitle": "Otrzymuj przypomnienia SMS o harmonogramach wywozu śmieci",
+    "free": {
+      "title": "Darmowy",
+      "description": "Przeglądaj harmonogramy",
+      "price": "0 PLN",
+      "feature1": "Pełny harmonogram (2 tygodnie)",
+      "feature2": "Wiele adresów"
+    },
+    "card": {
+      "title": "Karta Miesięcznie",
+      "badge": "Popularne",
+      "description": "Automatyczne płatności miesięczne",
+      "feature1": "Powiadomienia SMS",
+      "feature2": "Wszystkie adresy",
+      "feature3": "Anuluj w dowolnym momencie",
+      "cta": "Subskrybuj - Karta"
+    },
+    "blik": {
+      "title": "BLIK Rocznie",
+      "badge": "Najlepsza Wartość",
+      "description": "Jednorazowa płatność, oszczędź 2 miesiące",
+      "savings": "Oszczędź 20 PLN vs miesięcznie",
+      "feature1": "Powiadomienia SMS",
+      "feature2": "Wszystkie adresy",
+      "feature3": "Brak opłat cyklicznych",
+      "feature4": "BLIK natychmiastowa płatność",
+      "cta": "Zapłać BLIK"
+    },
+    "currentPlan": "Obecny Plan",
+    "yourPlan": "Twój Plan",
+    "cancelSubscription": "Anuluj Subskrypcję",
+    "canceling": "Anulowanie...",
+    "cancelConfirm": "Anulować subskrypcję?",
+    "cancelWarning": "Subskrypcja będzie aktywna do końca okresu rozliczeniowego",
+    "willExpire": "Wygasa",
+    "loading": "Ładowanie..."
   }
 }

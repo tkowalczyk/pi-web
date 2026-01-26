@@ -4,6 +4,7 @@ import { getCoverageStats, refreshCoverageStats } from "@/kv/cache-stats";
 import type { CoverageStatsResponse } from "@repo/data-ops/zod-schema/stats";
 import webhooks from "@/hono/routes/webhooks";
 import checkout from "@/hono/routes/checkout";
+import subscription from "@/hono/routes/subscription";
 
 export const app = new Hono<{ Bindings: Env }>();
 
@@ -31,6 +32,7 @@ app.get("/worker/health", (c) =>
 );
 
 app.route("/api/checkout", checkout);
+app.route("/api/subscription", subscription);
 
 app.get("/worker/stats", async (c) => {
   try {
