@@ -10,14 +10,13 @@ import { PricingSection } from "@/components/landing/pricing-section";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import type { CoverageStatsResponse } from "@repo/data-ops/zod-schema/stats";
-import i18n from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({
   component: LandingPage,
   head: () => ({
     meta: [
-      { title: i18n.t("landing.metaTitle") },
-      { name: "description", content: i18n.t("landing.metaDescription") },
+      { title: "powiadomienia.info - Przypomnienia SMS o wywozie śmieci" },
+      { name: "description", content: "Nigdy nie przegap dnia odbioru odpadów. Wpisz adres i otrzymuj bezpłatne przypomnienia SMS o harmonogramie wywozu śmieci w Twojej okolicy." },
       { property: "og:url", content: "https://powiadomienia.info" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

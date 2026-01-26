@@ -12,16 +12,24 @@ export const resources = {
   pl: { translation: plTranslations },
 } as const;
 
+// Get initial language - same logic as LanguageProvider to ensure SSR consistency
+const getInitialLanguage = (): string => {
+  if (typeof window === "undefined") return "pl";
+  const stored = localStorage.getItem("ui-language");
+  return (stored === "en" || stored === "pl") ? stored : "pl";
+};
+
 i18n
-  .use(LanguageDetector) // Detect browser locale
-  .use(initReactI18next) // React integration
+  .use(LanguageDetector)
+  .use(initReactI18next)
   .init({
     resources,
     defaultNS,
-    fallbackLng: "en",
+    lng: getInitialLanguage(),
+    fallbackLng: "pl",
     supportedLngs: ["en", "pl"],
     interpolation: {
-      escapeValue: false, // React handles XSS
+      escapeValue: false,
     },
     detection: {
       order: ["localStorage", "navigator"],

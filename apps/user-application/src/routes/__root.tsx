@@ -33,8 +33,8 @@ export const Route = createRootRouteWithContext<{
         content: "width=device-width, initial-scale=1",
       },
       ...seo({
-        title: i18n.t("nav.appName"),
-        description: i18n.t("landing.getNotifications"),
+        title: "powiadomienia.info - wywóz śmieci",
+        description: "Otrzymuj powiadomienia SMS przed odbiorem śmieci na Twojej ulicy",
       }),
     ],
     links: [
@@ -78,8 +78,16 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  // Use default language during SSR to prevent hydration mismatch
+  // Client-side LanguageProvider will update this after mount
+  const [lang, setLang] = React.useState("pl");
+
+  React.useEffect(() => {
+    setLang(i18n.language);
+  }, []);
+
   return (
-    <html lang={i18n.language}>
+    <html lang={lang} suppressHydrationWarning>
       <head>
         <HeadContent />
         <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
