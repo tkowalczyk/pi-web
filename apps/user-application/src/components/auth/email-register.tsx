@@ -121,9 +121,10 @@ export function EmailRegister() {
                 id="name"
                 name="name"
                 aria-invalid={!!fieldErrors.name}
+                aria-describedby={fieldErrors.name ? "name-error" : undefined}
               />
               {fieldErrors.name && (
-                <p className="text-sm text-destructive">{fieldErrors.name}</p>
+                <p id="name-error" className="text-sm text-destructive">{fieldErrors.name}</p>
               )}
             </div>
 
@@ -134,9 +135,10 @@ export function EmailRegister() {
                 name="email"
                 type="email"
                 aria-invalid={!!fieldErrors.email}
+                aria-describedby={fieldErrors.email ? "email-error" : undefined}
               />
               {fieldErrors.email && (
-                <p className="text-sm text-destructive">{fieldErrors.email}</p>
+                <p id="email-error" className="text-sm text-destructive">{fieldErrors.email}</p>
               )}
             </div>
 
@@ -148,9 +150,10 @@ export function EmailRegister() {
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
                 aria-invalid={!!fieldErrors.password}
+                aria-describedby={fieldErrors.password ? "password-error" : undefined}
               />
               {fieldErrors.password && (
-                <p className="text-sm text-destructive">{fieldErrors.password}</p>
+                <p id="password-error" className="text-sm text-destructive">{fieldErrors.password}</p>
               )}
               {password && <PasswordStrengthIndicator password={password} />}
             </div>
@@ -164,9 +167,10 @@ export function EmailRegister() {
                 name="confirmPassword"
                 type="password"
                 aria-invalid={!!fieldErrors.confirmPassword}
+                aria-describedby={fieldErrors.confirmPassword ? "confirm-password-error" : undefined}
               />
               {fieldErrors.confirmPassword && (
-                <p className="text-sm text-destructive">
+                <p id="confirm-password-error" className="text-sm text-destructive">
                   {fieldErrors.confirmPassword}
                 </p>
               )}

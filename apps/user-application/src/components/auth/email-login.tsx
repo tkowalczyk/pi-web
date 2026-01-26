@@ -124,9 +124,10 @@ export function EmailLogin() {
                 name="email"
                 type="email"
                 aria-invalid={!!fieldErrors.email}
+                aria-describedby={fieldErrors.email ? "email-error" : undefined}
               />
               {fieldErrors.email && (
-                <p className="text-sm text-destructive">{fieldErrors.email}</p>
+                <p id="email-error" className="text-sm text-destructive">{fieldErrors.email}</p>
               )}
             </div>
 
@@ -137,9 +138,10 @@ export function EmailLogin() {
                 name="password"
                 type="password"
                 aria-invalid={!!fieldErrors.password}
+                aria-describedby={fieldErrors.password ? "password-error" : undefined}
               />
               {fieldErrors.password && (
-                <p className="text-sm text-destructive">{fieldErrors.password}</p>
+                <p id="password-error" className="text-sm text-destructive">{fieldErrors.password}</p>
               )}
             </div>
 
