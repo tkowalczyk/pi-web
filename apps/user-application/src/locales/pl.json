@@ -135,7 +135,24 @@
     "freePlan": "Darmowy Plan - Tylko Podgląd",
     "upgradeMessage": "Przejdź na Premium, aby otrzymywać powiadomienia SMS.",
     "upgradeCta": "Przejdź na Premium",
-    "subscriptionValid": "Ważna do"
+    "subscriptionValid": "Ważna do",
+    "status": {
+      "premiumActive": {
+        "title": "Aktywny Plan Premium",
+        "smsEnabled": "SMS Włączone",
+        "validUntil": "Ważna do"
+      },
+      "premiumIncomplete": {
+        "title": "Plan Premium",
+        "description": "Dokończ konfigurację, aby otrzymywać powiadomienia"
+      },
+      "freePlan": {
+        "title": "Darmowy Plan",
+        "description": "Tylko Podgląd",
+        "noSms": "Brak powiadomień SMS",
+        "upgradeCta": "Przejdź na Premium"
+      }
+    }
   },
   "phone": {
     "label": "Numer telefonu",

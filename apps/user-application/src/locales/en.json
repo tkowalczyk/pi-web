@@ -135,7 +135,24 @@
     "freePlan": "Free Plan - View Only",
     "upgradeMessage": "Upgrade to Premium to receive SMS notifications.",
     "upgradeCta": "Upgrade to Premium",
-    "subscriptionValid": "Valid until"
+    "subscriptionValid": "Valid until",
+    "status": {
+      "premiumActive": {
+        "title": "Premium Plan Active",
+        "smsEnabled": "SMS Enabled",
+        "validUntil": "Valid until"
+      },
+      "premiumIncomplete": {
+        "title": "Premium Plan",
+        "description": "Complete setup to receive notifications"
+      },
+      "freePlan": {
+        "title": "Free Plan",
+        "description": "View Only",
+        "noSms": "No SMS notifications",
+        "upgradeCta": "Upgrade to Premium"
+      }
+    }
   },
   "phone": {
     "label": "Phone Number",

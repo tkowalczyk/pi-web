@@ -12,7 +12,8 @@ import { PhoneForm } from "@/components/profile/phone-form";
 import { AddressList } from "@/components/addresses/address-list";
 import { AddressForm } from "@/components/addresses/address-form";
 import { WasteScheduleCard } from "@/components/dashboard/waste-schedule-card";
-import { Phone, MapPin, Bell, CheckCircle2, AlertCircle, Crown } from "lucide-react";
+import { StatusCard } from "@/components/dashboard/status-card";
+import { Phone, MapPin } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/_auth/app/")({
@@ -68,51 +69,19 @@ function Dashboard() {
       {/* Hero Section */}
       <section className="flex-1 relative px-6 lg:px-8 pt-32 pb-8">
         <div className="mx-auto max-w-7xl">
+          {/* Status Card */}
+          <StatusCard
+            isPremium={isPremium}
+            hasAddress={hasAddress}
+            hasPhone={hasPhone}
+            subscriptionExpiry={
+              subscription && typeof subscription === "object" && "currentPeriodEnd" in subscription
+                ? new Date((subscription as { currentPeriodEnd: string }).currentPeriodEnd)
+                : undefined
+            }
+          />
+
           <div className="text-center mb-12">
-            <div className="mb-4 flex justify-center gap-2">
-              {isPremium ? (
-                <>
-                  <Badge className="bg-yellow-500 text-white">
-                    <Crown className="mr-1 h-3 w-3" />
-                    {t("dashboard.premiumActive")}
-                  </Badge>
-                  <Badge variant="outline" className="border-green-500/40 text-green-600 dark:text-green-400">
-                    <Bell className="mr-1 h-3 w-3" />
-                    {t("dashboard.smsEnabled")}
-                  </Badge>
-                </>
-              ) : (
-                <Badge variant="secondary">{t("dashboard.freePlan")}</Badge>
-              )}
-            </div>
-
-            {isPremium && subscription && typeof subscription === "object" && "currentPeriodEnd" in subscription && (
-              <p className="text-xs text-muted-foreground mb-4">
-                {t("dashboard.subscriptionValid")}: {new Date((subscription as { currentPeriodEnd: string }).currentPeriodEnd).toLocaleDateString(t("language.code") === "pl" ? "pl-PL" : "en-US")}
-              </p>
-            )}
-
-            <div className="mb-2 flex justify-center gap-2">
-              <Badge variant={setupComplete ? "default" : "secondary"}>
-                {setupComplete ? (
-                  <>
-                    <CheckCircle2 className="mr-1 h-3 w-3" />
-                    {t("dashboard.setupComplete")}
-                  </>
-                ) : (
-                  <>
-                    <AlertCircle className="mr-1 h-3 w-3" />
-                    {t("dashboard.setupRequired")}
-                  </>
-                )}
-              </Badge>
-            </div>
-            {setupComplete && (
-              <p className="text-xs text-muted-foreground mb-4">
-                {t("dashboard.smsNotificationTimes")}
-              </p>
-            )}
-
             <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl text-balance">
               {t("dashboard.yourDashboard")}
             </h1>
@@ -122,63 +91,6 @@ function Dashboard() {
               </p>
             )}
           </div>
-
-          {/* Setup Status Cards */}
-          {!setupComplete && (
-            <Card className="mb-12 border-primary/20 bg-primary/5">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <AlertCircle className="h-5 w-5 text-primary" />
-                  {t("dashboard.completeYourSetup")}
-                </CardTitle>
-                <CardDescription>
-                  {t("dashboard.completeSetupDescription")}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid gap-3">
-                  <div className="flex items-center gap-3 p-3 rounded-lg bg-background/50">
-                    {hasPhone ? (
-                      <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0" />
-                    ) : (
-                      <div className="h-5 w-5 rounded-full border-2 border-muted-foreground flex-shrink-0" />
-                    )}
-                    <div>
-                      <p className="font-medium text-sm">{t("dashboard.phoneNumber")}</p>
-                      <p className="text-xs text-muted-foreground">{t("dashboard.phoneNumberDescription")}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-3 rounded-lg bg-background/50">
-                    {hasAddress ? (
-                      <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0" />
-                    ) : (
-                      <div className="h-5 w-5 rounded-full border-2 border-muted-foreground flex-shrink-0" />
-                    )}
-                    <div>
-                      <p className="font-medium text-sm">{t("dashboard.addressLabel")}</p>
-                      <p className="text-xs text-muted-foreground">{t("dashboard.addressDescription")}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-3 rounded-lg bg-background/50">
-                    {isPremium ? (
-                      <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0" />
-                    ) : (
-                      <div className="h-5 w-5 rounded-full border-2 border-muted-foreground flex-shrink-0" />
-                    )}
-                    <div className="flex-1">
-                      <p className="font-medium text-sm">{t("dashboard.subscription")}</p>
-                      <p className="text-xs text-muted-foreground">{t("dashboard.subscriptionDescription")}</p>
-                    </div>
-                    {!isPremium && (
-                      <a href="/app/pricing" className="text-sm text-primary hover:underline">
-                        {t("dashboard.upgradeCta")}
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
 
           {/* Main Content Grid */}
           <div className="grid gap-8 lg:grid-cols-2">
