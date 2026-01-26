@@ -1,6 +1,6 @@
 import { getDb } from "@/database/setup";
 import { subscriptions, subscription_plans } from "@/drizzle/schema";
-import { eq } from "drizzle-orm";
+import { eq, and, gte, inArray } from "drizzle-orm";
 
 export async function getSubscriptionPlanByPriceId(priceId: string) {
   const db = getDb();
@@ -81,4 +81,43 @@ export async function getActiveSubscriptionByUserId(userId: string) {
     return null;
   }
   return sub;
+}
+
+export async function hasActiveSubscription(userId: string): Promise<boolean> {
+  const db = getDb();
+  const now = new Date();
+
+  const [subscription] = await db
+    .select()
+    .from(subscriptions)
+    .where(
+      and(
+        eq(subscriptions.userId, userId),
+        eq(subscriptions.status, "active"),
+        gte(subscriptions.currentPeriodEnd, now)
+      )
+    )
+    .limit(1);
+
+  return !!subscription;
+}
+
+export async function getActiveUserIds(userIds: string[]): Promise<Set<string>> {
+  if (userIds.length === 0) return new Set();
+
+  const db = getDb();
+  const now = new Date();
+
+  const activeSubscriptions = await db
+    .select({ userId: subscriptions.userId })
+    .from(subscriptions)
+    .where(
+      and(
+        inArray(subscriptions.userId, userIds),
+        eq(subscriptions.status, "active"),
+        gte(subscriptions.currentPeriodEnd, now)
+      )
+    );
+
+  return new Set(activeSubscriptions.map(s => s.userId));
 }

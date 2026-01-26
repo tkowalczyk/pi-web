@@ -10,6 +10,7 @@ import {
   notification_logs
 } from "@/drizzle/schema";
 import { eq, and, isNotNull } from "drizzle-orm";
+import { getActiveUserIds } from "./subscription";
 
 function isValidPolishPhone(phone: string): boolean {
   const cleaned = phone.replace(/\s/g, "");
@@ -90,7 +91,11 @@ export async function getUsersNeedingNotification(
   const target = new Date(targetDate);
   target.setUTCHours(0, 0, 0, 0);
 
+  const userIds = users.map(u => u.userId);
+  const activeUserIds = await getActiveUserIds(userIds);
+
   return users
+    .filter(u => activeUserIds.has(u.userId))
     .filter(u => {
       const key = `${u.cityId}-${u.streetId}`;
       return u.cityId && u.streetId && schedulesByCityStreet[key];
