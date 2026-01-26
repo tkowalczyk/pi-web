@@ -3,6 +3,7 @@ import { getStripe } from "@/stripe/client";
 import { getOrCreateStripeCustomer } from "@/stripe/customer";
 import { getUserProfile } from "@repo/data-ops/queries/user";
 import { getActiveSubscriptionByUserId } from "@repo/data-ops/queries/subscription";
+import { getUserById, getPlanByPriceId } from "@repo/data-ops/queries/payments";
 
 const checkout = new Hono<{ Bindings: Env }>();
 
@@ -50,6 +51,53 @@ checkout.post("/create-session", async (c) => {
   });
 
   return c.json({ sessionUrl: session.url });
+});
+
+checkout.post("/create-payment-intent", async (c) => {
+  const body = await c.req.json();
+  const { userId, priceId } = body;
+
+  if (!userId || !priceId) {
+    return c.json({ error: "Missing required fields" }, 400);
+  }
+
+  const user = await getUserById(userId);
+  if (!user) {
+    return c.json({ error: "User not found" }, 404);
+  }
+
+  const existingSub = await getActiveSubscriptionByUserId(userId);
+  if (existingSub) {
+    return c.json({ error: "User already has active subscription" }, 400);
+  }
+
+  const plan = await getPlanByPriceId(priceId);
+  if (!plan) {
+    return c.json({ error: "Plan not found" }, 404);
+  }
+
+  const stripe = getStripe();
+  const customerId = await getOrCreateStripeCustomer(
+    userId,
+    user.email,
+    user.name
+  );
+
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: plan.amount,
+    currency: plan.currency.toLowerCase(),
+    customer: customerId,
+    payment_method_types: ["blik"],
+    metadata: {
+      userId,
+      subscriptionPlanId: plan.id.toString(),
+    },
+  });
+
+  return c.json({
+    clientSecret: paymentIntent.client_secret,
+    paymentIntentId: paymentIntent.id,
+  });
 });
 
 export default checkout;

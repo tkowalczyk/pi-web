@@ -21,7 +21,16 @@
     "cancelTitle": "Płatność Anulowana",
     "cancelMessage": "Możesz spróbować ponownie w każdej chwili.",
     "goToDashboard": "Przejdź do Panelu",
-    "backToDashboard": "Powrót do Panelu"
+    "backToDashboard": "Powrót do Panelu",
+    "blik": {
+      "title": "Płatność BLIK - Roczna",
+      "description": "Zapłać 100 PLN za rok powiadomień SMS (oszczędź 20 PLN vs miesięcznie)",
+      "payButton": "Zapłać 100 PLN",
+      "processing": "Przetwarzanie...",
+      "initError": "Nie udało się zainicjować płatności",
+      "retry": "Spróbuj ponownie",
+      "failed": "Płatność nie powiodła się"
+    }
   },
   "theme": {
     "toggle": "Zmień motyw",

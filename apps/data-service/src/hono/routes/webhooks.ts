@@ -6,6 +6,7 @@ import { handleSubscriptionUpdated } from "@/stripe/webhooks/subscription-update
 import { handleSubscriptionDeleted } from "@/stripe/webhooks/subscription-deleted";
 import { handleInvoicePaymentSucceeded } from "@/stripe/webhooks/invoice-payment-succeeded";
 import { handleInvoicePaymentFailed } from "@/stripe/webhooks/invoice-payment-failed";
+import { handlePaymentIntentSucceeded } from "@/stripe/webhooks/payment-intent-succeeded";
 import { isEventProcessed, markEventProcessed } from "@repo/data-ops/queries/webhook-events";
 
 const webhooks = new Hono<{ Bindings: Env }>();
@@ -60,6 +61,10 @@ webhooks.post("/stripe", async (c) => {
 
       case "invoice.payment_failed":
         await handleInvoicePaymentFailed(event.data.object as Stripe.Invoice);
+        break;
+
+      case "payment_intent.succeeded":
+        await handlePaymentIntentSucceeded(event.data.object as Stripe.PaymentIntent);
         break;
 
       default:

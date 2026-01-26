@@ -21,7 +21,16 @@
     "cancelTitle": "Payment Canceled",
     "cancelMessage": "You can try again anytime.",
     "goToDashboard": "Go to Dashboard",
-    "backToDashboard": "Back to Dashboard"
+    "backToDashboard": "Back to Dashboard",
+    "blik": {
+      "title": "BLIK Annual Payment",
+      "description": "Pay PLN 100 for 1 year of SMS notifications (save PLN 20 vs monthly)",
+      "payButton": "Pay 100 PLN",
+      "processing": "Processing...",
+      "initError": "Failed to initialize payment",
+      "retry": "Retry",
+      "failed": "Payment failed"
+    }
   },
   "theme": {
     "toggle": "Toggle theme",
