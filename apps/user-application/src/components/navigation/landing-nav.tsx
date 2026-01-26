@@ -11,12 +11,23 @@ export function LandingNav() {
   const [isScrolled, setIsScrolled] = React.useState(false);
 
   React.useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const sentinel = document.createElement("div");
+    sentinel.style.position = "absolute";
+    sentinel.style.top = "20px";
+    sentinel.style.height = "1px";
+    sentinel.style.pointerEvents = "none";
+    document.body.appendChild(sentinel);
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const observer = new IntersectionObserver(
+      (entries) => setIsScrolled(entries[0]?.isIntersecting === false),
+      { rootMargin: "-20px 0px 0px 0px" }
+    );
+
+    observer.observe(sentinel);
+    return () => {
+      observer.disconnect();
+      sentinel.remove();
+    };
   }, []);
 
   return (
