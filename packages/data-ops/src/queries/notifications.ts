@@ -37,7 +37,7 @@ export async function getUsersNeedingNotification(
     .leftJoin(waste_types, eq(waste_schedules.wasteTypeId, waste_types.id));
 
   const targetDay = new Date(targetDate).getDate();
-  const targetMonth = new Date(targetDate).toLocaleString("en-US", { month: "long" });
+  const targetMonth = String(new Date(targetDate).getMonth() + 1);
 
   const relevantSchedules = schedules.filter(s => {
     if (!s.days) return false;

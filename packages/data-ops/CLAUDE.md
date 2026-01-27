@@ -30,6 +30,10 @@ pnpm better-auth:generate      # Regenerate auth-schema.ts from config/auth.ts
 # Data seeding
 pnpm seed:{env}                # Seed DB with initial data
 pnpm import:{env}              # Clear + import from files
+
+# Debugging
+pnpm debug:notifications:{env} <email|userId>  # Debug why user not receiving notifications
+pnpm debug:schedules:{env} <cityId> <streetId> # Check waste schedules for city+street
 ```
 
 ## Structure
@@ -42,10 +46,11 @@ src/
 │   ├── relations.ts       # Drizzle relational queries config
 │   └── migrations/        # Per-env migration history (dev/stage/prod/)
 ├── queries/
-│   ├── user.ts           # User profile queries
-│   ├── address.ts        # Address CRUD + city/street lookups
-│   ├── notifications.ts  # Notification scheduling queries
-│   └── waste.ts          # Waste schedule queries
+│   ├── user.ts                # User profile queries
+│   ├── address.ts             # Address CRUD + city/street lookups
+│   ├── notifications.ts       # Notification scheduling queries
+│   ├── debug-notifications.ts # Debug query for notification issues
+│   └── waste.ts               # Waste schedule queries
 ├── zod-schema/
 │   ├── user.ts           # User validation schemas
 │   └── stats.ts          # Coverage stats schemas
@@ -53,8 +58,10 @@ src/
 │   ├── setup.ts          # Better Auth config (providers, plugins)
 │   └── server.ts         # Auth server instance
 ├── database/
-│   ├── setup.ts          # DB client (initDatabase, getDb)
-│   └── seed/             # Seeding utilities
+│   ├── setup.ts                    # DB client (initDatabase, getDb)
+│   ├── debug-user-notifications.ts # Debug script for notification issues
+│   ├── debug-schedules.ts          # Debug script for waste schedules
+│   └── seed/                       # Seeding utilities
 └── lib/                   # Shared utilities
 ```
 
@@ -165,6 +172,30 @@ DATABASE_PASSWORD=
 - [001-user-profile-and-addresses.md](../../docs/001-user-profile-and-addresses.md) - Address + notification preferences schema
 - [002-cities-streets-database.md](../../docs/002-cities-streets-database.md) - Cities + streets schema
 - [004-db-feeder.md](../../docs/004-db-feeder.md) - Data import from files
+
+## Debug Scripts
+
+### debug:notifications
+Diagnoses why a user isn't receiving SMS notifications. Checks:
+- Phone format (must be `+48XXXXXXXXX`)
+- Subscription status + expiry
+- Address has city + street assigned
+- Notification preferences enabled + hour setting
+- Waste schedules exist for user's city+street on today/tomorrow
+- Hour mismatch (CET hour vs preference hour)
+
+```bash
+pnpm debug:notifications:dev user@example.com
+# or
+pnpm debug:notifications:dev userId123
+```
+
+### debug:schedules
+Shows all waste schedules for a city+street combo. Useful for verifying data import.
+
+```bash
+pnpm debug:schedules:dev 41 469  # cityId streetId
+```
 
 ## Dev Notes
 

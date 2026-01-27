@@ -45,7 +45,13 @@
     "seed:plans:prod": "dotenvx run -f .env.prod -- tsx src/database/seed/seed-subscription-plans.ts",
     "import:dev": "dotenvx run -f .env.dev -- tsx src/database/clear-and-import.ts",
     "import:stage": "dotenvx run -f .env.stage -- tsx src/database/clear-and-import.ts",
-    "import:prod": "dotenvx run -f .env.prod -- tsx src/database/clear-and-import.ts"
+    "import:prod": "dotenvx run -f .env.prod -- tsx src/database/clear-and-import.ts",
+    "debug:notifications:dev": "dotenvx run -f .env.dev -- tsx src/database/debug-user-notifications.ts",
+    "debug:notifications:stage": "dotenvx run -f .env.stage -- tsx src/database/debug-user-notifications.ts",
+    "debug:notifications:prod": "dotenvx run -f .env.prod -- tsx src/database/debug-user-notifications.ts",
+    "debug:schedules:dev": "dotenvx run -f .env.dev -- tsx src/database/debug-schedules.ts",
+    "debug:schedules:stage": "dotenvx run -f .env.stage -- tsx src/database/debug-schedules.ts",
+    "debug:schedules:prod": "dotenvx run -f .env.prod -- tsx src/database/debug-schedules.ts"
   },
   "keywords": [],
   "author": "",
