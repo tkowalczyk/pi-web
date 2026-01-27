@@ -1,12 +1,25 @@
 import Stripe from "stripe";
 import { getStripe } from "@/stripe/client";
 import { getSubscriptionPlanByPriceId, createSubscription } from "@repo/data-ops/queries/subscription";
+import { getUserById } from "@repo/data-ops/queries/payments";
 
 export async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) {
   const userId = session.metadata?.userId;
 
   if (!userId) {
-    console.error("No userId in checkout session metadata");
+    console.error("[WEBHOOK ERROR] No userId in checkout session metadata", {
+      sessionId: session.id,
+      customer: session.customer,
+    });
+    return;
+  }
+
+  const user = await getUserById(userId);
+  if (!user) {
+    console.error("[WEBHOOK ERROR] User not found in database", {
+      userId,
+      sessionId: session.id,
+    });
     return;
   }
 

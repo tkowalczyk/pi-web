@@ -8,6 +8,7 @@ import { handleInvoicePaymentSucceeded } from "@/stripe/webhooks/invoice-payment
 import { handleInvoicePaymentFailed } from "@/stripe/webhooks/invoice-payment-failed";
 import { handlePaymentIntentSucceeded } from "@/stripe/webhooks/payment-intent-succeeded";
 import { isEventProcessed, markEventProcessed } from "@repo/data-ops/queries/webhook-events";
+import { logWebhookError } from "@/stripe/webhooks/utils";
 
 const webhooks = new Hono<{ Bindings: Env }>();
 
@@ -29,7 +30,11 @@ webhooks.post("/stripe", async (c) => {
       c.env.STRIPE_WEBHOOK_SECRET
     );
   } catch (err) {
-    console.error("Webhook signature verification failed:", err);
+    console.error("[SECURITY] Webhook signature verification failed:", {
+      error: err instanceof Error ? err.message : String(err),
+      signature: signature.substring(0, 20) + "...",
+      ip: c.req.header("cf-connecting-ip"),
+    });
     return c.json({ error: "Invalid signature" }, 400);
   }
 
@@ -37,34 +42,78 @@ webhooks.post("/stripe", async (c) => {
 
   // Check idempotency
   if (await isEventProcessed(event.id)) {
-    console.log(`Event ${event.id} already processed, skipping`);
+    console.log(`[IDEMPOTENCY] Event ${event.id} already processed, skipping`);
     return c.json({ received: true, skipped: true });
   }
 
   try {
     switch (event.type) {
       case "checkout.session.completed":
-        await handleCheckoutSessionCompleted(event.data.object as Stripe.Checkout.Session);
+        try {
+          await handleCheckoutSessionCompleted(event.data.object as Stripe.Checkout.Session);
+        } catch (err) {
+          logWebhookError("checkout.session.completed", event.id, err, {
+            sessionId: (event.data.object as Stripe.Checkout.Session).id,
+            userId: (event.data.object as Stripe.Checkout.Session).metadata?.userId,
+          });
+          throw err;
+        }
         break;
 
       case "customer.subscription.updated":
-        await handleSubscriptionUpdated(event.data.object as Stripe.Subscription);
+        try {
+          await handleSubscriptionUpdated(event.data.object as Stripe.Subscription);
+        } catch (err) {
+          logWebhookError("customer.subscription.updated", event.id, err, {
+            subscriptionId: (event.data.object as Stripe.Subscription).id,
+          });
+          throw err;
+        }
         break;
 
       case "customer.subscription.deleted":
-        await handleSubscriptionDeleted(event.data.object as Stripe.Subscription);
+        try {
+          await handleSubscriptionDeleted(event.data.object as Stripe.Subscription);
+        } catch (err) {
+          logWebhookError("customer.subscription.deleted", event.id, err, {
+            subscriptionId: (event.data.object as Stripe.Subscription).id,
+          });
+          throw err;
+        }
         break;
 
       case "invoice.payment_succeeded":
-        await handleInvoicePaymentSucceeded(event.data.object as Stripe.Invoice);
+        try {
+          await handleInvoicePaymentSucceeded(event.data.object as Stripe.Invoice);
+        } catch (err) {
+          logWebhookError("invoice.payment_succeeded", event.id, err, {
+            invoiceId: (event.data.object as Stripe.Invoice).id,
+          });
+          throw err;
+        }
         break;
 
       case "invoice.payment_failed":
-        await handleInvoicePaymentFailed(event.data.object as Stripe.Invoice);
+        try {
+          await handleInvoicePaymentFailed(event.data.object as Stripe.Invoice);
+        } catch (err) {
+          logWebhookError("invoice.payment_failed", event.id, err, {
+            invoiceId: (event.data.object as Stripe.Invoice).id,
+          });
+          throw err;
+        }
         break;
 
       case "payment_intent.succeeded":
-        await handlePaymentIntentSucceeded(event.data.object as Stripe.PaymentIntent);
+        try {
+          await handlePaymentIntentSucceeded(event.data.object as Stripe.PaymentIntent);
+        } catch (err) {
+          logWebhookError("payment_intent.succeeded", event.id, err, {
+            paymentIntentId: (event.data.object as Stripe.PaymentIntent).id,
+            userId: (event.data.object as Stripe.PaymentIntent).metadata?.userId,
+          });
+          throw err;
+        }
         break;
 
       default:

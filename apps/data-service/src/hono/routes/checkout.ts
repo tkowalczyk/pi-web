@@ -15,6 +15,16 @@ checkout.post("/create-session", async (c) => {
     return c.json({ error: "Missing required fields" }, 400);
   }
 
+  const sessionUserId = c.req.header("X-User-Id");
+  if (sessionUserId && userId !== sessionUserId) {
+    console.error("[SECURITY] User ID mismatch:", {
+      provided: userId,
+      session: sessionUserId,
+      ip: c.req.header("cf-connecting-ip"),
+    });
+    return c.json({ error: "Unauthorized" }, 403);
+  }
+
   const user = await getUserProfile(userId);
 
   if (!user) {
@@ -23,7 +33,14 @@ checkout.post("/create-session", async (c) => {
 
   const existingSub = await getActiveSubscriptionByUserId(userId);
   if (existingSub) {
-    return c.json({ error: "User already has active subscription" }, 400);
+    return c.json(
+      {
+        error: "User already has active subscription",
+        subscriptionId: existingSub.id,
+        expiresAt: existingSub.currentPeriodEnd,
+      },
+      400
+    );
   }
 
   const stripe = getStripe();
@@ -61,6 +78,16 @@ checkout.post("/create-payment-intent", async (c) => {
     return c.json({ error: "Missing required fields" }, 400);
   }
 
+  const sessionUserId = c.req.header("X-User-Id");
+  if (sessionUserId && userId !== sessionUserId) {
+    console.error("[SECURITY] User ID mismatch:", {
+      provided: userId,
+      session: sessionUserId,
+      ip: c.req.header("cf-connecting-ip"),
+    });
+    return c.json({ error: "Unauthorized" }, 403);
+  }
+
   const user = await getUserById(userId);
   if (!user) {
     return c.json({ error: "User not found" }, 404);
@@ -68,7 +95,14 @@ checkout.post("/create-payment-intent", async (c) => {
 
   const existingSub = await getActiveSubscriptionByUserId(userId);
   if (existingSub) {
-    return c.json({ error: "User already has active subscription" }, 400);
+    return c.json(
+      {
+        error: "User already has active subscription",
+        subscriptionId: existingSub.id,
+        expiresAt: existingSub.currentPeriodEnd,
+      },
+      400
+    );
   }
 
   const plan = await getPlanByPriceId(priceId);

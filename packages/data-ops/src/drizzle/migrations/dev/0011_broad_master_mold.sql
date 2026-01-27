@@ -1,0 +1,1 @@
+CREATE INDEX "subscriptions_user_status_idx" ON "subscriptions" USING btree ("user_id","status");

@@ -27,7 +27,10 @@ function BlikPaymentPage() {
     mutationFn: async (): Promise<PaymentIntentResponse> => {
       const response = await fetch(`${import.meta.env.VITE_DATA_SERVICE_URL}/api/checkout/create-payment-intent`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "X-User-Id": user.id,
+        },
         body: JSON.stringify({
           userId: user.id,
           priceId: import.meta.env.VITE_STRIPE_BLIK_ANNUAL_PRICE_ID,

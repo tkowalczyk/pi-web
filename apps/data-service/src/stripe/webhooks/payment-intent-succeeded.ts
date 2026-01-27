@@ -1,12 +1,25 @@
 import Stripe from "stripe";
-import { getPlanById, createBlikSubscription } from "@repo/data-ops/queries/payments";
+import { getPlanById, createBlikSubscription, getUserById } from "@repo/data-ops/queries/payments";
 
 export async function handlePaymentIntentSucceeded(paymentIntent: Stripe.PaymentIntent) {
   const userId = paymentIntent.metadata?.userId;
   const subscriptionPlanId = paymentIntent.metadata?.subscriptionPlanId;
 
   if (!userId || !subscriptionPlanId) {
-    console.error("Missing metadata in payment intent");
+    console.error("[WEBHOOK ERROR] Missing metadata in payment intent", {
+      paymentIntentId: paymentIntent.id,
+      userId,
+      subscriptionPlanId,
+    });
+    return;
+  }
+
+  const user = await getUserById(userId);
+  if (!user) {
+    console.error("[WEBHOOK ERROR] User not found in database", {
+      userId,
+      paymentIntentId: paymentIntent.id,
+    });
     return;
   }
 

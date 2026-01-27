@@ -135,6 +135,7 @@ export const subscriptions = pgTable("subscriptions", {
   index("subscriptions_stripe_payment_intent_id_idx").on(table.stripePaymentIntentId),
   index("subscriptions_status_idx").on(table.status),
   index("subscriptions_current_period_end_idx").on(table.currentPeriodEnd),
+  index("subscriptions_user_status_idx").on(table.userId, table.status),
 ]);
 
 export const payments = pgTable("payments", {

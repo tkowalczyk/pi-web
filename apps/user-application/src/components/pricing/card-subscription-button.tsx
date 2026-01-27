@@ -17,7 +17,10 @@ export function CardSubscriptionButton({ userId, disabled }: Props) {
     mutationFn: async (): Promise<CheckoutResponse> => {
       const response = await fetch(`${import.meta.env.VITE_DATA_SERVICE_URL}/api/checkout/create-session`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "X-User-Id": userId,
+        },
         body: JSON.stringify({
           userId,
           priceId: import.meta.env.VITE_STRIPE_CARD_MONTHLY_PRICE_ID,
