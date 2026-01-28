@@ -17,6 +17,7 @@
 		* Local / Development environment
 		*/
 		"dev": {
+			"name": "pi-web-data-service-dev",
 			"kv_namespaces": [
 				{
 					"binding": "CACHE",

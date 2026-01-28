@@ -8,9 +8,9 @@ import subscription from "@/hono/routes/subscription";
 
 export const app = new Hono<{ Bindings: Env }>();
 
-app.route("/webhooks", webhooks);
+app.route("/worker/webhooks", webhooks);
 
-app.use("/*", cors({
+app.use("/worker/*", cors({
   origin: (origin, c) => {
     const env = c.env.CLOUDFLARE_ENV;
     if (env === "dev") return origin;
@@ -31,8 +31,8 @@ app.get("/worker/health", (c) =>
   }),
 );
 
-app.route("/api/checkout", checkout);
-app.route("/api/subscription", subscription);
+app.route("/worker/api/checkout", checkout);
+app.route("/worker/api/subscription", subscription);
 
 app.get("/worker/stats", async (c) => {
   try {

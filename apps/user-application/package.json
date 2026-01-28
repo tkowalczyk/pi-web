@@ -9,7 +9,7 @@
     "deploy:stage": "pnpm run build:stage && wrangler deploy --env=''",
     "deploy:prod": "pnpm run build:prod && wrangler deploy --env=''",
     "serve": "vite preview",
-    "cf-typegen": "wrangler types --env-interface Env"
+    "cf-typegen": "wrangler types --env-interface Env --env dev"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.10",

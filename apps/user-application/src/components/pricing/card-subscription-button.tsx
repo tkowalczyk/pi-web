@@ -15,7 +15,7 @@ export function CardSubscriptionButton({ userId, disabled }: Props) {
   const { t } = useTranslation();
   const mutation = useMutation({
     mutationFn: async (): Promise<CheckoutResponse> => {
-      const response = await fetch(`${import.meta.env.VITE_DATA_SERVICE_URL}/api/checkout/create-session`, {
+      const response = await fetch(`${import.meta.env.VITE_DATA_SERVICE_URL}/worker/api/checkout/create-session`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

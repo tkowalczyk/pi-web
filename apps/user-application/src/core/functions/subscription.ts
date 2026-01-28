@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { protectedFunctionMiddleware } from "@/core/middleware/auth";
+import { env } from "cloudflare:workers";
 
 const baseFunction = createServerFn().middleware([protectedFunctionMiddleware]);
 
@@ -20,17 +21,17 @@ interface Subscription {
   plan: SubscriptionPlan;
 }
 
+function fetchDataService(path: string, init?: RequestInit): Promise<Response> {
+  return env.DATA_SERVICE.fetch(new Request(`https://data-service${path}`, init));
+}
+
 export const getMySubscription = baseFunction.handler(async (ctx): Promise<Subscription | null> => {
-  const response = await fetch(`${process.env.VITE_DATA_SERVICE_URL}/api/subscription/my-subscription`, {
-    headers: {
-      "X-User-Id": ctx.context.userId,
-    },
+  const response = await fetchDataService("/worker/api/subscription/my-subscription", {
+    headers: { "X-User-Id": ctx.context.userId },
   });
 
   if (!response.ok) {
-    if (response.status === 401) {
-      throw new Error("Unauthorized");
-    }
+    if (response.status === 401) throw new Error("Unauthorized");
     throw new Error("Failed to fetch subscription");
   }
 
@@ -38,11 +39,9 @@ export const getMySubscription = baseFunction.handler(async (ctx): Promise<Subsc
 });
 
 export const cancelSubscription = baseFunction.handler(async (ctx): Promise<{ success: boolean }> => {
-  const response = await fetch(`${process.env.VITE_DATA_SERVICE_URL}/api/subscription/cancel`, {
+  const response = await fetchDataService("/worker/api/subscription/cancel", {
     method: "POST",
-    headers: {
-      "X-User-Id": ctx.context.userId,
-    },
+    headers: { "X-User-Id": ctx.context.userId },
   });
 
   if (!response.ok) {

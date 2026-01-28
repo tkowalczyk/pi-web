@@ -25,7 +25,7 @@ function BlikPaymentPage() {
 
   const mutation = useMutation({
     mutationFn: async (): Promise<PaymentIntentResponse> => {
-      const response = await fetch(`${import.meta.env.VITE_DATA_SERVICE_URL}/api/checkout/create-payment-intent`, {
+      const response = await fetch(`${import.meta.env.VITE_DATA_SERVICE_URL}/worker/api/checkout/create-payment-intent`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -18,6 +18,12 @@
       "vars": {
         "CLOUDFLARE_ENV": "dev",
       },
+      "services": [
+        {
+          "binding": "DATA_SERVICE",
+          "service": "pi-web-data-service-dev"
+        }
+      ]
     },
     /** 
 		* Remote / Staging environment 
