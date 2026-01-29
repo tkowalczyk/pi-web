@@ -135,7 +135,7 @@ function Dashboard() {
           </div>
 
           {/* Waste Collection Schedule */}
-          {setupComplete && (
+          {hasAddress && hasPhone && (
             <div className="mt-8">
               <WasteScheduleCard />
             </div>

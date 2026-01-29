@@ -103,12 +103,18 @@ pnpm drizzle:prod:migrate
 **From:** `packages/data-ops/`
 
 ```bash
-# Import cities, streets, waste schedules from files
+# 1. Import cities, streets, waste schedules from files
 pnpm import:prod
 
-# Seed subscription plans (after Stripe setup in Section 2)
+# 2. Run general seed (if any base data needed)
 pnpm seed:prod
+
+# 3. Seed subscription plans (AFTER Stripe setup in Section 2)
+# This links Stripe price IDs to database - requires .env.prod configured
+pnpm seed:plans:prod
 ```
+
+**Note:** `seed:plans:prod` must run AFTER creating Stripe products/prices (Section 2.2) and updating `.env.prod` with price IDs.
 
 **Verification:**
 ```sql

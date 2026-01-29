@@ -137,20 +137,29 @@
     "upgradeCta": "Upgrade to Premium",
     "subscriptionValid": "Valid until",
     "status": {
-      "premiumActive": {
-        "title": "Premium Plan Active",
-        "smsEnabled": "SMS Enabled",
+      "steps": {
+        "phone": "Add phone number",
+        "address": "Add address",
+        "payment": "Activate SMS notifications"
+      },
+      "phone": {
+        "title": "Add Phone Number",
+        "description": "Enter your phone number to receive SMS notifications"
+      },
+      "address": {
+        "title": "Add Address",
+        "description": "Add your address to see the waste collection schedule"
+      },
+      "payment": {
+        "title": "Schedule Ready",
+        "description": "Your waste collection schedule is now visible below",
+        "scheduleVisible": "Waste collection schedule is now visible!",
+        "upgradeCta": "Enable SMS Notifications"
+      },
+      "complete": {
+        "title": "Setup Complete",
+        "smsEnabled": "SMS notifications enabled",
         "validUntil": "Valid until"
-      },
-      "premiumIncomplete": {
-        "title": "Premium Plan",
-        "description": "Complete setup to receive notifications"
-      },
-      "freePlan": {
-        "title": "Free Plan",
-        "description": "View Only",
-        "noSms": "No SMS notifications",
-        "upgradeCta": "Upgrade to Premium"
       }
     }
   },

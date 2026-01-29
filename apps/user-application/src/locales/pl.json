@@ -137,20 +137,29 @@
     "upgradeCta": "Przejdź na Premium",
     "subscriptionValid": "Ważna do",
     "status": {
-      "premiumActive": {
-        "title": "Aktywny Plan Premium",
-        "smsEnabled": "SMS Włączone",
+      "steps": {
+        "phone": "Dodaj numer telefonu",
+        "address": "Dodaj adres",
+        "payment": "Aktywuj powiadomienia SMS"
+      },
+      "phone": {
+        "title": "Dodaj Numer Telefonu",
+        "description": "Podaj numer telefonu, aby otrzymywać powiadomienia SMS"
+      },
+      "address": {
+        "title": "Dodaj Adres",
+        "description": "Dodaj adres, aby zobaczyć harmonogram odbioru śmieci"
+      },
+      "payment": {
+        "title": "Harmonogram Gotowy",
+        "description": "Harmonogram odbioru śmieci jest teraz widoczny poniżej",
+        "scheduleVisible": "Harmonogram odbioru śmieci jest teraz widoczny!",
+        "upgradeCta": "Włącz Powiadomienia SMS"
+      },
+      "complete": {
+        "title": "Konfiguracja Zakończona",
+        "smsEnabled": "Powiadomienia SMS włączone",
         "validUntil": "Ważna do"
-      },
-      "premiumIncomplete": {
-        "title": "Plan Premium",
-        "description": "Dokończ konfigurację, aby otrzymywać powiadomienia"
-      },
-      "freePlan": {
-        "title": "Darmowy Plan",
-        "description": "Tylko Podgląd",
-        "noSms": "Brak powiadomień SMS",
-        "upgradeCta": "Przejdź na Premium"
       }
     }
   },

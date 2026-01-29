@@ -15,6 +15,13 @@
       "when": 1765551823830,
       "tag": "0001_left_mister_sinister",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1769687933861,
+      "tag": "0002_dusty_meteorite",
+      "breakpoints": true
     }
   ]
 }
