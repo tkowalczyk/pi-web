@@ -31,7 +31,7 @@
     "backToDashboard": "Powrót do Panelu",
     "blik": {
       "title": "Płatność BLIK - Roczna",
-      "description": "Zapłać 100 PLN za rok powiadomień SMS (oszczędź 20 PLN vs miesięcznie)",
+      "description": "Zapłać 100 PLN za rok powiadomień SMS (oszczędzasz w ujęciu rocznym)",
       "payButton": "Zapłać 100 PLN",
       "processing": "Przetwarzanie...",
       "initError": "Nie udało się zainicjować płatności",
@@ -501,8 +501,8 @@
     "blik": {
       "title": "BLIK Rocznie",
       "badge": "Najlepsza Wartość",
-      "description": "Jednorazowa płatność, oszczędź 2 miesiące",
-      "savings": "Oszczędź 20 PLN vs miesięcznie",
+      "description": "Jednorazowa płatność, oszczędzasz w ujęciu rocznym",
+      "savings": "(oszczędzasz w ujęciu rocznym)",
       "feature1": "Powiadomienia SMS",
       "feature2": "Wszystkie adresy",
       "feature3": "Brak opłat cyklicznych",

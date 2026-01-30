@@ -31,7 +31,7 @@
     "backToDashboard": "Back to Dashboard",
     "blik": {
       "title": "BLIK Annual Payment",
-      "description": "Pay PLN 100 for 1 year of SMS notifications (save PLN 20 vs monthly)",
+      "description": "Pay PLN 100 for 1 year of SMS notifications (save more vs monthly)",
       "payButton": "Pay 100 PLN",
       "processing": "Processing...",
       "initError": "Failed to initialize payment",
@@ -501,8 +501,8 @@
     "blik": {
       "title": "BLIK Annual",
       "badge": "Best Value",
-      "description": "One-time payment, save 2 months",
-      "savings": "Save 20 PLN vs monthly",
+      "description": "One-time payment, save more",
+      "savings": "Save more vs monthly",
       "feature1": "SMS notifications",
       "feature2": "All addresses covered",
       "feature3": "No recurring charges",
