@@ -123,7 +123,7 @@ function LandingPage() {
               <h2 className="text-2xl font-semibold text-foreground mb-2 text-balance">{t("landing.coverage")}</h2>
               <p className="text-muted-foreground">{t("landing.coverageDescription")}</p>
             </div>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 max-w-5xl mx-auto">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
               <Card className="border-primary/20 bg-primary/10">
                 <CardContent className="pt-6 text-center">
                   <div className="text-5xl font-bold text-primary mb-2 tabular-nums">
@@ -148,14 +148,14 @@ function LandingPage() {
                   <div className="text-lg text-muted-foreground">{t("landing.wasteSchedules")}</div>
                 </CardContent>
               </Card>
-              <Card className="border-primary/20 bg-secondary/10">
+              {/* <Card className="border-primary/20 bg-secondary/10">
                 <CardContent className="pt-6 text-center">
                   <div className="text-5xl font-bold text-primary mb-2 tabular-nums">
                     {stats?.activeUsersCount.toLocaleString() ?? "0"}
                   </div>
                   <div className="text-lg text-muted-foreground">{t("landing.activeUsers")}</div>
                 </CardContent>
-              </Card>
+              </Card> */}
             </div>
           </div>
 
