@@ -45,7 +45,6 @@ export const Route = createRootRouteWithContext<{
         type: "image/svg+xml",
         href: "/bell-favicon.svg",
       },
-      { rel: "icon", href: "/favicon.ico" },
     ],
   }),
   errorComponent: (props) => {
