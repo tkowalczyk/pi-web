@@ -85,7 +85,7 @@ export function PricingSection() {
             <CardTitle>{t("pricing.blik.title")}</CardTitle>
             <CardDescription>{t("pricing.blik.description")}</CardDescription>
             <div className="text-3xl font-bold mt-4 tabular-nums">
-              100 PLN
+              70 PLN
               <span className="text-base font-normal text-muted-foreground">/rok</span>
             </div>
             <p className="text-sm text-green-600 font-medium">{t("pricing.blik.savings")}</p>

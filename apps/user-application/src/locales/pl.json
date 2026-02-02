@@ -31,8 +31,8 @@
     "backToDashboard": "Powrót do Panelu",
     "blik": {
       "title": "Płatność BLIK - Roczna",
-      "description": "Zapłać 100 PLN za rok powiadomień SMS (oszczędzasz w ujęciu rocznym)",
-      "payButton": "Zapłać 100 PLN",
+      "description": "Zapłać 70 PLN za rok powiadomień SMS (oszczędzasz w ujęciu rocznym)",
+      "payButton": "Zapłać 70 PLN",
       "processing": "Przetwarzanie...",
       "initError": "Nie udało się zainicjować płatności",
       "retry": "Spróbuj ponownie",
