@@ -487,14 +487,14 @@
       "description": "Przeglądaj harmonogramy",
       "price": "0 PLN",
       "feature1": "Pełny harmonogram (2 tygodnie)",
-      "feature2": "Wiele adresów"
+      "feature2": "1 adres"
     },
     "card": {
       "title": "Karta Miesięcznie",
       "badge": "Popularne",
       "description": "Automatyczne płatności miesięczne",
       "feature1": "Powiadomienia SMS",
-      "feature2": "Wszystkie adresy",
+      "feature2": "1 adres",
       "feature3": "Anuluj w dowolnym momencie",
       "cta": "Subskrybuj - Karta"
     },
@@ -504,7 +504,7 @@
       "description": "Jednorazowa płatność, oszczędzasz w ujęciu rocznym",
       "savings": "(oszczędzasz w ujęciu rocznym)",
       "feature1": "Powiadomienia SMS",
-      "feature2": "Wszystkie adresy",
+      "feature2": "1 adres",
       "feature3": "Brak opłat cyklicznych",
       "feature4": "BLIK natychmiastowa płatność",
       "cta": "Zapłać BLIK"

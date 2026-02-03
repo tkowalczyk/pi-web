@@ -487,14 +487,14 @@
       "description": "View waste schedules",
       "price": "0 PLN",
       "feature1": "Full schedule (2 weeks)",
-      "feature2": "Multiple addresses"
+      "feature2": "One address"
     },
     "card": {
       "title": "Card Monthly",
       "badge": "Popular",
       "description": "Automatic monthly payments",
       "feature1": "SMS notifications",
-      "feature2": "All addresses covered",
+      "feature2": "One address covered",
       "feature3": "Cancel anytime",
       "cta": "Subscribe - Card"
     },
@@ -504,7 +504,7 @@
       "description": "One-time payment, save more",
       "savings": "Save more vs monthly",
       "feature1": "SMS notifications",
-      "feature2": "All addresses covered",
+      "feature2": "One address covered",
       "feature3": "No recurring charges",
       "feature4": "BLIK instant payment",
       "cta": "Pay with BLIK"
