@@ -382,7 +382,7 @@ function BlikPaymentForm() {
         className="w-full mt-6"
         disabled={!stripe || loading}
       >
-        {loading ? "Processing..." : "Pay 100 PLN"}
+        {loading ? "Processing..." : "Pay 70 PLN"}
       </Button>
     </form>
   );
