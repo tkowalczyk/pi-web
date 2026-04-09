@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { normalizePolishPhone, phoneSchema, updatePhoneSchema } from "../src/zod-schema/phone";
+import { normalizePolishPhone, phoneSchema, UpdatePhoneInput } from "../src/zod-schema/phone";
 
 describe("normalizePolishPhone", () => {
   it("should normalize +48 xxx xxx xxx format", () => {
@@ -59,26 +59,26 @@ describe("phoneSchema", () => {
   });
 });
 
-describe("updatePhoneSchema", () => {
+describe("UpdatePhoneInput", () => {
   it("should parse valid phone in object", () => {
-    const result = updatePhoneSchema.parse({ phone: "+48 123 456 789" });
+    const result = UpdatePhoneInput.parse({ phone: "+48 123 456 789" });
     expect(result.phone).toBe("+48 123 456 789");
   });
 
   it("should normalize phone in object", () => {
-    const result = updatePhoneSchema.parse({ phone: "123456789" });
+    const result = UpdatePhoneInput.parse({ phone: "123456789" });
     expect(result.phone).toBe("+48 123 456 789");
   });
 
   it("should throw on empty phone string", () => {
-    expect(() => updatePhoneSchema.parse({ phone: "" })).toThrow("Phone number is required");
+    expect(() => UpdatePhoneInput.parse({ phone: "" })).toThrow("Phone number is required");
   });
 
   it("should throw on whitespace-only phone", () => {
-    expect(() => updatePhoneSchema.parse({ phone: "   " })).toThrow("Phone number is required");
+    expect(() => UpdatePhoneInput.parse({ phone: "   " })).toThrow("Phone number is required");
   });
 
   it("should throw on invalid phone format", () => {
-    expect(() => updatePhoneSchema.parse({ phone: "invalid" })).toThrow();
+    expect(() => UpdatePhoneInput.parse({ phone: "invalid" })).toThrow();
   });
 });

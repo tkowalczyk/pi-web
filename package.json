@@ -1,5 +1,5 @@
 {
-  "name": "saas-kit",
+  "name": "powiadomienia-info",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -22,7 +22,11 @@
 
     "import:dev": "pnpm run --filter data-ops import:dev",
     "import:stage": "pnpm run --filter data-ops import:stage",
-    "import:prod": "pnpm run --filter data-ops import:prod"
+    "import:prod": "pnpm run --filter data-ops import:prod",
+
+    "test": "TEST_DB_PROFILE=local vitest run",
+    "test:watch": "TEST_DB_PROFILE=local vitest",
+    "test:ci": "TEST_DB_PROFILE=managed vitest run"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +34,7 @@
   "packageManager": "pnpm@10.14.0",
   "devDependencies": {
     "@types/node": "^22.18.12",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.15"
   }
 }

@@ -63,7 +63,7 @@
     "@vitejs/plugin-react": "^4.7.0",
     "typescript": "^5.9.3",
     "vite": "7.1.2",
-    "vitest": "^3.2.4",
+    "vitest": "^4.0.15",
     "web-vitals": "^4.2.4",
     "wrangler": "^4.61.1"
   }
