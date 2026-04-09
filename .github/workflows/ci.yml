@@ -1,0 +1,70 @@
+name: CI
+
+# Phase M1-P2 regression gate. Runs the full quality + test profile on every
+# pull request to main. Hard gates (lint, test) must pass to merge. Advisory
+# gates (knip, deps, types) report findings but do not block — those are
+# scheduled for hard-gating once their backlog is clean (Phase 3+).
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: Lint + Test + Quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build data-ops
+        run: pnpm run build:data-ops
+
+      # ── Hard gates ───────────────────────────────────────────────────────────
+
+      - name: Lint (Biome)
+        run: pnpm run lint:ci
+
+      - name: Tests
+        # TODO(M1-P2 follow-up): switch to `pnpm test:ci` (managed Neon branch
+        # profile) once NEON_API_KEY is provisioned and test-harness wires the
+        # managed profile. Until then we run the local PGLite profile, which is
+        # the same code path devs run with `pnpm test`.
+        run: pnpm run test
+
+      # ── Advisory gates (run, report, do not block) ───────────────────────────
+
+      - name: Typecheck (advisory)
+        continue-on-error: true
+        run: pnpm run types
+
+      - name: Dead code check (advisory)
+        continue-on-error: true
+        run: pnpm run knip
+
+      - name: Dependency freshness (advisory)
+        continue-on-error: true
+        run: pnpm run deps

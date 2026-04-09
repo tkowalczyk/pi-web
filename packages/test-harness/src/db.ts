@@ -10,19 +10,17 @@ import type { PgDatabase } from "drizzle-orm/pg-core";
 export type TestDb = PgDatabase<any, any, any>;
 
 export interface TestDbHandle {
-  db: TestDb;
-  /** Close the underlying driver. Safe to call multiple times. */
-  cleanup: () => Promise<void>;
+	db: TestDb;
+	/** Close the underlying driver. Safe to call multiple times. */
+	cleanup: () => Promise<void>;
 }
 
 type Profile = "local" | "managed";
 
 function resolveProfile(): Profile {
-  const raw = process.env.TEST_DB_PROFILE ?? "local";
-  if (raw === "local" || raw === "managed") return raw;
-  throw new Error(
-    `Unknown TEST_DB_PROFILE=${raw}. Expected "local" or "managed".`,
-  );
+	const raw = process.env.TEST_DB_PROFILE ?? "local";
+	if (raw === "local" || raw === "managed") return raw;
+	throw new Error(`Unknown TEST_DB_PROFILE=${raw}. Expected "local" or "managed".`);
 }
 
 /**
@@ -34,18 +32,18 @@ function resolveProfile(): Profile {
  * start touching more tables.
  */
 export async function createTestDb(): Promise<TestDbHandle> {
-  const profile = resolveProfile();
+	const profile = resolveProfile();
 
-  if (profile === "managed") {
-    throw new Error(
-      "TEST_DB_PROFILE=managed is not wired up yet. Blocked by: second test in the tracer-bullet series.",
-    );
-  }
+	if (profile === "managed") {
+		throw new Error(
+			"TEST_DB_PROFILE=managed is not wired up yet. Blocked by: second test in the tracer-bullet series.",
+		);
+	}
 
-  const pg = new PGlite();
-  const db = drizzlePglite(pg) as unknown as TestDb;
+	const pg = new PGlite();
+	const db = drizzlePglite(pg) as unknown as TestDb;
 
-  await pg.exec(`
+	await pg.exec(`
     CREATE TABLE IF NOT EXISTS cities (
       id SERIAL PRIMARY KEY,
       name TEXT NOT NULL,
@@ -54,13 +52,13 @@ export async function createTestDb(): Promise<TestDbHandle> {
     );
   `);
 
-  let closed = false;
-  return {
-    db,
-    cleanup: async () => {
-      if (closed) return;
-      closed = true;
-      await pg.close();
-    },
-  };
+	let closed = false;
+	return {
+		db,
+		cleanup: async () => {
+			if (closed) return;
+			closed = true;
+			await pg.close();
+		},
+	};
 }
