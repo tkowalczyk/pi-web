@@ -95,18 +95,22 @@ pnpm build:data-ops
 
 ## Design Docs
 
-Detailed feature specs in [/docs/](docs/):
-- [001-user-profile-and-addresses.md](docs/001-user-profile-and-addresses.md) - User profiles + address management
-- [002-cities-streets-database.md](docs/002-cities-streets-database.md) - Cities + streets schema
-- [003-notification-service.md](docs/003-notification-service.md) - SMS notification system (cron + queues)
-- [004-db-feeder.md](docs/004-db-feeder.md) - Data import from files
-- [005-waste-collection-schedule-component.md](docs/005-waste-collection-schedule-component.md) - Schedule UI component
-- [006-multilingual-interface.md](docs/006-multilingual-interface.md) - i18n implementation
-- [007-footer-component.md](docs/007-footer-component.md) - Footer UI
-- [008-coverage-stats-cache.md](docs/008-coverage-stats-cache.md) - KV caching strategy
-- [009-email-password-authentication.md](docs/009-email-password-authentication.md) - Auth implementation
-- [010-payments.md](docs/010-payments.md) - Payment integration
-- [IMPLEMENTATION_NOTES.md](docs/IMPLEMENTATION_NOTES.md) - Common mistakes + lessons learned
+**Project is mid-pivot** (2026-04-09): from multi-tenant SaaS (SMS for waste collection) to personal/family notification hub (Telegram + Durable Objects + household model).
+
+### Active planning artifacts
+- **[docs/prd-m1-fundament.md](docs/prd-m1-fundament.md)** — M1 Fundament PRD (full, revised post-audit). Foundation refactor: test harness, TDD, remove multitenant, NotificationChannel abstraction, SchedulerDO scaffold, CI/CD. **Currently in progress.**
+- **[docs/prd-m2-notification-hub.md](docs/prd-m2-notification-hub.md)** — M2 Personal Notification Hub (STUB, waiting for M1 retro)
+- **[docs/prd-m3-landing-lead-capture.md](docs/prd-m3-landing-lead-capture.md)** — M3 Landing + Lead Capture (STUB, waiting for M2 retro)
+- **[docs/saas-on-cf-delta.md](docs/saas-on-cf-delta.md)** — audit report: `saas-on-cf` template vs `pi-web` (12 areas, revised M1 sequencing)
+- **[plans/m1-fundament.md](plans/m1-fundament.md)** — M1 tracer-bullet plan (8 phases)
+- **[plans/m2-notification-hub.md](plans/m2-notification-hub.md)** — M2 plan (STUB)
+- **[plans/m3-landing-lead-capture.md](plans/m3-landing-lead-capture.md)** — M3 plan (STUB)
+
+GitHub milestones: `M1 Fundament` (active, 9 issues), `M2 Personal Notification Hub` (blocked), `M3 Landing + Lead Capture` (blocked).
+
+### Historical design docs (archived)
+
+Pre-pivot design documentation lives in **[docs/archive/](docs/archive/)**. Topics: SaaS multi-tenant auth, Stripe/BLIK payments, cities/streets schema, SMS notification service, etc. **Do not read by default** — these describe legacy behavior that is being refactored or removed. See [docs/archive/README.md](docs/archive/README.md) for index and context. Only consult archive when the user explicitly asks about legacy behavior or past decisions.
 
 ## Core Patterns
 
