@@ -5,7 +5,11 @@ export interface Logger {
 }
 
 export function createLogger(requestId: string): Logger {
-	function log(level: "info" | "warn" | "error", message: string, context?: Record<string, unknown>) {
+	function log(
+		level: "info" | "warn" | "error",
+		message: string,
+		context?: Record<string, unknown>,
+	) {
 		const entry = JSON.stringify({
 			level,
 			requestId,

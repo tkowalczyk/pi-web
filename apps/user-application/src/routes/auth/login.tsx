@@ -5,23 +5,23 @@ import { Footer } from "@/components/landing/footer";
 import { checkSession } from "@/core/functions/session";
 
 export const Route = createFileRoute("/auth/login")({
-  beforeLoad: async () => {
-    const session = await checkSession();
-    if (session?.user) {
-      throw redirect({ to: "/app", replace: true });
-    }
-  },
-  component: RouteComponent,
+	beforeLoad: async () => {
+		const session = await checkSession();
+		if (session?.user) {
+			throw redirect({ to: "/app", replace: true });
+		}
+	},
+	component: RouteComponent,
 });
 
 function RouteComponent() {
-  return (
-    <div className="min-h-dvh flex flex-col bg-background">
-      <LandingNav />
-      <div className="flex-1">
-        <EmailLogin />
-      </div>
-      <Footer />
-    </div>
-  );
+	return (
+		<div className="min-h-dvh flex flex-col bg-background">
+			<LandingNav />
+			<div className="flex-1">
+				<EmailLogin />
+			</div>
+			<Footer />
+		</div>
+	);
 }

@@ -14,28 +14,25 @@ import { getCities } from "@/queries/address";
  * wired correctly. Everything else in M1 builds on this path.
  */
 describe("cities roundtrip (data-ops ↔ test-harness)", () => {
-  let handle: TestDbHandle;
+	let handle: TestDbHandle;
 
-  beforeEach(async () => {
-    handle = await createTestDb();
-    resetDatabase();
-    initDatabase({ client: handle.db });
-  });
+	beforeEach(async () => {
+		handle = await createTestDb();
+		resetDatabase();
+		initDatabase({ client: handle.db });
+	});
 
-  afterEach(async () => {
-    resetDatabase();
-    await handle.cleanup();
-  });
+	afterEach(async () => {
+		resetDatabase();
+		await handle.cleanup();
+	});
 
-  it("returns rows that were inserted directly into the database", async () => {
-    await handle.db.insert(cities).values([
-      { name: "Kraków" },
-      { name: "Warszawa" },
-    ]);
+	it("returns rows that were inserted directly into the database", async () => {
+		await handle.db.insert(cities).values([{ name: "Kraków" }, { name: "Warszawa" }]);
 
-    const result = await getCities();
+		const result = await getCities();
 
-    const names = result.map((c) => c.name).sort();
-    expect(names).toEqual(["Kraków", "Warszawa"]);
-  });
+		const names = result.map((c) => c.name).sort();
+		expect(names).toEqual(["Kraków", "Warszawa"]);
+	});
 });

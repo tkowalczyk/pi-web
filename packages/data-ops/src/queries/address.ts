@@ -4,114 +4,109 @@ import { auth_user } from "@/drizzle/auth-schema";
 import { eq, count, asc } from "drizzle-orm";
 
 export async function getUserAddresses(userId: string) {
-  const db = getDb();
-  return await db
-    .select({
-      id: addresses.id,
-      userId: addresses.userId,
-      cityId: addresses.cityId,
-      cityName: cities.name,
-      streetId: addresses.streetId,
-      streetName: streets.name,
-      isDefault: addresses.isDefault,
-      createdAt: addresses.createdAt,
-      updatedAt: addresses.updatedAt,
-    })
-    .from(addresses)
-    .leftJoin(cities, eq(addresses.cityId, cities.id))
-    .leftJoin(streets, eq(addresses.streetId, streets.id))
-    .where(eq(addresses.userId, userId));
+	const db = getDb();
+	return await db
+		.select({
+			id: addresses.id,
+			userId: addresses.userId,
+			cityId: addresses.cityId,
+			cityName: cities.name,
+			streetId: addresses.streetId,
+			streetName: streets.name,
+			isDefault: addresses.isDefault,
+			createdAt: addresses.createdAt,
+			updatedAt: addresses.updatedAt,
+		})
+		.from(addresses)
+		.leftJoin(cities, eq(addresses.cityId, cities.id))
+		.leftJoin(streets, eq(addresses.streetId, streets.id))
+		.where(eq(addresses.userId, userId));
 }
 
 export async function createAddress(
-  userId: string,
-  cityId: number,
-  streetId: number,
-  isDefault: boolean = false
+	userId: string,
+	cityId: number,
+	streetId: number,
+	isDefault: boolean = false,
 ) {
-  const db = getDb();
+	const db = getDb();
 
-  if (isDefault) {
-    await db
-      .update(addresses)
-      .set({ isDefault: false })
-      .where(eq(addresses.userId, userId));
-  }
+	if (isDefault) {
+		await db.update(addresses).set({ isDefault: false }).where(eq(addresses.userId, userId));
+	}
 
-  const [address] = await db
-    .insert(addresses)
-    .values({ userId, cityId, streetId, isDefault })
-    .returning();
+	const [address] = await db
+		.insert(addresses)
+		.values({ userId, cityId, streetId, isDefault })
+		.returning();
 
-  return address;
+	return address;
 }
 
 export async function updateAddress(
-  addressId: number,
-  data: { cityId?: number; streetId?: number; isDefault?: boolean }
+	addressId: number,
+	data: { cityId?: number; streetId?: number; isDefault?: boolean },
 ) {
-  const db = getDb();
+	const db = getDb();
 
-  if (data.isDefault) {
-    const [addr] = await db.select().from(addresses).where(eq(addresses.id, addressId));
-    if (addr) {
-      await db
-        .update(addresses)
-        .set({ isDefault: false })
-        .where(eq(addresses.userId, addr.userId));
-    }
-  }
+	if (data.isDefault) {
+		const [addr] = await db.select().from(addresses).where(eq(addresses.id, addressId));
+		if (addr) {
+			await db.update(addresses).set({ isDefault: false }).where(eq(addresses.userId, addr.userId));
+		}
+	}
 
-  await db
-    .update(addresses)
-    .set(data)
-    .where(eq(addresses.id, addressId));
+	await db.update(addresses).set(data).where(eq(addresses.id, addressId));
 }
 
 export async function deleteAddress(addressId: number) {
-  const db = getDb();
-  await db.delete(addresses).where(eq(addresses.id, addressId));
+	const db = getDb();
+	await db.delete(addresses).where(eq(addresses.id, addressId));
 }
 
 export async function getCities() {
-  const db = getDb();
-  return await db.select({
-    id: cities.id,
-    name: cities.name,
-  }).from(cities).orderBy(asc(cities.name));
+	const db = getDb();
+	return await db
+		.select({
+			id: cities.id,
+			name: cities.name,
+		})
+		.from(cities)
+		.orderBy(asc(cities.name));
 }
 
 export async function getStreetsByCityId(cityId: number) {
-  const db = getDb();
-  return await db.select({
-    id: streets.id,
-    name: streets.name,
-  })
-  .from(streets)
-  .where(eq(streets.cityId, cityId))
-  .orderBy(asc(streets.name));
+	const db = getDb();
+	return await db
+		.select({
+			id: streets.id,
+			name: streets.name,
+		})
+		.from(streets)
+		.where(eq(streets.cityId, cityId))
+		.orderBy(asc(streets.name));
 }
 
 export async function getCitiesCount() {
-  const db = getDb();
-  const [result] = await db.select({ count: count() }).from(cities);
-  return result?.count ?? 0;
+	const db = getDb();
+	const [result] = await db.select({ count: count() }).from(cities);
+	return result?.count ?? 0;
 }
 
 export async function getStreetsCount() {
-  const db = getDb();
-  const [result] = await db.select({ count: count() }).from(streets);
-  return result?.count ?? 0;
+	const db = getDb();
+	const [result] = await db.select({ count: count() }).from(streets);
+	return result?.count ?? 0;
 }
 
 export async function getWasteSchedulesCount() {
-  const db = getDb();
-  const [result] = await db.select({ count: count() }).from(waste_schedules);
-  return result?.count ?? 0;
+	const db = getDb();
+	const [result] = await db.select({ count: count() }).from(waste_schedules);
+	return result?.count ?? 0;
 }
 
 export async function getActiveUsersCount() {
-  const db = getDb();
-  const [result] = await db.select({ count: count() }).from(auth_user);
-  return result?.count ?? 0;
+	const db = getDb();
+	const [result] = await db.select({ count: count() }).from(auth_user);
+	return result?.count ?? 0;
 }

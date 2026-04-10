@@ -8,30 +8,30 @@ import { env } from "cloudflare:workers";
 console.log("[server-entry]: using custom server entry in 'src/server.ts'");
 
 export default {
-  fetch: async (request: Request) =>{
-    const db = initDatabase({
-      host: env.DATABASE_HOST,
-      username: env.DATABASE_USERNAME,
-      password: env.DATABASE_PASSWORD,
-    });
+	fetch: async (request: Request) => {
+		const db = initDatabase({
+			host: env.DATABASE_HOST,
+			username: env.DATABASE_USERNAME,
+			password: env.DATABASE_PASSWORD,
+		});
 
-    setAuth({
-      secret: env.BETTER_AUTH_SECRET,
-      socialProviders: {
-        google: {
-          clientId: env.GOOGLE_CLIENT_ID,
-          clientSecret: env.GOOGLE_CLIENT_SECRET,
-        },
-      },
-      adapter: {
-        drizzleDb: db,
-        provider: "pg",
-      },
-    });
-    return handler.fetch(request, {
-      context: {
-        fromFetch: true,
-      },
-    });
-  },
+		setAuth({
+			secret: env.BETTER_AUTH_SECRET,
+			socialProviders: {
+				google: {
+					clientId: env.GOOGLE_CLIENT_ID,
+					clientSecret: env.GOOGLE_CLIENT_SECRET,
+				},
+			},
+			adapter: {
+				drizzleDb: db,
+				provider: "pg",
+			},
+		});
+		return handler.fetch(request, {
+			context: {
+				fromFetch: true,
+			},
+		});
+	},
 };

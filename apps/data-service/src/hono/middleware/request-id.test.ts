@@ -18,7 +18,7 @@ describe("request-id middleware", () => {
 		const header = res.headers.get("X-Request-Id");
 		expect(header).toBeTruthy();
 		expect(typeof header).toBe("string");
-		expect(header!.length).toBeGreaterThan(0);
+		expect(header?.length).toBeGreaterThan(0);
 
 		const body = await res.json();
 		expect(body.requestId).toBe(header);

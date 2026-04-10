@@ -1,65 +1,63 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "pi-web-user-app",
-  "compatibility_date": "2025-09-02",
-  "compatibility_flags": [
-    "nodejs_compat"
-  ],
-  "observability": {
-    "enabled": true
-  },
-  "main": "./src/server.ts",
-  "env": {
-    /** 
-		* Local / Development environment 
-		*/
-    "dev": {
-      "name": "pi-web-user-app-dev",
-      "vars": {
-        "CLOUDFLARE_ENV": "dev",
-      },
-      "services": [
-        {
-          "binding": "DATA_SERVICE",
-          "service": "pi-web-data-service-dev"
-        }
-      ]
-    },
-    /** 
-		* Remote / Staging environment 
-		*/
-    "stage": {
-      "name": "pi-web-user-app-stage",
-      "routes": [
-        {
-          "custom_domain": true,
-          "pattern": "stage.powiadomienia.info"
-        }
-      ],
-      "services": [
-        {
-          "binding": "DATA_SERVICE",
-          "service": "pi-web-data-service-stage"
-        }
-      ]
-    },
-    /** 
-		* Remote / Production environment 
-		*/
-    "prod": {
-      "name": "pi-web-user-app-prod",
-      "routes": [
-        {
-          "custom_domain": true,
-          "pattern": "powiadomienia.info"
-        }
-      ],
-      "services": [
-        {
-          "binding": "DATA_SERVICE",
-          "service": "pi-web-data-service-prod"
-        }
-      ]
-    },
-  }
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "pi-web-user-app",
+	"compatibility_date": "2025-09-02",
+	"compatibility_flags": ["nodejs_compat"],
+	"observability": {
+		"enabled": true
+	},
+	"main": "./src/server.ts",
+	"env": {
+		/**
+		 * Local / Development environment
+		 */
+		"dev": {
+			"name": "pi-web-user-app-dev",
+			"vars": {
+				"CLOUDFLARE_ENV": "dev"
+			},
+			"services": [
+				{
+					"binding": "DATA_SERVICE",
+					"service": "pi-web-data-service-dev"
+				}
+			]
+		},
+		/**
+		 * Remote / Staging environment
+		 */
+		"stage": {
+			"name": "pi-web-user-app-stage",
+			"routes": [
+				{
+					"custom_domain": true,
+					"pattern": "stage.powiadomienia.info"
+				}
+			],
+			"services": [
+				{
+					"binding": "DATA_SERVICE",
+					"service": "pi-web-data-service-stage"
+				}
+			]
+		},
+		/**
+		 * Remote / Production environment
+		 */
+		"prod": {
+			"name": "pi-web-user-app-prod",
+			"routes": [
+				{
+					"custom_domain": true,
+					"pattern": "powiadomienia.info"
+				}
+			],
+			"services": [
+				{
+					"binding": "DATA_SERVICE",
+					"service": "pi-web-data-service-prod"
+				}
+			]
+		}
+	}
 }

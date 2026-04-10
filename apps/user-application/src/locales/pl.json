@@ -1,442 +1,442 @@
 {
-  "common": {
-    "cancel": "Anuluj",
-    "confirm": "Potwierdź",
-    "save": "Zapisz",
-    "close": "Zamknij"
-  },
-  "nav": {
-    "appName": "powiadomienia.info - wywóz śmieci",
-    "home": "Strona główna",
-    "menu": "Menu",
-    "features": "Funkcje",
-    "documentation": "Dokumentacja",
-    "signIn": "Zaloguj się",
-    "signOut": "Wyloguj się",
-    "account": "Konto"
-  },
-  "theme": {
-    "toggle": "Zmień motyw",
-    "light": "Jasny",
-    "dark": "Ciemny",
-    "system": "Systemowy",
-    "lightDescription": "Użyj jasnego motywu",
-    "darkDescription": "Użyj ciemnego motywu",
-    "systemDescription": "Użyj motywu systemowego",
-    "currentTheme": "Obecny motyw",
-    "currentlyUsing": "Obecnie używasz motywu {{theme}}"
-  },
-  "language": {
-    "toggle": "Zmień język",
-    "label": "Język",
-    "polish": "Polski",
-    "english": "Angielski",
-    "code": "pl"
-  },
-  "waste_schedule": {
-    "title": "Wywóz Śmieci",
-    "schedule": "Harmonogram",
-    "nextTwoWeeks": "Kolejne 2 tygodnie",
-    "noUpcoming": "Brak planowanych wywozów w ciągu 2 tygodni",
-    "upcomingDescription": "Nadchodzące wywozy dla Twojego adresu",
-    "today": "Dzisiaj",
-    "tomorrow": "Jutro",
-    "days": {
-      "sunday": "Niedziela",
-      "monday": "Poniedziałek",
-      "tuesday": "Wtorek",
-      "wednesday": "Środa",
-      "thursday": "Czwartek",
-      "friday": "Piątek",
-      "saturday": "Sobota"
-    },
-    "months": {
-      "jan": "Sty",
-      "feb": "Lut",
-      "mar": "Mar",
-      "apr": "Kwi",
-      "may": "Maj",
-      "jun": "Cze",
-      "jul": "Lip",
-      "aug": "Sie",
-      "sep": "Wrz",
-      "oct": "Paź",
-      "nov": "Lis",
-      "dec": "Gru"
-    }
-  },
-  "address": {
-    "add": "Dodaj adres",
-    "adding": "Dodawanie...",
-    "edit": "Edytuj",
-    "delete": "Usuń",
-    "deleting": "Usuwanie...",
-    "deleteConfirm": "Usunąć adres?",
-    "deleteWarning": "Nie będziesz otrzymywać powiadomień dla tego adresu",
-    "city": "Miejscowość",
-    "cityDescription": "Wybierz miejscowość aby zobaczyć harmonogram wywozu",
-    "selectCity": "Wybierz miejscowość",
-    "street": "Ulica",
-    "selectStreet": "Wybierz ulicę",
-    "default": "Domyślny",
-    "notificationTimes": "Powiadomienia: 19:00 dzień wcześniej, 7:00 tego samego dnia",
-    "noAddresses": "Brak adresów. Dodaj swój pierwszy adres poniżej.",
-    "save": "Zapisz",
-    "saving": "Zapisywanie...",
-    "cancel": "Anuluj"
-  },
-  "dashboard": {
-    "setupComplete": "Konfiguracja zakończona",
-    "setupRequired": "Wymagana konfiguracja",
-    "notificationsActive": "Powiadomienia aktywne",
-    "smsNotificationTimes": "Powiadomienia SMS o 19:00 (dzień przed) i 7:00 (dzień wywozu)",
-    "yourDashboard": "Twój Panel",
-    "completeSetup": "Dokończ konfigurację aby otrzymywać powiadomienia o odbiorze śmieci",
-    "completeYourSetup": "Dokończ Konfigurację",
-    "completeSetupDescription": "Aby otrzymywać powiadomienia o odbiorze śmieci, wykonaj następujące kroki:",
-    "phoneNumber": "Numer telefonu",
-    "phoneNumberDescription": "Wymagany do powiadomień SMS",
-    "addressLabel": "Adres",
-    "addressDescription": "Do dopasowania harmonogramu wywozu",
-    "profile": "Profil",
-    "contactInformation": "Dane Kontaktowe",
-    "contactDescription": "Podaj numer telefonu do powiadomień SMS",
-    "addresses": "Adresy",
-    "yourAddresses": "Twoje Adresy",
-    "addressesDescription": "Podaj lokalizację dla której interesuje Cię harmonogram wywozu śmieci",
-    "status": {
-      "steps": {
-        "phone": "Dodaj numer telefonu",
-        "address": "Dodaj adres"
-      },
-      "phone": {
-        "title": "Dodaj Numer Telefonu",
-        "description": "Podaj numer telefonu, aby otrzymywać powiadomienia SMS"
-      },
-      "address": {
-        "title": "Dodaj Adres",
-        "description": "Dodaj adres, aby zobaczyć harmonogram odbioru śmieci"
-      },
-      "complete": {
-        "title": "Konfiguracja Zakończona",
-        "smsEnabled": "Powiadomienia SMS włączone"
-      }
-    }
-  },
-  "phone": {
-    "label": "Numer telefonu",
-    "description": "Wymagany do powiadomień SMS.",
-    "placeholder": "123456789",
-    "save": "Zapisz telefon",
-    "saving": "Zapisywanie...",
-    "updateSuccess": "Numer telefonu zaktualizowany pomyślnie",
-    "updateError": "Nie udało się zaktualizować numeru telefonu",
-    "required": "Numer telefonu jest wymagany",
-    "invalidLength": "Nieprawidłowa długość numeru telefonu",
-    "invalidDigits": "Numer telefonu może zawierać tylko cyfry",
-    "invalidFormat": "Nieprawidłowy format polskiego numeru telefonu"
-  },
-  "landing": {
-    "badge": "Powiadomienia o Odbiorze Śmieci",
-    "neverMiss": "Nigdy nie przegap",
-    "collectionDay": "Dnia Wywozu",
-    "getNotifications": "Otrzymuj powiadomienia SMS przed odbiorem śmieci na Twojej ulicy",
-    "goToDashboard": "Przejdź do Panelu",
-    "getStarted": "Zacznij",
-    "howItWorks": "Jak to działa",
-    "simpleSetup": "Prosta konfiguracja w 3 krokach",
-    "addAddress": "Dodaj Adres",
-    "addAddressDescription": "Wybierz swoją miejscowość i ulicę",
-    "addPhone": "Dodaj Telefon",
-    "addPhoneDescription": "Podaj numer do alertów SMS",
-    "notifications": "Otrzymuj Powiadomienia",
-    "notificationsDescription": "19:00 dzień wcześniej, 7:00 tego samego dnia",
-    "freeNotifications": "Powiadomienia o harmonogramie wywozu śmieci dla Twojego adresu",
-    "coverage": "Zasięg",
-    "cities": "Miejscowości",
-    "streets": "Ulic",
-    "wasteSchedules": "Harmonogramów",
-    "activeUsers": "Użytkowników",
-    "coverageDescription": "Codziennie rośnie",
-    "metaTitle": "powiadomienia.info - Przypomnienia SMS o wywozie śmieci",
-    "metaDescription": "Nigdy nie przegap dnia odbioru odpadów. Wpisz adres i otrzymuj bezpłatne przypomnienia SMS o harmonogramie wywozu śmieci w Twojej okolicy."
-  },
-  "auth": {
-    "welcomeBack": "Witaj ponownie",
-    "signInDescription": "Zaloguj się do swojego konta aby kontynuować",
-    "continueWithGoogle": "Kontynuuj z Google",
-    "createAccount": "Utwórz konto",
-    "createAccountDescription": "Wprowadź dane aby utworzyć konto",
-    "fullName": "Imię i nazwisko",
-    "email": "Email",
-    "password": "Hasło",
-    "confirmPassword": "Potwierdź hasło",
-    "signUp": "Zarejestruj się",
-    "signIn": "Zaloguj się",
-    "rememberMe": "Zapamiętaj mnie",
-    "alreadyHaveAccount": "Masz już konto? Zaloguj się",
-    "noAccount": "Nie masz konta? Zarejestruj się",
-    "orContinueWith": "Lub",
-    "currentPassword": "Obecne hasło",
-    "newPassword": "Nowe hasło",
-    "confirmNewPassword": "Potwierdź nowe hasło",
-    "changePassword": "Zmień hasło",
-    "passwordChanged": "Hasło zostało zmienione",
-    "passwordChangeFailed": "Nie udało się zmienić hasła",
-    "agreeToTerms": "Zgadzam się z",
-    "and": "i",
-    "passwordStrength": {
-      "label": "Siła hasła",
-      "weak": "Słabe",
-      "normal": "Normalne",
-      "strong": "Silne"
-    },
-    "passwordPolicy": {
-      "title": "Wymagania hasła",
-      "minLength": "Minimum 8 znaków",
-      "uppercase": "Minimum 1 wielka litera",
-      "lowercase": "Minimum 1 mała litera",
-      "number": "Minimum 1 cyfra"
-    }
-  },
-  "notFound": {
-    "title": "Strona nie znaleziona",
-    "message": "Strona której szukasz nie istnieje lub została przeniesiona.",
-    "goBack": "Cofnij",
-    "home": "Strona główna",
-    "helpText": "Sprawdź URL lub użyj wyszukiwarki"
-  },
-  "error": {
-    "title": "Coś poszło nie tak",
-    "description": "Napotkaliśmy nieoczekiwany błąd. Spróbuj ponownie.",
-    "defaultMessage": "Wystąpił nieoczekiwany błąd",
-    "tryAgain": "Spróbuj ponownie",
-    "goToHome": "Przejdź do strony głównej",
-    "goBack": "Cofnij",
-    "technicalDetails": "Szczegóły techniczne",
-    "stackTrace": "Ślad stosu błędu:",
-    "persistMessage": "Jeśli błąd się powtarza, zgłoś go do naszego zespołu wsparcia.",
-    "reportError": "Zgłoś błąd",
-    "rateLimitExceeded": "Zbyt wiele prób. Spróbuj ponownie za 15 minut.",
-    "invalidCredentials": "Nieprawidłowy email lub hasło",
-    "emailAlreadyExists": "Ten adres email jest już zarejestrowany"
-  },
-  "validation": {
-    "email": {
-      "required": "Email jest wymagany",
-      "invalid": "Nieprawidłowy format email"
-    },
-    "password": {
-      "required": "Hasło jest wymagane",
-      "minLength": "Hasło musi mieć minimum 8 znaków",
-      "maxLength": "Hasło nie może przekraczać 128 znaków",
-      "uppercase": "Hasło musi zawierać minimum 1 wielką literę",
-      "lowercase": "Hasło musi zawierać minimum 1 małą literę",
-      "number": "Hasło musi zawierać minimum 1 cyfrę",
-      "noMatch": "Hasła nie pasują do siebie"
-    },
-    "name": {
-      "minLength": "Imię musi mieć minimum 2 znaki"
-    }
-  },
-  "footer": {
-    "copyright": "© powiadomienia.info jest produktem <0>Auditmos OU</0>.<br />Wszelkie prawa zastrzeżone {{year}}",
-    "headquarters": "Siedziba",
-    "privacyPolicy": "Polityka Prywatności",
-    "legal": "Informacje Prawne",
-    "termsOfService": "Regulamin",
-    "cookiePolicy": "Polityka Cookies"
-  },
-  "legal": {
-    "termsOfService": "Regulamin",
-    "cookiePolicy": "Polityka Cookies",
-    "privacyPolicy": "Polityka Prywatności"
-  },
-  "staticPages": {
-    "contentPlaceholder": "Treść zostanie wkrótce dodana.",
-    "legalDescription": "Dostęp do naszych dokumentów prawnych i polityk.",
-    "termsOfServiceDescription": "Warunki korzystania z naszej usługi",
-    "cookiePolicyDescription": "Jak używamy plików cookies na naszej stronie",
-    "privacyPolicyDescription": "Jak chronimy Twoje dane osobowe"
-  },
-  "privacyPolicy": {
-    "statementSummary": "Podsumowanie Polityki Prywatności",
-    "statementSummaryContent": "Niniejsza Polityka Prywatności („Polityka”) wyjaśnia, w jaki sposób Twoje informacje są zbierane, wykorzystywane i ujawniane przez Auditmos OU („my” / „nas” / „nasze”). Niniejsza Polityka ma zastosowanie tam, gdzie działamy jako Administrator Danych w odniesieniu do danych osobowych osób odwiedzających naszą stronę, użytkowników usług, klientów i partnerów.",
-    "whoWillUse": "Kto będzie korzystał z moich danych?",
-    "whoWillUseContent": "Auditmos OU (powiadomienia.info).",
-    "whatFor": "W jakim celu?",
-    "whatForContent": "Będziemy przechowywać i przetwarzać Twoje dane, aby umożliwić nam dostarczanie naszych produktów i usług. Obejmuje to:\n\n- Uwierzytelnianie użytkowników i zarządzanie kontami.\n- Umożliwienie korzystania z funkcji naszych produktów, takich jak wysyłanie i zarządzanie powiadomieniami.\n- Monitorowanie bezpieczeństwa i integralności naszej platformy poprzez analizę logów audytowych w celu wykrywania podejrzanych zachowań i badania potencjalnych zagrożeń.\n- Kontaktowanie się z Tobą w sprawach związanych z korzystaniem z Usług, w tym zmian w politykach.\n- Do wewnętrznych celów biznesowych.",
-    "whatIfContact": "Co się stanie, jeśli się z Wam skontaktuję?",
-    "whatIfContactContent": "Jeśli skontaktujesz się z nami, wykorzystamy Twoje dane, aby przesłać Ci informacje, o które prosiłeś, aktualizacje oraz inne informacje dotyczące naszych usług, które naszym zdaniem mogą Cię zainteresować.",
-    "whatStored": "Jakie dane będą przechowywane?",
-    "whatStoredContent": "Będziemy przechowywać Twoje dane osobowe w celu świadczenia naszych usług i prowadzenia firmy. Obejmuje to:\n\n- **Informacje o koncie:** Imię i nazwisko, adres e-mail, zaszyfrowane hasła oraz dane rozliczeniowe.\n- **Dane powiadomień:** Treści przesyłane przez Ciebie za pośrednictwem naszego API lub platformy (payloady), które są przetwarzane w celu dostarczenia powiadomień.\n- **Informacje techniczne:** Dane logowania (adres IP, typ przeglądarki), Dane o użytkowaniu (używane funkcje) oraz Informacje o urządzeniu.\n- **Pliki cookie:** Niezbędne pliki cookie wymagane do uwierzytelniania i bezpieczeństwa.",
-    "whatShared": "Jakie dane będą udostępniane?",
-    "whatSharedContent": "Nie będziemy udostępniać Twoich danych żadnym stronom trzecim innym niż opisane tutaj w celu wypełnienia naszych zobowiązań wobec Ciebie (np. Bezpieczeństwo przez Cloudflare). Możemy udostępnić Twoje informacje organom regulacyjnym lub prawnym, jeśli wymaga tego prawo.",
-    "howLong": "Jak długo?",
-    "howLongContent": "Auditmos OU przechowuje dane tylko tak długo, jak jest to konieczne do świadczenia naszych usług oraz spełnienia wymogów operacyjnych, umownych i regulacyjnych. Dane konta są przechowywane przez okres istnienia konta. Dane transakcyjne są przechowywane zgodnie z wymogami prawa podatkowego (zazwyczaj 7 lat). Logi powiadomień są przechowywane przez ograniczony czas w celach debugowania i audytu, a następnie usuwane.",
-    "whoAccess": "Kto ma dostęp do moich danych?",
-    "whoAccessContent": "Nigdy nie będziemy sprzedawać, udostępniać ani w inny sposób rozpowszechniać Twoich danych żadnym stronom trzecim innym niż opisane tutaj. Dostęp do Twoich danych jest ściśle kontrolowany i ograniczony do upoważnionego personelu.",
-    "howSecure": "Jak zabezpieczane są moje dane?",
-    "howSecureContent": "Przechowujemy Twoje dane na bezpiecznych serwerach. Używamy standardowych protokołów bezpieczeństwa (HTTPS/TLS) do szyfrowania danych w trakcie przesyłania i w spoczynku.",
-    "aboutPolicy": "O niniejszej Polityce Prywatności",
-    "aboutPolicyContent": "Niniejsza polityka określa, w jaki sposób będziemy zbierać, przechowywać i przetwarzać informacje, które nam przekazujesz. Jej celem jest zapewnienie ochrony praw do prywatności, promowanie przejrzystości i zgodność z Ogólnym Rozporządzeniem o Ochronie Danych (RODO).",
-    "principles": "Zasady Przetwarzania Danych Osobowych",
-    "principlesContent": "Przestrzegamy zasad RODO: Dane muszą być przetwarzane rzetelnie i zgodnie z prawem; zbierane w konkretnych celach; adekwatne i istotne; dokładne; nieprzechowywane dłużej niż to konieczne; przetwarzane zgodnie z prawami osób, których dane dotyczą; odpowiednio chronione; oraz nieprzekazywane za granicę bez odpowiednich zabezpieczeń.",
-    "whoWeAre": "Kim jesteśmy i jak się z nami skontaktować",
-    "whoWeAreContent": "Auditmos OU jest firmą zarejestrowaną w Estonii.\n\n- **Imię i nazwisko Administratora Danych:** Tomasz Kowalczyk\n- **Nazwa firmy:** Auditmos OU\n- **E-mail:** legal@powiadomienia.info",
-    "article27": "Nasi przedstawiciele z art. 27",
-    "article27Content": "Ponieważ Auditmos OU ma siedzibę w Unii Europejskiej (Estonia), nie jesteśmy zobowiązani do wyznaczania zewnętrznego przedstawiciela ds. RODO w UE.",
-    "ukRep": "Nasz przedstawiciel w Wielkiej Brytanii",
-    "ukRepContent": "Nie dotyczy w tym momencie.",
-    "euRep": "Nasz przedstawiciel w UE",
-    "euRepContent": "Nie dotyczy. Jesteśmy podmiotem z siedzibą w UE.",
-    "toWhom": "Kogo dotyczy ta polityka prywatności?",
-    "toWhomContent": "Niniejsza polityka dotyczy Pracowników, Klientów, Użytkowników końcowych naszych Usług, Odwiedzających stronę internetową oraz Partnerów.",
-    "whatApplies": "Czego dotyczy ta polityka?",
-    "whatAppliesContent": "Ta sekcja opisuje cele przetwarzania Twoich danych, w tym informacje podawane podczas kontaktu z nami, szczegóły rejestracji konta oraz techniczne dane o użytkowaniu. Dotyczy to wszystkich czynności przetwarzania danych wymaganych do świadczenia usługi powiadomienia.info.",
-    "howCollected": "W jaki sposób Twoje informacje będą zbierane i wykorzystywane?",
-    "howCollectedContent": "Zbieramy dane przede wszystkim bezpośrednio od Ciebie (rejestracja) lub automatycznie poprzez Twoje korzystanie z usługi (logi). Używamy tych danych, aby:\n\n- Zarejestrować Cię jako klienta (Wykonanie Umowy).\n- Administrować i chronić naszą firmę (Prawnie Uzasadniony Interes).\n- Używać analityki danych do ulepszania naszej strony (Prawnie Uzasadniony Interes).",
-    "changePrefs": "Jak zmienić swoje preferencje",
-    "changePrefsContent": "Działamy zgodnie z RODO. Możesz skontaktować się z nami pod adresem legal@powiadomienia.info, aby zażądać dostępu, sprostowania, usunięcia lub ograniczenia przetwarzania Twoich danych.",
-    "optingOut": "Rezygnacja w późniejszym terminie",
-    "optingOutContent": "Masz prawo wycofać swoją zgodę w dowolnym momencie. Możesz sprzeciwić się przetwarzaniu Twoich danych i zażądać ich usunięcia, pod warunkiem że dane te nie są wymagane do celów podatkowych lub prawnych.",
-    "howStore": "Jak przechowujemy i przetwarzamy Twoje dane",
-    "howStoreContent": "Twoje dane są bezpiecznie przechowywane na serwerach zlokalizowanych w Unii Europejskiej lub u zgodnych z przepisami dostawców usług (takich jak Cloudflare). Przechowujemy dane tak długo, jak jest to konieczne do świadczenia usługi i spełnienia wymogów prawnych.",
-    "obligations": "Nasze obowiązki",
-    "obligationsContent": "Jako Administrator Danych jesteśmy odpowiedzialni za przetwarzanie Twoich informacji. Masz prawo żądać dostępu, sprostowania, usunięcia, sprzeciwu, ograniczenia oraz przenoszenia swoich danych.",
-    "thirdParties": "Strony Trzecie",
-    "thirdPartiesContent": "Możemy udostępniać Twoje dane osobowe wybranym stronom trzecim:\n\n| Strona trzecia | Cel |\n|----------------|-----|\n| Cloudflare | W celu bezpieczeństwa i dostarczania treści |\n| Doradcy zawodowi | Prawnicy, audytorzy, ubezpieczyciele |\n| Organy regulacyjne | Jeśli wymaga tego prawo |",
-    "security": "Bezpieczeństwo",
-    "securityContent": "Wdrożyliśmy odpowiednie środki bezpieczeństwa, aby chronić Twoje dane osobowe przed przypadkową utratą, nieautoryzowanym dostępem, użyciem, zmianą lub ujawnieniem. Wszelkie naruszenia danych zgłosimy odpowiednim organom w ciągu 72 godzin.",
-    "cookies": "Pliki Cookie",
-    "cookiesContent": "Używamy niezbędnych plików cookie, aby zapewnić poprawne działanie strony (np. utrzymanie zalogowania). Szczegółowe informacje znajdują się w naszej Polityce Plików Cookie.",
-    "contacting": "Kontakt z nami, realizacja praw i skargi",
-    "contactingContent": "Jeśli masz pytania, skontaktuj się z Tomaszem Kowalczykiem pod adresem legal@powiadomienia.info. Jeśli pozostaniesz niezadowolony, masz prawo złożyć skargę do Estońskiego Inspektoratu Ochrony Danych (AKI) lub lokalnego organu ochrony danych."
-  },
-  "termsOfService": {
-    "lastUpdate": "Ostatnia aktualizacja: 29 grudnia 2025 r.",
-    "intro": "O ILE NIE ZOSTAŁA ZAWARTA ODRĘBNA UMOWA RAMOWA O ŚWIADCZENIE USŁUG PRZEZ STRONY, NINIEJSZE WARUNKI REGULUJĄ KORZYSTANIE Z WITRYNY POWIADOMIENIA.INFO („WITRYNA”) ORAZ USŁUG PLATFORMY UDOSTĘPNIANYCH PRZEZ AUDITMOS OU. USŁUGI NIE SĄ PRZEZNACZONE DO UŻYTKU Z INFORMACJAMI NIEJAWNYMI LUB DANYMI WYMAGAJĄCYMI DODATKOWYCH POZIOMÓW BEZPIECZEŃSTWA POZA STANDARDOWĄ ZGODNOŚCIĄ Z RODO.",
-    "agreementTitle": "ZGODA NA WARUNKI I POSTANOWIENIA",
-    "agreementContent": "Korzystając z Usług, wyrażasz zgodę na przestrzeganie niniejszych Warunków. Jeśli nie zgadzasz się na te Warunki, nie korzystaj z Usług. Jeśli uzyskujesz dostęp i korzystasz z Usług w imieniu firmy (np. swojego pracodawcy) lub innej osoby prawnej, oświadczasz i gwarantujesz, że masz upoważnienie do związania tego podmiotu niniejszymi Warunkami.",
-    "definitionsTitle": "DEFINICJE",
-    "definitions": {
-      "item1": "„Autoryzowani Użytkownicy” oznaczają pracowników, agentów, konsultantów, wykonawców lub sprzedawców upoważnionych przez Klienta do korzystania z Usług.",
-      "item2": "„Materiały Klienta” oznaczają wszelkie informacje, dane, treści (w tym treści powiadomień) oraz inne materiały przesłane lub przekazane przez Klienta za pośrednictwem Usług.",
-      "item3": "„Usługi Platformy” oznaczają autorską platformę powiadomień i monitorowania, interfejsy API oraz powiązane oprogramowanie udostępniane przez Auditmos OU."
-    },
-    "privacyNoticeTitle": "NOTA O PRYWATNOŚCI",
-    "privacyNoticeContent": "Prosimy o zapoznanie się z Polityką Prywatności Auditmos OU, dostępną na naszej stronie internetowej, która również reguluje sposób, w jaki zbieramy, wykorzystujemy i udostępniamy informacje o Kliencie i Autoryzowanych Użytkownikach.",
-    "changesTitle": "ZMIANY W NINIEJSZYCH WARUNKACH LUB USŁUGACH",
-    "changesContent": "Auditmos OU może od czasu do czasu aktualizować niniejsze Warunki. Zaktualizowane Warunki zostaną opublikowane w Witrynie. Dalsze korzystanie z Usług przez Klienta po opublikowaniu zaktualizowanych Warunków oznacza akceptację i zgodę na zmiany.",
-    "accessTitle": "DOSTĘP I KORZYSTANIE",
-    "access": {
-      "item1": "Usługi: Z zastrzeżeniem niniejszych Warunków, Auditmos OU udziela Klientowi ograniczonego, niewyłącznego, nieprzenoszalnego prawa do korzystania z Usług zgodnie z Dokumentacją.",
-      "item2": "Ograniczenia użytkowania: Klient nie będzie:\n\n(i) dokonywać inżynierii wstecznej ani próbować uzyskać kodu źródłowego Usług;\n\n(ii) odsprzedawać ani udzielać sublicencji na Usługi podmiotom trzecim bez zezwolenia;\n\n(iii) używać Usług do przesyłania złośliwego kodu, spamu lub treści oszukańczych;\n\n(iv) zakłócać integralności lub działania Usług.",
-      "item3": "Własność: Auditmos OU zachowuje i posiada wszelkie prawa, tytuły i udziały w Platformie, podstawowym oprogramowaniu oraz wszelkich powiązanych Prawach Własności Intelektualnej."
-    },
-    "subscriptionsTitle": "SUBSKRYPCJE I POZIOM DARMOWY",
-    "subscriptionsContent": "Usługi są obecnie świadczone bezpłatnie. Auditmos OU zastrzega sobie prawo do wprowadzenia płatnych funkcji w przyszłości, z odpowiednim wcześniejszym powiadomieniem użytkowników.",
-    "customerMaterialsTitle": "MATERIAŁY KLIENTA",
-    "customerMaterialsContent": "Klient udziela Auditmos OU licencji na wykorzystanie Materiałów Klienta wyłącznie w celu obsługi, ulepszania i świadczenia Usług (np. wysyłania powiadomień). W relacji między Klientem a Auditmos OU, Klient jest właścicielem wszystkich Materiałów Klienta. Klient oświadcza, że ma prawo do dostarczania takich danych i że nie naruszają one praw osób trzecich.",
-    "supportTitle": "WSPARCIE I POZIOMY USŁUG (SLA)",
-    "support": {
-      "title": "Wsparcie",
-      "content": "Auditmos OU zapewni Klientowi wsparcie w zakresie Usług za pośrednictwem poczty elektronicznej lub dokumentacji w centrum pomocy."
-    },
-    "serviceLevels": {
-      "title": "Poziomy Usług",
-      "content": "Auditmos OU dołoży wszelkich starań handlowych, aby Usługi były dostępne 24/7, z wyłączeniem planowanych przestojów konserwacyjnych i zdarzeń siły wyższej. Poziomy usług są celami wydajnościowymi, a nie gwarancjami."
-    },
-    "confidentialTitle": "INFORMACJE POUFNE",
-    "confidentialContent": "Każda ze stron zobowiązuje się chronić Informacje Poufne drugiej strony z taką samą starannością, z jaką chroni własne. Informacje Poufne obejmują techniczne informacje biznesowe, ceny i niepubliczne szczegóły produktu. Obowiązek ten nie dotyczy informacji, które są publiczne, niezależnie opracowane lub legalnie uzyskane od osób trzecich.",
-    "representationsTitle": "OŚWIADCZENIA I GWARANCJE; ZASTRZEŻENIA",
-    "representations": {
-      "mutual": {
-        "title": "Wzajemne oświadczenia",
-        "content": "Każda ze Stron oświadcza, że posiada pełną moc i uprawnienia do zawarcia niniejszych Warunków."
-      },
-      "customer": {
-        "title": "Dodatkowe oświadczenia Klienta",
-        "content": "Klient oświadcza, że korzystanie z Usług nie będzie naruszać żadnych obowiązujących przepisów prawa (w tym przepisów antyspamowych) ani praw osób trzecich."
-      },
-      "disclaimer": {
-        "title": "Zastrzeżenie",
-        "content": "USŁUGI SĄ DOSTARCZANE W STANIE „TAKIM, W JAKIM SĄ” („AS IS”). AUDITMOS OU NIE UDZIELA ŻADNYCH GWARANCJI, WYRAŹNYCH ANI DOROZUMIANYCH, DOTYCZĄCYCH NIEZAWODNOŚCI LUB DOSTĘPNOŚCI USŁUG."
-      },
-      "similarity": {
-        "title": "Niezawodność Usługi",
-        "content": "Ze względu na charakter komunikacji internetowej, Auditmos OU nie może zagwarantować dostarczenia każdego pojedynczego powiadomienia, jeśli awaria nastąpi z powodu sieci stron trzecich, dostawców usług internetowych (ISP) lub ustawień urządzenia odbiorcy. Auditmos OU nie ponosi odpowiedzialności za opóźnienia lub błędy w dostarczaniu spowodowane czynnikami zewnętrznymi."
-      }
-    },
-    "terminationTitle": "ROZWIĄZANIE UMOWY",
-    "terminationContent": "Auditmos OU może natychmiast rozwiązać umowę lub zawiesić dostęp, jeśli Klient naruszy niniejsze Warunki. Klient może zakończyć subskrypcję w dowolnym momencie w ustawieniach Platformy; takie zakończenie wejdzie w życie z końcem bieżącego okresu rozliczeniowego. Po rozwiązaniu umowy prawo Klienta do korzystania z Usług wygasa.",
-    "limitationTitle": "OGRANICZENIE ODPOWIEDZIALNOŚCI",
-    "limitationContent": "W ŻADNYM WYPADKU AUDITMOS OU NIE PONOSI ODPOWIEDZIALNOŚCI ZA JAKIEKOLWIEK SZKODY POŚREDNIE, PRZYPADKOWE LUB WTÓRNE. CAŁKOWITA ODPOWIEDZIALNOŚĆ NIE MOŻE PRZEKROCZYĆ OPŁAT UISZCZONYCH PRZEZ KLIENTA W CIĄGU SZEŚCIU (6) MIESIĘCY POPRZEDZAJĄCYCH ROSZCZENIE.",
-    "indemnificationTitle": "ODSZKODOWANIE (INDEMNIFICATION)",
-    "indemnificationContent": "Klient zwolni Auditmos OU z odpowiedzialności i chroni przed wszelkimi roszczeniami wynikającymi z korzystania przez Klienta z Usług, Materiałów Klienta lub naruszenia niniejszych Warunków.",
-    "generalTitle": "POSTANOWIENIA OGÓLNE",
-    "general": {
-      "item1": "Prawo właściwe: Niniejsze Warunki podlegają prawu Estonii. Wszelkie działania prawne będą rozstrzygane wyłącznie przez sądy w Tallinnie, w Estonii.",
-      "item2": "Cesja: Klient nie może przenieść niniejszych Warunków bez uprzedniej pisemnej zgody. Auditmos OU może swobodnie przenosić niniejsze Warunki.",
-      "item3": "Powiadomienia: Powiadomienia do Auditmos OU należy przesyłać na adres legal@powiadomienia.info."
-    },
-    "exhibitA": {
-      "title": "ZAŁĄCZNIK A – POLITYKA DOPUSZCZALNEGO UŻYTKOWANIA",
-      "item1": "Zgadzasz się nie używać Usług do przesyłania treści nielegalnych, szkodliwych, grożących, obraźliwych lub zniesławiających.",
-      "item2": "Zgadzasz się nie używać Usług do wysyłania niechcianych wiadomości masowych (spam) ani do nękania osób.",
-      "item3": "Zgadzasz się nie używać Usług do prób oszukania innych, rozpowszechniania złośliwego oprogramowania lub angażowania się w działania phishingowe."
-    },
-    "exhibitB": {
-      "title": "ZAŁĄCZNIK B – POZIOMY USŁUG I WSPARCIE",
-      "item1": "Cel dostępności: Dążymy do dostępności na poziomie 99,9%.",
-      "item2": "Konserwacja: Będziemy powiadamiać o planowanych oknach serwisowych.",
-      "item3": "Wsparcie: Wsparcie jest dostępne pod adresem legal@powiadomienia.info w godzinach pracy (czasu wschodnioeuropejskiego EET)."
-    }
-  },
-  "cookiePolicy": {
-    "companyNameLabel": "Nazwa firmy:",
-    "companyName": "Auditmos OU (właściciel serwisu powiadomienia.info)",
-    "policyOwnerLabel": "Właściciel polityki:",
-    "policyOwner": "Tomasz Kowalczyk",
-    "effectiveDateLabel": "Data wejścia w życie:",
-    "effectiveDate": "29 grudnia 2025",
-    "purposeTitle": "Cel",
-    "purposeContent": "Niniejsza polityka określa zasady korzystania przez nas z plików cookie i podobnych technologii. Używamy tych technologii, aby nasza strona działała poprawnie oraz w celu zapewnienia bezpieczeństwa naszych usług. Dokument ten wyjaśnia, czym są te technologie, co robią i jak możesz zarządzać swoimi preferencjami z nimi związanymi.",
-    "scopeTitle": "Zakres",
-    "scopeContent": "Niniejsza polityka dotyczy wszystkich odwiedzających i użytkowników strony powiadomienia.info oraz powiązanych z nią usług. Zakres obejmuje wykorzystanie plików cookie, czyli małych plików tekstowych umieszczanych na Twoim urządzeniu podczas wizyty na stronie. Pozwalają nam one rozpoznawać powracających użytkowników i rejestrować określone informacje o przeglądaniu (np. w jaki sposób trafiłeś na stronę, jakie podstrony przeglądasz i jakie ścieżki wybierasz).",
-    "policyTitle": "Polityka",
-    "howWeUse": {
-      "title": "Jak wykorzystujemy pliki cookie",
-      "content": "Nasza strona internetowa wykorzystuje pliki cookie pochodzące głównie od Auditmos OU oraz wybranych partnerów zewnętrznych niezbędnych do obsługi infrastruktury. Są one skategoryzowane jako Niezbędne pliki cookie. Obecnie nie używamy plików cookie analitycznych ani marketingowych."
-    },
-    "detailedInfo": {
-      "title": "Szczegółowe informacje o plikach cookie",
-      "content": "Poniżej znajduje się lista głównych technologii, których używamy i które mogą umieszczać pliki cookie na Twoim urządzeniu."
-    },
-    "strictlyNecessary": {
-      "title": "Niezbędne pliki cookie",
-      "content": "Te pliki cookie są kluczowe dla poprawnego funkcjonowania naszej strony i usług, dlatego nie można ich wyłączyć. Są niezbędne do zapewnienia bezpieczeństwa i działania podstawowych funkcji. Na przykład zapewniają one utrzymanie zalogowania podczas nawigacji po platformie.\n\n1. Źródło: Auditmos OU / powiadomienia.info\nCel: Umożliwienie uwierzytelniania użytkowników (przez e-mail/hasło lub Google), zarządzanie aktywnymi sesjami i rejestrowanie wewnętrznych błędów systemu w celu zapewnienia niezawodności.\n\n2. Źródło: Cloudflare\nCel: Maksymalizacja zasobów sieciowych, zarządzanie ruchem i ochrona witryny przed złośliwym ruchem oraz botami."
-    },
-    "analytics": {
-      "title": "Analityczne i śledzące pliki cookie",
-      "content": "Te „nieobowiązkowe” pliki cookie pomagają nam rozpoznawać powracających użytkowników i rozumieć, w jaki sposób korzystasz z naszej strony, abyśmy mogli ulepszać nasz serwis i usługi.\n\n* Aktualny status: Obecnie nie używamy zewnętrznych plików cookie analitycznych."
-    },
-    "marketing": {
-      "title": "Marketingowe pliki cookie",
-      "content": "Te „nieobowiązkowe” pliki cookie od partnerów pomagają nam monitorować zachowanie na stronie w celu wykorzystania w reklamie internetowej.\n\n* Aktualny status: Obecnie nie używamy plików cookie marketingowych ani reklamowych."
-    },
-    "choicesTitle": "Twoje wybory i możliwość rezygnacji",
-    "choices": {
-      "item1": "Ustawienia przeglądarki: Możesz zablokować lub usunąć pliki cookie, zmieniając ustawienia swojej przeglądarki. Zapoznaj się z funkcją „pomoc” w swojej przeglądarce, aby uzyskać poradę. Pamiętaj, że jeśli zablokujesz wszystkie pliki cookie (w tym te niezbędne), możesz nie być w stanie zalogować się na naszej stronie.",
-      "item2": "Rezygnacja z poszczególnych usług: Ponieważ obecnie używamy wyłącznie plików cookie, które są ściśle niezbędne do bezpieczeństwa i działania serwisu (uwierzytelnianie, firewall), nie istnieją opcjonalne usługi zewnętrzne, z których można zrezygnować bez naruszania funkcjonalności strony."
-    },
-    "choicesAdditional": "Więcej ogólnych informacji na temat zarządzania plikami cookie można znaleźć na stronie https://www.allaboutcookies.org/manage-cookies/index.html",
-    "exceptionsTitle": "Wyjątki",
-    "exceptionsContent": "Wnioski o odstępstwo od tej polityki muszą być składane do naszego komitetu ds. bezpieczeństwa pod adresem (legal@powiadomienia.info) w celu uzyskania zgody.",
-    "violationsTitle": "Naruszenia i egzekwowanie",
-    "violationsContent": "Wszelkie znane naruszenia niniejszej polityki należy zgłaszać do naszego komitetu ds. bezpieczeństwa pod adresem (legal@powiadomienia.info).",
-    "versionTitle": "Wersja",
-    "versionContent": "| Pole | Wartość |\n|------|----------|\n| Wersja | 1.0.0 |\n| Data | Grudzień 2025 |\n| Opis | Pierwsza wersja |\n| Autor | Tomasz Kowalczyk |\n| Zatwierdził | Tomasz Kowalczyk |",
-    "lastReviewed": "Ostatni przegląd: 29 grudnia 2025 r."
-  }
+	"common": {
+		"cancel": "Anuluj",
+		"confirm": "Potwierdź",
+		"save": "Zapisz",
+		"close": "Zamknij"
+	},
+	"nav": {
+		"appName": "powiadomienia.info - wywóz śmieci",
+		"home": "Strona główna",
+		"menu": "Menu",
+		"features": "Funkcje",
+		"documentation": "Dokumentacja",
+		"signIn": "Zaloguj się",
+		"signOut": "Wyloguj się",
+		"account": "Konto"
+	},
+	"theme": {
+		"toggle": "Zmień motyw",
+		"light": "Jasny",
+		"dark": "Ciemny",
+		"system": "Systemowy",
+		"lightDescription": "Użyj jasnego motywu",
+		"darkDescription": "Użyj ciemnego motywu",
+		"systemDescription": "Użyj motywu systemowego",
+		"currentTheme": "Obecny motyw",
+		"currentlyUsing": "Obecnie używasz motywu {{theme}}"
+	},
+	"language": {
+		"toggle": "Zmień język",
+		"label": "Język",
+		"polish": "Polski",
+		"english": "Angielski",
+		"code": "pl"
+	},
+	"waste_schedule": {
+		"title": "Wywóz Śmieci",
+		"schedule": "Harmonogram",
+		"nextTwoWeeks": "Kolejne 2 tygodnie",
+		"noUpcoming": "Brak planowanych wywozów w ciągu 2 tygodni",
+		"upcomingDescription": "Nadchodzące wywozy dla Twojego adresu",
+		"today": "Dzisiaj",
+		"tomorrow": "Jutro",
+		"days": {
+			"sunday": "Niedziela",
+			"monday": "Poniedziałek",
+			"tuesday": "Wtorek",
+			"wednesday": "Środa",
+			"thursday": "Czwartek",
+			"friday": "Piątek",
+			"saturday": "Sobota"
+		},
+		"months": {
+			"jan": "Sty",
+			"feb": "Lut",
+			"mar": "Mar",
+			"apr": "Kwi",
+			"may": "Maj",
+			"jun": "Cze",
+			"jul": "Lip",
+			"aug": "Sie",
+			"sep": "Wrz",
+			"oct": "Paź",
+			"nov": "Lis",
+			"dec": "Gru"
+		}
+	},
+	"address": {
+		"add": "Dodaj adres",
+		"adding": "Dodawanie...",
+		"edit": "Edytuj",
+		"delete": "Usuń",
+		"deleting": "Usuwanie...",
+		"deleteConfirm": "Usunąć adres?",
+		"deleteWarning": "Nie będziesz otrzymywać powiadomień dla tego adresu",
+		"city": "Miejscowość",
+		"cityDescription": "Wybierz miejscowość aby zobaczyć harmonogram wywozu",
+		"selectCity": "Wybierz miejscowość",
+		"street": "Ulica",
+		"selectStreet": "Wybierz ulicę",
+		"default": "Domyślny",
+		"notificationTimes": "Powiadomienia: 19:00 dzień wcześniej, 7:00 tego samego dnia",
+		"noAddresses": "Brak adresów. Dodaj swój pierwszy adres poniżej.",
+		"save": "Zapisz",
+		"saving": "Zapisywanie...",
+		"cancel": "Anuluj"
+	},
+	"dashboard": {
+		"setupComplete": "Konfiguracja zakończona",
+		"setupRequired": "Wymagana konfiguracja",
+		"notificationsActive": "Powiadomienia aktywne",
+		"smsNotificationTimes": "Powiadomienia SMS o 19:00 (dzień przed) i 7:00 (dzień wywozu)",
+		"yourDashboard": "Twój Panel",
+		"completeSetup": "Dokończ konfigurację aby otrzymywać powiadomienia o odbiorze śmieci",
+		"completeYourSetup": "Dokończ Konfigurację",
+		"completeSetupDescription": "Aby otrzymywać powiadomienia o odbiorze śmieci, wykonaj następujące kroki:",
+		"phoneNumber": "Numer telefonu",
+		"phoneNumberDescription": "Wymagany do powiadomień SMS",
+		"addressLabel": "Adres",
+		"addressDescription": "Do dopasowania harmonogramu wywozu",
+		"profile": "Profil",
+		"contactInformation": "Dane Kontaktowe",
+		"contactDescription": "Podaj numer telefonu do powiadomień SMS",
+		"addresses": "Adresy",
+		"yourAddresses": "Twoje Adresy",
+		"addressesDescription": "Podaj lokalizację dla której interesuje Cię harmonogram wywozu śmieci",
+		"status": {
+			"steps": {
+				"phone": "Dodaj numer telefonu",
+				"address": "Dodaj adres"
+			},
+			"phone": {
+				"title": "Dodaj Numer Telefonu",
+				"description": "Podaj numer telefonu, aby otrzymywać powiadomienia SMS"
+			},
+			"address": {
+				"title": "Dodaj Adres",
+				"description": "Dodaj adres, aby zobaczyć harmonogram odbioru śmieci"
+			},
+			"complete": {
+				"title": "Konfiguracja Zakończona",
+				"smsEnabled": "Powiadomienia SMS włączone"
+			}
+		}
+	},
+	"phone": {
+		"label": "Numer telefonu",
+		"description": "Wymagany do powiadomień SMS.",
+		"placeholder": "123456789",
+		"save": "Zapisz telefon",
+		"saving": "Zapisywanie...",
+		"updateSuccess": "Numer telefonu zaktualizowany pomyślnie",
+		"updateError": "Nie udało się zaktualizować numeru telefonu",
+		"required": "Numer telefonu jest wymagany",
+		"invalidLength": "Nieprawidłowa długość numeru telefonu",
+		"invalidDigits": "Numer telefonu może zawierać tylko cyfry",
+		"invalidFormat": "Nieprawidłowy format polskiego numeru telefonu"
+	},
+	"landing": {
+		"badge": "Powiadomienia o Odbiorze Śmieci",
+		"neverMiss": "Nigdy nie przegap",
+		"collectionDay": "Dnia Wywozu",
+		"getNotifications": "Otrzymuj powiadomienia SMS przed odbiorem śmieci na Twojej ulicy",
+		"goToDashboard": "Przejdź do Panelu",
+		"getStarted": "Zacznij",
+		"howItWorks": "Jak to działa",
+		"simpleSetup": "Prosta konfiguracja w 3 krokach",
+		"addAddress": "Dodaj Adres",
+		"addAddressDescription": "Wybierz swoją miejscowość i ulicę",
+		"addPhone": "Dodaj Telefon",
+		"addPhoneDescription": "Podaj numer do alertów SMS",
+		"notifications": "Otrzymuj Powiadomienia",
+		"notificationsDescription": "19:00 dzień wcześniej, 7:00 tego samego dnia",
+		"freeNotifications": "Powiadomienia o harmonogramie wywozu śmieci dla Twojego adresu",
+		"coverage": "Zasięg",
+		"cities": "Miejscowości",
+		"streets": "Ulic",
+		"wasteSchedules": "Harmonogramów",
+		"activeUsers": "Użytkowników",
+		"coverageDescription": "Codziennie rośnie",
+		"metaTitle": "powiadomienia.info - Przypomnienia SMS o wywozie śmieci",
+		"metaDescription": "Nigdy nie przegap dnia odbioru odpadów. Wpisz adres i otrzymuj bezpłatne przypomnienia SMS o harmonogramie wywozu śmieci w Twojej okolicy."
+	},
+	"auth": {
+		"welcomeBack": "Witaj ponownie",
+		"signInDescription": "Zaloguj się do swojego konta aby kontynuować",
+		"continueWithGoogle": "Kontynuuj z Google",
+		"createAccount": "Utwórz konto",
+		"createAccountDescription": "Wprowadź dane aby utworzyć konto",
+		"fullName": "Imię i nazwisko",
+		"email": "Email",
+		"password": "Hasło",
+		"confirmPassword": "Potwierdź hasło",
+		"signUp": "Zarejestruj się",
+		"signIn": "Zaloguj się",
+		"rememberMe": "Zapamiętaj mnie",
+		"alreadyHaveAccount": "Masz już konto? Zaloguj się",
+		"noAccount": "Nie masz konta? Zarejestruj się",
+		"orContinueWith": "Lub",
+		"currentPassword": "Obecne hasło",
+		"newPassword": "Nowe hasło",
+		"confirmNewPassword": "Potwierdź nowe hasło",
+		"changePassword": "Zmień hasło",
+		"passwordChanged": "Hasło zostało zmienione",
+		"passwordChangeFailed": "Nie udało się zmienić hasła",
+		"agreeToTerms": "Zgadzam się z",
+		"and": "i",
+		"passwordStrength": {
+			"label": "Siła hasła",
+			"weak": "Słabe",
+			"normal": "Normalne",
+			"strong": "Silne"
+		},
+		"passwordPolicy": {
+			"title": "Wymagania hasła",
+			"minLength": "Minimum 8 znaków",
+			"uppercase": "Minimum 1 wielka litera",
+			"lowercase": "Minimum 1 mała litera",
+			"number": "Minimum 1 cyfra"
+		}
+	},
+	"notFound": {
+		"title": "Strona nie znaleziona",
+		"message": "Strona której szukasz nie istnieje lub została przeniesiona.",
+		"goBack": "Cofnij",
+		"home": "Strona główna",
+		"helpText": "Sprawdź URL lub użyj wyszukiwarki"
+	},
+	"error": {
+		"title": "Coś poszło nie tak",
+		"description": "Napotkaliśmy nieoczekiwany błąd. Spróbuj ponownie.",
+		"defaultMessage": "Wystąpił nieoczekiwany błąd",
+		"tryAgain": "Spróbuj ponownie",
+		"goToHome": "Przejdź do strony głównej",
+		"goBack": "Cofnij",
+		"technicalDetails": "Szczegóły techniczne",
+		"stackTrace": "Ślad stosu błędu:",
+		"persistMessage": "Jeśli błąd się powtarza, zgłoś go do naszego zespołu wsparcia.",
+		"reportError": "Zgłoś błąd",
+		"rateLimitExceeded": "Zbyt wiele prób. Spróbuj ponownie za 15 minut.",
+		"invalidCredentials": "Nieprawidłowy email lub hasło",
+		"emailAlreadyExists": "Ten adres email jest już zarejestrowany"
+	},
+	"validation": {
+		"email": {
+			"required": "Email jest wymagany",
+			"invalid": "Nieprawidłowy format email"
+		},
+		"password": {
+			"required": "Hasło jest wymagane",
+			"minLength": "Hasło musi mieć minimum 8 znaków",
+			"maxLength": "Hasło nie może przekraczać 128 znaków",
+			"uppercase": "Hasło musi zawierać minimum 1 wielką literę",
+			"lowercase": "Hasło musi zawierać minimum 1 małą literę",
+			"number": "Hasło musi zawierać minimum 1 cyfrę",
+			"noMatch": "Hasła nie pasują do siebie"
+		},
+		"name": {
+			"minLength": "Imię musi mieć minimum 2 znaki"
+		}
+	},
+	"footer": {
+		"copyright": "© powiadomienia.info jest produktem <0>Auditmos OU</0>.<br />Wszelkie prawa zastrzeżone {{year}}",
+		"headquarters": "Siedziba",
+		"privacyPolicy": "Polityka Prywatności",
+		"legal": "Informacje Prawne",
+		"termsOfService": "Regulamin",
+		"cookiePolicy": "Polityka Cookies"
+	},
+	"legal": {
+		"termsOfService": "Regulamin",
+		"cookiePolicy": "Polityka Cookies",
+		"privacyPolicy": "Polityka Prywatności"
+	},
+	"staticPages": {
+		"contentPlaceholder": "Treść zostanie wkrótce dodana.",
+		"legalDescription": "Dostęp do naszych dokumentów prawnych i polityk.",
+		"termsOfServiceDescription": "Warunki korzystania z naszej usługi",
+		"cookiePolicyDescription": "Jak używamy plików cookies na naszej stronie",
+		"privacyPolicyDescription": "Jak chronimy Twoje dane osobowe"
+	},
+	"privacyPolicy": {
+		"statementSummary": "Podsumowanie Polityki Prywatności",
+		"statementSummaryContent": "Niniejsza Polityka Prywatności („Polityka”) wyjaśnia, w jaki sposób Twoje informacje są zbierane, wykorzystywane i ujawniane przez Auditmos OU („my” / „nas” / „nasze”). Niniejsza Polityka ma zastosowanie tam, gdzie działamy jako Administrator Danych w odniesieniu do danych osobowych osób odwiedzających naszą stronę, użytkowników usług, klientów i partnerów.",
+		"whoWillUse": "Kto będzie korzystał z moich danych?",
+		"whoWillUseContent": "Auditmos OU (powiadomienia.info).",
+		"whatFor": "W jakim celu?",
+		"whatForContent": "Będziemy przechowywać i przetwarzać Twoje dane, aby umożliwić nam dostarczanie naszych produktów i usług. Obejmuje to:\n\n- Uwierzytelnianie użytkowników i zarządzanie kontami.\n- Umożliwienie korzystania z funkcji naszych produktów, takich jak wysyłanie i zarządzanie powiadomieniami.\n- Monitorowanie bezpieczeństwa i integralności naszej platformy poprzez analizę logów audytowych w celu wykrywania podejrzanych zachowań i badania potencjalnych zagrożeń.\n- Kontaktowanie się z Tobą w sprawach związanych z korzystaniem z Usług, w tym zmian w politykach.\n- Do wewnętrznych celów biznesowych.",
+		"whatIfContact": "Co się stanie, jeśli się z Wam skontaktuję?",
+		"whatIfContactContent": "Jeśli skontaktujesz się z nami, wykorzystamy Twoje dane, aby przesłać Ci informacje, o które prosiłeś, aktualizacje oraz inne informacje dotyczące naszych usług, które naszym zdaniem mogą Cię zainteresować.",
+		"whatStored": "Jakie dane będą przechowywane?",
+		"whatStoredContent": "Będziemy przechowywać Twoje dane osobowe w celu świadczenia naszych usług i prowadzenia firmy. Obejmuje to:\n\n- **Informacje o koncie:** Imię i nazwisko, adres e-mail, zaszyfrowane hasła oraz dane rozliczeniowe.\n- **Dane powiadomień:** Treści przesyłane przez Ciebie za pośrednictwem naszego API lub platformy (payloady), które są przetwarzane w celu dostarczenia powiadomień.\n- **Informacje techniczne:** Dane logowania (adres IP, typ przeglądarki), Dane o użytkowaniu (używane funkcje) oraz Informacje o urządzeniu.\n- **Pliki cookie:** Niezbędne pliki cookie wymagane do uwierzytelniania i bezpieczeństwa.",
+		"whatShared": "Jakie dane będą udostępniane?",
+		"whatSharedContent": "Nie będziemy udostępniać Twoich danych żadnym stronom trzecim innym niż opisane tutaj w celu wypełnienia naszych zobowiązań wobec Ciebie (np. Bezpieczeństwo przez Cloudflare). Możemy udostępnić Twoje informacje organom regulacyjnym lub prawnym, jeśli wymaga tego prawo.",
+		"howLong": "Jak długo?",
+		"howLongContent": "Auditmos OU przechowuje dane tylko tak długo, jak jest to konieczne do świadczenia naszych usług oraz spełnienia wymogów operacyjnych, umownych i regulacyjnych. Dane konta są przechowywane przez okres istnienia konta. Dane transakcyjne są przechowywane zgodnie z wymogami prawa podatkowego (zazwyczaj 7 lat). Logi powiadomień są przechowywane przez ograniczony czas w celach debugowania i audytu, a następnie usuwane.",
+		"whoAccess": "Kto ma dostęp do moich danych?",
+		"whoAccessContent": "Nigdy nie będziemy sprzedawać, udostępniać ani w inny sposób rozpowszechniać Twoich danych żadnym stronom trzecim innym niż opisane tutaj. Dostęp do Twoich danych jest ściśle kontrolowany i ograniczony do upoważnionego personelu.",
+		"howSecure": "Jak zabezpieczane są moje dane?",
+		"howSecureContent": "Przechowujemy Twoje dane na bezpiecznych serwerach. Używamy standardowych protokołów bezpieczeństwa (HTTPS/TLS) do szyfrowania danych w trakcie przesyłania i w spoczynku.",
+		"aboutPolicy": "O niniejszej Polityce Prywatności",
+		"aboutPolicyContent": "Niniejsza polityka określa, w jaki sposób będziemy zbierać, przechowywać i przetwarzać informacje, które nam przekazujesz. Jej celem jest zapewnienie ochrony praw do prywatności, promowanie przejrzystości i zgodność z Ogólnym Rozporządzeniem o Ochronie Danych (RODO).",
+		"principles": "Zasady Przetwarzania Danych Osobowych",
+		"principlesContent": "Przestrzegamy zasad RODO: Dane muszą być przetwarzane rzetelnie i zgodnie z prawem; zbierane w konkretnych celach; adekwatne i istotne; dokładne; nieprzechowywane dłużej niż to konieczne; przetwarzane zgodnie z prawami osób, których dane dotyczą; odpowiednio chronione; oraz nieprzekazywane za granicę bez odpowiednich zabezpieczeń.",
+		"whoWeAre": "Kim jesteśmy i jak się z nami skontaktować",
+		"whoWeAreContent": "Auditmos OU jest firmą zarejestrowaną w Estonii.\n\n- **Imię i nazwisko Administratora Danych:** Tomasz Kowalczyk\n- **Nazwa firmy:** Auditmos OU\n- **E-mail:** legal@powiadomienia.info",
+		"article27": "Nasi przedstawiciele z art. 27",
+		"article27Content": "Ponieważ Auditmos OU ma siedzibę w Unii Europejskiej (Estonia), nie jesteśmy zobowiązani do wyznaczania zewnętrznego przedstawiciela ds. RODO w UE.",
+		"ukRep": "Nasz przedstawiciel w Wielkiej Brytanii",
+		"ukRepContent": "Nie dotyczy w tym momencie.",
+		"euRep": "Nasz przedstawiciel w UE",
+		"euRepContent": "Nie dotyczy. Jesteśmy podmiotem z siedzibą w UE.",
+		"toWhom": "Kogo dotyczy ta polityka prywatności?",
+		"toWhomContent": "Niniejsza polityka dotyczy Pracowników, Klientów, Użytkowników końcowych naszych Usług, Odwiedzających stronę internetową oraz Partnerów.",
+		"whatApplies": "Czego dotyczy ta polityka?",
+		"whatAppliesContent": "Ta sekcja opisuje cele przetwarzania Twoich danych, w tym informacje podawane podczas kontaktu z nami, szczegóły rejestracji konta oraz techniczne dane o użytkowaniu. Dotyczy to wszystkich czynności przetwarzania danych wymaganych do świadczenia usługi powiadomienia.info.",
+		"howCollected": "W jaki sposób Twoje informacje będą zbierane i wykorzystywane?",
+		"howCollectedContent": "Zbieramy dane przede wszystkim bezpośrednio od Ciebie (rejestracja) lub automatycznie poprzez Twoje korzystanie z usługi (logi). Używamy tych danych, aby:\n\n- Zarejestrować Cię jako klienta (Wykonanie Umowy).\n- Administrować i chronić naszą firmę (Prawnie Uzasadniony Interes).\n- Używać analityki danych do ulepszania naszej strony (Prawnie Uzasadniony Interes).",
+		"changePrefs": "Jak zmienić swoje preferencje",
+		"changePrefsContent": "Działamy zgodnie z RODO. Możesz skontaktować się z nami pod adresem legal@powiadomienia.info, aby zażądać dostępu, sprostowania, usunięcia lub ograniczenia przetwarzania Twoich danych.",
+		"optingOut": "Rezygnacja w późniejszym terminie",
+		"optingOutContent": "Masz prawo wycofać swoją zgodę w dowolnym momencie. Możesz sprzeciwić się przetwarzaniu Twoich danych i zażądać ich usunięcia, pod warunkiem że dane te nie są wymagane do celów podatkowych lub prawnych.",
+		"howStore": "Jak przechowujemy i przetwarzamy Twoje dane",
+		"howStoreContent": "Twoje dane są bezpiecznie przechowywane na serwerach zlokalizowanych w Unii Europejskiej lub u zgodnych z przepisami dostawców usług (takich jak Cloudflare). Przechowujemy dane tak długo, jak jest to konieczne do świadczenia usługi i spełnienia wymogów prawnych.",
+		"obligations": "Nasze obowiązki",
+		"obligationsContent": "Jako Administrator Danych jesteśmy odpowiedzialni za przetwarzanie Twoich informacji. Masz prawo żądać dostępu, sprostowania, usunięcia, sprzeciwu, ograniczenia oraz przenoszenia swoich danych.",
+		"thirdParties": "Strony Trzecie",
+		"thirdPartiesContent": "Możemy udostępniać Twoje dane osobowe wybranym stronom trzecim:\n\n| Strona trzecia | Cel |\n|----------------|-----|\n| Cloudflare | W celu bezpieczeństwa i dostarczania treści |\n| Doradcy zawodowi | Prawnicy, audytorzy, ubezpieczyciele |\n| Organy regulacyjne | Jeśli wymaga tego prawo |",
+		"security": "Bezpieczeństwo",
+		"securityContent": "Wdrożyliśmy odpowiednie środki bezpieczeństwa, aby chronić Twoje dane osobowe przed przypadkową utratą, nieautoryzowanym dostępem, użyciem, zmianą lub ujawnieniem. Wszelkie naruszenia danych zgłosimy odpowiednim organom w ciągu 72 godzin.",
+		"cookies": "Pliki Cookie",
+		"cookiesContent": "Używamy niezbędnych plików cookie, aby zapewnić poprawne działanie strony (np. utrzymanie zalogowania). Szczegółowe informacje znajdują się w naszej Polityce Plików Cookie.",
+		"contacting": "Kontakt z nami, realizacja praw i skargi",
+		"contactingContent": "Jeśli masz pytania, skontaktuj się z Tomaszem Kowalczykiem pod adresem legal@powiadomienia.info. Jeśli pozostaniesz niezadowolony, masz prawo złożyć skargę do Estońskiego Inspektoratu Ochrony Danych (AKI) lub lokalnego organu ochrony danych."
+	},
+	"termsOfService": {
+		"lastUpdate": "Ostatnia aktualizacja: 29 grudnia 2025 r.",
+		"intro": "O ILE NIE ZOSTAŁA ZAWARTA ODRĘBNA UMOWA RAMOWA O ŚWIADCZENIE USŁUG PRZEZ STRONY, NINIEJSZE WARUNKI REGULUJĄ KORZYSTANIE Z WITRYNY POWIADOMIENIA.INFO („WITRYNA”) ORAZ USŁUG PLATFORMY UDOSTĘPNIANYCH PRZEZ AUDITMOS OU. USŁUGI NIE SĄ PRZEZNACZONE DO UŻYTKU Z INFORMACJAMI NIEJAWNYMI LUB DANYMI WYMAGAJĄCYMI DODATKOWYCH POZIOMÓW BEZPIECZEŃSTWA POZA STANDARDOWĄ ZGODNOŚCIĄ Z RODO.",
+		"agreementTitle": "ZGODA NA WARUNKI I POSTANOWIENIA",
+		"agreementContent": "Korzystając z Usług, wyrażasz zgodę na przestrzeganie niniejszych Warunków. Jeśli nie zgadzasz się na te Warunki, nie korzystaj z Usług. Jeśli uzyskujesz dostęp i korzystasz z Usług w imieniu firmy (np. swojego pracodawcy) lub innej osoby prawnej, oświadczasz i gwarantujesz, że masz upoważnienie do związania tego podmiotu niniejszymi Warunkami.",
+		"definitionsTitle": "DEFINICJE",
+		"definitions": {
+			"item1": "„Autoryzowani Użytkownicy” oznaczają pracowników, agentów, konsultantów, wykonawców lub sprzedawców upoważnionych przez Klienta do korzystania z Usług.",
+			"item2": "„Materiały Klienta” oznaczają wszelkie informacje, dane, treści (w tym treści powiadomień) oraz inne materiały przesłane lub przekazane przez Klienta za pośrednictwem Usług.",
+			"item3": "„Usługi Platformy” oznaczają autorską platformę powiadomień i monitorowania, interfejsy API oraz powiązane oprogramowanie udostępniane przez Auditmos OU."
+		},
+		"privacyNoticeTitle": "NOTA O PRYWATNOŚCI",
+		"privacyNoticeContent": "Prosimy o zapoznanie się z Polityką Prywatności Auditmos OU, dostępną na naszej stronie internetowej, która również reguluje sposób, w jaki zbieramy, wykorzystujemy i udostępniamy informacje o Kliencie i Autoryzowanych Użytkownikach.",
+		"changesTitle": "ZMIANY W NINIEJSZYCH WARUNKACH LUB USŁUGACH",
+		"changesContent": "Auditmos OU może od czasu do czasu aktualizować niniejsze Warunki. Zaktualizowane Warunki zostaną opublikowane w Witrynie. Dalsze korzystanie z Usług przez Klienta po opublikowaniu zaktualizowanych Warunków oznacza akceptację i zgodę na zmiany.",
+		"accessTitle": "DOSTĘP I KORZYSTANIE",
+		"access": {
+			"item1": "Usługi: Z zastrzeżeniem niniejszych Warunków, Auditmos OU udziela Klientowi ograniczonego, niewyłącznego, nieprzenoszalnego prawa do korzystania z Usług zgodnie z Dokumentacją.",
+			"item2": "Ograniczenia użytkowania: Klient nie będzie:\n\n(i) dokonywać inżynierii wstecznej ani próbować uzyskać kodu źródłowego Usług;\n\n(ii) odsprzedawać ani udzielać sublicencji na Usługi podmiotom trzecim bez zezwolenia;\n\n(iii) używać Usług do przesyłania złośliwego kodu, spamu lub treści oszukańczych;\n\n(iv) zakłócać integralności lub działania Usług.",
+			"item3": "Własność: Auditmos OU zachowuje i posiada wszelkie prawa, tytuły i udziały w Platformie, podstawowym oprogramowaniu oraz wszelkich powiązanych Prawach Własności Intelektualnej."
+		},
+		"subscriptionsTitle": "SUBSKRYPCJE I POZIOM DARMOWY",
+		"subscriptionsContent": "Usługi są obecnie świadczone bezpłatnie. Auditmos OU zastrzega sobie prawo do wprowadzenia płatnych funkcji w przyszłości, z odpowiednim wcześniejszym powiadomieniem użytkowników.",
+		"customerMaterialsTitle": "MATERIAŁY KLIENTA",
+		"customerMaterialsContent": "Klient udziela Auditmos OU licencji na wykorzystanie Materiałów Klienta wyłącznie w celu obsługi, ulepszania i świadczenia Usług (np. wysyłania powiadomień). W relacji między Klientem a Auditmos OU, Klient jest właścicielem wszystkich Materiałów Klienta. Klient oświadcza, że ma prawo do dostarczania takich danych i że nie naruszają one praw osób trzecich.",
+		"supportTitle": "WSPARCIE I POZIOMY USŁUG (SLA)",
+		"support": {
+			"title": "Wsparcie",
+			"content": "Auditmos OU zapewni Klientowi wsparcie w zakresie Usług za pośrednictwem poczty elektronicznej lub dokumentacji w centrum pomocy."
+		},
+		"serviceLevels": {
+			"title": "Poziomy Usług",
+			"content": "Auditmos OU dołoży wszelkich starań handlowych, aby Usługi były dostępne 24/7, z wyłączeniem planowanych przestojów konserwacyjnych i zdarzeń siły wyższej. Poziomy usług są celami wydajnościowymi, a nie gwarancjami."
+		},
+		"confidentialTitle": "INFORMACJE POUFNE",
+		"confidentialContent": "Każda ze stron zobowiązuje się chronić Informacje Poufne drugiej strony z taką samą starannością, z jaką chroni własne. Informacje Poufne obejmują techniczne informacje biznesowe, ceny i niepubliczne szczegóły produktu. Obowiązek ten nie dotyczy informacji, które są publiczne, niezależnie opracowane lub legalnie uzyskane od osób trzecich.",
+		"representationsTitle": "OŚWIADCZENIA I GWARANCJE; ZASTRZEŻENIA",
+		"representations": {
+			"mutual": {
+				"title": "Wzajemne oświadczenia",
+				"content": "Każda ze Stron oświadcza, że posiada pełną moc i uprawnienia do zawarcia niniejszych Warunków."
+			},
+			"customer": {
+				"title": "Dodatkowe oświadczenia Klienta",
+				"content": "Klient oświadcza, że korzystanie z Usług nie będzie naruszać żadnych obowiązujących przepisów prawa (w tym przepisów antyspamowych) ani praw osób trzecich."
+			},
+			"disclaimer": {
+				"title": "Zastrzeżenie",
+				"content": "USŁUGI SĄ DOSTARCZANE W STANIE „TAKIM, W JAKIM SĄ” („AS IS”). AUDITMOS OU NIE UDZIELA ŻADNYCH GWARANCJI, WYRAŹNYCH ANI DOROZUMIANYCH, DOTYCZĄCYCH NIEZAWODNOŚCI LUB DOSTĘPNOŚCI USŁUG."
+			},
+			"similarity": {
+				"title": "Niezawodność Usługi",
+				"content": "Ze względu na charakter komunikacji internetowej, Auditmos OU nie może zagwarantować dostarczenia każdego pojedynczego powiadomienia, jeśli awaria nastąpi z powodu sieci stron trzecich, dostawców usług internetowych (ISP) lub ustawień urządzenia odbiorcy. Auditmos OU nie ponosi odpowiedzialności za opóźnienia lub błędy w dostarczaniu spowodowane czynnikami zewnętrznymi."
+			}
+		},
+		"terminationTitle": "ROZWIĄZANIE UMOWY",
+		"terminationContent": "Auditmos OU może natychmiast rozwiązać umowę lub zawiesić dostęp, jeśli Klient naruszy niniejsze Warunki. Klient może zakończyć subskrypcję w dowolnym momencie w ustawieniach Platformy; takie zakończenie wejdzie w życie z końcem bieżącego okresu rozliczeniowego. Po rozwiązaniu umowy prawo Klienta do korzystania z Usług wygasa.",
+		"limitationTitle": "OGRANICZENIE ODPOWIEDZIALNOŚCI",
+		"limitationContent": "W ŻADNYM WYPADKU AUDITMOS OU NIE PONOSI ODPOWIEDZIALNOŚCI ZA JAKIEKOLWIEK SZKODY POŚREDNIE, PRZYPADKOWE LUB WTÓRNE. CAŁKOWITA ODPOWIEDZIALNOŚĆ NIE MOŻE PRZEKROCZYĆ OPŁAT UISZCZONYCH PRZEZ KLIENTA W CIĄGU SZEŚCIU (6) MIESIĘCY POPRZEDZAJĄCYCH ROSZCZENIE.",
+		"indemnificationTitle": "ODSZKODOWANIE (INDEMNIFICATION)",
+		"indemnificationContent": "Klient zwolni Auditmos OU z odpowiedzialności i chroni przed wszelkimi roszczeniami wynikającymi z korzystania przez Klienta z Usług, Materiałów Klienta lub naruszenia niniejszych Warunków.",
+		"generalTitle": "POSTANOWIENIA OGÓLNE",
+		"general": {
+			"item1": "Prawo właściwe: Niniejsze Warunki podlegają prawu Estonii. Wszelkie działania prawne będą rozstrzygane wyłącznie przez sądy w Tallinnie, w Estonii.",
+			"item2": "Cesja: Klient nie może przenieść niniejszych Warunków bez uprzedniej pisemnej zgody. Auditmos OU może swobodnie przenosić niniejsze Warunki.",
+			"item3": "Powiadomienia: Powiadomienia do Auditmos OU należy przesyłać na adres legal@powiadomienia.info."
+		},
+		"exhibitA": {
+			"title": "ZAŁĄCZNIK A – POLITYKA DOPUSZCZALNEGO UŻYTKOWANIA",
+			"item1": "Zgadzasz się nie używać Usług do przesyłania treści nielegalnych, szkodliwych, grożących, obraźliwych lub zniesławiających.",
+			"item2": "Zgadzasz się nie używać Usług do wysyłania niechcianych wiadomości masowych (spam) ani do nękania osób.",
+			"item3": "Zgadzasz się nie używać Usług do prób oszukania innych, rozpowszechniania złośliwego oprogramowania lub angażowania się w działania phishingowe."
+		},
+		"exhibitB": {
+			"title": "ZAŁĄCZNIK B – POZIOMY USŁUG I WSPARCIE",
+			"item1": "Cel dostępności: Dążymy do dostępności na poziomie 99,9%.",
+			"item2": "Konserwacja: Będziemy powiadamiać o planowanych oknach serwisowych.",
+			"item3": "Wsparcie: Wsparcie jest dostępne pod adresem legal@powiadomienia.info w godzinach pracy (czasu wschodnioeuropejskiego EET)."
+		}
+	},
+	"cookiePolicy": {
+		"companyNameLabel": "Nazwa firmy:",
+		"companyName": "Auditmos OU (właściciel serwisu powiadomienia.info)",
+		"policyOwnerLabel": "Właściciel polityki:",
+		"policyOwner": "Tomasz Kowalczyk",
+		"effectiveDateLabel": "Data wejścia w życie:",
+		"effectiveDate": "29 grudnia 2025",
+		"purposeTitle": "Cel",
+		"purposeContent": "Niniejsza polityka określa zasady korzystania przez nas z plików cookie i podobnych technologii. Używamy tych technologii, aby nasza strona działała poprawnie oraz w celu zapewnienia bezpieczeństwa naszych usług. Dokument ten wyjaśnia, czym są te technologie, co robią i jak możesz zarządzać swoimi preferencjami z nimi związanymi.",
+		"scopeTitle": "Zakres",
+		"scopeContent": "Niniejsza polityka dotyczy wszystkich odwiedzających i użytkowników strony powiadomienia.info oraz powiązanych z nią usług. Zakres obejmuje wykorzystanie plików cookie, czyli małych plików tekstowych umieszczanych na Twoim urządzeniu podczas wizyty na stronie. Pozwalają nam one rozpoznawać powracających użytkowników i rejestrować określone informacje o przeglądaniu (np. w jaki sposób trafiłeś na stronę, jakie podstrony przeglądasz i jakie ścieżki wybierasz).",
+		"policyTitle": "Polityka",
+		"howWeUse": {
+			"title": "Jak wykorzystujemy pliki cookie",
+			"content": "Nasza strona internetowa wykorzystuje pliki cookie pochodzące głównie od Auditmos OU oraz wybranych partnerów zewnętrznych niezbędnych do obsługi infrastruktury. Są one skategoryzowane jako Niezbędne pliki cookie. Obecnie nie używamy plików cookie analitycznych ani marketingowych."
+		},
+		"detailedInfo": {
+			"title": "Szczegółowe informacje o plikach cookie",
+			"content": "Poniżej znajduje się lista głównych technologii, których używamy i które mogą umieszczać pliki cookie na Twoim urządzeniu."
+		},
+		"strictlyNecessary": {
+			"title": "Niezbędne pliki cookie",
+			"content": "Te pliki cookie są kluczowe dla poprawnego funkcjonowania naszej strony i usług, dlatego nie można ich wyłączyć. Są niezbędne do zapewnienia bezpieczeństwa i działania podstawowych funkcji. Na przykład zapewniają one utrzymanie zalogowania podczas nawigacji po platformie.\n\n1. Źródło: Auditmos OU / powiadomienia.info\nCel: Umożliwienie uwierzytelniania użytkowników (przez e-mail/hasło lub Google), zarządzanie aktywnymi sesjami i rejestrowanie wewnętrznych błędów systemu w celu zapewnienia niezawodności.\n\n2. Źródło: Cloudflare\nCel: Maksymalizacja zasobów sieciowych, zarządzanie ruchem i ochrona witryny przed złośliwym ruchem oraz botami."
+		},
+		"analytics": {
+			"title": "Analityczne i śledzące pliki cookie",
+			"content": "Te „nieobowiązkowe” pliki cookie pomagają nam rozpoznawać powracających użytkowników i rozumieć, w jaki sposób korzystasz z naszej strony, abyśmy mogli ulepszać nasz serwis i usługi.\n\n* Aktualny status: Obecnie nie używamy zewnętrznych plików cookie analitycznych."
+		},
+		"marketing": {
+			"title": "Marketingowe pliki cookie",
+			"content": "Te „nieobowiązkowe” pliki cookie od partnerów pomagają nam monitorować zachowanie na stronie w celu wykorzystania w reklamie internetowej.\n\n* Aktualny status: Obecnie nie używamy plików cookie marketingowych ani reklamowych."
+		},
+		"choicesTitle": "Twoje wybory i możliwość rezygnacji",
+		"choices": {
+			"item1": "Ustawienia przeglądarki: Możesz zablokować lub usunąć pliki cookie, zmieniając ustawienia swojej przeglądarki. Zapoznaj się z funkcją „pomoc” w swojej przeglądarce, aby uzyskać poradę. Pamiętaj, że jeśli zablokujesz wszystkie pliki cookie (w tym te niezbędne), możesz nie być w stanie zalogować się na naszej stronie.",
+			"item2": "Rezygnacja z poszczególnych usług: Ponieważ obecnie używamy wyłącznie plików cookie, które są ściśle niezbędne do bezpieczeństwa i działania serwisu (uwierzytelnianie, firewall), nie istnieją opcjonalne usługi zewnętrzne, z których można zrezygnować bez naruszania funkcjonalności strony."
+		},
+		"choicesAdditional": "Więcej ogólnych informacji na temat zarządzania plikami cookie można znaleźć na stronie https://www.allaboutcookies.org/manage-cookies/index.html",
+		"exceptionsTitle": "Wyjątki",
+		"exceptionsContent": "Wnioski o odstępstwo od tej polityki muszą być składane do naszego komitetu ds. bezpieczeństwa pod adresem (legal@powiadomienia.info) w celu uzyskania zgody.",
+		"violationsTitle": "Naruszenia i egzekwowanie",
+		"violationsContent": "Wszelkie znane naruszenia niniejszej polityki należy zgłaszać do naszego komitetu ds. bezpieczeństwa pod adresem (legal@powiadomienia.info).",
+		"versionTitle": "Wersja",
+		"versionContent": "| Pole | Wartość |\n|------|----------|\n| Wersja | 1.0.0 |\n| Data | Grudzień 2025 |\n| Opis | Pierwsza wersja |\n| Autor | Tomasz Kowalczyk |\n| Zatwierdził | Tomasz Kowalczyk |",
+		"lastReviewed": "Ostatni przegląd: 29 grudnia 2025 r."
+	}
 }

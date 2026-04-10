@@ -13,7 +13,7 @@ describe("structured logger", () => {
 		logger.info("request started");
 
 		expect(spy).toHaveBeenCalledOnce();
-		const output = JSON.parse(spy.mock.calls[0]![0] as string);
+		const output = JSON.parse(spy.mock.calls[0]?.[0] as string);
 		expect(output).toMatchObject({
 			level: "info",
 			requestId: "req-123",
@@ -28,7 +28,7 @@ describe("structured logger", () => {
 		logger.error("something failed");
 
 		expect(spy).toHaveBeenCalledOnce();
-		const output = JSON.parse(spy.mock.calls[0]![0] as string);
+		const output = JSON.parse(spy.mock.calls[0]?.[0] as string);
 		expect(output).toMatchObject({
 			level: "error",
 			requestId: "req-456",
@@ -43,7 +43,7 @@ describe("structured logger", () => {
 		logger.warn("slow response");
 
 		expect(spy).toHaveBeenCalledOnce();
-		const output = JSON.parse(spy.mock.calls[0]![0] as string);
+		const output = JSON.parse(spy.mock.calls[0]?.[0] as string);
 		expect(output).toMatchObject({
 			level: "warn",
 			requestId: "req-789",
@@ -57,7 +57,7 @@ describe("structured logger", () => {
 
 		logger.info("db query", { table: "users", duration: 42 });
 
-		const output = JSON.parse(spy.mock.calls[0]![0] as string);
+		const output = JSON.parse(spy.mock.calls[0]?.[0] as string);
 		expect(output.table).toBe("users");
 		expect(output.duration).toBe(42);
 	});
@@ -68,7 +68,7 @@ describe("structured logger", () => {
 
 		logger.info("test");
 
-		const output = JSON.parse(spy.mock.calls[0]![0] as string);
+		const output = JSON.parse(spy.mock.calls[0]?.[0] as string);
 		expect(output.timestamp).toBeTruthy();
 		expect(() => new Date(output.timestamp)).not.toThrow();
 	});

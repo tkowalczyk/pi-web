@@ -100,9 +100,7 @@
 			"!cmux.json",
 			"!pnpm-lock.yaml",
 			"!.claude",
-			"!.audit",
-			"!apps",
-			"!packages/data-ops"
+			"!.audit"
 		]
 	}
 }

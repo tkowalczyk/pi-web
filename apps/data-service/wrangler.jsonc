@@ -3,19 +3,17 @@
 	"name": "pi-web-data-service",
 	"main": "./src/index.ts",
 	"compatibility_date": "2025-04-01",
-	"compatibility_flags": [
-		"nodejs_compat"
-	],
+	"compatibility_flags": ["nodejs_compat"],
 	"observability": {
-		"enabled": true,
+		"enabled": true
 	},
 	"triggers": {
 		"crons": ["0 * * * *"]
 	},
 	"env": {
 		/**
-		* Local / Development environment
-		*/
+		 * Local / Development environment
+		 */
 		"dev": {
 			"name": "pi-web-data-service-dev",
 			"kv_namespaces": [
@@ -26,9 +24,7 @@
 				}
 			],
 			"queues": {
-				"producers": [
-					{ "queue": "notification-queue", "binding": "NOTIFICATION_QUEUE" }
-				],
+				"producers": [{ "queue": "notification-queue", "binding": "NOTIFICATION_QUEUE" }],
 				"consumers": [
 					{
 						"queue": "notification-queue",
@@ -41,8 +37,8 @@
 			}
 		},
 		/**
-		* Remote / Staging environment
-		*/
+		 * Remote / Staging environment
+		 */
 		"stage": {
 			"routes": [
 				{
@@ -59,9 +55,7 @@
 				}
 			],
 			"queues": {
-				"producers": [
-					{ "queue": "notification-queue-stage", "binding": "NOTIFICATION_QUEUE" }
-				],
+				"producers": [{ "queue": "notification-queue-stage", "binding": "NOTIFICATION_QUEUE" }],
 				"consumers": [
 					{
 						"queue": "notification-queue-stage",
@@ -74,8 +68,8 @@
 			}
 		},
 		/**
-		* Remote / Production environment
-		*/
+		 * Remote / Production environment
+		 */
 		"prod": {
 			"routes": [
 				{
@@ -92,9 +86,7 @@
 				}
 			],
 			"queues": {
-				"producers": [
-					{ "queue": "notification-queue-prod", "binding": "NOTIFICATION_QUEUE" }
-				],
+				"producers": [{ "queue": "notification-queue-prod", "binding": "NOTIFICATION_QUEUE" }],
 				"consumers": [
 					{
 						"queue": "notification-queue-prod",
@@ -105,6 +97,6 @@
 					}
 				]
 			}
-		},
-	},
+		}
+	}
 }

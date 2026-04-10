@@ -1,6 +1,10 @@
 import { getUsersNeedingNotification } from "@repo/data-ops/queries/notifications";
 
-export async function handleScheduled(controller: ScheduledController, env: Env, ctx: ExecutionContext) {
+export async function handleScheduled(
+	_controller: ScheduledController,
+	env: Env,
+	_ctx: ExecutionContext,
+) {
 	const now = new Date();
 	const currentHour = now.getUTCHours();
 	const currentMinute = now.getUTCMinutes();
@@ -10,7 +14,9 @@ export async function handleScheduled(controller: ScheduledController, env: Env,
 	const cetOffset = isSummerTime ? 2 : 1;
 	const cetHour = (currentHour + cetOffset) % 24;
 
-	console.log(`Cron triggered at UTC ${currentHour}:${currentMinute} = CET/CEST ${cetHour}:${currentMinute}`);
+	console.log(
+		`Cron triggered at UTC ${currentHour}:${currentMinute} = CET/CEST ${cetHour}:${currentMinute}`,
+	);
 
 	const tomorrow = new Date(now);
 	tomorrow.setDate(tomorrow.getDate() + 1);
@@ -25,7 +31,7 @@ export async function handleScheduled(controller: ScheduledController, env: Env,
 
 	console.log(`Found ${allUsers.length} users to notify`);
 
-	const batch: MessageSendRequest<NotificationMessage>[] = allUsers.map(user => ({
+	const batch: MessageSendRequest<NotificationMessage>[] = allUsers.map((user) => ({
 		body: {
 			userId: user.userId,
 			phone: user.phone,

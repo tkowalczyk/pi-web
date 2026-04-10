@@ -1,442 +1,442 @@
 {
-  "common": {
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "save": "Save",
-    "close": "Close"
-  },
-  "nav": {
-    "appName": "Waste Alerts",
-    "home": "Home",
-    "menu": "Menu",
-    "features": "Features",
-    "documentation": "Documentation",
-    "signIn": "Sign In",
-    "signOut": "Sign Out",
-    "account": "Account"
-  },
-  "theme": {
-    "toggle": "Toggle theme",
-    "light": "Light",
-    "dark": "Dark",
-    "system": "System",
-    "lightDescription": "Use light theme",
-    "darkDescription": "Use dark theme",
-    "systemDescription": "Use system theme",
-    "currentTheme": "Current theme",
-    "currentlyUsing": "Currently using {{theme}} theme"
-  },
-  "language": {
-    "toggle": "Change language",
-    "label": "Language",
-    "polish": "Polish",
-    "english": "English",
-    "code": "en"
-  },
-  "waste_schedule": {
-    "title": "Waste Collection",
-    "schedule": "Schedule",
-    "nextTwoWeeks": "Next 2 weeks",
-    "noUpcoming": "No upcoming collections in next 2 weeks",
-    "upcomingDescription": "Upcoming collections for notification address",
-    "today": "Today",
-    "tomorrow": "Tomorrow",
-    "days": {
-      "sunday": "Sunday",
-      "monday": "Monday",
-      "tuesday": "Tuesday",
-      "wednesday": "Wednesday",
-      "thursday": "Thursday",
-      "friday": "Friday",
-      "saturday": "Saturday"
-    },
-    "months": {
-      "jan": "Jan",
-      "feb": "Feb",
-      "mar": "Mar",
-      "apr": "Apr",
-      "may": "May",
-      "jun": "Jun",
-      "jul": "Jul",
-      "aug": "Aug",
-      "sep": "Sep",
-      "oct": "Oct",
-      "nov": "Nov",
-      "dec": "Dec"
-    }
-  },
-  "address": {
-    "add": "Add Address",
-    "adding": "Adding...",
-    "edit": "Edit",
-    "delete": "Delete",
-    "deleting": "Deleting...",
-    "deleteConfirm": "Delete address?",
-    "deleteWarning": "You won't receive notifications for this address",
-    "city": "City",
-    "cityDescription": "Select your city to see waste collection schedules",
-    "selectCity": "Select city",
-    "street": "Street",
-    "selectStreet": "Select street",
-    "default": "Default",
-    "notificationTimes": "Notifications: 19:00 day before, 7:00 same day",
-    "noAddresses": "No addresses yet. Add your first address below.",
-    "save": "Save",
-    "saving": "Saving...",
-    "cancel": "Cancel"
-  },
-  "dashboard": {
-    "setupComplete": "Setup Complete",
-    "setupRequired": "Setup Required",
-    "notificationsActive": "Notifications Active",
-    "smsNotificationTimes": "SMS notifications at 19:00 (day before) and 7:00 (collection day)",
-    "yourDashboard": "Your Dashboard",
-    "completeSetup": "Complete your setup to start receiving waste collection notifications",
-    "completeYourSetup": "Complete Your Setup",
-    "completeSetupDescription": "To receive waste collection notifications, complete the following steps:",
-    "phoneNumber": "Phone number",
-    "phoneNumberDescription": "Required for SMS notifications",
-    "addressLabel": "Address",
-    "addressDescription": "To match waste collection schedule",
-    "profile": "Profile",
-    "contactInformation": "Contact Information",
-    "contactDescription": "Manage your phone number for SMS notifications",
-    "addresses": "Addresses",
-    "yourAddresses": "Your Addresses",
-    "addressesDescription": "Manage locations for waste collection notifications",
-    "status": {
-      "steps": {
-        "phone": "Add phone number",
-        "address": "Add address"
-      },
-      "phone": {
-        "title": "Add Phone Number",
-        "description": "Enter your phone number to receive SMS notifications"
-      },
-      "address": {
-        "title": "Add Address",
-        "description": "Add your address to see the waste collection schedule"
-      },
-      "complete": {
-        "title": "Setup Complete",
-        "smsEnabled": "SMS notifications enabled"
-      }
-    }
-  },
-  "phone": {
-    "label": "Phone Number",
-    "description": "Required for SMS notifications.",
-    "placeholder": "123456789",
-    "save": "Save Phone",
-    "saving": "Saving...",
-    "updateSuccess": "Phone number updated successfully",
-    "updateError": "Failed to update phone number",
-    "required": "Phone number is required",
-    "invalidLength": "Invalid phone number length",
-    "invalidDigits": "Phone number must contain only digits",
-    "invalidFormat": "Invalid Polish phone format"
-  },
-  "landing": {
-    "badge": "Waste Collection Notifications",
-    "neverMiss": "Never Miss",
-    "collectionDay": "Collection Day",
-    "getNotifications": "Get SMS notifications before waste pickup times for your street",
-    "goToDashboard": "Go to Dashboard",
-    "getStarted": "Get Started",
-    "howItWorks": "How it works",
-    "simpleSetup": "Simple setup in 3 steps",
-    "addAddress": "Add Address",
-    "addAddressDescription": "Select your city and street",
-    "addPhone": "Add Phone",
-    "addPhoneDescription": "Provide number for SMS alerts",
-    "notifications": "Get Notifications",
-    "notificationsDescription": "19:00 before, 7:00 same day",
-    "freeNotifications": "Waste collection schedule notifications for your area",
-    "coverage": "Coverage",
-    "cities": "Cities",
-    "streets": "Streets",
-    "wasteSchedules": "Waste Schedules",
-    "activeUsers": "Active Users",
-    "coverageDescription": "Growing every day",
-    "metaTitle": "powiadomienia.info - Waste Pickup SMS Reminders",
-    "metaDescription": "Never miss waste collection day. Enter your address and get free SMS reminders about trash pickup schedules in your area."
-  },
-  "auth": {
-    "welcomeBack": "Welcome back",
-    "signInDescription": "Sign in to your account to continue",
-    "continueWithGoogle": "Continue with Google",
-    "createAccount": "Create Account",
-    "createAccountDescription": "Enter your details to create account",
-    "fullName": "Full Name",
-    "email": "Email",
-    "password": "Password",
-    "confirmPassword": "Confirm Password",
-    "signUp": "Sign Up",
-    "signIn": "Sign In",
-    "rememberMe": "Remember me",
-    "alreadyHaveAccount": "Already have an account? Sign in",
-    "noAccount": "Don't have an account? Sign up",
-    "orContinueWith": "Or",
-    "currentPassword": "Current Password",
-    "newPassword": "New Password",
-    "confirmNewPassword": "Confirm New Password",
-    "changePassword": "Change Password",
-    "passwordChanged": "Password changed successfully",
-    "passwordChangeFailed": "Failed to change password",
-    "agreeToTerms": "I agree to",
-    "and": "and",
-    "passwordStrength": {
-      "label": "Password strength",
-      "weak": "Weak",
-      "normal": "Normal",
-      "strong": "Strong"
-    },
-    "passwordPolicy": {
-      "title": "Password requirements",
-      "minLength": "At least 8 characters",
-      "uppercase": "At least 1 uppercase letter",
-      "lowercase": "At least 1 lowercase letter",
-      "number": "At least 1 number"
-    }
-  },
-  "notFound": {
-    "title": "Page not found",
-    "message": "The page you're looking for doesn't exist or has been moved.",
-    "goBack": "Go Back",
-    "home": "Home",
-    "helpText": "Check the URL or use the search"
-  },
-  "error": {
-    "title": "Something went wrong",
-    "description": "We encountered an unexpected error. Please try again.",
-    "defaultMessage": "An unexpected error occurred",
-    "tryAgain": "Try Again",
-    "goToHome": "Go to Home",
-    "goBack": "Go Back",
-    "technicalDetails": "Technical Details",
-    "stackTrace": "Error Stack Trace:",
-    "persistMessage": "If this error persists, please report it to our support team.",
-    "reportError": "Report Error",
-    "rateLimitExceeded": "Too many attempts. Please try again in 15 minutes.",
-    "invalidCredentials": "Invalid email or password",
-    "emailAlreadyExists": "This email is already registered"
-  },
-  "validation": {
-    "email": {
-      "required": "Email is required",
-      "invalid": "Invalid email format"
-    },
-    "password": {
-      "required": "Password is required",
-      "minLength": "Password must be at least 8 characters",
-      "maxLength": "Password must not exceed 128 characters",
-      "uppercase": "Password must contain at least 1 uppercase letter",
-      "lowercase": "Password must contain at least 1 lowercase letter",
-      "number": "Password must contain at least 1 number",
-      "noMatch": "Passwords do not match"
-    },
-    "name": {
-      "minLength": "Name must be at least 2 characters"
-    }
-  },
-  "footer": {
-    "copyright": "© powiadomienia.info is a product from <0>Auditmos OU</0>.<br />All rights reserved {{year}}",
-    "headquarters": "Headquarters",
-    "privacyPolicy": "Privacy Policy",
-    "legal": "Legal",
-    "termsOfService": "Terms of Service",
-    "cookiePolicy": "Cookie Policy"
-  },
-  "legal": {
-    "termsOfService": "Terms of Service",
-    "cookiePolicy": "Cookie Policy",
-    "privacyPolicy": "Privacy Policy"
-  },
-  "staticPages": {
-    "contentPlaceholder": "Content will be provided soon.",
-    "legalDescription": "Access our legal documents and policies.",
-    "termsOfServiceDescription": "Terms governing use of our service",
-    "cookiePolicyDescription": "How we use cookies on our website",
-    "privacyPolicyDescription": "How we protect your personal data"
-  },
-  "privacyPolicy": {
-    "statementSummary": "Privacy Statement Summary",
-    "statementSummaryContent": "This Privacy Policy (“Policy”) explains how your information is collected, used and disclosed by Auditmos OU (“we” / “us” / “our”). This Policy applies where we are acting as a Data Controller with respect to the personal data of our website visitors, service users, clients, and partners.",
-    "whoWillUse": "Who will use my data?",
-    "whoWillUseContent": "Auditmos OU (powiadomienia.info).",
-    "whatFor": "What for?",
-    "whatForContent": "We will store and process your data in order to allow us to provide our products and services. This includes:\n\n- Authenticating users and managing accounts.\n- Enabling you to use the features of our products, such as sending and managing notifications.\n- Monitoring the security and integrity of our platform by analyzing audit logs to detect suspicious behavior and investigate potential threats.\n- To contact you about your use of the Services, including changes to policies.\n- For internal business purposes.",
-    "whatIfContact": "What will happen if I contact you?",
-    "whatIfContactContent": "If you contact us, we will use your data to send you the information that you have requested, updates, and other information that we think you will be interested in regarding our services.",
-    "whatStored": "What data will be stored?",
-    "whatStoredContent": "We will store your personal details in order to provide our services and run our company. This includes:\n\n- **Account Information:** Name, email address, hashed passwords, and billing details.\n- **Notification Data:** Content you transmit through our API or platform (payloads), which are processed to deliver notifications.\n- **Technical Information:** Log Data (IP address, browser type), Usage Data (features used), and Device Information.\n- **Cookies:** Strictly necessary cookies required for authentication and security.",
-    "whatShared": "What data will be shared?",
-    "whatSharedContent": "We will not share your data with any third parties other than as described here to fulfill our obligations to you (e.g., Security via Cloudflare). We may share your information with regulators or legal bodies if required by law.",
-    "howLong": "How long?",
-    "howLongContent": "Auditmos OU retains data only as long as needed to provide our services and to meet operational, contractual, and regulatory requirements. Account data is retained for the life of the account. Transactional data is retained as required by tax law (usually 7 years). Notification logs are retained for a limited period for debugging and audit purposes before being deleted.",
-    "whoAccess": "Who can access my data?",
-    "whoAccessContent": "We will never sell, share or otherwise distribute your data to any other third party other than as described here. Access to your data is carefully controlled and restricted to authorized personnel.",
-    "howSecure": "How is my data kept secure?",
-    "howSecureContent": "We store your data on secure servers. We use industry-standard security protocols (HTTPS/TLS) to encrypt data in transit and at rest.",
-    "aboutPolicy": "About This Privacy Policy",
-    "aboutPolicyContent": "This policy sets out how we will collect, store, and process the information you provide to us. It aims to ensure protection of privacy rights, promote transparency, and comply with the General Data Protection Regulation (GDPR).",
-    "principles": "Principles of Processing Personal Information",
-    "principlesContent": "We adhere to the GDPR principles: Data must be processed fairly and lawfully; obtained for specific purposes; be adequate and relevant; be accurate; not held longer than necessary; processed in accordance with rights of data subjects; be protected appropriately; and not transferred internationally without adequate protection.",
-    "whoWeAre": "Who We Are And How To Contact Us",
-    "whoWeAreContent": "Auditmos OU is a company registered in Estonia.\n\n- **Name of Data Protection Lead:** Tomasz Kowalczyk\n- **Company name:** Auditmos OU\n- **Email:** legal@powiadomienia.info",
-    "article27": "Our Article 27 Representatives",
-    "article27Content": "As Auditmos OU is established within the European Union (Estonia), we are not required to appoint an external Article 27 Representative for the EU.",
-    "ukRep": "Our UK Representative",
-    "ukRepContent": "Not applicable at this time.",
-    "euRep": "Our EU Representative",
-    "euRepContent": "Not applicable. We are an EU-based entity.",
-    "toWhom": "To whom does this privacy policy apply?",
-    "toWhomContent": "This policy applies to Employees, Customers, End-users of our Services, Website Visitors, and Partners.",
-    "whatApplies": "What does this policy apply to?",
-    "whatAppliesContent": "This section describes the purposes for processing your data, including information you provide when contacting us, account registration details, and technical usage data. It applies to all data processing activities required to deliver the powiadomienia.info service.",
-    "howCollected": "How will your information be collected and used?",
-    "howCollectedContent": "We collect data primarily directly from you (registration) or automatically through your use of the service (logs). We use this data to:\n\n- Register you as a customer (Performance of Contract).\n- Administer and protect our business (Legitimate Interest).\n- Use data analytics to improve our website (Legitimate Interest).",
-    "changePrefs": "How to change your preferences",
-    "changePrefsContent": "We operate in line with GDPR. You can contact us at legal@powiadomienia.info to request access, rectification, deletion, or restriction of your data.",
-    "optingOut": "Opting out at a later date",
-    "optingOutContent": "You have the right to withdraw your consent at any time. You can object to the processing of your data and request its deletion, provided the data is not required for tax or legal obligations.",
-    "howStore": "How we store and process your data",
-    "howStoreContent": "Your data is stored securely on servers located within the European Union or with compliant service providers (like Cloudflare). We retain data for as long as necessary to provide the service and meet legal obligations.",
-    "obligations": "Our obligations",
-    "obligationsContent": "As the Data Controller, we are responsible for handling your data. You have the right to request access, correction, erasure, objection, restriction, and transfer of your data.",
-    "thirdParties": "Third Parties",
-    "thirdPartiesContent": "We may share your personal data with selected third parties:\n\n| Third Party | Purpose |\n|-------------|----------|\n| Cloudflare | For security and content delivery |\n| Professional Advisers | Lawyers, auditors, insurers |\n| Regulators | If required by law |",
-    "security": "Security",
-    "securityContent": "We have implemented appropriate security measures to protect your personal data from accidental loss, unauthorized access, use, alteration, or disclosure. We will report any data breaches to relevant authorities within 72 hours.",
-    "cookies": "Cookies",
-    "cookiesContent": "We use strictly necessary cookies to ensure the site functions correctly (e.g., keeping you logged in). For detailed information, please refer to our Cookie Policy.",
-    "contacting": "Contacting us, exercising your information rights and Complaints",
-    "contactingContent": "If you have questions, please contact Tomasz Kowalczyk at legal@powiadomienia.info. If you remain dissatisfied, you have the right to lodge a complaint with the Estonian Data Protection Inspectorate (AKI) or your local data protection authority."
-  },
-  "termsOfService": {
-    "lastUpdate": "Last updated: December 29, 2025",
-    "intro": "UNLESS SUPERSEDED BY A MASTER SUBSCRIPTION AGREEMENT EXECUTED BY THE PARTIES, THESE TERMS GOVERN YOUR USE OF THE WEBSITE LOCATED AT POWIADOMIENIA.INFO (THE “SITE”) AND THE PLATFORM SERVICES MADE AVAILABLE BY AUDITMOS OU. THE SERVICES ARE NOT INTENDED FOR USE WITH CLASSIFIED INFORMATION OR DATA THAT WOULD REQUIRE ADDITIONAL SECURITY CLEARANCE BEYOND STANDARD GDPR COMPLIANCE.",
-    "agreementTitle": "AGREEMENT TO TERMS AND CONDITIONS",
-    "agreementContent": "By using the Services, you agree to be bound by these Terms. If you don’t agree to be bound by these Terms, do not use the Services. If you are accessing and using the Services on behalf of a company (such as your employer) or other legal entity, you represent and warrant that you have the authority to bind that entity to the terms and conditions of these Terms.",
-    "definitionsTitle": "DEFINITIONS",
-    "definitions": {
-      "item1": "“Authorized Users” means employees, agents, consultants, contractors, or vendors authorized by Customer to use the Services.",
-      "item2": "“Customer Materials” means all information, data, content (including notification payloads), and other materials submitted or transmitted by Customer through the Services.",
-      "item3": "“Platform Services” means the proprietary notification and monitoring platform, APIs, and associated software made available by Auditmos OU."
-    },
-    "privacyNoticeTitle": "PRIVACY NOTICE",
-    "privacyNoticeContent": "Please review Auditmos OU’s Privacy Policy, available on our website, which also governs how we collect, use and share Customer’s and Authorized Users’ information.",
-    "changesTitle": "CHANGES TO THESE TERMS OR THE SERVICES",
-    "changesContent": "Auditmos OU may update these Terms from time to time. We will post the updated Terms on the Site. Customer’s continued use of the Services after updated Terms have been posted means that Customer accepts and agrees to the changes.",
-    "accessTitle": "ACCESS AND USE",
-    "access": {
-      "item1": "Services: Subject to these Terms, Auditmos OU grants Customer a limited, non-exclusive, non-transferable right to use the Services in accordance with the Documentation.",
-      "item2": "Use Restrictions: Customer will not:\n\n(i) reverse engineer or attempt to derive source code of the Services;\n\n(ii) resell or sublicense the Services to third parties without permission;\n\n(iii) use the Services to transmit malicious code, spam, or fraudulent content;\n\n(iv) interfere with the integrity or performance of the Services.",
-      "item3": "Ownership: Auditmos OU reserves and solely owns all rights, title, and interest in and to the Platform, the underlying software, and all related Intellectual Property Rights."
-    },
-    "subscriptionsTitle": "SUBSCRIPTIONS AND FREE TIER",
-    "subscriptionsContent": "The Services are currently provided free of charge. Auditmos OU reserves the right to introduce paid features in the future, with advance notice to users.",
-    "customerMaterialsTitle": "CUSTOMER MATERIALS",
-    "customerMaterialsContent": "Customer grants Auditmos OU a license to use Customer Materials solely for the purpose of operating, improving, and providing the Services (e.g., sending your notifications). As between Customer and Auditmos OU, Customer owns all Customer Materials. Customer represents that they have the right to provide such data and that it does not violate any third-party rights.",
-    "supportTitle": "SUPPORT AND SERVICE LEVELS",
-    "support": {
-      "title": "Support",
-      "content": "Auditmos OU will provide Customer with support for the Services via email or our help center documentation."
-    },
-    "serviceLevels": {
-      "title": "Service Levels",
-      "content": "Auditmos OU will use commercially reasonable efforts to make the Services available 24/7, excluding planned downtime for maintenance and force majeure events. Service levels are performance targets and not guarantees."
-    },
-    "confidentialTitle": "CONFIDENTIAL INFORMATION",
-    "confidentialContent": "Each party agrees to protect the other party’s Confidential Information with the same degree of care it uses to protect its own. Confidential Information includes business technical information, pricing, and non-public product details. This obligation does not apply to information that is public, independently developed, or rightfully obtained from third parties.",
-    "representationsTitle": "REPRESENTATIONS AND WARRANTIES; DISCLAIMER",
-    "representations": {
-      "mutual": {
-        "title": "Mutual Representations",
-        "content": "Each Party represents that it has full power and authority to enter into these Terms."
-      },
-      "customer": {
-        "title": "Customer Additional Representations",
-        "content": "Customer represents that its use of the Services will not violate any applicable laws (including anti-spam laws) or infringe on the rights of any third party."
-      },
-      "disclaimer": {
-        "title": "Disclaimer",
-        "content": "THE SERVICES ARE PROVIDED ON AN “AS IS” BASIS. AUDITMOS OU MAKES NO WARRANTIES, EXPRESS OR IMPLIED, REGARDING THE RELIABILITY OR AVAILABILITY OF THE SERVICES."
-      },
-      "similarity": {
-        "title": "Service Reliability",
-        "content": "Due to the nature of internet communications, Auditmos OU cannot guarantee the delivery of every single notification if failure occurs due to third-party networks, ISPs, or the recipient's device settings. Auditmos OU is not liable for delays or delivery failures caused by external factors."
-      }
-    },
-    "terminationTitle": "TERMINATION",
-    "terminationContent": "Auditmos OU may terminate or suspend access immediately if Customer breaches these Terms. Customer may terminate their subscription at any time via the Platform settings; such termination will take effect at the end of the current billing cycle. Upon termination, Customer’s right to use the Services ceases.",
-    "limitationTitle": "LIMITATION OF LIABILITY",
-    "limitationContent": "IN NO EVENT WILL AUDITMOS OU BE LIABLE FOR ANY INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES. TOTAL LIABILITY SHALL NOT EXCEED THE FEES PAID BY CUSTOMER IN THE SIX (6) MONTHS PRECEDING THE CLAIM.",
-    "indemnificationTitle": "INDEMNIFICATION",
-    "indemnificationContent": "Customer will indemnify and hold Auditmos OU harmless from any claims arising out of Customer’s use of the Services, Customer Materials, or violation of these Terms.",
-    "generalTitle": "GENERAL",
-    "general": {
-      "item1": "Governing Law: These Terms will be governed by the laws of Estonia. Any legal action will be brought exclusively in the courts located in Tallinn, Estonia.",
-      "item2": "Assignment: Customer may not assign these Terms without prior written consent. Auditmos OU may assign these Terms freely.",
-      "item3": "Notices: Notices to Auditmos OU should be sent to legal@powiadomienia.info."
-    },
-    "exhibitA": {
-      "title": "EXHIBIT A – ACCEPTABLE USE POLICY",
-      "item1": "You agree not to use the Services to transmit any content that is illegal, harmful, threatening, abusive, or defamatory.",
-      "item2": "You agree not to use the Services to send unsolicited bulk messages (spam) or to harass individuals.",
-      "item3": "You agree not to use the Services to attempt to deceive others, spread malware, or engage in phishing activities."
-    },
-    "exhibitB": {
-      "title": "EXHIBIT B – SERVICE LEVELS AND SUPPORT",
-      "item1": "Uptime Goal: We aim for 99.9% availability.",
-      "item2": "Maintenance: We will provide notice for scheduled maintenance windows.",
-      "item3": "Support: Support is available via email at legal@powiadomienia.info during business hours (EET)."
-    }
-  },
-  "cookiePolicy": {
-    "companyNameLabel": "Company Name:",
-    "companyName": "Auditmos OU (the owner of powiadomienia.info)",
-    "policyOwnerLabel": "Policy Owner(s):",
-    "policyOwner": "Tomasz Kowalczyk",
-    "effectiveDateLabel": "Effective Date:",
-    "effectiveDate": "December 29, 2025",
-    "purposeTitle": "Purpose",
-    "purposeContent": "This policy outlines our use of cookies and similar technologies. We use these technologies to make our website work and ensure the security of our services. This document explains what these technologies are, what they do, and how you can manage your preferences related to them.",
-    "scopeTitle": "Scope",
-    "scopeContent": "This policy applies to all visitors and users of the powiadomienia.info website and its related services. The scope covers the use of cookies, which are small text files placed on your device when you visit a site. They allow us to recognize repeat visitors and record specific browsing information (e.g., how you arrive, pages you view, and paths you take).",
-    "policyTitle": "Policy",
-    "howWeUse": {
-      "title": "How We Use Cookies",
-      "content": "Our website uses cookies primarily from Auditmos OU and select third-party partners required for infrastructure. These are categorized as Strictly Necessary cookies. Currently, we do not use Analytics or Marketing cookies."
-    },
-    "detailedInfo": {
-      "title": "Detailed Cookie Information",
-      "content": "Here is a list of the primary technologies we use that may place cookies on your device."
-    },
-    "strictlyNecessary": {
-      "title": "Strictly Necessary Cookies",
-      "content": "These cookies are essential for our site and services to function correctly and cannot be disabled. They are necessary for security and core feature functionality. For example, ensuring you remain logged in while navigating the platform.\n\n1. Source: Auditmos OU / powiadomienia.info\nPurpose: To enable user authentication (via Email/Password or Google), manage active sessions, and log internal system errors for reliability.\n\n2. Source: Cloudflare\nPurpose: To maximize network resources, manage traffic, and protect the site from malicious traffic and bots."
-    },
-    "analytics": {
-      "title": "Analytics & Tracking Cookies",
-      "content": "These “Not essential” cookies help us recognize repeat visitors and understand how you interact with our site so we can improve our site and services.\n\n* Current Status: We do not currently use third-party analytics cookies."
-    },
-    "marketing": {
-      "title": "Marketing Cookies",
-      "content": "These “Not essential” cookies from partners help us monitor website behavior to use for online advertising.\n\n* Current Status: We do not currently use marketing or advertising cookies."
-    },
-    "choicesTitle": "Your Choices and How to Opt-Out",
-    "choices": {
-      "item1": "Browser Settings: You can block or delete cookies by changing your browser settings. Please refer to your browser’s “help” functionality for advice. Please note that should you block all cookies (including Strictly Necessary ones), you may not be able to log in on our site.",
-      "item2": "Service-Specific Opt-Outs: Because we currently only use cookies that are strictly necessary for the security and operation of the service (authentication, firewall), there are no optional third-party services to opt-out of without breaking the site functionality."
-    },
-    "choicesAdditional": "For more general information on managing cookies, you can visit https://www.allaboutcookies.org/manage-cookies/index.html",
-    "exceptionsTitle": "Exceptions",
-    "exceptionsContent": "Requests for an exception to this policy must be submitted to our security committee at (legal@powiadomienia.info) for approval.",
-    "violationsTitle": "Violations & Enforcement",
-    "violationsContent": "Any known violations of this policy should be reported to our security committee at (legal@powiadomienia.info).",
-    "versionTitle": "Version",
-    "versionContent": "| Field | Value |\n|-------|-------|\n| Version | 1.0.0 |\n| Date | December 2025 |\n| Description | First Version |\n| Author | Tomasz Kowalczyk |\n| Approved by | Tomasz Kowalczyk |",
-    "lastReviewed": "Last reviewed: December 29, 2025."
-  }
+	"common": {
+		"cancel": "Cancel",
+		"confirm": "Confirm",
+		"save": "Save",
+		"close": "Close"
+	},
+	"nav": {
+		"appName": "Waste Alerts",
+		"home": "Home",
+		"menu": "Menu",
+		"features": "Features",
+		"documentation": "Documentation",
+		"signIn": "Sign In",
+		"signOut": "Sign Out",
+		"account": "Account"
+	},
+	"theme": {
+		"toggle": "Toggle theme",
+		"light": "Light",
+		"dark": "Dark",
+		"system": "System",
+		"lightDescription": "Use light theme",
+		"darkDescription": "Use dark theme",
+		"systemDescription": "Use system theme",
+		"currentTheme": "Current theme",
+		"currentlyUsing": "Currently using {{theme}} theme"
+	},
+	"language": {
+		"toggle": "Change language",
+		"label": "Language",
+		"polish": "Polish",
+		"english": "English",
+		"code": "en"
+	},
+	"waste_schedule": {
+		"title": "Waste Collection",
+		"schedule": "Schedule",
+		"nextTwoWeeks": "Next 2 weeks",
+		"noUpcoming": "No upcoming collections in next 2 weeks",
+		"upcomingDescription": "Upcoming collections for notification address",
+		"today": "Today",
+		"tomorrow": "Tomorrow",
+		"days": {
+			"sunday": "Sunday",
+			"monday": "Monday",
+			"tuesday": "Tuesday",
+			"wednesday": "Wednesday",
+			"thursday": "Thursday",
+			"friday": "Friday",
+			"saturday": "Saturday"
+		},
+		"months": {
+			"jan": "Jan",
+			"feb": "Feb",
+			"mar": "Mar",
+			"apr": "Apr",
+			"may": "May",
+			"jun": "Jun",
+			"jul": "Jul",
+			"aug": "Aug",
+			"sep": "Sep",
+			"oct": "Oct",
+			"nov": "Nov",
+			"dec": "Dec"
+		}
+	},
+	"address": {
+		"add": "Add Address",
+		"adding": "Adding...",
+		"edit": "Edit",
+		"delete": "Delete",
+		"deleting": "Deleting...",
+		"deleteConfirm": "Delete address?",
+		"deleteWarning": "You won't receive notifications for this address",
+		"city": "City",
+		"cityDescription": "Select your city to see waste collection schedules",
+		"selectCity": "Select city",
+		"street": "Street",
+		"selectStreet": "Select street",
+		"default": "Default",
+		"notificationTimes": "Notifications: 19:00 day before, 7:00 same day",
+		"noAddresses": "No addresses yet. Add your first address below.",
+		"save": "Save",
+		"saving": "Saving...",
+		"cancel": "Cancel"
+	},
+	"dashboard": {
+		"setupComplete": "Setup Complete",
+		"setupRequired": "Setup Required",
+		"notificationsActive": "Notifications Active",
+		"smsNotificationTimes": "SMS notifications at 19:00 (day before) and 7:00 (collection day)",
+		"yourDashboard": "Your Dashboard",
+		"completeSetup": "Complete your setup to start receiving waste collection notifications",
+		"completeYourSetup": "Complete Your Setup",
+		"completeSetupDescription": "To receive waste collection notifications, complete the following steps:",
+		"phoneNumber": "Phone number",
+		"phoneNumberDescription": "Required for SMS notifications",
+		"addressLabel": "Address",
+		"addressDescription": "To match waste collection schedule",
+		"profile": "Profile",
+		"contactInformation": "Contact Information",
+		"contactDescription": "Manage your phone number for SMS notifications",
+		"addresses": "Addresses",
+		"yourAddresses": "Your Addresses",
+		"addressesDescription": "Manage locations for waste collection notifications",
+		"status": {
+			"steps": {
+				"phone": "Add phone number",
+				"address": "Add address"
+			},
+			"phone": {
+				"title": "Add Phone Number",
+				"description": "Enter your phone number to receive SMS notifications"
+			},
+			"address": {
+				"title": "Add Address",
+				"description": "Add your address to see the waste collection schedule"
+			},
+			"complete": {
+				"title": "Setup Complete",
+				"smsEnabled": "SMS notifications enabled"
+			}
+		}
+	},
+	"phone": {
+		"label": "Phone Number",
+		"description": "Required for SMS notifications.",
+		"placeholder": "123456789",
+		"save": "Save Phone",
+		"saving": "Saving...",
+		"updateSuccess": "Phone number updated successfully",
+		"updateError": "Failed to update phone number",
+		"required": "Phone number is required",
+		"invalidLength": "Invalid phone number length",
+		"invalidDigits": "Phone number must contain only digits",
+		"invalidFormat": "Invalid Polish phone format"
+	},
+	"landing": {
+		"badge": "Waste Collection Notifications",
+		"neverMiss": "Never Miss",
+		"collectionDay": "Collection Day",
+		"getNotifications": "Get SMS notifications before waste pickup times for your street",
+		"goToDashboard": "Go to Dashboard",
+		"getStarted": "Get Started",
+		"howItWorks": "How it works",
+		"simpleSetup": "Simple setup in 3 steps",
+		"addAddress": "Add Address",
+		"addAddressDescription": "Select your city and street",
+		"addPhone": "Add Phone",
+		"addPhoneDescription": "Provide number for SMS alerts",
+		"notifications": "Get Notifications",
+		"notificationsDescription": "19:00 before, 7:00 same day",
+		"freeNotifications": "Waste collection schedule notifications for your area",
+		"coverage": "Coverage",
+		"cities": "Cities",
+		"streets": "Streets",
+		"wasteSchedules": "Waste Schedules",
+		"activeUsers": "Active Users",
+		"coverageDescription": "Growing every day",
+		"metaTitle": "powiadomienia.info - Waste Pickup SMS Reminders",
+		"metaDescription": "Never miss waste collection day. Enter your address and get free SMS reminders about trash pickup schedules in your area."
+	},
+	"auth": {
+		"welcomeBack": "Welcome back",
+		"signInDescription": "Sign in to your account to continue",
+		"continueWithGoogle": "Continue with Google",
+		"createAccount": "Create Account",
+		"createAccountDescription": "Enter your details to create account",
+		"fullName": "Full Name",
+		"email": "Email",
+		"password": "Password",
+		"confirmPassword": "Confirm Password",
+		"signUp": "Sign Up",
+		"signIn": "Sign In",
+		"rememberMe": "Remember me",
+		"alreadyHaveAccount": "Already have an account? Sign in",
+		"noAccount": "Don't have an account? Sign up",
+		"orContinueWith": "Or",
+		"currentPassword": "Current Password",
+		"newPassword": "New Password",
+		"confirmNewPassword": "Confirm New Password",
+		"changePassword": "Change Password",
+		"passwordChanged": "Password changed successfully",
+		"passwordChangeFailed": "Failed to change password",
+		"agreeToTerms": "I agree to",
+		"and": "and",
+		"passwordStrength": {
+			"label": "Password strength",
+			"weak": "Weak",
+			"normal": "Normal",
+			"strong": "Strong"
+		},
+		"passwordPolicy": {
+			"title": "Password requirements",
+			"minLength": "At least 8 characters",
+			"uppercase": "At least 1 uppercase letter",
+			"lowercase": "At least 1 lowercase letter",
+			"number": "At least 1 number"
+		}
+	},
+	"notFound": {
+		"title": "Page not found",
+		"message": "The page you're looking for doesn't exist or has been moved.",
+		"goBack": "Go Back",
+		"home": "Home",
+		"helpText": "Check the URL or use the search"
+	},
+	"error": {
+		"title": "Something went wrong",
+		"description": "We encountered an unexpected error. Please try again.",
+		"defaultMessage": "An unexpected error occurred",
+		"tryAgain": "Try Again",
+		"goToHome": "Go to Home",
+		"goBack": "Go Back",
+		"technicalDetails": "Technical Details",
+		"stackTrace": "Error Stack Trace:",
+		"persistMessage": "If this error persists, please report it to our support team.",
+		"reportError": "Report Error",
+		"rateLimitExceeded": "Too many attempts. Please try again in 15 minutes.",
+		"invalidCredentials": "Invalid email or password",
+		"emailAlreadyExists": "This email is already registered"
+	},
+	"validation": {
+		"email": {
+			"required": "Email is required",
+			"invalid": "Invalid email format"
+		},
+		"password": {
+			"required": "Password is required",
+			"minLength": "Password must be at least 8 characters",
+			"maxLength": "Password must not exceed 128 characters",
+			"uppercase": "Password must contain at least 1 uppercase letter",
+			"lowercase": "Password must contain at least 1 lowercase letter",
+			"number": "Password must contain at least 1 number",
+			"noMatch": "Passwords do not match"
+		},
+		"name": {
+			"minLength": "Name must be at least 2 characters"
+		}
+	},
+	"footer": {
+		"copyright": "© powiadomienia.info is a product from <0>Auditmos OU</0>.<br />All rights reserved {{year}}",
+		"headquarters": "Headquarters",
+		"privacyPolicy": "Privacy Policy",
+		"legal": "Legal",
+		"termsOfService": "Terms of Service",
+		"cookiePolicy": "Cookie Policy"
+	},
+	"legal": {
+		"termsOfService": "Terms of Service",
+		"cookiePolicy": "Cookie Policy",
+		"privacyPolicy": "Privacy Policy"
+	},
+	"staticPages": {
+		"contentPlaceholder": "Content will be provided soon.",
+		"legalDescription": "Access our legal documents and policies.",
+		"termsOfServiceDescription": "Terms governing use of our service",
+		"cookiePolicyDescription": "How we use cookies on our website",
+		"privacyPolicyDescription": "How we protect your personal data"
+	},
+	"privacyPolicy": {
+		"statementSummary": "Privacy Statement Summary",
+		"statementSummaryContent": "This Privacy Policy (“Policy”) explains how your information is collected, used and disclosed by Auditmos OU (“we” / “us” / “our”). This Policy applies where we are acting as a Data Controller with respect to the personal data of our website visitors, service users, clients, and partners.",
+		"whoWillUse": "Who will use my data?",
+		"whoWillUseContent": "Auditmos OU (powiadomienia.info).",
+		"whatFor": "What for?",
+		"whatForContent": "We will store and process your data in order to allow us to provide our products and services. This includes:\n\n- Authenticating users and managing accounts.\n- Enabling you to use the features of our products, such as sending and managing notifications.\n- Monitoring the security and integrity of our platform by analyzing audit logs to detect suspicious behavior and investigate potential threats.\n- To contact you about your use of the Services, including changes to policies.\n- For internal business purposes.",
+		"whatIfContact": "What will happen if I contact you?",
+		"whatIfContactContent": "If you contact us, we will use your data to send you the information that you have requested, updates, and other information that we think you will be interested in regarding our services.",
+		"whatStored": "What data will be stored?",
+		"whatStoredContent": "We will store your personal details in order to provide our services and run our company. This includes:\n\n- **Account Information:** Name, email address, hashed passwords, and billing details.\n- **Notification Data:** Content you transmit through our API or platform (payloads), which are processed to deliver notifications.\n- **Technical Information:** Log Data (IP address, browser type), Usage Data (features used), and Device Information.\n- **Cookies:** Strictly necessary cookies required for authentication and security.",
+		"whatShared": "What data will be shared?",
+		"whatSharedContent": "We will not share your data with any third parties other than as described here to fulfill our obligations to you (e.g., Security via Cloudflare). We may share your information with regulators or legal bodies if required by law.",
+		"howLong": "How long?",
+		"howLongContent": "Auditmos OU retains data only as long as needed to provide our services and to meet operational, contractual, and regulatory requirements. Account data is retained for the life of the account. Transactional data is retained as required by tax law (usually 7 years). Notification logs are retained for a limited period for debugging and audit purposes before being deleted.",
+		"whoAccess": "Who can access my data?",
+		"whoAccessContent": "We will never sell, share or otherwise distribute your data to any other third party other than as described here. Access to your data is carefully controlled and restricted to authorized personnel.",
+		"howSecure": "How is my data kept secure?",
+		"howSecureContent": "We store your data on secure servers. We use industry-standard security protocols (HTTPS/TLS) to encrypt data in transit and at rest.",
+		"aboutPolicy": "About This Privacy Policy",
+		"aboutPolicyContent": "This policy sets out how we will collect, store, and process the information you provide to us. It aims to ensure protection of privacy rights, promote transparency, and comply with the General Data Protection Regulation (GDPR).",
+		"principles": "Principles of Processing Personal Information",
+		"principlesContent": "We adhere to the GDPR principles: Data must be processed fairly and lawfully; obtained for specific purposes; be adequate and relevant; be accurate; not held longer than necessary; processed in accordance with rights of data subjects; be protected appropriately; and not transferred internationally without adequate protection.",
+		"whoWeAre": "Who We Are And How To Contact Us",
+		"whoWeAreContent": "Auditmos OU is a company registered in Estonia.\n\n- **Name of Data Protection Lead:** Tomasz Kowalczyk\n- **Company name:** Auditmos OU\n- **Email:** legal@powiadomienia.info",
+		"article27": "Our Article 27 Representatives",
+		"article27Content": "As Auditmos OU is established within the European Union (Estonia), we are not required to appoint an external Article 27 Representative for the EU.",
+		"ukRep": "Our UK Representative",
+		"ukRepContent": "Not applicable at this time.",
+		"euRep": "Our EU Representative",
+		"euRepContent": "Not applicable. We are an EU-based entity.",
+		"toWhom": "To whom does this privacy policy apply?",
+		"toWhomContent": "This policy applies to Employees, Customers, End-users of our Services, Website Visitors, and Partners.",
+		"whatApplies": "What does this policy apply to?",
+		"whatAppliesContent": "This section describes the purposes for processing your data, including information you provide when contacting us, account registration details, and technical usage data. It applies to all data processing activities required to deliver the powiadomienia.info service.",
+		"howCollected": "How will your information be collected and used?",
+		"howCollectedContent": "We collect data primarily directly from you (registration) or automatically through your use of the service (logs). We use this data to:\n\n- Register you as a customer (Performance of Contract).\n- Administer and protect our business (Legitimate Interest).\n- Use data analytics to improve our website (Legitimate Interest).",
+		"changePrefs": "How to change your preferences",
+		"changePrefsContent": "We operate in line with GDPR. You can contact us at legal@powiadomienia.info to request access, rectification, deletion, or restriction of your data.",
+		"optingOut": "Opting out at a later date",
+		"optingOutContent": "You have the right to withdraw your consent at any time. You can object to the processing of your data and request its deletion, provided the data is not required for tax or legal obligations.",
+		"howStore": "How we store and process your data",
+		"howStoreContent": "Your data is stored securely on servers located within the European Union or with compliant service providers (like Cloudflare). We retain data for as long as necessary to provide the service and meet legal obligations.",
+		"obligations": "Our obligations",
+		"obligationsContent": "As the Data Controller, we are responsible for handling your data. You have the right to request access, correction, erasure, objection, restriction, and transfer of your data.",
+		"thirdParties": "Third Parties",
+		"thirdPartiesContent": "We may share your personal data with selected third parties:\n\n| Third Party | Purpose |\n|-------------|----------|\n| Cloudflare | For security and content delivery |\n| Professional Advisers | Lawyers, auditors, insurers |\n| Regulators | If required by law |",
+		"security": "Security",
+		"securityContent": "We have implemented appropriate security measures to protect your personal data from accidental loss, unauthorized access, use, alteration, or disclosure. We will report any data breaches to relevant authorities within 72 hours.",
+		"cookies": "Cookies",
+		"cookiesContent": "We use strictly necessary cookies to ensure the site functions correctly (e.g., keeping you logged in). For detailed information, please refer to our Cookie Policy.",
+		"contacting": "Contacting us, exercising your information rights and Complaints",
+		"contactingContent": "If you have questions, please contact Tomasz Kowalczyk at legal@powiadomienia.info. If you remain dissatisfied, you have the right to lodge a complaint with the Estonian Data Protection Inspectorate (AKI) or your local data protection authority."
+	},
+	"termsOfService": {
+		"lastUpdate": "Last updated: December 29, 2025",
+		"intro": "UNLESS SUPERSEDED BY A MASTER SUBSCRIPTION AGREEMENT EXECUTED BY THE PARTIES, THESE TERMS GOVERN YOUR USE OF THE WEBSITE LOCATED AT POWIADOMIENIA.INFO (THE “SITE”) AND THE PLATFORM SERVICES MADE AVAILABLE BY AUDITMOS OU. THE SERVICES ARE NOT INTENDED FOR USE WITH CLASSIFIED INFORMATION OR DATA THAT WOULD REQUIRE ADDITIONAL SECURITY CLEARANCE BEYOND STANDARD GDPR COMPLIANCE.",
+		"agreementTitle": "AGREEMENT TO TERMS AND CONDITIONS",
+		"agreementContent": "By using the Services, you agree to be bound by these Terms. If you don’t agree to be bound by these Terms, do not use the Services. If you are accessing and using the Services on behalf of a company (such as your employer) or other legal entity, you represent and warrant that you have the authority to bind that entity to the terms and conditions of these Terms.",
+		"definitionsTitle": "DEFINITIONS",
+		"definitions": {
+			"item1": "“Authorized Users” means employees, agents, consultants, contractors, or vendors authorized by Customer to use the Services.",
+			"item2": "“Customer Materials” means all information, data, content (including notification payloads), and other materials submitted or transmitted by Customer through the Services.",
+			"item3": "“Platform Services” means the proprietary notification and monitoring platform, APIs, and associated software made available by Auditmos OU."
+		},
+		"privacyNoticeTitle": "PRIVACY NOTICE",
+		"privacyNoticeContent": "Please review Auditmos OU’s Privacy Policy, available on our website, which also governs how we collect, use and share Customer’s and Authorized Users’ information.",
+		"changesTitle": "CHANGES TO THESE TERMS OR THE SERVICES",
+		"changesContent": "Auditmos OU may update these Terms from time to time. We will post the updated Terms on the Site. Customer’s continued use of the Services after updated Terms have been posted means that Customer accepts and agrees to the changes.",
+		"accessTitle": "ACCESS AND USE",
+		"access": {
+			"item1": "Services: Subject to these Terms, Auditmos OU grants Customer a limited, non-exclusive, non-transferable right to use the Services in accordance with the Documentation.",
+			"item2": "Use Restrictions: Customer will not:\n\n(i) reverse engineer or attempt to derive source code of the Services;\n\n(ii) resell or sublicense the Services to third parties without permission;\n\n(iii) use the Services to transmit malicious code, spam, or fraudulent content;\n\n(iv) interfere with the integrity or performance of the Services.",
+			"item3": "Ownership: Auditmos OU reserves and solely owns all rights, title, and interest in and to the Platform, the underlying software, and all related Intellectual Property Rights."
+		},
+		"subscriptionsTitle": "SUBSCRIPTIONS AND FREE TIER",
+		"subscriptionsContent": "The Services are currently provided free of charge. Auditmos OU reserves the right to introduce paid features in the future, with advance notice to users.",
+		"customerMaterialsTitle": "CUSTOMER MATERIALS",
+		"customerMaterialsContent": "Customer grants Auditmos OU a license to use Customer Materials solely for the purpose of operating, improving, and providing the Services (e.g., sending your notifications). As between Customer and Auditmos OU, Customer owns all Customer Materials. Customer represents that they have the right to provide such data and that it does not violate any third-party rights.",
+		"supportTitle": "SUPPORT AND SERVICE LEVELS",
+		"support": {
+			"title": "Support",
+			"content": "Auditmos OU will provide Customer with support for the Services via email or our help center documentation."
+		},
+		"serviceLevels": {
+			"title": "Service Levels",
+			"content": "Auditmos OU will use commercially reasonable efforts to make the Services available 24/7, excluding planned downtime for maintenance and force majeure events. Service levels are performance targets and not guarantees."
+		},
+		"confidentialTitle": "CONFIDENTIAL INFORMATION",
+		"confidentialContent": "Each party agrees to protect the other party’s Confidential Information with the same degree of care it uses to protect its own. Confidential Information includes business technical information, pricing, and non-public product details. This obligation does not apply to information that is public, independently developed, or rightfully obtained from third parties.",
+		"representationsTitle": "REPRESENTATIONS AND WARRANTIES; DISCLAIMER",
+		"representations": {
+			"mutual": {
+				"title": "Mutual Representations",
+				"content": "Each Party represents that it has full power and authority to enter into these Terms."
+			},
+			"customer": {
+				"title": "Customer Additional Representations",
+				"content": "Customer represents that its use of the Services will not violate any applicable laws (including anti-spam laws) or infringe on the rights of any third party."
+			},
+			"disclaimer": {
+				"title": "Disclaimer",
+				"content": "THE SERVICES ARE PROVIDED ON AN “AS IS” BASIS. AUDITMOS OU MAKES NO WARRANTIES, EXPRESS OR IMPLIED, REGARDING THE RELIABILITY OR AVAILABILITY OF THE SERVICES."
+			},
+			"similarity": {
+				"title": "Service Reliability",
+				"content": "Due to the nature of internet communications, Auditmos OU cannot guarantee the delivery of every single notification if failure occurs due to third-party networks, ISPs, or the recipient's device settings. Auditmos OU is not liable for delays or delivery failures caused by external factors."
+			}
+		},
+		"terminationTitle": "TERMINATION",
+		"terminationContent": "Auditmos OU may terminate or suspend access immediately if Customer breaches these Terms. Customer may terminate their subscription at any time via the Platform settings; such termination will take effect at the end of the current billing cycle. Upon termination, Customer’s right to use the Services ceases.",
+		"limitationTitle": "LIMITATION OF LIABILITY",
+		"limitationContent": "IN NO EVENT WILL AUDITMOS OU BE LIABLE FOR ANY INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES. TOTAL LIABILITY SHALL NOT EXCEED THE FEES PAID BY CUSTOMER IN THE SIX (6) MONTHS PRECEDING THE CLAIM.",
+		"indemnificationTitle": "INDEMNIFICATION",
+		"indemnificationContent": "Customer will indemnify and hold Auditmos OU harmless from any claims arising out of Customer’s use of the Services, Customer Materials, or violation of these Terms.",
+		"generalTitle": "GENERAL",
+		"general": {
+			"item1": "Governing Law: These Terms will be governed by the laws of Estonia. Any legal action will be brought exclusively in the courts located in Tallinn, Estonia.",
+			"item2": "Assignment: Customer may not assign these Terms without prior written consent. Auditmos OU may assign these Terms freely.",
+			"item3": "Notices: Notices to Auditmos OU should be sent to legal@powiadomienia.info."
+		},
+		"exhibitA": {
+			"title": "EXHIBIT A – ACCEPTABLE USE POLICY",
+			"item1": "You agree not to use the Services to transmit any content that is illegal, harmful, threatening, abusive, or defamatory.",
+			"item2": "You agree not to use the Services to send unsolicited bulk messages (spam) or to harass individuals.",
+			"item3": "You agree not to use the Services to attempt to deceive others, spread malware, or engage in phishing activities."
+		},
+		"exhibitB": {
+			"title": "EXHIBIT B – SERVICE LEVELS AND SUPPORT",
+			"item1": "Uptime Goal: We aim for 99.9% availability.",
+			"item2": "Maintenance: We will provide notice for scheduled maintenance windows.",
+			"item3": "Support: Support is available via email at legal@powiadomienia.info during business hours (EET)."
+		}
+	},
+	"cookiePolicy": {
+		"companyNameLabel": "Company Name:",
+		"companyName": "Auditmos OU (the owner of powiadomienia.info)",
+		"policyOwnerLabel": "Policy Owner(s):",
+		"policyOwner": "Tomasz Kowalczyk",
+		"effectiveDateLabel": "Effective Date:",
+		"effectiveDate": "December 29, 2025",
+		"purposeTitle": "Purpose",
+		"purposeContent": "This policy outlines our use of cookies and similar technologies. We use these technologies to make our website work and ensure the security of our services. This document explains what these technologies are, what they do, and how you can manage your preferences related to them.",
+		"scopeTitle": "Scope",
+		"scopeContent": "This policy applies to all visitors and users of the powiadomienia.info website and its related services. The scope covers the use of cookies, which are small text files placed on your device when you visit a site. They allow us to recognize repeat visitors and record specific browsing information (e.g., how you arrive, pages you view, and paths you take).",
+		"policyTitle": "Policy",
+		"howWeUse": {
+			"title": "How We Use Cookies",
+			"content": "Our website uses cookies primarily from Auditmos OU and select third-party partners required for infrastructure. These are categorized as Strictly Necessary cookies. Currently, we do not use Analytics or Marketing cookies."
+		},
+		"detailedInfo": {
+			"title": "Detailed Cookie Information",
+			"content": "Here is a list of the primary technologies we use that may place cookies on your device."
+		},
+		"strictlyNecessary": {
+			"title": "Strictly Necessary Cookies",
+			"content": "These cookies are essential for our site and services to function correctly and cannot be disabled. They are necessary for security and core feature functionality. For example, ensuring you remain logged in while navigating the platform.\n\n1. Source: Auditmos OU / powiadomienia.info\nPurpose: To enable user authentication (via Email/Password or Google), manage active sessions, and log internal system errors for reliability.\n\n2. Source: Cloudflare\nPurpose: To maximize network resources, manage traffic, and protect the site from malicious traffic and bots."
+		},
+		"analytics": {
+			"title": "Analytics & Tracking Cookies",
+			"content": "These “Not essential” cookies help us recognize repeat visitors and understand how you interact with our site so we can improve our site and services.\n\n* Current Status: We do not currently use third-party analytics cookies."
+		},
+		"marketing": {
+			"title": "Marketing Cookies",
+			"content": "These “Not essential” cookies from partners help us monitor website behavior to use for online advertising.\n\n* Current Status: We do not currently use marketing or advertising cookies."
+		},
+		"choicesTitle": "Your Choices and How to Opt-Out",
+		"choices": {
+			"item1": "Browser Settings: You can block or delete cookies by changing your browser settings. Please refer to your browser’s “help” functionality for advice. Please note that should you block all cookies (including Strictly Necessary ones), you may not be able to log in on our site.",
+			"item2": "Service-Specific Opt-Outs: Because we currently only use cookies that are strictly necessary for the security and operation of the service (authentication, firewall), there are no optional third-party services to opt-out of without breaking the site functionality."
+		},
+		"choicesAdditional": "For more general information on managing cookies, you can visit https://www.allaboutcookies.org/manage-cookies/index.html",
+		"exceptionsTitle": "Exceptions",
+		"exceptionsContent": "Requests for an exception to this policy must be submitted to our security committee at (legal@powiadomienia.info) for approval.",
+		"violationsTitle": "Violations & Enforcement",
+		"violationsContent": "Any known violations of this policy should be reported to our security committee at (legal@powiadomienia.info).",
+		"versionTitle": "Version",
+		"versionContent": "| Field | Value |\n|-------|-------|\n| Version | 1.0.0 |\n| Date | December 2025 |\n| Description | First Version |\n| Author | Tomasz Kowalczyk |\n| Approved by | Tomasz Kowalczyk |",
+		"lastReviewed": "Last reviewed: December 29, 2025."
+	}
 }

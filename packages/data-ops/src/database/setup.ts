@@ -13,9 +13,9 @@ type DbClient = PgDatabase<any, any, any>;
 let db: DbClient | undefined;
 
 export interface ConnectionConfig {
-  host: string;
-  username: string;
-  password: string;
+	host: string;
+	username: string;
+	password: string;
 }
 
 /**
@@ -29,26 +29,24 @@ export interface ConnectionConfig {
  */
 export function initDatabase(config: ConnectionConfig): DbClient;
 export function initDatabase(config: { client: DbClient }): DbClient;
-export function initDatabase(
-  config: ConnectionConfig | { client: DbClient },
-): DbClient {
-  if (db) {
-    return db;
-  }
-  if ("client" in config) {
-    db = config.client;
-    return db;
-  }
-  const connectionString = `postgres://${config.username}:${config.password}@${config.host}`;
-  db = drizzle(connectionString) as unknown as DbClient;
-  return db;
+export function initDatabase(config: ConnectionConfig | { client: DbClient }): DbClient {
+	if (db) {
+		return db;
+	}
+	if ("client" in config) {
+		db = config.client;
+		return db;
+	}
+	const connectionString = `postgres://${config.username}:${config.password}@${config.host}`;
+	db = drizzle(connectionString) as unknown as DbClient;
+	return db;
 }
 
 export function getDb(): DbClient {
-  if (!db) {
-    throw new Error("Database not initialized");
-  }
-  return db;
+	if (!db) {
+		throw new Error("Database not initialized");
+	}
+	return db;
 }
 
 /**
@@ -56,5 +54,5 @@ export function getDb(): DbClient {
  * can install a fresh in-memory database without cross-contamination.
  */
 export function resetDatabase(): void {
-  db = undefined;
+	db = undefined;
 }
