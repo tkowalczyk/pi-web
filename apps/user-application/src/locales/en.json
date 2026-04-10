@@ -13,7 +13,7 @@
     "documentation": "Documentation",
     "signIn": "Sign In",
     "signOut": "Sign Out",
-    "account": "Account",
+    "account": "Account"
   },
   "theme": {
     "toggle": "Toggle theme",
@@ -107,7 +107,7 @@
     "status": {
       "steps": {
         "phone": "Add phone number",
-        "address": "Add address",
+        "address": "Add address"
       },
       "phone": {
         "title": "Add Phone Number",
@@ -438,5 +438,5 @@
     "versionTitle": "Version",
     "versionContent": "| Field | Value |\n|-------|-------|\n| Version | 1.0.0 |\n| Date | December 2025 |\n| Description | First Version |\n| Author | Tomasz Kowalczyk |\n| Approved by | Tomasz Kowalczyk |",
     "lastReviewed": "Last reviewed: December 29, 2025."
-  },
+  }
 }

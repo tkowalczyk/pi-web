@@ -13,7 +13,7 @@
     "documentation": "Dokumentacja",
     "signIn": "Zaloguj się",
     "signOut": "Wyloguj się",
-    "account": "Konto",
+    "account": "Konto"
   },
   "theme": {
     "toggle": "Zmień motyw",
@@ -107,7 +107,7 @@
     "status": {
       "steps": {
         "phone": "Dodaj numer telefonu",
-        "address": "Dodaj adres",
+        "address": "Dodaj adres"
       },
       "phone": {
         "title": "Dodaj Numer Telefonu",
@@ -438,5 +438,5 @@
     "versionTitle": "Wersja",
     "versionContent": "| Pole | Wartość |\n|------|----------|\n| Wersja | 1.0.0 |\n| Data | Grudzień 2025 |\n| Opis | Pierwsza wersja |\n| Autor | Tomasz Kowalczyk |\n| Zatwierdził | Tomasz Kowalczyk |",
     "lastReviewed": "Ostatni przegląd: 29 grudnia 2025 r."
-  },
+  }
 }
