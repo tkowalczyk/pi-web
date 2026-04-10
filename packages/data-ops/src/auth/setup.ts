@@ -20,6 +20,17 @@ export const createBetterAuth = (config: {
 		socialProviders: config.socialProviders,
 		user: {
 			modelName: "auth_user",
+			additionalFields: {
+				phone: {
+					type: "string",
+					required: false,
+				},
+				preferredLanguage: {
+					type: "string",
+					required: false,
+					defaultValue: "pl",
+				},
+			},
 		},
 		session: {
 			modelName: "auth_session",

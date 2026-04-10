@@ -1,5 +1,94 @@
-import { pgTable, serial, text, timestamp, boolean, integer, index } from "drizzle-orm/pg-core";
+import { pgTable, serial, text, timestamp, boolean, integer, index, jsonb } from "drizzle-orm/pg-core";
 import { auth_user } from "./auth-schema";
+
+// ─── Domain model (M1-P5) ───────────────────────────────────────────
+
+export const householdRoles = pgTable("household_roles", {
+	id: serial("id").primaryKey(),
+	name: text("name").notNull().unique(),
+	description: text("description"),
+	createdAt: timestamp("created_at").defaultNow().notNull(),
+	updatedAt: timestamp("updated_at")
+		.defaultNow()
+		.notNull()
+		.$onUpdate(() => new Date()),
+});
+
+export const households = pgTable("households", {
+	id: serial("id").primaryKey(),
+	name: text("name").notNull(),
+	createdAt: timestamp("created_at").defaultNow().notNull(),
+	updatedAt: timestamp("updated_at")
+		.defaultNow()
+		.notNull()
+		.$onUpdate(() => new Date()),
+});
+
+export const householdMembers = pgTable(
+	"household_members",
+	{
+		id: serial("id").primaryKey(),
+		householdId: integer("household_id")
+			.notNull()
+			.references(() => households.id, { onDelete: "cascade" }),
+		userId: text("user_id")
+			.notNull()
+			.references(() => auth_user.id, { onDelete: "cascade" }),
+		roleId: integer("role_id")
+			.notNull()
+			.references(() => householdRoles.id, { onDelete: "restrict" }),
+		createdAt: timestamp("created_at").defaultNow().notNull(),
+		updatedAt: timestamp("updated_at")
+			.defaultNow()
+			.notNull()
+			.$onUpdate(() => new Date()),
+	},
+	(table) => [
+		index("hm_household_id_idx").on(table.householdId),
+		index("hm_user_id_idx").on(table.userId),
+	],
+);
+
+export const channels = pgTable(
+	"channels",
+	{
+		id: serial("id").primaryKey(),
+		householdId: integer("household_id")
+			.notNull()
+			.references(() => households.id, { onDelete: "cascade" }),
+		type: text("type").notNull(),
+		config: jsonb("config").notNull().default({}),
+		enabled: boolean("enabled").default(true).notNull(),
+		createdAt: timestamp("created_at").defaultNow().notNull(),
+		updatedAt: timestamp("updated_at")
+			.defaultNow()
+			.notNull()
+			.$onUpdate(() => new Date()),
+	},
+	(table) => [index("channels_household_id_idx").on(table.householdId)],
+);
+
+export const notificationSources = pgTable(
+	"notification_sources",
+	{
+		id: serial("id").primaryKey(),
+		householdId: integer("household_id")
+			.notNull()
+			.references(() => households.id, { onDelete: "cascade" }),
+		name: text("name").notNull(),
+		type: text("type").notNull(),
+		config: jsonb("config").notNull().default({}),
+		enabled: boolean("enabled").default(true).notNull(),
+		createdAt: timestamp("created_at").defaultNow().notNull(),
+		updatedAt: timestamp("updated_at")
+			.defaultNow()
+			.notNull()
+			.$onUpdate(() => new Date()),
+	},
+	(table) => [index("ns_household_id_idx").on(table.householdId)],
+);
+
+// ─── Legacy tables ──────────────────────────────────────────────────
 
 export const cities = pgTable("cities", {
 	id: serial("id").primaryKey(),
