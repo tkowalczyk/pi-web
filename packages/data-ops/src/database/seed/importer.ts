@@ -45,14 +45,14 @@ export async function importer(dataDir: string) {
 				const exists = await db
 					.select()
 					.from(streets)
-					.where(and(eq(streets.name, streetName), eq(streets.cityId, cityRecord?.id)))
+					.where(and(eq(streets.name, streetName), eq(streets.cityId, cityRecord!.id)))
 					.limit(1)
 					.then((rows: unknown[]) => rows.length > 0);
 
 				if (!exists) {
 					await db.insert(streets).values({
 						name: streetName,
-						cityId: cityRecord?.id,
+						cityId: cityRecord!.id,
 					});
 					streetCount++;
 					newStreetsInThisFile++;
