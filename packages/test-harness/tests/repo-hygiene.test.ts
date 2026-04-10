@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { existsSync, readFileSync } from "node:fs";
+import { execSync } from "node:child_process";
 import { resolve } from "node:path";
 
 /**
@@ -50,6 +51,69 @@ describe("M1-P2: quality gate configuration", () => {
 		expect(scripts.knip).toBeDefined();
 		expect(scripts.deps).toBeDefined();
 		expect(scripts.types).toBeDefined();
+	});
+});
+
+describe("M1-P3: SaaS payment debt is purged", () => {
+	const PAYMENT_TERMS = ["stripe", "blik", "subscription_plans", "webhook_events"];
+
+	for (const term of PAYMENT_TERMS) {
+		it(`has zero hits for "${term}" outside docs/archive/ and migrations/`, () => {
+			const result = execSync(
+				`grep -riw "${term}" --include="*.ts" --include="*.tsx" --include="*.json" -l "${REPO_ROOT}" || true`,
+				{ encoding: "utf8" },
+			);
+			const hits = result
+				.split("\n")
+				.filter(Boolean)
+				.filter((f) => !f.includes("docs/archive/"))
+				.filter((f) => !f.includes("/migrations/"))
+				.filter((f) => !f.includes("node_modules/"))
+				.filter((f) => !f.includes("pnpm-lock.yaml"))
+				.filter((f) => !f.includes("repo-hygiene.test.ts"))
+				.filter((f) => !f.includes("/dist/"))
+				.filter((f) => !f.includes(".vite/"))
+				.filter((f) => !f.includes("worker-configuration.d.ts"))
+				.filter((f) => !f.includes("routeTree.gen.ts"));
+			expect(hits, `Files still referencing "${term}":\n${hits.join("\n")}`).toEqual([]);
+		});
+	}
+
+	it("has no stripe npm dependencies in any package.json", () => {
+		const pkgPaths = [
+			"apps/user-application/package.json",
+			"apps/data-service/package.json",
+			"packages/data-ops/package.json",
+		];
+		for (const p of pkgPaths) {
+			const content = readFileSync(repoPath(p), "utf8");
+			expect(content).not.toContain("stripe");
+		}
+	});
+
+	it("has no payment-related query files in data-ops", () => {
+		const removedFiles = [
+			"packages/data-ops/src/queries/stripe-customer.ts",
+			"packages/data-ops/src/queries/payment.ts",
+			"packages/data-ops/src/queries/payments.ts",
+			"packages/data-ops/src/queries/subscription.ts",
+			"packages/data-ops/src/queries/webhook-events.ts",
+		];
+		for (const f of removedFiles) {
+			expect(existsSync(repoPath(f)), `${f} should not exist`).toBe(false);
+		}
+	});
+
+	it("has no payment-related frontend routes", () => {
+		const removedPaths = [
+			"apps/user-application/src/routes/_auth/app/pricing.tsx",
+			"apps/user-application/src/routes/_auth/app/payment",
+			"apps/user-application/src/routes/_auth/app/payment-success.tsx",
+			"apps/user-application/src/routes/_auth/app/payment-cancel.tsx",
+		];
+		for (const f of removedPaths) {
+			expect(existsSync(repoPath(f)), `${f} should not exist`).toBe(false);
+		}
 	});
 });
 

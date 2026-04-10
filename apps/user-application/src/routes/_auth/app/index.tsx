@@ -3,7 +3,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { getMyProfile } from "@/core/functions/profile";
 import { getMyAddresses } from "@/core/functions/addresses";
 import { getMyWasteSchedule } from "@/core/functions/waste";
-import { getMySubscription } from "@/core/functions/subscription";
+
 import { DashboardNav } from "@/components/navigation/dashboard-nav";
 import { Footer } from "@/components/landing/footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -32,10 +32,6 @@ export const Route = createFileRoute("/_auth/app/")({
         queryKey: ["waste-schedule"],
         queryFn: () => getMyWasteSchedule(),
       }),
-      queryClient.prefetchQuery({
-        queryKey: ["subscription"],
-        queryFn: () => getMySubscription(),
-      }),
     ]);
   },
 });
@@ -52,15 +48,9 @@ function Dashboard() {
     queryFn: () => getMyAddresses(),
   });
 
-  const { data: subscription } = useSuspenseQuery({
-    queryKey: ["subscription"],
-    queryFn: () => getMySubscription(),
-  });
-
   const hasAddress = addresses.length > 0;
   const hasPhone = !!profile?.phone;
-  const isPremium = !!subscription;
-  const setupComplete = hasAddress && hasPhone && isPremium;
+  const setupComplete = hasAddress && hasPhone;
 
   return (
     <div className="min-h-dvh flex flex-col bg-background">
@@ -71,14 +61,8 @@ function Dashboard() {
         <div className="mx-auto max-w-7xl">
           {/* Status Card */}
           <StatusCard
-            isPremium={isPremium}
             hasAddress={hasAddress}
             hasPhone={hasPhone}
-            subscriptionExpiry={
-              subscription && typeof subscription === "object" && "currentPeriodEnd" in subscription
-                ? new Date((subscription as { currentPeriodEnd: string }).currentPeriodEnd)
-                : undefined
-            }
           />
 
           <div className="text-center mb-12">

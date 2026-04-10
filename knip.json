@@ -22,16 +22,11 @@
 		},
 		"apps/data-service": {
 			"entry": ["src/index.ts", "scripts/*.ts"],
-			"ignoreDependencies": ["stripe"]
+			"ignoreDependencies": []
 		},
 		"apps/user-application": {
 			"entry": ["src/server.ts", "src/start.tsx", "src/router.tsx", "src/routes/**/*.{ts,tsx}"],
-			"ignoreDependencies": [
-				"web-vitals",
-				"@stripe/react-stripe-js",
-				"@stripe/stripe-js",
-				"@types/remark-prism"
-			],
+			"ignoreDependencies": ["web-vitals", "@types/remark-prism"],
 			"ignore": ["src/routeTree.gen.ts", "src/components/ui/**", "src/integrations/**"]
 		},
 		"packages/data-ops": {

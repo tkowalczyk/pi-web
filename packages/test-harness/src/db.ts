@@ -10,9 +10,10 @@ import { migrate as migratePglite } from "drizzle-orm/pglite/migrator";
 
 /**
  * A minimal, structurally-compatible Drizzle PG client used by tests.
- * Intentionally typed as `PgDatabase<any>` so both the PGLite-backed local
+ * Intentionally typed loosely so both the PGLite-backed local
  * profile and the Neon-backed managed profile fit the same slot.
  */
+// biome-ignore lint/suspicious/noExplicitAny: drizzle generics require any here for cross-driver compatibility
 export type TestDb = PgDatabase<any, any, any>;
 
 export interface TestDbHandle {

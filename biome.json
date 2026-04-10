@@ -94,10 +94,13 @@
 			"!**/.tanstack",
 			"!**/.vscode",
 			"!docs/archive",
+			"!**/migrations/**/meta/*.json",
+			"!**/migrations/**/*.sql",
 			"!.data-to-import",
 			"!cmux.json",
 			"!pnpm-lock.yaml",
 			"!.claude",
+			"!.audit",
 			"!apps",
 			"!packages/data-ops"
 		]

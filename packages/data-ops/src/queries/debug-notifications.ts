@@ -7,7 +7,6 @@ import {
   waste_schedules,
   waste_types,
   notification_preferences,
-  subscriptions,
 } from "@/drizzle/schema";
 import { eq, and, gte } from "drizzle-orm";
 
@@ -47,15 +46,6 @@ export async function debugUserNotifications(userIdOrEmail: string) {
     .select()
     .from(notification_preferences)
     .where(eq(notification_preferences.userId, userId));
-
-  const [subscription] = await db
-    .select()
-    .from(subscriptions)
-    .where(eq(subscriptions.userId, userId));
-
-  const activeSubscription = subscription
-    ? subscription.status === "active" && subscription.currentPeriodEnd >= now
-    : false;
 
   const tomorrow = new Date(now);
   tomorrow.setDate(tomorrow.getDate() + 1);
@@ -122,14 +112,6 @@ export async function debugUserNotifications(userIdOrEmail: string) {
   if (!user.phone) issues.push("NO_PHONE");
   else if (!phoneValid) issues.push(`INVALID_PHONE_FORMAT: "${user.phone}"`);
 
-  if (!subscription) issues.push("NO_SUBSCRIPTION");
-  else if (subscription.status !== "active")
-    issues.push(`SUBSCRIPTION_STATUS: ${subscription.status}`);
-  else if (subscription.currentPeriodEnd < now)
-    issues.push(
-      `SUBSCRIPTION_EXPIRED: ${subscription.currentPeriodEnd.toISOString()}`
-    );
-
   if (userAddresses.length === 0) issues.push("NO_ADDRESSES");
   else {
     const missingCity = userAddresses.filter((a) => !a.cityId);
@@ -167,13 +149,6 @@ export async function debugUserNotifications(userIdOrEmail: string) {
       phone: user.phone,
       phoneValid,
     },
-    subscription: subscription
-      ? {
-          status: subscription.status,
-          currentPeriodEnd: subscription.currentPeriodEnd,
-          isActive: activeSubscription,
-        }
-      : null,
     addresses: userAddresses,
     notificationPreferences: notifPrefs.map((p) => ({
       id: p.id,

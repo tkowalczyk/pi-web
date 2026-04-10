@@ -14,30 +14,6 @@
     "signIn": "Sign In",
     "signOut": "Sign Out",
     "account": "Account",
-    "pricing": "Pricing"
-  },
-  "payment": {
-    "subscription": "Subscription",
-    "subscribeTitle": "Subscribe",
-    "subscribeDescription": "Get SMS notifications for waste collection",
-    "subscribeButton": "Subscribe - Card Monthly",
-    "loading": "Loading...",
-    "errorAlert": "Payment failed. Please try again.",
-    "successTitle": "Payment Successful!",
-    "successMessage": "Your subscription is now active. You will receive SMS notifications.",
-    "cancelTitle": "Payment Canceled",
-    "cancelMessage": "You can try again anytime.",
-    "goToDashboard": "Go to Dashboard",
-    "backToDashboard": "Back to Dashboard",
-    "blik": {
-      "title": "BLIK Annual Payment",
-      "description": "Pay PLN 70 for 1 year of SMS notifications",
-      "payButton": "Pay 70 PLN",
-      "processing": "Processing...",
-      "initError": "Failed to initialize payment",
-      "retry": "Retry",
-      "failed": "Payment failed"
-    }
   },
   "theme": {
     "toggle": "Toggle theme",
@@ -122,25 +98,16 @@
     "phoneNumberDescription": "Required for SMS notifications",
     "addressLabel": "Address",
     "addressDescription": "To match waste collection schedule",
-    "subscription": "Premium Subscription",
-    "subscriptionDescription": "Required to receive SMS notifications",
     "profile": "Profile",
     "contactInformation": "Contact Information",
     "contactDescription": "Manage your phone number for SMS notifications",
     "addresses": "Addresses",
     "yourAddresses": "Your Addresses",
     "addressesDescription": "Manage locations for waste collection notifications",
-    "premiumActive": "Premium Active",
-    "smsEnabled": "SMS Enabled",
-    "freePlan": "Free Plan - View Only",
-    "upgradeMessage": "Upgrade to Premium to receive SMS notifications.",
-    "upgradeCta": "Upgrade to Premium",
-    "subscriptionValid": "Valid until",
     "status": {
       "steps": {
         "phone": "Add phone number",
         "address": "Add address",
-        "payment": "Activate SMS notifications"
       },
       "phone": {
         "title": "Add Phone Number",
@@ -150,16 +117,9 @@
         "title": "Add Address",
         "description": "Add your address to see the waste collection schedule"
       },
-      "payment": {
-        "title": "Schedule Ready",
-        "description": "Your waste collection schedule is now visible below",
-        "scheduleVisible": "Waste collection schedule is now visible!",
-        "upgradeCta": "Enable SMS Notifications"
-      },
       "complete": {
         "title": "Setup Complete",
-        "smsEnabled": "SMS notifications enabled",
-        "validUntil": "Valid until"
+        "smsEnabled": "SMS notifications enabled"
       }
     }
   },
@@ -305,13 +265,13 @@
     "whoWillUse": "Who will use my data?",
     "whoWillUseContent": "Auditmos OU (powiadomienia.info).",
     "whatFor": "What for?",
-    "whatForContent": "We will store and process your data in order to allow us to provide our products and services. This includes:\n\n- Authenticating users and managing accounts.\n- Enabling you to use the features of our products, such as sending and managing notifications.\n- Monitoring the security and integrity of our platform by analyzing audit logs to detect suspicious behavior and investigate potential threats.\n- To contact you about your use of the Services, including changes to policies.\n- Processing financial information for billing and account management (via Stripe).\n- For internal business purposes.",
+    "whatForContent": "We will store and process your data in order to allow us to provide our products and services. This includes:\n\n- Authenticating users and managing accounts.\n- Enabling you to use the features of our products, such as sending and managing notifications.\n- Monitoring the security and integrity of our platform by analyzing audit logs to detect suspicious behavior and investigate potential threats.\n- To contact you about your use of the Services, including changes to policies.\n- For internal business purposes.",
     "whatIfContact": "What will happen if I contact you?",
     "whatIfContactContent": "If you contact us, we will use your data to send you the information that you have requested, updates, and other information that we think you will be interested in regarding our services.",
     "whatStored": "What data will be stored?",
     "whatStoredContent": "We will store your personal details in order to provide our services and run our company. This includes:\n\n- **Account Information:** Name, email address, hashed passwords, and billing details.\n- **Notification Data:** Content you transmit through our API or platform (payloads), which are processed to deliver notifications.\n- **Technical Information:** Log Data (IP address, browser type), Usage Data (features used), and Device Information.\n- **Cookies:** Strictly necessary cookies required for authentication and security.",
     "whatShared": "What data will be shared?",
-    "whatSharedContent": "We will not share your data with any third parties other than as described here to fulfill our obligations to you (e.g., Payment Processing via Stripe, Security via Cloudflare). We may share your information with regulators or legal bodies if required by law.",
+    "whatSharedContent": "We will not share your data with any third parties other than as described here to fulfill our obligations to you (e.g., Security via Cloudflare). We may share your information with regulators or legal bodies if required by law.",
     "howLong": "How long?",
     "howLongContent": "Auditmos OU retains data only as long as needed to provide our services and to meet operational, contractual, and regulatory requirements. Account data is retained for the life of the account. Transactional data is retained as required by tax law (usually 7 years). Notification logs are retained for a limited period for debugging and audit purposes before being deleted.",
     "whoAccess": "Who can access my data?",
@@ -335,17 +295,17 @@
     "whatApplies": "What does this policy apply to?",
     "whatAppliesContent": "This section describes the purposes for processing your data, including information you provide when contacting us, account registration details, and technical usage data. It applies to all data processing activities required to deliver the powiadomienia.info service.",
     "howCollected": "How will your information be collected and used?",
-    "howCollectedContent": "We collect data primarily directly from you (registration) or automatically through your use of the service (logs). We use this data to:\n\n- Register you as a customer (Performance of Contract).\n- Process payments (Performance of Contract).\n- Administer and protect our business (Legitimate Interest).\n- Use data analytics to improve our website (Legitimate Interest).",
+    "howCollectedContent": "We collect data primarily directly from you (registration) or automatically through your use of the service (logs). We use this data to:\n\n- Register you as a customer (Performance of Contract).\n- Administer and protect our business (Legitimate Interest).\n- Use data analytics to improve our website (Legitimate Interest).",
     "changePrefs": "How to change your preferences",
     "changePrefsContent": "We operate in line with GDPR. You can contact us at legal@powiadomienia.info to request access, rectification, deletion, or restriction of your data.",
     "optingOut": "Opting out at a later date",
     "optingOutContent": "You have the right to withdraw your consent at any time. You can object to the processing of your data and request its deletion, provided the data is not required for tax or legal obligations.",
     "howStore": "How we store and process your data",
-    "howStoreContent": "Your data is stored securely on servers located within the European Union or with compliant service providers (like Cloudflare/Stripe). We retain data for as long as necessary to provide the service and meet legal obligations.",
+    "howStoreContent": "Your data is stored securely on servers located within the European Union or with compliant service providers (like Cloudflare). We retain data for as long as necessary to provide the service and meet legal obligations.",
     "obligations": "Our obligations",
     "obligationsContent": "As the Data Controller, we are responsible for handling your data. You have the right to request access, correction, erasure, objection, restriction, and transfer of your data.",
     "thirdParties": "Third Parties",
-    "thirdPartiesContent": "We may share your personal data with selected third parties:\n\n| Third Party | Purpose |\n|-------------|----------|\n| Cloudflare | For security and content delivery |\n| Stripe | For payment processing |\n| Professional Advisers | Lawyers, auditors, insurers |\n| Regulators | If required by law |",
+    "thirdPartiesContent": "We may share your personal data with selected third parties:\n\n| Third Party | Purpose |\n|-------------|----------|\n| Cloudflare | For security and content delivery |\n| Professional Advisers | Lawyers, auditors, insurers |\n| Regulators | If required by law |",
     "security": "Security",
     "securityContent": "We have implemented appropriate security measures to protect your personal data from accidental loss, unauthorized access, use, alteration, or disclosure. We will report any data breaches to relevant authorities within 72 hours.",
     "cookies": "Cookies",
@@ -375,7 +335,7 @@
       "item3": "Ownership: Auditmos OU reserves and solely owns all rights, title, and interest in and to the Platform, the underlying software, and all related Intellectual Property Rights."
     },
     "subscriptionsTitle": "SUBSCRIPTIONS AND FREE TIER",
-    "subscriptionsContent": "Auditmos OU requires payment of a fee for use of the Services as set forth on our pricing page. You agree to pay such fees via our payment processor (Stripe). Subscriptions automatically renew unless cancelled. All payments are non-refundable except as required by applicable law. If you exceed your plan's usage limits (e.g., number of notifications), overage fees may apply as described on the pricing page.",
+    "subscriptionsContent": "The Services are currently provided free of charge. Auditmos OU reserves the right to introduce paid features in the future, with advance notice to users.",
     "customerMaterialsTitle": "CUSTOMER MATERIALS",
     "customerMaterialsContent": "Customer grants Auditmos OU a license to use Customer Materials solely for the purpose of operating, improving, and providing the Services (e.g., sending your notifications). As between Customer and Auditmos OU, Customer owns all Customer Materials. Customer represents that they have the right to provide such data and that it does not violate any third-party rights.",
     "supportTitle": "SUPPORT AND SERVICE LEVELS",
@@ -447,7 +407,7 @@
     "policyTitle": "Policy",
     "howWeUse": {
       "title": "How We Use Cookies",
-      "content": "Our website uses cookies primarily from Auditmos OU and select third-party partners required for infrastructure and payments. These are categorized as Strictly Necessary cookies. Currently, we do not use Analytics or Marketing cookies."
+      "content": "Our website uses cookies primarily from Auditmos OU and select third-party partners required for infrastructure. These are categorized as Strictly Necessary cookies. Currently, we do not use Analytics or Marketing cookies."
     },
     "detailedInfo": {
       "title": "Detailed Cookie Information",
@@ -455,7 +415,7 @@
     },
     "strictlyNecessary": {
       "title": "Strictly Necessary Cookies",
-      "content": "These cookies are essential for our site and services to function correctly and cannot be disabled. They are necessary for security, payment processing, and core feature functionality. For example, ensuring you remain logged in while navigating the platform.\n\n1. Source: Auditmos OU / powiadomienia.info\nPurpose: To enable user authentication (via Email/Password or Google), manage active sessions, and log internal system errors for reliability.\n\n2. Source: Stripe\nPurpose: To provide fraud prevention and secure payment processing functionality.\n\n3. Source: Cloudflare\nPurpose: To maximize network resources, manage traffic, and protect the site from malicious traffic and bots."
+      "content": "These cookies are essential for our site and services to function correctly and cannot be disabled. They are necessary for security and core feature functionality. For example, ensuring you remain logged in while navigating the platform.\n\n1. Source: Auditmos OU / powiadomienia.info\nPurpose: To enable user authentication (via Email/Password or Google), manage active sessions, and log internal system errors for reliability.\n\n2. Source: Cloudflare\nPurpose: To maximize network resources, manage traffic, and protect the site from malicious traffic and bots."
     },
     "analytics": {
       "title": "Analytics & Tracking Cookies",
@@ -467,8 +427,8 @@
     },
     "choicesTitle": "Your Choices and How to Opt-Out",
     "choices": {
-      "item1": "Browser Settings: You can block or delete cookies by changing your browser settings. Please refer to your browser’s “help” functionality for advice. Please note that should you block all cookies (including Strictly Necessary ones), you may not be able to log in or process payments on our site.",
-      "item2": "Service-Specific Opt-Outs: Because we currently only use cookies that are strictly necessary for the security and operation of the service (authentication, payments, firewall), there are no optional third-party services to opt-out of without breaking the site functionality."
+      "item1": "Browser Settings: You can block or delete cookies by changing your browser settings. Please refer to your browser’s “help” functionality for advice. Please note that should you block all cookies (including Strictly Necessary ones), you may not be able to log in on our site.",
+      "item2": "Service-Specific Opt-Outs: Because we currently only use cookies that are strictly necessary for the security and operation of the service (authentication, firewall), there are no optional third-party services to opt-out of without breaking the site functionality."
     },
     "choicesAdditional": "For more general information on managing cookies, you can visit https://www.allaboutcookies.org/manage-cookies/index.html",
     "exceptionsTitle": "Exceptions",
@@ -479,43 +439,4 @@
     "versionContent": "| Field | Value |\n|-------|-------|\n| Version | 1.0.0 |\n| Date | December 2025 |\n| Description | First Version |\n| Author | Tomasz Kowalczyk |\n| Approved by | Tomasz Kowalczyk |",
     "lastReviewed": "Last reviewed: December 29, 2025."
   },
-  "pricing": {
-    "title": "Choose Your Plan",
-    "subtitle": "Get SMS reminders for waste collection schedules",
-    "free": {
-      "title": "Free",
-      "description": "View waste schedules",
-      "price": "0 PLN",
-      "feature1": "Full schedule (2 weeks)",
-      "feature2": "One address"
-    },
-    "card": {
-      "title": "Card Monthly",
-      "badge": "Popular",
-      "description": "Automatic monthly payments",
-      "feature1": "SMS notifications",
-      "feature2": "One address covered",
-      "feature3": "Cancel anytime",
-      "cta": "Subscribe - Card"
-    },
-    "blik": {
-      "title": "BLIK Annual",
-      "badge": "Best Value",
-      "description": "One-time payment, save more",
-      "savings": "Save more vs monthly",
-      "feature1": "SMS notifications",
-      "feature2": "One address covered",
-      "feature3": "No recurring charges",
-      "feature4": "BLIK instant payment",
-      "cta": "Pay with BLIK"
-    },
-    "currentPlan": "Current Plan",
-    "yourPlan": "Your Plan",
-    "cancelSubscription": "Cancel Subscription",
-    "canceling": "Canceling...",
-    "cancelConfirm": "Cancel subscription?",
-    "cancelWarning": "Subscription will remain active until end of billing period",
-    "willExpire": "Expires",
-    "loading": "Loading..."
-  }
 }

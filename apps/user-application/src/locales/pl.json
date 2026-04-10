@@ -14,30 +14,6 @@
     "signIn": "Zaloguj się",
     "signOut": "Wyloguj się",
     "account": "Konto",
-    "pricing": "Cennik"
-  },
-  "payment": {
-    "subscription": "Subskrypcja",
-    "subscribeTitle": "Subskrybuj",
-    "subscribeDescription": "Otrzymuj powiadomienia SMS o wywozach śmieci",
-    "subscribeButton": "Subskrybuj - Karta Miesięcznie",
-    "loading": "Ładowanie...",
-    "errorAlert": "Płatność nie powiodła się. Spróbuj ponownie.",
-    "successTitle": "Płatność Zakończona Sukcesem!",
-    "successMessage": "Twoja subskrypcja jest aktywna. Będziesz otrzymywać powiadomienia SMS.",
-    "cancelTitle": "Płatność Anulowana",
-    "cancelMessage": "Możesz spróbować ponownie w każdej chwili.",
-    "goToDashboard": "Przejdź do Panelu",
-    "backToDashboard": "Powrót do Panelu",
-    "blik": {
-      "title": "Płatność BLIK - Roczna",
-      "description": "Zapłać 70 PLN za rok powiadomień SMS (oszczędzasz w ujęciu rocznym)",
-      "payButton": "Zapłać 70 PLN",
-      "processing": "Przetwarzanie...",
-      "initError": "Nie udało się zainicjować płatności",
-      "retry": "Spróbuj ponownie",
-      "failed": "Płatność nie powiodła się"
-    }
   },
   "theme": {
     "toggle": "Zmień motyw",
@@ -122,25 +98,16 @@
     "phoneNumberDescription": "Wymagany do powiadomień SMS",
     "addressLabel": "Adres",
     "addressDescription": "Do dopasowania harmonogramu wywozu",
-    "subscription": "Subskrypcja Premium",
-    "subscriptionDescription": "Wymagana do otrzymywania powiadomień SMS",
     "profile": "Profil",
     "contactInformation": "Dane Kontaktowe",
     "contactDescription": "Podaj numer telefonu do powiadomień SMS",
     "addresses": "Adresy",
     "yourAddresses": "Twoje Adresy",
     "addressesDescription": "Podaj lokalizację dla której interesuje Cię harmonogram wywozu śmieci",
-    "premiumActive": "Premium Aktywne",
-    "smsEnabled": "SMS Włączone",
-    "freePlan": "Darmowy Plan - Tylko Podgląd",
-    "upgradeMessage": "Przejdź na Premium, aby otrzymywać powiadomienia SMS.",
-    "upgradeCta": "Przejdź na Premium",
-    "subscriptionValid": "Ważna do",
     "status": {
       "steps": {
         "phone": "Dodaj numer telefonu",
         "address": "Dodaj adres",
-        "payment": "Aktywuj powiadomienia SMS"
       },
       "phone": {
         "title": "Dodaj Numer Telefonu",
@@ -150,16 +117,9 @@
         "title": "Dodaj Adres",
         "description": "Dodaj adres, aby zobaczyć harmonogram odbioru śmieci"
       },
-      "payment": {
-        "title": "Harmonogram Gotowy",
-        "description": "Harmonogram odbioru śmieci jest teraz widoczny poniżej",
-        "scheduleVisible": "Harmonogram odbioru śmieci jest teraz widoczny!",
-        "upgradeCta": "Włącz Powiadomienia SMS"
-      },
       "complete": {
         "title": "Konfiguracja Zakończona",
-        "smsEnabled": "Powiadomienia SMS włączone",
-        "validUntil": "Ważna do"
+        "smsEnabled": "Powiadomienia SMS włączone"
       }
     }
   },
@@ -305,13 +265,13 @@
     "whoWillUse": "Kto będzie korzystał z moich danych?",
     "whoWillUseContent": "Auditmos OU (powiadomienia.info).",
     "whatFor": "W jakim celu?",
-    "whatForContent": "Będziemy przechowywać i przetwarzać Twoje dane, aby umożliwić nam dostarczanie naszych produktów i usług. Obejmuje to:\n\n- Uwierzytelnianie użytkowników i zarządzanie kontami.\n- Umożliwienie korzystania z funkcji naszych produktów, takich jak wysyłanie i zarządzanie powiadomieniami.\n- Monitorowanie bezpieczeństwa i integralności naszej platformy poprzez analizę logów audytowych w celu wykrywania podejrzanych zachowań i badania potencjalnych zagrożeń.\n- Kontaktowanie się z Tobą w sprawach związanych z korzystaniem z Usług, w tym zmian w politykach.\n- Przetwarzanie informacji finansowych w celu rozliczeń i zarządzania kontem (za pośrednictwem Stripe).\n- Do wewnętrznych celów biznesowych.",
+    "whatForContent": "Będziemy przechowywać i przetwarzać Twoje dane, aby umożliwić nam dostarczanie naszych produktów i usług. Obejmuje to:\n\n- Uwierzytelnianie użytkowników i zarządzanie kontami.\n- Umożliwienie korzystania z funkcji naszych produktów, takich jak wysyłanie i zarządzanie powiadomieniami.\n- Monitorowanie bezpieczeństwa i integralności naszej platformy poprzez analizę logów audytowych w celu wykrywania podejrzanych zachowań i badania potencjalnych zagrożeń.\n- Kontaktowanie się z Tobą w sprawach związanych z korzystaniem z Usług, w tym zmian w politykach.\n- Do wewnętrznych celów biznesowych.",
     "whatIfContact": "Co się stanie, jeśli się z Wam skontaktuję?",
     "whatIfContactContent": "Jeśli skontaktujesz się z nami, wykorzystamy Twoje dane, aby przesłać Ci informacje, o które prosiłeś, aktualizacje oraz inne informacje dotyczące naszych usług, które naszym zdaniem mogą Cię zainteresować.",
     "whatStored": "Jakie dane będą przechowywane?",
     "whatStoredContent": "Będziemy przechowywać Twoje dane osobowe w celu świadczenia naszych usług i prowadzenia firmy. Obejmuje to:\n\n- **Informacje o koncie:** Imię i nazwisko, adres e-mail, zaszyfrowane hasła oraz dane rozliczeniowe.\n- **Dane powiadomień:** Treści przesyłane przez Ciebie za pośrednictwem naszego API lub platformy (payloady), które są przetwarzane w celu dostarczenia powiadomień.\n- **Informacje techniczne:** Dane logowania (adres IP, typ przeglądarki), Dane o użytkowaniu (używane funkcje) oraz Informacje o urządzeniu.\n- **Pliki cookie:** Niezbędne pliki cookie wymagane do uwierzytelniania i bezpieczeństwa.",
     "whatShared": "Jakie dane będą udostępniane?",
-    "whatSharedContent": "Nie będziemy udostępniać Twoich danych żadnym stronom trzecim innym niż opisane tutaj w celu wypełnienia naszych zobowiązań wobec Ciebie (np. Przetwarzanie Płatności przez Stripe, Bezpieczeństwo przez Cloudflare). Możemy udostępnić Twoje informacje organom regulacyjnym lub prawnym, jeśli wymaga tego prawo.",
+    "whatSharedContent": "Nie będziemy udostępniać Twoich danych żadnym stronom trzecim innym niż opisane tutaj w celu wypełnienia naszych zobowiązań wobec Ciebie (np. Bezpieczeństwo przez Cloudflare). Możemy udostępnić Twoje informacje organom regulacyjnym lub prawnym, jeśli wymaga tego prawo.",
     "howLong": "Jak długo?",
     "howLongContent": "Auditmos OU przechowuje dane tylko tak długo, jak jest to konieczne do świadczenia naszych usług oraz spełnienia wymogów operacyjnych, umownych i regulacyjnych. Dane konta są przechowywane przez okres istnienia konta. Dane transakcyjne są przechowywane zgodnie z wymogami prawa podatkowego (zazwyczaj 7 lat). Logi powiadomień są przechowywane przez ograniczony czas w celach debugowania i audytu, a następnie usuwane.",
     "whoAccess": "Kto ma dostęp do moich danych?",
@@ -335,17 +295,17 @@
     "whatApplies": "Czego dotyczy ta polityka?",
     "whatAppliesContent": "Ta sekcja opisuje cele przetwarzania Twoich danych, w tym informacje podawane podczas kontaktu z nami, szczegóły rejestracji konta oraz techniczne dane o użytkowaniu. Dotyczy to wszystkich czynności przetwarzania danych wymaganych do świadczenia usługi powiadomienia.info.",
     "howCollected": "W jaki sposób Twoje informacje będą zbierane i wykorzystywane?",
-    "howCollectedContent": "Zbieramy dane przede wszystkim bezpośrednio od Ciebie (rejestracja) lub automatycznie poprzez Twoje korzystanie z usługi (logi). Używamy tych danych, aby:\n\n- Zarejestrować Cię jako klienta (Wykonanie Umowy).\n- Przetwarzać płatności (Wykonanie Umowy).\n- Administrować i chronić naszą firmę (Prawnie Uzasadniony Interes).\n- Używać analityki danych do ulepszania naszej strony (Prawnie Uzasadniony Interes).",
+    "howCollectedContent": "Zbieramy dane przede wszystkim bezpośrednio od Ciebie (rejestracja) lub automatycznie poprzez Twoje korzystanie z usługi (logi). Używamy tych danych, aby:\n\n- Zarejestrować Cię jako klienta (Wykonanie Umowy).\n- Administrować i chronić naszą firmę (Prawnie Uzasadniony Interes).\n- Używać analityki danych do ulepszania naszej strony (Prawnie Uzasadniony Interes).",
     "changePrefs": "Jak zmienić swoje preferencje",
     "changePrefsContent": "Działamy zgodnie z RODO. Możesz skontaktować się z nami pod adresem legal@powiadomienia.info, aby zażądać dostępu, sprostowania, usunięcia lub ograniczenia przetwarzania Twoich danych.",
     "optingOut": "Rezygnacja w późniejszym terminie",
     "optingOutContent": "Masz prawo wycofać swoją zgodę w dowolnym momencie. Możesz sprzeciwić się przetwarzaniu Twoich danych i zażądać ich usunięcia, pod warunkiem że dane te nie są wymagane do celów podatkowych lub prawnych.",
     "howStore": "Jak przechowujemy i przetwarzamy Twoje dane",
-    "howStoreContent": "Twoje dane są bezpiecznie przechowywane na serwerach zlokalizowanych w Unii Europejskiej lub u zgodnych z przepisami dostawców usług (takich jak Cloudflare/Stripe). Przechowujemy dane tak długo, jak jest to konieczne do świadczenia usługi i spełnienia wymogów prawnych.",
+    "howStoreContent": "Twoje dane są bezpiecznie przechowywane na serwerach zlokalizowanych w Unii Europejskiej lub u zgodnych z przepisami dostawców usług (takich jak Cloudflare). Przechowujemy dane tak długo, jak jest to konieczne do świadczenia usługi i spełnienia wymogów prawnych.",
     "obligations": "Nasze obowiązki",
     "obligationsContent": "Jako Administrator Danych jesteśmy odpowiedzialni za przetwarzanie Twoich informacji. Masz prawo żądać dostępu, sprostowania, usunięcia, sprzeciwu, ograniczenia oraz przenoszenia swoich danych.",
     "thirdParties": "Strony Trzecie",
-    "thirdPartiesContent": "Możemy udostępniać Twoje dane osobowe wybranym stronom trzecim:\n\n| Strona trzecia | Cel |\n|----------------|-----|\n| Cloudflare | W celu bezpieczeństwa i dostarczania treści |\n| Stripe | W celu przetwarzania płatności |\n| Doradcy zawodowi | Prawnicy, audytorzy, ubezpieczyciele |\n| Organy regulacyjne | Jeśli wymaga tego prawo |",
+    "thirdPartiesContent": "Możemy udostępniać Twoje dane osobowe wybranym stronom trzecim:\n\n| Strona trzecia | Cel |\n|----------------|-----|\n| Cloudflare | W celu bezpieczeństwa i dostarczania treści |\n| Doradcy zawodowi | Prawnicy, audytorzy, ubezpieczyciele |\n| Organy regulacyjne | Jeśli wymaga tego prawo |",
     "security": "Bezpieczeństwo",
     "securityContent": "Wdrożyliśmy odpowiednie środki bezpieczeństwa, aby chronić Twoje dane osobowe przed przypadkową utratą, nieautoryzowanym dostępem, użyciem, zmianą lub ujawnieniem. Wszelkie naruszenia danych zgłosimy odpowiednim organom w ciągu 72 godzin.",
     "cookies": "Pliki Cookie",
@@ -375,7 +335,7 @@
       "item3": "Własność: Auditmos OU zachowuje i posiada wszelkie prawa, tytuły i udziały w Platformie, podstawowym oprogramowaniu oraz wszelkich powiązanych Prawach Własności Intelektualnej."
     },
     "subscriptionsTitle": "SUBSKRYPCJE I POZIOM DARMOWY",
-    "subscriptionsContent": "Auditmos OU wymaga uiszczenia opłaty za korzystanie z Usług zgodnie z cennikiem na naszej stronie. Zgadzasz się na uiszczanie takich opłat za pośrednictwem naszego procesora płatności (Stripe). Subskrypcje odnawiają się automatycznie, chyba że zostaną anulowane. Wszystkie płatności są bezzwrotne, chyba że obowiązujące prawo stanowi inaczej. W przypadku przekroczenia limitów użytkowania planu (np. liczby powiadomień), mogą zostać naliczone dodatkowe opłaty zgodnie z opisem na stronie cennika.",
+    "subscriptionsContent": "Usługi są obecnie świadczone bezpłatnie. Auditmos OU zastrzega sobie prawo do wprowadzenia płatnych funkcji w przyszłości, z odpowiednim wcześniejszym powiadomieniem użytkowników.",
     "customerMaterialsTitle": "MATERIAŁY KLIENTA",
     "customerMaterialsContent": "Klient udziela Auditmos OU licencji na wykorzystanie Materiałów Klienta wyłącznie w celu obsługi, ulepszania i świadczenia Usług (np. wysyłania powiadomień). W relacji między Klientem a Auditmos OU, Klient jest właścicielem wszystkich Materiałów Klienta. Klient oświadcza, że ma prawo do dostarczania takich danych i że nie naruszają one praw osób trzecich.",
     "supportTitle": "WSPARCIE I POZIOMY USŁUG (SLA)",
@@ -447,7 +407,7 @@
     "policyTitle": "Polityka",
     "howWeUse": {
       "title": "Jak wykorzystujemy pliki cookie",
-      "content": "Nasza strona internetowa wykorzystuje pliki cookie pochodzące głównie od Auditmos OU oraz wybranych partnerów zewnętrznych niezbędnych do obsługi infrastruktury i płatności. Są one skategoryzowane jako Niezbędne pliki cookie. Obecnie nie używamy plików cookie analitycznych ani marketingowych."
+      "content": "Nasza strona internetowa wykorzystuje pliki cookie pochodzące głównie od Auditmos OU oraz wybranych partnerów zewnętrznych niezbędnych do obsługi infrastruktury. Są one skategoryzowane jako Niezbędne pliki cookie. Obecnie nie używamy plików cookie analitycznych ani marketingowych."
     },
     "detailedInfo": {
       "title": "Szczegółowe informacje o plikach cookie",
@@ -455,7 +415,7 @@
     },
     "strictlyNecessary": {
       "title": "Niezbędne pliki cookie",
-      "content": "Te pliki cookie są kluczowe dla poprawnego funkcjonowania naszej strony i usług, dlatego nie można ich wyłączyć. Są niezbędne do zapewnienia bezpieczeństwa, przetwarzania płatności i działania podstawowych funkcji. Na przykład zapewniają one utrzymanie zalogowania podczas nawigacji po platformie.\n\n1. Źródło: Auditmos OU / powiadomienia.info\nCel: Umożliwienie uwierzytelniania użytkowników (przez e-mail/hasło lub Google), zarządzanie aktywnymi sesjami i rejestrowanie wewnętrznych błędów systemu w celu zapewnienia niezawodności.\n\n2. Źródło: Stripe\nCel: Zapewnienie zapobiegania oszustwom i bezpiecznego przetwarzania płatności.\n\n3. Źródło: Cloudflare\nCel: Maksymalizacja zasobów sieciowych, zarządzanie ruchem i ochrona witryny przed złośliwym ruchem oraz botami."
+      "content": "Te pliki cookie są kluczowe dla poprawnego funkcjonowania naszej strony i usług, dlatego nie można ich wyłączyć. Są niezbędne do zapewnienia bezpieczeństwa i działania podstawowych funkcji. Na przykład zapewniają one utrzymanie zalogowania podczas nawigacji po platformie.\n\n1. Źródło: Auditmos OU / powiadomienia.info\nCel: Umożliwienie uwierzytelniania użytkowników (przez e-mail/hasło lub Google), zarządzanie aktywnymi sesjami i rejestrowanie wewnętrznych błędów systemu w celu zapewnienia niezawodności.\n\n2. Źródło: Cloudflare\nCel: Maksymalizacja zasobów sieciowych, zarządzanie ruchem i ochrona witryny przed złośliwym ruchem oraz botami."
     },
     "analytics": {
       "title": "Analityczne i śledzące pliki cookie",
@@ -467,8 +427,8 @@
     },
     "choicesTitle": "Twoje wybory i możliwość rezygnacji",
     "choices": {
-      "item1": "Ustawienia przeglądarki: Możesz zablokować lub usunąć pliki cookie, zmieniając ustawienia swojej przeglądarki. Zapoznaj się z funkcją „pomoc” w swojej przeglądarce, aby uzyskać poradę. Pamiętaj, że jeśli zablokujesz wszystkie pliki cookie (w tym te niezbędne), możesz nie być w stanie zalogować się lub przetwarzać płatności na naszej stronie.",
-      "item2": "Rezygnacja z poszczególnych usług: Ponieważ obecnie używamy wyłącznie plików cookie, które są ściśle niezbędne do bezpieczeństwa i działania serwisu (uwierzytelnianie, płatności, firewall), nie istnieją opcjonalne usługi zewnętrzne, z których można zrezygnować bez naruszania funkcjonalności strony."
+      "item1": "Ustawienia przeglądarki: Możesz zablokować lub usunąć pliki cookie, zmieniając ustawienia swojej przeglądarki. Zapoznaj się z funkcją „pomoc” w swojej przeglądarce, aby uzyskać poradę. Pamiętaj, że jeśli zablokujesz wszystkie pliki cookie (w tym te niezbędne), możesz nie być w stanie zalogować się na naszej stronie.",
+      "item2": "Rezygnacja z poszczególnych usług: Ponieważ obecnie używamy wyłącznie plików cookie, które są ściśle niezbędne do bezpieczeństwa i działania serwisu (uwierzytelnianie, firewall), nie istnieją opcjonalne usługi zewnętrzne, z których można zrezygnować bez naruszania funkcjonalności strony."
     },
     "choicesAdditional": "Więcej ogólnych informacji na temat zarządzania plikami cookie można znaleźć na stronie https://www.allaboutcookies.org/manage-cookies/index.html",
     "exceptionsTitle": "Wyjątki",
@@ -479,43 +439,4 @@
     "versionContent": "| Pole | Wartość |\n|------|----------|\n| Wersja | 1.0.0 |\n| Data | Grudzień 2025 |\n| Opis | Pierwsza wersja |\n| Autor | Tomasz Kowalczyk |\n| Zatwierdził | Tomasz Kowalczyk |",
     "lastReviewed": "Ostatni przegląd: 29 grudnia 2025 r."
   },
-  "pricing": {
-    "title": "Wybierz Plan",
-    "subtitle": "Otrzymuj przypomnienia SMS o harmonogramach wywozu śmieci",
-    "free": {
-      "title": "Darmowy",
-      "description": "Przeglądaj harmonogramy",
-      "price": "0 PLN",
-      "feature1": "Pełny harmonogram (2 tygodnie)",
-      "feature2": "1 adres"
-    },
-    "card": {
-      "title": "Karta Miesięcznie",
-      "badge": "Popularne",
-      "description": "Automatyczne płatności miesięczne",
-      "feature1": "Powiadomienia SMS",
-      "feature2": "1 adres",
-      "feature3": "Anuluj w dowolnym momencie",
-      "cta": "Subskrybuj - Karta"
-    },
-    "blik": {
-      "title": "BLIK Rocznie",
-      "badge": "Najlepsza Wartość",
-      "description": "Jednorazowa płatność, oszczędzasz w ujęciu rocznym",
-      "savings": "(oszczędzasz w ujęciu rocznym)",
-      "feature1": "Powiadomienia SMS",
-      "feature2": "1 adres",
-      "feature3": "Brak opłat cyklicznych",
-      "feature4": "BLIK natychmiastowa płatność",
-      "cta": "Zapłać BLIK"
-    },
-    "currentPlan": "Obecny Plan",
-    "yourPlan": "Twój Plan",
-    "cancelSubscription": "Anuluj Subskrypcję",
-    "canceling": "Anulowanie...",
-    "cancelConfirm": "Anulować subskrypcję?",
-    "cancelWarning": "Subskrypcja będzie aktywna do końca okresu rozliczeniowego",
-    "willExpire": "Wygasa",
-    "loading": "Ładowanie..."
-  }
 }
