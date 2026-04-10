@@ -2,12 +2,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { createTestDb, type TestDbHandle } from "@repo/test-harness";
 import { initDatabase, resetDatabase } from "@/database/setup";
 import { households } from "@/drizzle/schema";
-import {
-	createChannel,
-	getChannels,
-	updateChannel,
-	deleteChannel,
-} from "@/queries/channels";
+import { createChannel, getChannels, updateChannel, deleteChannel } from "@/queries/channels";
 import { ChannelResponse } from "@/zod-schema/channel";
 
 describe("channels CRUD (data-ops ↔ test-harness)", () => {

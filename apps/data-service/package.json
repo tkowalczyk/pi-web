@@ -12,6 +12,7 @@
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "^0.8.19",
+		"@repo/test-harness": "workspace:*",
 		"@types/node": "^22.15.19",
 		"typescript": "^5.5.2",
 		"vitest": "^4.0.15",

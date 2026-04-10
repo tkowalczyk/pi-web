@@ -42,6 +42,9 @@ importers:
       '@cloudflare/vitest-pool-workers':
         specifier: ^0.8.19
         version: 0.8.71(@vitest/runner@4.0.15)(@vitest/snapshot@4.0.15)(vitest@4.0.15(@types/node@22.18.6)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)(terser@5.43.1)(tsx@4.20.6)(yaml@2.8.3))
+      '@repo/test-harness':
+        specifier: workspace:*
+        version: link:../../packages/test-harness
       '@types/node':
         specifier: ^22.15.19
         version: 22.18.6

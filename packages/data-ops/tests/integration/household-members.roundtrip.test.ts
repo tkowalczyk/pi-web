@@ -106,14 +106,22 @@ describe("household members CRUD (data-ops ↔ test-harness)", () => {
 	});
 
 	it("updateMemberRole changes the role", async () => {
-		const member = await addHouseholdMember({ householdId, userId: testUserId, roleId: memberRoleId });
+		const member = await addHouseholdMember({
+			householdId,
+			userId: testUserId,
+			roleId: memberRoleId,
+		});
 
 		const updated = await updateMemberRole(member.id, adminRoleId);
 		expect(updated!.roleId).toBe(adminRoleId);
 	});
 
 	it("removeHouseholdMember deletes the member", async () => {
-		const member = await addHouseholdMember({ householdId, userId: testUserId, roleId: adminRoleId });
+		const member = await addHouseholdMember({
+			householdId,
+			userId: testUserId,
+			roleId: adminRoleId,
+		});
 
 		await removeHouseholdMember(member.id);
 

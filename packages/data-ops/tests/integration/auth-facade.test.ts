@@ -3,11 +3,7 @@ import { createTestDb, type TestDbHandle } from "@repo/test-harness";
 import { initDatabase, resetDatabase } from "@/database/setup";
 import { auth_user } from "@/drizzle/auth-schema";
 import { households, householdRoles, householdMembers } from "@/drizzle/schema";
-import {
-	getCurrentUserWithRole,
-	requireAdmin,
-	getHouseholdMembersWithUsers,
-} from "@/auth/facade";
+import { getCurrentUserWithRole, requireAdmin, getHouseholdMembersWithUsers } from "@/auth/facade";
 import { eq } from "drizzle-orm";
 
 describe("auth facade (data-ops ↔ test-harness)", () => {
@@ -77,7 +73,9 @@ describe("auth facade (data-ops ↔ test-harness)", () => {
 	});
 
 	it("requireAdmin throws for non-member", async () => {
-		await expect(requireAdmin("unknown-user", householdId)).rejects.toThrow("Admin access required");
+		await expect(requireAdmin("unknown-user", householdId)).rejects.toThrow(
+			"Admin access required",
+		);
 	});
 
 	it("getHouseholdMembersWithUsers returns members with user info", async () => {

@@ -1,4 +1,13 @@
-import { pgTable, serial, text, timestamp, boolean, integer, index, jsonb } from "drizzle-orm/pg-core";
+import {
+	pgTable,
+	serial,
+	text,
+	timestamp,
+	boolean,
+	integer,
+	index,
+	jsonb,
+} from "drizzle-orm/pg-core";
 import { auth_user } from "./auth-schema";
 
 // ─── Domain model (M1-P5) ───────────────────────────────────────────

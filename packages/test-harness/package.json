@@ -6,7 +6,8 @@
 	"type": "module",
 	"exports": {
 		".": "./src/index.ts",
-		"./db": "./src/db.ts"
+		"./db": "./src/db.ts",
+		"./noop-channel": "./src/noop-channel.ts"
 	},
 	"scripts": {
 		"test": "vitest run"

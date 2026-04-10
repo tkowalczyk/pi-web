@@ -22,6 +22,10 @@
 		"./lib/*": {
 			"types": "./dist/lib/*.d.ts",
 			"default": "./dist/lib/*.js"
+		},
+		"./channels/*": {
+			"types": "./dist/channels/*.d.ts",
+			"default": "./dist/channels/*.js"
 		}
 	},
 	"scripts": {
