@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { existsSync, readFileSync } from "node:fs";
 import { execSync } from "node:child_process";
 import { resolve } from "node:path";
+import { parse as parseJsonc } from "jsonc-parser";
 
 /**
  * Repo-hygiene invariants that Phase M1-P2 (CI/CD regression gate) promises
@@ -164,5 +165,86 @@ describe("M1-P2: GitHub Actions workflows", () => {
 
 	it("has a prod deploy workflow guarded by manual approval", () => {
 		expect(existsSync(repoPath(".github/workflows/deploy-prod.yml"))).toBe(true);
+	});
+});
+
+describe("M1-P8: stage + prod deploy readiness", () => {
+	function readWranglerConfig(): Record<string, unknown> {
+		const raw = readFileSync(repoPath("apps/data-service/wrangler.jsonc"), "utf8");
+		return parseJsonc(raw);
+	}
+
+	it("has SchedulerDO durable object binding in base wrangler config", () => {
+		const config = readWranglerConfig();
+		const bindings = (
+			config.durable_objects as { bindings: { name: string; class_name: string }[] }
+		).bindings;
+		expect(bindings).toContainEqual(
+			expect.objectContaining({ name: "SCHEDULER", class_name: "SchedulerDO" }),
+		);
+	});
+
+	it("has SchedulerDO durable object binding in stage environment", () => {
+		const config = readWranglerConfig();
+		const stage = (config.env as Record<string, Record<string, unknown>>).stage;
+		const bindings = (stage.durable_objects as { bindings: { name: string; class_name: string }[] })
+			.bindings;
+		expect(bindings).toContainEqual(
+			expect.objectContaining({ name: "SCHEDULER", class_name: "SchedulerDO" }),
+		);
+	});
+
+	it("has SchedulerDO durable object binding in production environment", () => {
+		const config = readWranglerConfig();
+		const prod = (config.env as Record<string, Record<string, unknown>>).prod;
+		const bindings = (prod.durable_objects as { bindings: { name: string; class_name: string }[] })
+			.bindings;
+		expect(bindings).toContainEqual(
+			expect.objectContaining({ name: "SCHEDULER", class_name: "SchedulerDO" }),
+		);
+	});
+
+	it(
+		"has zero legacy tenant/SaaS terms outside archive and migrations",
+		{ timeout: 15_000 },
+		() => {
+			const pattern = "saas-kit|saas_kit|multi-tenant|multi_tenant|organization_id|workspace_id";
+			const result = execSync(
+				`grep -riEw "${pattern}" --include="*.ts" --include="*.tsx" --include="*.json" --include="*.jsonc" -l "${REPO_ROOT}" || true`,
+				{ encoding: "utf8" },
+			);
+			const hits = result
+				.split("\n")
+				.filter(Boolean)
+				.filter((f) => !f.includes("docs/archive/"))
+				.filter((f) => !f.includes("/migrations/"))
+				.filter((f) => !f.includes("node_modules/"))
+				.filter((f) => !f.includes("pnpm-lock.yaml"))
+				.filter((f) => !f.includes("repo-hygiene.test.ts"))
+				.filter((f) => !f.includes("/dist/"))
+				.filter((f) => !f.includes(".vite/"));
+			expect(hits, `Files still referencing legacy terms:\n${hits.join("\n")}`).toEqual([]);
+		},
+	);
+
+	it("docs/m1-retro.md exists and lists at least three back-port candidates", () => {
+		const retroPath = repoPath("docs/m1-retro.md");
+		expect(existsSync(retroPath), "docs/m1-retro.md must exist").toBe(true);
+		const content = readFileSync(retroPath, "utf8");
+		const candidateMatches = content.match(/^###?\s+.*back-?port|^###?\s+.*candidate|^-\s+\*\*/gim);
+		expect(
+			(candidateMatches?.length ?? 0) >= 3,
+			"retro must list at least three concrete back-port candidates",
+		).toBe(true);
+	});
+
+	it("docs/m1-retro.md references saas-on-cf-delta.md as baseline", () => {
+		const content = readFileSync(repoPath("docs/m1-retro.md"), "utf8");
+		expect(content).toContain("saas-on-cf-delta");
+	});
+
+	it("M2 stub PRD contains a pointer to the retro", () => {
+		const content = readFileSync(repoPath("docs/prd-m2-notification-hub.md"), "utf8");
+		expect(content).toContain("m1-retro");
 	});
 });

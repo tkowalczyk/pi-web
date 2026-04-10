@@ -264,6 +264,9 @@ importers:
         specifier: ^0.44.5
         version: 0.44.5(@cloudflare/workers-types@4.20250823.0)(@electric-sql/pglite@0.2.17)(@neondatabase/serverless@1.0.2)(@planetscale/database@1.19.0)(@types/better-sqlite3@7.6.13)(@types/pg@8.15.5)(better-sqlite3@12.2.0)(kysely@0.28.8)(mysql2@3.14.3)(postgres@3.4.7)
     devDependencies:
+      jsonc-parser:
+        specifier: ^3.3.1
+        version: 3.3.1
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -3822,6 +3825,9 @@ packages:
     resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
     engines: {node: '>=6'}
     hasBin: true
+
+  jsonc-parser@3.3.1:
+    resolution: {integrity: sha512-HUgH65KyejrUFPvHFPbqOY0rsFip3Bo5wb4ngvdi1EpCYWUQDC5V+Y7mZws+DLkr4M//zQJoanu1SP+87Dv1oQ==}
 
   kleur@4.1.5:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
@@ -8506,6 +8512,8 @@ snapshots:
   jsesc@3.1.0: {}
 
   json5@2.2.3: {}
+
+  jsonc-parser@3.3.1: {}
 
   kleur@4.1.5: {}
 
