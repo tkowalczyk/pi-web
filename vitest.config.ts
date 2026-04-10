@@ -13,7 +13,7 @@ import { defineConfig } from "vitest/config";
  * test-harness/createTestDb().
  */
 export default defineConfig({
-  test: {
-    projects: ["packages/data-ops/vitest.config.ts"],
-  },
+	test: {
+		projects: ["packages/data-ops/vitest.config.ts", "packages/test-harness/vitest.config.ts"],
+	},
 });

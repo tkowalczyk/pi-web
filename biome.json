@@ -1,0 +1,104 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.4.4/schema.json",
+	"formatter": {
+		"indentStyle": "tab",
+		"lineWidth": 100,
+		"attributePosition": "auto"
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "double",
+			"trailingCommas": "all",
+			"semicolons": "always"
+		}
+	},
+	"css": {
+		"parser": {
+			"cssModules": false,
+			"tailwindDirectives": true
+		},
+		"formatter": {
+			"enabled": false
+		},
+		"linter": {
+			"enabled": false
+		}
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"a11y": {
+				"useHtmlLang": "warn",
+				"noLabelWithoutControl": "warn",
+				"noRedundantRoles": "warn",
+				"useSemanticElements": "warn",
+				"noSvgWithoutTitle": "warn",
+				"useAnchorContent": "warn"
+			},
+			"complexity": {
+				"noExcessiveCognitiveComplexity": "warn"
+			},
+			"correctness": {
+				"noUnusedImports": "warn",
+				"noUnusedVariables": "warn",
+				"noUnusedFunctionParameters": "warn",
+				"useImportExtensions": "off"
+			},
+			"style": {
+				"noDefaultExport": "off",
+				"useImportType": "warn",
+				"useNodejsImportProtocol": "warn",
+				"noNonNullAssertion": "warn"
+			},
+			"suspicious": {
+				"noExplicitAny": "warn",
+				"noConsole": "off",
+				"noArrayIndexKey": "warn"
+			}
+		}
+	},
+	"assist": {
+		"enabled": true,
+		"actions": {
+			"source": {
+				"organizeImports": "off"
+			}
+		}
+	},
+	"overrides": [
+		{
+			"includes": ["**/*.test.ts", "**/*.test.tsx"],
+			"linter": {
+				"rules": {
+					"suspicious": {
+						"noConsole": "off",
+						"noExplicitAny": "off"
+					}
+				}
+			}
+		}
+	],
+	"files": {
+		"includes": [
+			"**",
+			"!**/node_modules",
+			"!**/dist",
+			"!**/.cache",
+			"!**/.wrangler",
+			"!**/*.tsbuildinfo",
+			"!**/worker-configuration.d.ts",
+			"!**/service-bindings.d.ts",
+			"!**/routeTree.gen.ts",
+			"!**/auth-schema.ts",
+			"!**/.tanstack",
+			"!**/.vscode",
+			"!docs/archive",
+			"!.data-to-import",
+			"!cmux.json",
+			"!pnpm-lock.yaml",
+			"!apps",
+			"!packages/data-ops"
+		]
+	}
+}
