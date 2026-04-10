@@ -117,6 +117,42 @@ describe("M1-P3: SaaS payment debt is purged", () => {
 	});
 });
 
+describe("M1-P4: import boundary enforcement", () => {
+	const FORBIDDEN_IMPORTS = [
+		{
+			pattern: "drizzle-orm",
+			allowedIn: ["packages/data-ops/", "packages/test-harness/"],
+			description: "drizzle-orm must only be imported inside data-ops and test-harness",
+		},
+		{
+			pattern: "drizzle-orm/neon-http",
+			allowedIn: ["packages/data-ops/", "packages/test-harness/"],
+			description: "drizzle neon driver must only be imported inside data-ops and test-harness",
+		},
+	];
+
+	for (const rule of FORBIDDEN_IMPORTS) {
+		it(`enforces: ${rule.description}`, () => {
+			const result = execSync(
+				`grep -r "from \\"${rule.pattern}" --include="*.ts" --include="*.tsx" -l "${REPO_ROOT}" || true`,
+				{ encoding: "utf8" },
+			);
+			const violations = result
+				.split("\n")
+				.filter(Boolean)
+				.filter((f) => !f.includes("node_modules/"))
+				.filter((f) => !f.includes("/dist/"))
+				.filter((f) => !f.includes(".vite/"))
+				.filter((f) => !rule.allowedIn.some((allowed) => f.includes(allowed)));
+
+			expect(
+				violations,
+				`Import boundary violation for "${rule.pattern}":\n${violations.join("\n")}`,
+			).toEqual([]);
+		});
+	}
+});
+
 describe("M1-P2: GitHub Actions workflows", () => {
 	it("has a CI workflow that gates every pull request", () => {
 		expect(existsSync(repoPath(".github/workflows/ci.yml"))).toBe(true);

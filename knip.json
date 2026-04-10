@@ -1,31 +1,19 @@
 {
 	"$schema": "https://unpkg.com/knip@5/schema.json",
-	"ignoreDependencies": [
-		"@cloudflare/vitest-pool-workers",
-		"@vitest/coverage-v8",
-		"tsx",
-		"dotenvx",
-		"@dotenvx/dotenvx"
-	],
+	"ignoreDependencies": ["@cloudflare/vitest-pool-workers"],
 	"ignore": [
-		"**/worker-configuration.d.ts",
-		"**/service-bindings.d.ts",
 		"**/routeTree.gen.ts",
 		"**/auth-schema.ts",
-		"packages/data-ops/src/drizzle/migrations/**",
-		"packages/data-ops/src/drizzle/auth-schema.ts",
-		"docs/archive/**"
+		"packages/data-ops/src/drizzle/auth-schema.ts"
 	],
 	"workspaces": {
-		".": {
-			"entry": ["vitest.config.ts"]
-		},
+		".": {},
 		"apps/data-service": {
-			"entry": ["src/index.ts", "scripts/*.ts"],
+			"entry": ["scripts/*.ts"],
 			"ignoreDependencies": []
 		},
 		"apps/user-application": {
-			"entry": ["src/server.ts", "src/start.tsx", "src/router.tsx", "src/routes/**/*.{ts,tsx}"],
+			"entry": ["src/start.tsx", "src/router.tsx", "src/routes/**/*.{ts,tsx}"],
 			"ignoreDependencies": ["web-vitals", "@types/remark-prism"],
 			"ignore": ["src/routeTree.gen.ts", "src/components/ui/**", "src/integrations/**"]
 		},
@@ -33,7 +21,6 @@
 			"entry": [
 				"src/auth/*.ts",
 				"src/database/*.ts",
-				"src/database/seed/index.ts",
 				"src/queries/*.ts",
 				"src/zod-schema/*.ts",
 				"src/lib/*.ts",
@@ -43,7 +30,7 @@
 			"ignoreBinaries": ["dotenvx"]
 		},
 		"packages/test-harness": {
-			"entry": ["src/index.ts", "src/db.ts", "tests/**/*.test.ts"]
+			"entry": ["tests/**/*.test.ts"]
 		}
 	}
 }

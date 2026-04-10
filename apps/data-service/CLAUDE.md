@@ -25,18 +25,28 @@ pnpm cf-typegen:dev   # Generate types from wrangler.jsonc
 
 ```
 src/
-├── index.ts           # WorkerEntrypoint (fetch, scheduled, queue)
-├── hono/
-│   └── app.ts        # HTTP router (/worker/health, /worker/stats)
-├── scheduled/
-│   └── index.ts      # Cron handler (queries users, queues SMS)
-├── queues/
-│   └── index.ts      # Queue consumer (sends SMS, logs results)
-├── services/
-│   └── sms.ts        # SerwerSMS API integration
-└── kv/
-    └── cache-stats.ts # Coverage stats caching
+├── index.ts                     # WorkerEntrypoint (fetch, scheduled, queue)
+└── hono/
+    ├── app.ts                   # Hono app: middleware wiring + route registration
+    ├── handlers/
+    │   ├── health.ts            # GET /worker/health
+    │   └── stats.ts             # GET /worker/stats (KV cache)
+    ├── middleware/
+    │   ├── request-id.ts        # X-Request-Id correlation (c.get("requestId"))
+    │   ├── error-handler.ts     # Structured error responses + HttpError class
+    │   ├── cors.ts              # Environment-aware CORS
+    │   └── rate-limit.ts        # In-memory IP rate limiting
+    ├── services/
+    │   ├── sms.ts               # SerwerSMS API integration
+    │   ├── cache-stats.ts       # KV coverage stats caching
+    │   ├── scheduled.ts         # Cron handler (queries users, queues SMS)
+    │   └── queues.ts            # Queue consumer (sends SMS, logs results)
+    ├── types/                   # Shared TypeScript definitions
+    └── utils/
+        └── logger.ts            # Structured JSON logger (requestId-bound)
 ```
+
+All worker code lives inside `hono/`. No parallel directories at `src/` level.
 
 ## Key Patterns
 
@@ -58,15 +68,15 @@ export default class DataService extends WorkerEntrypoint<Env> {
 ### Notification Flow
 **Cron → Query → Queue → Send → Log**
 
-1. **Scheduled** ([src/scheduled/index.ts](src/scheduled/index.ts)) - Runs hourly, queries users by notification hour, batches to queue
-2. **Queue Consumer** ([src/queues/index.ts](src/queues/index.ts)) - Processes batches (10 msgs), sends SMS via SerwerSMS, logs to DB
+1. **Scheduled** ([src/hono/services/scheduled.ts](src/hono/services/scheduled.ts)) - Runs hourly, queries users by notification hour, batches to queue
+2. **Queue Consumer** ([src/hono/services/queues.ts](src/hono/services/queues.ts)) - Processes batches (10 msgs), sends SMS via SerwerSMS, logs to DB
 3. **Idempotency** - Checks `notification_logs` before sending to prevent duplicates on retry
 4. **Rate Limiting** - 200ms delay between sends (5 SMS/sec)
 
 ### KV Caching
 **Pattern:** Stale-while-revalidate with fallback
 
-[src/kv/cache-stats.ts](src/kv/cache-stats.ts) - Coverage stats cached 1hr, returns stale on error, fallback to hardcoded values
+[src/hono/services/cache-stats.ts](src/hono/services/cache-stats.ts) - Coverage stats cached 1hr, returns stale on error, fallback to hardcoded values
 
 ### Environment Bindings
 **Config:** [wrangler.jsonc](wrangler.jsonc)

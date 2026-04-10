@@ -2,11 +2,11 @@ import { WorkerEntrypoint } from "cloudflare:workers";
 import { app } from "@/hono/app";
 import { initDatabase } from "@repo/data-ops/database/setup";
 
-import { handleScheduled } from "./scheduled";
-import { handleQueue } from "./queues";
+import { handleScheduled } from "./hono/services/scheduled";
+import { handleQueue } from "./hono/services/queues";
 
 export default class DataService extends WorkerEntrypoint<Env> {
-  constructor(ctx: ExecutionContext, env: Env) {
+	constructor(ctx: ExecutionContext, env: Env) {
 		super(ctx, env)
 		initDatabase({
       host: env.DATABASE_HOST,
@@ -15,15 +15,15 @@ export default class DataService extends WorkerEntrypoint<Env> {
     })
 
 	}
-  fetch(request: Request) {
-    return app.fetch(request, this.env, this.ctx);
-  }
+	fetch(request: Request) {
+		return app.fetch(request, this.env, this.ctx);
+	}
 
-  async scheduled(controller: ScheduledController) {
-    await handleScheduled(controller, this.env, this.ctx);
-  }
+	async scheduled(controller: ScheduledController) {
+		await handleScheduled(controller, this.env, this.ctx);
+	}
 
-  async queue(batch: MessageBatch<NotificationMessage>) {
-    await handleQueue(batch, this.env);
-  }
+	async queue(batch: MessageBatch<NotificationMessage>) {
+		await handleQueue(batch, this.env);
+	}
 }

@@ -1,4 +1,4 @@
-import { sendSms, formatWasteNotification } from "../src/services/sms";
+import { sendSms, formatWasteNotification } from "../src/hono/services/sms";
 
 async function testSms() {
   const apiToken = process.env.SERWERSMS_API_TOKEN;

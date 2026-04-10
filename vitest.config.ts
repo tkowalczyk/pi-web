@@ -14,6 +14,10 @@ import { defineConfig } from "vitest/config";
  */
 export default defineConfig({
 	test: {
-		projects: ["packages/data-ops/vitest.config.ts", "packages/test-harness/vitest.config.ts"],
+		projects: [
+			"packages/data-ops/vitest.config.ts",
+			"packages/test-harness/vitest.config.ts",
+			"apps/data-service/vitest.config.ts",
+		],
 	},
 });
