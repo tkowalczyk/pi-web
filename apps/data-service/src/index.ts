@@ -1,4 +1,6 @@
 import { WorkerEntrypoint } from "cloudflare:workers";
+
+export { SchedulerDO } from "./scheduler/scheduler-do";
 import { app } from "@/hono/app";
 import { initDatabase } from "@repo/data-ops/database/setup";
 

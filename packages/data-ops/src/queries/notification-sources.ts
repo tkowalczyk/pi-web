@@ -12,6 +12,15 @@ export async function createNotificationSource(input: CreateNotificationSourceIn
 	return rows[0] as (typeof rows)[number];
 }
 
+export async function getNotificationSourceById(sourceId: number) {
+	const db = getDb();
+	const [source] = await db
+		.select()
+		.from(notificationSources)
+		.where(eq(notificationSources.id, sourceId));
+	return source;
+}
+
 export async function getNotificationSources(householdId: number) {
 	const db = getDb();
 	return await db

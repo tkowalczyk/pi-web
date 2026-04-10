@@ -4,6 +4,7 @@ import { initDatabase, resetDatabase } from "@/database/setup";
 import { households } from "@/drizzle/schema";
 import {
 	createNotificationSource,
+	getNotificationSourceById,
 	getNotificationSources,
 	updateNotificationSource,
 	deleteNotificationSource,
@@ -78,6 +79,28 @@ describe("notification_sources CRUD (data-ops ↔ test-harness)", () => {
 
 		expect(updated!.name).toBe("New name");
 		expect(updated!.enabled).toBe(false);
+	});
+
+	it("getNotificationSourceById returns a single source", async () => {
+		const source = await createNotificationSource({
+			householdId,
+			name: "By ID",
+			type: "waste_collection",
+			config: { cityId: 1 },
+		});
+
+		const found = await getNotificationSourceById(source.id);
+		expect(found).not.toBeUndefined();
+		expect(found!.id).toBe(source.id);
+		expect(found!.name).toBe("By ID");
+
+		const parsed = NotificationSourceResponse.parse(found);
+		expect(parsed.id).toBe(source.id);
+	});
+
+	it("getNotificationSourceById returns undefined for missing id", async () => {
+		const found = await getNotificationSourceById(999999);
+		expect(found).toBeUndefined();
 	});
 
 	it("deleteNotificationSource removes the source", async () => {

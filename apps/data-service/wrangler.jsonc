@@ -7,6 +7,20 @@
 	"observability": {
 		"enabled": true
 	},
+	"durable_objects": {
+		"bindings": [
+			{
+				"name": "SCHEDULER",
+				"class_name": "SchedulerDO"
+			}
+		]
+	},
+	"migrations": [
+		{
+			"tag": "v1",
+			"new_sqlite_classes": ["SchedulerDO"]
+		}
+	],
 	"triggers": {
 		"crons": ["0 * * * *"]
 	},
@@ -16,6 +30,14 @@
 		 */
 		"dev": {
 			"name": "pi-web-data-service-dev",
+			"durable_objects": {
+				"bindings": [
+					{
+						"name": "SCHEDULER",
+						"class_name": "SchedulerDO"
+					}
+				]
+			},
 			"kv_namespaces": [
 				{
 					"binding": "CACHE",
@@ -47,6 +69,14 @@
 				}
 			],
 			"name": "pi-web-data-service-stage",
+			"durable_objects": {
+				"bindings": [
+					{
+						"name": "SCHEDULER",
+						"class_name": "SchedulerDO"
+					}
+				]
+			},
 			"kv_namespaces": [
 				{
 					"binding": "CACHE",
@@ -78,6 +108,14 @@
 				}
 			],
 			"name": "pi-web-data-service-prod",
+			"durable_objects": {
+				"bindings": [
+					{
+						"name": "SCHEDULER",
+						"class_name": "SchedulerDO"
+					}
+				]
+			},
 			"kv_namespaces": [
 				{
 					"binding": "CACHE",
