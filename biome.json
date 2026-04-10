@@ -97,6 +97,7 @@
 			"!.data-to-import",
 			"!cmux.json",
 			"!pnpm-lock.yaml",
+			"!.claude",
 			"!apps",
 			"!packages/data-ops"
 		]
