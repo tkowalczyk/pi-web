@@ -1,6 +1,15 @@
 import { randomUUID } from "node:crypto";
 import type { TestDb } from "./db";
-import { pgTable, serial, text, timestamp, boolean, integer, index, jsonb } from "drizzle-orm/pg-core";
+import {
+	pgTable,
+	serial,
+	text,
+	timestamp,
+	boolean,
+	integer,
+	index,
+	jsonb,
+} from "drizzle-orm/pg-core";
 
 // ─── Inline table references ──────────────────────────────────────────
 // We duplicate the minimal table definitions here instead of importing from
@@ -70,10 +79,7 @@ function next(): number {
 
 // ─── Factory functions ─────────────────────────────────────────────────
 
-export async function createHousehold(
-	db: TestDb,
-	overrides: { name?: string } = {},
-) {
+export async function createHousehold(db: TestDb, overrides: { name?: string } = {}) {
 	const [row] = await db
 		.insert(households)
 		.values({ name: overrides.name ?? `Test Household ${next()}` })
