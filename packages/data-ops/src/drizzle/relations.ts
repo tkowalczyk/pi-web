@@ -1,66 +1,66 @@
 import { relations } from "drizzle-orm/relations";
 import {
-	addresses,
-	notification_preferences,
-	cities,
-	streets,
-	waste_types,
-	waste_schedules,
+	households,
+	householdMembers,
+	householdRoles,
+	channels,
+	notificationSources,
+	deliveryLog,
+	deliveryFailures,
 } from "./schema";
 import { auth_user } from "./auth-schema";
 
-export const citiesRelations = relations(cities, ({ many }) => ({
-	streets: many(streets),
-	addresses: many(addresses),
-	wasteSchedules: many(waste_schedules),
+export const householdsRelations = relations(households, ({ many }) => ({
+	members: many(householdMembers),
+	channels: many(channels),
+	notificationSources: many(notificationSources),
 }));
 
-export const streetsRelations = relations(streets, ({ one, many }) => ({
-	city: one(cities, {
-		fields: [streets.cityId],
-		references: [cities.id],
+export const householdMembersRelations = relations(householdMembers, ({ one }) => ({
+	household: one(households, {
+		fields: [householdMembers.householdId],
+		references: [households.id],
 	}),
-	addresses: many(addresses),
-}));
-
-export const addressesRelations = relations(addresses, ({ one, many }) => ({
 	user: one(auth_user, {
-		fields: [addresses.userId],
+		fields: [householdMembers.userId],
 		references: [auth_user.id],
 	}),
-	city: one(cities, {
-		fields: [addresses.cityId],
-		references: [cities.id],
-	}),
-	street: one(streets, {
-		fields: [addresses.streetId],
-		references: [streets.id],
-	}),
-	notificationPreferences: many(notification_preferences),
-}));
-
-export const notificationPreferencesRelations = relations(notification_preferences, ({ one }) => ({
-	user: one(auth_user, {
-		fields: [notification_preferences.userId],
-		references: [auth_user.id],
-	}),
-	address: one(addresses, {
-		fields: [notification_preferences.addressId],
-		references: [addresses.id],
+	role: one(householdRoles, {
+		fields: [householdMembers.roleId],
+		references: [householdRoles.id],
 	}),
 }));
 
-export const wasteTypesRelations = relations(waste_types, ({ many }) => ({
-	schedules: many(waste_schedules),
+export const householdRolesRelations = relations(householdRoles, ({ many }) => ({
+	members: many(householdMembers),
 }));
 
-export const wasteSchedulesRelations = relations(waste_schedules, ({ one }) => ({
-	city: one(cities, {
-		fields: [waste_schedules.cityId],
-		references: [cities.id],
+export const channelsRelations = relations(channels, ({ one }) => ({
+	household: one(households, {
+		fields: [channels.householdId],
+		references: [households.id],
 	}),
-	wasteType: one(waste_types, {
-		fields: [waste_schedules.wasteTypeId],
-		references: [waste_types.id],
+}));
+
+export const notificationSourcesRelations = relations(notificationSources, ({ one, many }) => ({
+	household: one(households, {
+		fields: [notificationSources.householdId],
+		references: [households.id],
+	}),
+	deliveryLogs: many(deliveryLog),
+	deliveryFailures: many(deliveryFailures),
+}));
+
+export const deliveryLogRelations = relations(deliveryLog, ({ one }) => ({
+	source: one(notificationSources, {
+		fields: [deliveryLog.sourceId],
+		references: [notificationSources.id],
+	}),
+}));
+
+export const deliveryFailuresRelations = relations(deliveryFailures, ({ one }) => ({
+	source: one(notificationSources, {
+		fields: [deliveryFailures.sourceId],
+		references: [notificationSources.id],
 	}),
 }));

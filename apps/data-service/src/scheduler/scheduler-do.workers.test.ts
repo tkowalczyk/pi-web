@@ -2,6 +2,7 @@ import { env } from "cloudflare:workers";
 import { runDurableObjectAlarm, runInDurableObject } from "cloudflare:test";
 import { describe, it, expect } from "vitest";
 import type { ScheduleConfig, SourceData } from "@/domain/notification";
+import type { WasteCollectionConfig } from "@/domain/waste-collection-handler";
 import { NoopChannel } from "@repo/test-harness/noop-channel";
 import type { SchedulerDO } from "./scheduler-do";
 
@@ -21,6 +22,21 @@ const syntheticSource: SourceData = {
 const deliveryTarget = {
 	channelId: 10,
 	recipient: "+48123456789",
+};
+
+const wasteConfig: WasteCollectionConfig = {
+	address: "ul. Kwiatowa 5",
+	schedule: [
+		{ type: "szkło", dates: ["2026-04-15", "2026-04-29"] },
+		{ type: "papier", dates: ["2026-04-20"] },
+	],
+};
+
+const wasteSource: SourceData = {
+	id: 42,
+	name: "Wywóz śmieci — Kwiatowa",
+	type: "waste_collection",
+	config: wasteConfig as unknown as Record<string, unknown>,
 };
 
 describe("SchedulerDO", () => {
@@ -98,6 +114,37 @@ describe("SchedulerDO", () => {
 
 		const stateAfter = await stub.getState();
 		expect(stateAfter.nextAlarmAt?.getTime()).toBe(stateBeforeTrigger.nextAlarmAt?.getTime());
+	});
+
+	it("alarm fires waste collection pipeline: render → send → next alarm", async () => {
+		const id = env.SCHEDULER.idFromName("test-waste-alarm");
+		const stub = env.SCHEDULER.get(id);
+
+		const noop = new NoopChannel();
+		await runInDurableObject(stub, async (instance: SchedulerDO) => {
+			instance.channel = noop;
+		});
+
+		await stub.updateSchedule(wasteSource, dailyAt8, deliveryTarget);
+
+		const ran = await runDurableObjectAlarm(stub);
+		expect(ran).toBe(true);
+
+		await runInDurableObject(stub, async (instance: SchedulerDO) => {
+			const ch = instance.channel as NoopChannel;
+			expect(ch.invocations).toHaveLength(1);
+
+			const payload = ch.invocations[0]!.payload;
+			expect(payload.sourceId).toBe(42);
+			expect(payload.recipient).toBe("+48123456789");
+			// Body should contain waste collection content (HTML with emoji)
+			expect(payload.body).toContain("🗑");
+			expect(payload.body).toContain("Kwiatowa");
+		});
+
+		const state = await stub.getState();
+		expect(state.lastRunSuccess).toBe(true);
+		expect(state.nextAlarmAt).not.toBeNull();
 	});
 
 	it("alarm reschedules the next run after firing", async () => {

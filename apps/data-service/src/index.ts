@@ -24,7 +24,7 @@ export default class DataService extends WorkerEntrypoint<Env> {
 		await handleScheduled(controller, this.env, this.ctx);
 	}
 
-	async queue(batch: MessageBatch<NotificationMessage>) {
+	async queue(batch: MessageBatch<unknown>) {
 		await handleQueue(batch, this.env);
 	}
 }

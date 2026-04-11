@@ -1,6 +1,5 @@
 import { relations } from "drizzle-orm";
 import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
-import { addresses, notification_preferences } from "./schema";
 
 export const auth_user = pgTable("auth_user", {
   id: text("id").primaryKey(),
@@ -79,8 +78,6 @@ export const auth_verification = pgTable(
 export const auth_userRelations = relations(auth_user, ({ many }) => ({
   auth_sessions: many(auth_session),
   auth_accounts: many(auth_account),
-  addresses: many(addresses),
-  notificationPreferences: many(notification_preferences),
 }));
 
 export const auth_sessionRelations = relations(auth_session, ({ one }) => ({

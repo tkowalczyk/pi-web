@@ -1,8 +1,5 @@
 import type { DeliveryLogger } from "./telegram";
-import {
-	insertDeliveryLog,
-	insertDeliveryFailure,
-} from "@repo/data-ops/queries/delivery";
+import { insertDeliveryLog, insertDeliveryFailure } from "@repo/data-ops/queries/delivery";
 
 export class DbDeliveryLogger implements DeliveryLogger {
 	logDelivery(entry: {

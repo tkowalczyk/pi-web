@@ -17,15 +17,9 @@ import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
-import { Route as ApiCitiesIndexRouteImport } from './routes/api/cities/index'
 import { Route as AuthAppIndexRouteImport } from './routes/_auth/app/index'
 import { Route as ApiUserHasCredentialAccountRouteImport } from './routes/api/user/has-credential-account'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth.$'
-import { Route as AuthAppPricingRouteImport } from './routes/_auth/app/pricing'
-import { Route as AuthAppPaymentSuccessRouteImport } from './routes/_auth/app/payment-success'
-import { Route as AuthAppPaymentCancelRouteImport } from './routes/_auth/app/payment-cancel'
-import { Route as ApiCitiesCityIdStreetsRouteImport } from './routes/api/cities/$cityId/streets'
-import { Route as AuthAppPaymentBlikRouteImport } from './routes/_auth/app/payment/blik'
 
 const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
   id: '/terms-of-service',
@@ -66,11 +60,6 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/auth/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiCitiesIndexRoute = ApiCitiesIndexRouteImport.update({
-  id: '/api/cities/',
-  path: '/api/cities/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AuthAppIndexRoute = AuthAppIndexRouteImport.update({
   id: '/app/',
   path: '/app/',
@@ -87,31 +76,6 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthAppPricingRoute = AuthAppPricingRouteImport.update({
-  id: '/app/pricing',
-  path: '/app/pricing',
-  getParentRoute: () => AuthRouteRoute,
-} as any)
-const AuthAppPaymentSuccessRoute = AuthAppPaymentSuccessRouteImport.update({
-  id: '/app/payment-success',
-  path: '/app/payment-success',
-  getParentRoute: () => AuthRouteRoute,
-} as any)
-const AuthAppPaymentCancelRoute = AuthAppPaymentCancelRouteImport.update({
-  id: '/app/payment-cancel',
-  path: '/app/payment-cancel',
-  getParentRoute: () => AuthRouteRoute,
-} as any)
-const ApiCitiesCityIdStreetsRoute = ApiCitiesCityIdStreetsRouteImport.update({
-  id: '/api/cities/$cityId/streets',
-  path: '/api/cities/$cityId/streets',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthAppPaymentBlikRoute = AuthAppPaymentBlikRouteImport.update({
-  id: '/app/payment/blik',
-  path: '/app/payment/blik',
-  getParentRoute: () => AuthRouteRoute,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -121,15 +85,9 @@ export interface FileRoutesByFullPath {
   '/terms-of-service': typeof TermsOfServiceRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/app/payment-cancel': typeof AuthAppPaymentCancelRoute
-  '/app/payment-success': typeof AuthAppPaymentSuccessRoute
-  '/app/pricing': typeof AuthAppPricingRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
   '/app': typeof AuthAppIndexRoute
-  '/api/cities': typeof ApiCitiesIndexRoute
-  '/app/payment/blik': typeof AuthAppPaymentBlikRoute
-  '/api/cities/$cityId/streets': typeof ApiCitiesCityIdStreetsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -139,15 +97,9 @@ export interface FileRoutesByTo {
   '/terms-of-service': typeof TermsOfServiceRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/app/payment-cancel': typeof AuthAppPaymentCancelRoute
-  '/app/payment-success': typeof AuthAppPaymentSuccessRoute
-  '/app/pricing': typeof AuthAppPricingRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
   '/app': typeof AuthAppIndexRoute
-  '/api/cities': typeof ApiCitiesIndexRoute
-  '/app/payment/blik': typeof AuthAppPaymentBlikRoute
-  '/api/cities/$cityId/streets': typeof ApiCitiesCityIdStreetsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -159,15 +111,9 @@ export interface FileRoutesById {
   '/terms-of-service': typeof TermsOfServiceRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/_auth/app/payment-cancel': typeof AuthAppPaymentCancelRoute
-  '/_auth/app/payment-success': typeof AuthAppPaymentSuccessRoute
-  '/_auth/app/pricing': typeof AuthAppPricingRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
   '/_auth/app/': typeof AuthAppIndexRoute
-  '/api/cities/': typeof ApiCitiesIndexRoute
-  '/_auth/app/payment/blik': typeof AuthAppPaymentBlikRoute
-  '/api/cities/$cityId/streets': typeof ApiCitiesCityIdStreetsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -179,15 +125,9 @@ export interface FileRouteTypes {
     | '/terms-of-service'
     | '/auth/login'
     | '/auth/register'
-    | '/app/payment-cancel'
-    | '/app/payment-success'
-    | '/app/pricing'
     | '/api/auth/$'
     | '/api/user/has-credential-account'
     | '/app'
-    | '/api/cities'
-    | '/app/payment/blik'
-    | '/api/cities/$cityId/streets'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -197,15 +137,9 @@ export interface FileRouteTypes {
     | '/terms-of-service'
     | '/auth/login'
     | '/auth/register'
-    | '/app/payment-cancel'
-    | '/app/payment-success'
-    | '/app/pricing'
     | '/api/auth/$'
     | '/api/user/has-credential-account'
     | '/app'
-    | '/api/cities'
-    | '/app/payment/blik'
-    | '/api/cities/$cityId/streets'
   id:
     | '__root__'
     | '/'
@@ -216,15 +150,9 @@ export interface FileRouteTypes {
     | '/terms-of-service'
     | '/auth/login'
     | '/auth/register'
-    | '/_auth/app/payment-cancel'
-    | '/_auth/app/payment-success'
-    | '/_auth/app/pricing'
     | '/api/auth/$'
     | '/api/user/has-credential-account'
     | '/_auth/app/'
-    | '/api/cities/'
-    | '/_auth/app/payment/blik'
-    | '/api/cities/$cityId/streets'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -238,8 +166,6 @@ export interface RootRouteChildren {
   AuthRegisterRoute: typeof AuthRegisterRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiUserHasCredentialAccountRoute: typeof ApiUserHasCredentialAccountRoute
-  ApiCitiesIndexRoute: typeof ApiCitiesIndexRoute
-  ApiCitiesCityIdStreetsRoute: typeof ApiCitiesCityIdStreetsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -300,13 +226,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/cities/': {
-      id: '/api/cities/'
-      path: '/api/cities'
-      fullPath: '/api/cities'
-      preLoaderRoute: typeof ApiCitiesIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_auth/app/': {
       id: '/_auth/app/'
       path: '/app'
@@ -328,58 +247,15 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_auth/app/pricing': {
-      id: '/_auth/app/pricing'
-      path: '/app/pricing'
-      fullPath: '/app/pricing'
-      preLoaderRoute: typeof AuthAppPricingRouteImport
-      parentRoute: typeof AuthRouteRoute
-    }
-    '/_auth/app/payment-success': {
-      id: '/_auth/app/payment-success'
-      path: '/app/payment-success'
-      fullPath: '/app/payment-success'
-      preLoaderRoute: typeof AuthAppPaymentSuccessRouteImport
-      parentRoute: typeof AuthRouteRoute
-    }
-    '/_auth/app/payment-cancel': {
-      id: '/_auth/app/payment-cancel'
-      path: '/app/payment-cancel'
-      fullPath: '/app/payment-cancel'
-      preLoaderRoute: typeof AuthAppPaymentCancelRouteImport
-      parentRoute: typeof AuthRouteRoute
-    }
-    '/api/cities/$cityId/streets': {
-      id: '/api/cities/$cityId/streets'
-      path: '/api/cities/$cityId/streets'
-      fullPath: '/api/cities/$cityId/streets'
-      preLoaderRoute: typeof ApiCitiesCityIdStreetsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_auth/app/payment/blik': {
-      id: '/_auth/app/payment/blik'
-      path: '/app/payment/blik'
-      fullPath: '/app/payment/blik'
-      preLoaderRoute: typeof AuthAppPaymentBlikRouteImport
-      parentRoute: typeof AuthRouteRoute
-    }
   }
 }
 
 interface AuthRouteRouteChildren {
-  AuthAppPaymentCancelRoute: typeof AuthAppPaymentCancelRoute
-  AuthAppPaymentSuccessRoute: typeof AuthAppPaymentSuccessRoute
-  AuthAppPricingRoute: typeof AuthAppPricingRoute
   AuthAppIndexRoute: typeof AuthAppIndexRoute
-  AuthAppPaymentBlikRoute: typeof AuthAppPaymentBlikRoute
 }
 
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
-  AuthAppPaymentCancelRoute: AuthAppPaymentCancelRoute,
-  AuthAppPaymentSuccessRoute: AuthAppPaymentSuccessRoute,
-  AuthAppPricingRoute: AuthAppPricingRoute,
   AuthAppIndexRoute: AuthAppIndexRoute,
-  AuthAppPaymentBlikRoute: AuthAppPaymentBlikRoute,
 }
 
 const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
@@ -397,8 +273,6 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRegisterRoute: AuthRegisterRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiUserHasCredentialAccountRoute: ApiUserHasCredentialAccountRoute,
-  ApiCitiesIndexRoute: ApiCitiesIndexRoute,
-  ApiCitiesCityIdStreetsRoute: ApiCitiesCityIdStreetsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,6 +1,6 @@
 import type { Handler } from "hono";
 import { getCoverageStats, refreshCoverageStats } from "../services/cache-stats";
-import type { CoverageStatsResponse } from "@repo/data-ops/zod-schema/stats";
+import type { StatsResponse } from "../services/cache-stats";
 import { createLogger } from "../utils/logger";
 
 export const statsHandler: Handler = async (c) => {
@@ -24,7 +24,7 @@ export const statsHandler: Handler = async (c) => {
 			const staleStats = await c.env.CACHE.get("coverage-stats", "json");
 			if (staleStats) {
 				c.header("X-Cache-Status", "STALE");
-				return c.json(staleStats as CoverageStatsResponse);
+				return c.json(staleStats as StatsResponse);
 			}
 		} catch (staleError) {
 			logger.error("stale cache also unavailable", { error: String(staleError) });
@@ -32,10 +32,7 @@ export const statsHandler: Handler = async (c) => {
 
 		const now = new Date();
 		c.header("X-Cache-Status", "FALLBACK");
-		return c.json<CoverageStatsResponse>({
-			citiesCount: 5,
-			streetsCount: 1987,
-			wasteSchedulesCount: 0,
+		return c.json<StatsResponse>({
 			activeUsersCount: 0,
 			lastUpdated: now.toISOString(),
 			expiresAt: now.toISOString(),

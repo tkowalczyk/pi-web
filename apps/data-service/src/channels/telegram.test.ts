@@ -27,7 +27,9 @@ function noopLogger() {
 	};
 }
 
-function createChannel(overrides: { fetchFn?: typeof fetch; logger?: ReturnType<typeof noopLogger> } = {}) {
+function createChannel(
+	overrides: { fetchFn?: typeof fetch; logger?: ReturnType<typeof noopLogger> } = {},
+) {
 	return new TelegramChannel({
 		botToken: "fake-bot-token",
 		fetchFn: overrides.fetchFn ?? mockFetch({ ok: true, result: { message_id: 999 } }),
@@ -68,9 +70,7 @@ describe("TelegramChannel", () => {
 	it("retries on HTTP 429 and succeeds on next attempt", async () => {
 		const fetchFn = vi
 			.fn<typeof fetch>()
-			.mockResolvedValueOnce(
-				new Response(JSON.stringify({ ok: false }), { status: 429 }),
-			)
+			.mockResolvedValueOnce(new Response(JSON.stringify({ ok: false }), { status: 429 }))
 			.mockResolvedValueOnce(
 				new Response(JSON.stringify({ ok: true, result: { message_id: 123 } }), { status: 200 }),
 			);
@@ -92,9 +92,7 @@ describe("TelegramChannel", () => {
 	it("retries on HTTP 5xx and succeeds on next attempt", async () => {
 		const fetchFn = vi
 			.fn<typeof fetch>()
-			.mockResolvedValueOnce(
-				new Response("Server Error", { status: 500 }),
-			)
+			.mockResolvedValueOnce(new Response("Server Error", { status: 500 }))
 			.mockResolvedValueOnce(
 				new Response(JSON.stringify({ ok: true, result: { message_id: 456 } }), { status: 200 }),
 			);
@@ -111,15 +109,13 @@ describe("TelegramChannel", () => {
 	it("returns failure and logs dead letter after 3 retries exhausted", async () => {
 		const fetchFn = vi
 			.fn<typeof fetch>()
-			.mockResolvedValue(
-				new Response(JSON.stringify({ ok: false }), { status: 429 }),
-			);
+			.mockResolvedValue(new Response(JSON.stringify({ ok: false }), { status: 429 }));
 		const logger = noopLogger();
 		const channel = createChannel({ fetchFn, logger });
 
 		const promise = channel.send(payload);
-		await vi.advanceTimersByTimeAsync(1000);  // retry 1
-		await vi.advanceTimersByTimeAsync(4000);  // retry 2
+		await vi.advanceTimersByTimeAsync(1000); // retry 1
+		await vi.advanceTimersByTimeAsync(4000); // retry 2
 		await vi.advanceTimersByTimeAsync(16000); // retry 3
 		const result = await promise;
 

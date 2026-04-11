@@ -1,7 +1,17 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { createTestDb, createHousehold, createNotificationSource, type TestDbHandle } from "@repo/test-harness";
+import {
+	createTestDb,
+	createHousehold,
+	createNotificationSource,
+	type TestDbHandle,
+} from "@repo/test-harness";
 import { initDatabase, resetDatabase } from "@/database/setup";
-import { insertDeliveryLog, getDeliveryLogs, insertDeliveryFailure, getDeliveryFailures } from "@/queries/delivery";
+import {
+	insertDeliveryLog,
+	getDeliveryLogs,
+	insertDeliveryFailure,
+	getDeliveryFailures,
+} from "@/queries/delivery";
 
 describe("delivery log + failures CRUD (data-ops ↔ test-harness)", () => {
 	let handle: TestDbHandle;
@@ -58,7 +68,13 @@ describe("delivery log + failures CRUD (data-ops ↔ test-harness)", () => {
 
 	it("getDeliveryLogs returns logs for a source", async () => {
 		await insertDeliveryLog({ sourceId, channel: "telegram", status: "success", retryCount: 0 });
-		await insertDeliveryLog({ sourceId, channel: "telegram", status: "failure", error: "err", retryCount: 1 });
+		await insertDeliveryLog({
+			sourceId,
+			channel: "telegram",
+			status: "failure",
+			error: "err",
+			retryCount: 1,
+		});
 
 		const logs = await getDeliveryLogs(sourceId);
 		expect(logs).toHaveLength(2);

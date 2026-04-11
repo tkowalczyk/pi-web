@@ -1,4 +1,5 @@
 import type { NotificationPayload } from "@repo/data-ops/channels/port";
+import { renderMessage, type WasteCollectionConfig } from "./waste-collection-handler";
 
 // ─── Schedule types ────────────────────────────────────────────────
 
@@ -97,19 +98,8 @@ export function renderSourceToPayload(source: SourceData, ctx: RenderContext): N
 }
 
 function renderWasteCollection(source: SourceData, ctx: RenderContext): NotificationPayload {
-	const { cityName, streetName, wasteTypes } = source.config as {
-		cityName: string;
-		streetName: string;
-		wasteTypes: string[];
-	};
-
-	const typesList = (wasteTypes as string[]).join(", ");
-	const location = `${streetName}, ${cityName}`;
-
-	const body =
-		ctx.notificationType === "day_before"
-			? `Przypomnienie: Jutro (${ctx.scheduledDate}) wywóz śmieci na ${location}: ${typesList}.`
-			: `Dzisiaj (${ctx.scheduledDate}) wywóz śmieci na ${location}: ${typesList}.`;
+	const config = source.config as unknown as WasteCollectionConfig;
+	const body = renderMessage(config, ctx.scheduledDate);
 
 	return {
 		recipient: ctx.recipient,

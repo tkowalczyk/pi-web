@@ -83,15 +83,17 @@ describe("computeNextScheduledRun", () => {
 });
 
 describe("renderSourceToPayload", () => {
-	it("renders a waste_collection source into a notification payload", () => {
+	it("renders a waste_collection source into a notification payload with HTML", () => {
 		const source: SourceData = {
 			id: 42,
 			name: "Wywóz śmieci — Wiśniowa",
 			type: "waste_collection",
 			config: {
-				cityName: "Kraków",
-				streetName: "ul. Wiśniowa",
-				wasteTypes: ["Papier", "Plastik"],
+				address: "ul. Wiśniowa, Kraków",
+				schedule: [
+					{ type: "Papier", dates: ["2026-04-11"] },
+					{ type: "Plastik", dates: ["2026-04-11"] },
+				],
 			},
 		};
 
@@ -106,22 +108,20 @@ describe("renderSourceToPayload", () => {
 		expect(payload.channelId).toBe(7);
 		expect(payload.recipient).toBe("+48123456789");
 		expect(payload.subject).toBe("Wywóz śmieci — Wiśniowa");
-		expect(payload.body).toContain("Jutro");
-		expect(payload.body).toContain("2026-04-11");
+		expect(payload.body).toContain("🗑");
 		expect(payload.body).toContain("Papier");
 		expect(payload.body).toContain("Plastik");
 		expect(payload.body).toContain("Wiśniowa");
 	});
 
-	it("renders a same_day notification", () => {
+	it("renders waste collection for a specific date filtering types", () => {
 		const source: SourceData = {
 			id: 1,
 			name: "Wywóz śmieci",
 			type: "waste_collection",
 			config: {
-				cityName: "Warszawa",
-				streetName: "ul. Krucza",
-				wasteTypes: ["Szkło"],
+				address: "ul. Krucza, Warszawa",
+				schedule: [{ type: "Szkło", dates: ["2026-04-10", "2026-05-10"] }],
 			},
 		};
 
@@ -132,7 +132,7 @@ describe("renderSourceToPayload", () => {
 			notificationType: "same_day",
 		});
 
-		expect(payload.body).toContain("Dzisiaj");
+		expect(payload.body).toContain("🗑");
 		expect(payload.body).toContain("Szkło");
 	});
 
