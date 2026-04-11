@@ -7,11 +7,14 @@ import {
 } from "@/domain/notification";
 import type { DeliveryResult, NotificationChannel } from "@repo/data-ops/channels/port";
 
+export type SchedulerStatus = "idle" | "scheduled";
+
 export interface SchedulerState {
 	sourceId: number | null;
 	nextAlarmAt: Date | null;
 	lastRunAt: Date | null;
 	lastRunSuccess: boolean | null;
+	status: SchedulerStatus;
 }
 
 export interface DeliveryTarget {
@@ -28,11 +31,14 @@ export class SchedulerDO extends DurableObject<Env> {
 		const lastRunAt = await this.ctx.storage.get<number>("lastRunAt");
 		const lastRunSuccess = await this.ctx.storage.get<boolean>("lastRunSuccess");
 
+		const status: SchedulerStatus = nextAlarmAt ? "scheduled" : "idle";
+
 		return {
 			sourceId: sourceId ?? null,
 			nextAlarmAt: nextAlarmAt ? new Date(nextAlarmAt) : null,
 			lastRunAt: lastRunAt ? new Date(lastRunAt) : null,
 			lastRunSuccess: lastRunSuccess ?? null,
+			status,
 		};
 	}
 

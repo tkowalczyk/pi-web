@@ -144,6 +144,32 @@ export class TelegramChannel implements NotificationChannel {
 		}
 	}
 
+	async createForumTopic(
+		chatId: string,
+		name: string,
+		iconCustomEmojiId?: string,
+	): Promise<number> {
+		const url = `https://api.telegram.org/bot${this.botToken}/createForumTopic`;
+		const body: Record<string, unknown> = { chat_id: chatId, name };
+		if (iconCustomEmojiId) {
+			body.icon_custom_emoji_id = iconCustomEmojiId;
+		}
+
+		const response = await this.fetchFn(url, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(body),
+		});
+
+		if (!response.ok) {
+			const text = await response.text();
+			throw new Error(`createForumTopic failed: HTTP ${response.status}: ${text}`);
+		}
+
+		const data = (await response.json()) as { result: { message_thread_id: number } };
+		return data.result.message_thread_id;
+	}
+
 	private delay(ms: number): Promise<void> {
 		return new Promise((resolve) => setTimeout(resolve, ms));
 	}

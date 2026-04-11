@@ -1,0 +1,1 @@
+ALTER TABLE "notification_sources" ADD COLUMN "topic_id" integer;

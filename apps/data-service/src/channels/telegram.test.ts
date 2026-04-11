@@ -151,3 +151,40 @@ describe("TelegramChannel", () => {
 		expect(logger.logFailure).not.toHaveBeenCalled();
 	});
 });
+
+describe("TelegramChannel.createForumTopic", () => {
+	it("calls Telegram Bot API createForumTopic and returns message_thread_id", async () => {
+		const fetchFn = vi.fn().mockResolvedValue(
+			new Response(JSON.stringify({ ok: true, result: { message_thread_id: 777 } }), {
+				status: 200,
+				headers: { "Content-Type": "application/json" },
+			}),
+		);
+		const channel = new TelegramChannel({ botToken: "fake-bot-token", fetchFn });
+
+		const threadId = await channel.createForumTopic("-1001234567890", "Wywóz śmieci", "🗑");
+
+		expect(threadId).toBe(777);
+		expect(fetchFn).toHaveBeenCalledOnce();
+		const [url, options] = fetchFn.mock.calls[0];
+		expect(url).toBe("https://api.telegram.org/botfake-bot-token/createForumTopic");
+		const body = JSON.parse(options.body);
+		expect(body.chat_id).toBe("-1001234567890");
+		expect(body.name).toBe("Wywóz śmieci");
+		expect(body.icon_custom_emoji_id).toBe("🗑");
+	});
+
+	it("throws when Telegram API returns error", async () => {
+		const fetchFn = vi.fn().mockResolvedValue(
+			new Response(JSON.stringify({ ok: false, description: "Bad Request: not enough rights" }), {
+				status: 400,
+				headers: { "Content-Type": "application/json" },
+			}),
+		);
+		const channel = new TelegramChannel({ botToken: "fake-bot-token", fetchFn });
+
+		await expect(channel.createForumTopic("-100123", "Test", "🗑")).rejects.toThrow(
+			"createForumTopic failed",
+		);
+	});
+});

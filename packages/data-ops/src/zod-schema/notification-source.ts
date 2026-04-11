@@ -8,6 +8,7 @@ export const NotificationSourceResponse = z.object({
 	name: z.string(),
 	type: z.string(),
 	config: JsonConfig,
+	topicId: z.number().nullable(),
 	enabled: z.boolean(),
 	createdAt: z.date(),
 	updatedAt: z.date(),
@@ -29,6 +30,7 @@ export const UpdateNotificationSourceInput = z.object({
 	name: z.string().optional(),
 	type: z.string().optional(),
 	config: JsonConfig.optional(),
+	topicId: z.number().optional(),
 	enabled: z.boolean().optional(),
 });
 

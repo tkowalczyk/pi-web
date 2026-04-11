@@ -51,6 +51,7 @@ describe("SchedulerDO", () => {
 			nextAlarmAt: null,
 			lastRunAt: null,
 			lastRunSuccess: null,
+			status: "idle",
 		});
 	});
 
@@ -145,6 +146,29 @@ describe("SchedulerDO", () => {
 		const state = await stub.getState();
 		expect(state.lastRunSuccess).toBe(true);
 		expect(state.nextAlarmAt).not.toBeNull();
+	});
+
+	it("getState returns status 'idle' before schedule, 'scheduled' after, and updates after alarm", async () => {
+		const id = env.SCHEDULER.idFromName("test-gestate-status");
+		const stub = env.SCHEDULER.get(id);
+
+		const initial = await stub.getState();
+		expect(initial.status).toBe("idle");
+
+		const noop = new NoopChannel();
+		await runInDurableObject(stub, async (instance: SchedulerDO) => {
+			instance.channel = noop;
+		});
+
+		await stub.updateSchedule(syntheticSource, dailyAt8, deliveryTarget);
+		const scheduled = await stub.getState();
+		expect(scheduled.status).toBe("scheduled");
+
+		await runDurableObjectAlarm(stub);
+		const afterAlarm = await stub.getState();
+		expect(afterAlarm.status).toBe("scheduled");
+		expect(afterAlarm.lastRunAt).not.toBeNull();
+		expect(afterAlarm.lastRunSuccess).toBe(true);
 	});
 
 	it("alarm reschedules the next run after firing", async () => {
