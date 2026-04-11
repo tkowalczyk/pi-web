@@ -36,6 +36,13 @@
       "when": 1775822746453,
       "tag": "0004_tranquil_echo",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1775921394245,
+      "tag": "0005_light_sasquatch",
+      "breakpoints": true
     }
   ]
 }

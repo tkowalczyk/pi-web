@@ -97,6 +97,45 @@ export const notificationSources = pgTable(
 	(table) => [index("ns_household_id_idx").on(table.householdId)],
 );
 
+export const deliveryLog = pgTable(
+	"delivery_log",
+	{
+		id: serial("id").primaryKey(),
+		sourceId: integer("source_id")
+			.notNull()
+			.references(() => notificationSources.id, { onDelete: "cascade" }),
+		channel: text("channel").notNull(),
+		status: text("status").notNull(),
+		error: text("error"),
+		retryCount: integer("retry_count").notNull().default(0),
+		createdAt: timestamp("created_at").defaultNow().notNull(),
+	},
+	(table) => [
+		index("dl_source_id_idx").on(table.sourceId),
+		index("dl_status_idx").on(table.status),
+		index("dl_created_at_idx").on(table.createdAt),
+	],
+);
+
+export const deliveryFailures = pgTable(
+	"delivery_failures",
+	{
+		id: serial("id").primaryKey(),
+		sourceId: integer("source_id")
+			.notNull()
+			.references(() => notificationSources.id, { onDelete: "cascade" }),
+		channel: text("channel").notNull(),
+		error: text("error").notNull(),
+		retryCount: integer("retry_count").notNull(),
+		payload: jsonb("payload").notNull(),
+		createdAt: timestamp("created_at").defaultNow().notNull(),
+	},
+	(table) => [
+		index("df_source_id_idx").on(table.sourceId),
+		index("df_created_at_idx").on(table.createdAt),
+	],
+);
+
 // ─── Legacy tables ──────────────────────────────────────────────────
 
 export const cities = pgTable("cities", {

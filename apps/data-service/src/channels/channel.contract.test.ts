@@ -70,7 +70,18 @@ function channelContractSuite(
 
 // --- Adapter registrations ---
 
-channelContractSuite("TelegramChannel", () => new TelegramChannel(), "throws", "not_implemented");
+channelContractSuite(
+	"TelegramChannel",
+	() => {
+		const fetchFn = async () =>
+			new Response(JSON.stringify({ ok: true, result: { message_id: 1 } }), {
+				status: 200,
+				headers: { "Content-Type": "application/json" },
+			});
+		return new TelegramChannel({ botToken: "test-token", fetchFn });
+	},
+	"delivers",
+);
 
 channelContractSuite(
 	"SerwerSMSChannel (disabled)",
