@@ -136,6 +136,34 @@ describe("renderSourceToPayload", () => {
 		expect(payload.body).toContain("Szkło");
 	});
 
+	it("renders a birthday source into a notification payload with HTML", () => {
+		const source: SourceData = {
+			id: 99,
+			name: "Urodziny rodziny",
+			type: "birthday",
+			config: {
+				birthdays: [
+					{ name: "Mama", date: "03-15" },
+					{ name: "Tata", date: "11-02" },
+				],
+			},
+		};
+
+		const payload = renderSourceToPayload(source, {
+			channelId: 5,
+			recipient: "chat-456",
+			scheduledDate: "2026-03-15",
+			notificationType: "day_before",
+		});
+
+		expect(payload.sourceId).toBe(99);
+		expect(payload.channelId).toBe(5);
+		expect(payload.recipient).toBe("chat-456");
+		expect(payload.body).toContain("🎂");
+		expect(payload.body).toContain("Mama");
+		expect(payload.body).not.toContain("Tata");
+	});
+
 	it("renders a generic source type with minimal payload", () => {
 		const source: SourceData = {
 			id: 5,

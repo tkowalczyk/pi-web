@@ -171,6 +171,47 @@ describe("SchedulerDO", () => {
 		expect(afterAlarm.lastRunSuccess).toBe(true);
 	});
 
+	it("alarm fires birthday pipeline: render → send → next alarm", async () => {
+		const birthdaySource: SourceData = {
+			id: 77,
+			name: "Urodziny rodziny",
+			type: "birthday",
+			config: {
+				birthdays: [
+					{ name: "Mama", date: "03-15" },
+					{ name: "Tata", date: "11-02" },
+				],
+			} as unknown as Record<string, unknown>,
+		};
+
+		const id = env.SCHEDULER.idFromName("test-birthday-alarm");
+		const stub = env.SCHEDULER.get(id);
+
+		const noop = new NoopChannel();
+		await runInDurableObject(stub, async (instance: SchedulerDO) => {
+			instance.channel = noop;
+		});
+
+		await stub.updateSchedule(birthdaySource, dailyAt8, deliveryTarget);
+
+		const ran = await runDurableObjectAlarm(stub);
+		expect(ran).toBe(true);
+
+		await runInDurableObject(stub, async (instance: SchedulerDO) => {
+			const ch = instance.channel as NoopChannel;
+			expect(ch.invocations).toHaveLength(1);
+
+			const payload = ch.invocations[0]!.payload;
+			expect(payload.sourceId).toBe(77);
+			expect(payload.recipient).toBe("+48123456789");
+			expect(payload.body).toContain("🎂");
+		});
+
+		const state = await stub.getState();
+		expect(state.lastRunSuccess).toBe(true);
+		expect(state.nextAlarmAt).not.toBeNull();
+	});
+
 	it("alarm reschedules the next run after firing", async () => {
 		const id = env.SCHEDULER.idFromName("test-reschedule");
 		const stub = env.SCHEDULER.get(id);

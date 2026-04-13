@@ -1,4 +1,5 @@
 import type { NotificationPayload } from "@repo/data-ops/channels/port";
+import { renderMessage as renderBirthdayMessage, type BirthdayEntry } from "./birthday-handler";
 import { renderMessage, type WasteCollectionConfig } from "./waste-collection-handler";
 
 // ─── Schedule types ────────────────────────────────────────────────
@@ -94,12 +95,31 @@ export function renderSourceToPayload(source: SourceData, ctx: RenderContext): N
 	if (source.type === "waste_collection") {
 		return renderWasteCollection(source, ctx);
 	}
+	if (source.type === "birthday") {
+		return renderBirthday(source, ctx);
+	}
 	return renderGeneric(source, ctx);
 }
 
 function renderWasteCollection(source: SourceData, ctx: RenderContext): NotificationPayload {
 	const config = source.config as unknown as WasteCollectionConfig;
 	const body = renderMessage(config, ctx.scheduledDate);
+
+	return {
+		recipient: ctx.recipient,
+		subject: source.name,
+		body,
+		sourceId: source.id,
+		channelId: ctx.channelId,
+	};
+}
+
+function renderBirthday(source: SourceData, ctx: RenderContext): NotificationPayload {
+	const config = source.config as unknown as { birthdays: BirthdayEntry[] };
+	const scheduledMd = ctx.scheduledDate.slice(5); // "YYYY-MM-DD" → "MM-DD"
+	const match = config.birthdays.find((b) => b.date === scheduledMd);
+	const birthdayName = match?.name ?? source.name;
+	const body = renderBirthdayMessage(config, birthdayName);
 
 	return {
 		recipient: ctx.recipient,
