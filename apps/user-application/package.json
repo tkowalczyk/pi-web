@@ -8,6 +8,8 @@
 		"build:prod": "vite build --mode prod",
 		"deploy:stage": "pnpm run build:stage && wrangler deploy --env=''",
 		"deploy:prod": "pnpm run build:prod && wrangler deploy --env=''",
+		"deploy:ci:stage": "pnpm run build:stage && wrangler deploy",
+		"deploy:ci:prod": "pnpm run build:prod && wrangler deploy",
 		"serve": "vite preview",
 		"cf-typegen": "wrangler types --env-interface Env --env dev"
 	},
