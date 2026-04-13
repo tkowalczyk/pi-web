@@ -145,7 +145,7 @@ Both apps use Cloudflare Workers:
 - **Stage:** Auto-deploys on merge to `main` via `.github/workflows/deploy-stage.yml`
 - **Prod:** Manual trigger only via `.github/workflows/deploy-prod.yml` (requires reviewer approval)
 - Both workflows run: `build data-ops → generate migrations → apply migrations → deploy apps`
-- DB credentials for migrations are stored as GitHub environment secrets (`DATABASE_HOST`, `DATABASE_USERNAME`, `DATABASE_PASSWORD`) per environment (`stage`, `production`)
+- DB connection string for migrations is stored as GitHub environment secret `DATABASE_URL` per environment (`stage`, `production`)
 
 ## Dev Notes
 

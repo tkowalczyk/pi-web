@@ -134,9 +134,7 @@ Per environment (`stage` / `production`):
 
 | Secret | Purpose |
 |--------|---------|
-| `DATABASE_HOST` | Neon Postgres host for migrations |
-| `DATABASE_USERNAME` | Neon Postgres user for migrations |
-| `DATABASE_PASSWORD` | Neon Postgres password for migrations |
+| `DATABASE_URL` | Full Neon Postgres connection string for migrations (e.g. `postgresql://user:pass@host/db?sslmode=require`) |
 
 Repository-level:
 

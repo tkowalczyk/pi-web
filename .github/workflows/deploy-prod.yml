@@ -58,16 +58,12 @@ jobs:
 
       - name: Generate database migrations (prod)
         env:
-          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
-          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
-          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: cd packages/data-ops && npx drizzle-kit generate --config drizzle-prod.config.ts
 
       - name: Apply database migrations (prod)
         env:
-          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
-          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
-          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: cd packages/data-ops && npx drizzle-kit migrate --config drizzle-prod.config.ts
 
       - name: Deploy data-service

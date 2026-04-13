@@ -50,16 +50,12 @@ jobs:
 
       - name: Generate database migrations (stage)
         env:
-          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
-          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
-          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: cd packages/data-ops && npx drizzle-kit generate --config drizzle-stage.config.ts
 
       - name: Apply database migrations (stage)
         env:
-          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
-          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
-          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: cd packages/data-ops && npx drizzle-kit migrate --config drizzle-stage.config.ts
 
       - name: Deploy data-service
