@@ -8,6 +8,7 @@ export const NotificationSourceResponse = z.object({
 	name: z.string(),
 	type: z.string(),
 	config: JsonConfig,
+	alertBeforeHours: z.number().nullable(),
 	topicId: z.number().nullable(),
 	enabled: z.boolean(),
 	createdAt: z.date(),
@@ -21,6 +22,7 @@ export const CreateNotificationSourceInput = z.object({
 	name: z.string(),
 	type: z.string(),
 	config: JsonConfig.default({}),
+	alertBeforeHours: z.number().int().positive().optional(),
 	enabled: z.boolean().optional(),
 });
 
@@ -30,6 +32,7 @@ export const UpdateNotificationSourceInput = z.object({
 	name: z.string().optional(),
 	type: z.string().optional(),
 	config: JsonConfig.optional(),
+	alertBeforeHours: z.number().int().positive().optional(),
 	topicId: z.number().optional(),
 	enabled: z.boolean().optional(),
 });

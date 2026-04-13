@@ -9,6 +9,7 @@ import { initDatabase, resetDatabase } from "@/database/setup";
 import {
 	insertDeliveryLog,
 	getDeliveryLogs,
+	getLatestDeliveryBySourceIds,
 	insertDeliveryFailure,
 	getDeliveryFailures,
 } from "@/queries/delivery";
@@ -95,6 +96,29 @@ describe("delivery log + failures CRUD (data-ops ↔ test-harness)", () => {
 		expect(row.error).toBe("HTTP 429: rate limited");
 		expect(row.retryCount).toBe(3);
 		expect(row.payload).toEqual({ recipient: "-100123", body: "test" });
+	});
+
+	it("getLatestDeliveryBySourceIds returns most recent log per source", async () => {
+		await insertDeliveryLog({ sourceId, channel: "telegram", status: "success", retryCount: 0 });
+		await insertDeliveryLog({
+			sourceId,
+			channel: "telegram",
+			status: "failure",
+			error: "err",
+			retryCount: 1,
+		});
+
+		const map = await getLatestDeliveryBySourceIds([sourceId]);
+		expect(map.has(sourceId)).toBe(true);
+
+		const latest = map.get(sourceId)!;
+		expect(latest.status).toBe("failure");
+		expect(latest.error).toBe("err");
+	});
+
+	it("getLatestDeliveryBySourceIds returns empty map for no sources", async () => {
+		const map = await getLatestDeliveryBySourceIds([]);
+		expect(map.size).toBe(0);
 	});
 
 	it("getDeliveryFailures returns failures for a source", async () => {

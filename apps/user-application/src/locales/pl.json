@@ -3,7 +3,10 @@
 		"cancel": "Anuluj",
 		"confirm": "Potwierdź",
 		"save": "Zapisz",
-		"close": "Zamknij"
+		"close": "Zamknij",
+		"saving": "Zapisywanie...",
+		"delete": "Usuń",
+		"deleting": "Usuwanie..."
 	},
 	"nav": {
 		"appName": "powiadomienia.info - wywóz śmieci",
@@ -13,7 +16,8 @@
 		"documentation": "Dokumentacja",
 		"signIn": "Zaloguj się",
 		"signOut": "Wyloguj się",
-		"account": "Konto"
+		"account": "Konto",
+		"sources": "Źródła"
 	},
 	"theme": {
 		"toggle": "Zmień motyw",
@@ -121,6 +125,39 @@
 				"title": "Konfiguracja Zakończona",
 				"smsEnabled": "Powiadomienia SMS włączone"
 			}
+		}
+	},
+	"sources": {
+		"title": "Źródła powiadomień",
+		"add": "Dodaj źródło",
+		"addFirst": "Dodaj pierwsze źródło",
+		"empty": "Nie masz jeszcze żadnych źródeł powiadomień.",
+		"enabled": "Aktywne",
+		"disabled": "Wyłączone",
+		"delivered": "Wysłane",
+		"failed": "Błąd",
+		"alertBefore": "Alert: {{hours}}h przed",
+		"createTitle": "Nowe źródło powiadomień",
+		"editTitle": "Edytuj źródło",
+		"name": "Nazwa",
+		"namePlaceholder": "np. Wywóz — ul. Kwiatowa",
+		"type": "Typ",
+		"selectType": "Wybierz typ",
+		"alertBeforeHours": "Alert przed (godziny)",
+		"create": "Utwórz",
+		"save": "Zapisz",
+		"deleteTitle": "Usuń źródło",
+		"deleteDescription": "Czy na pewno chcesz usunąć \"{{name}}\"? Tej operacji nie można cofnąć.",
+		"waste": {
+			"address": "Adres",
+			"schedule": "Harmonogram",
+			"addEntry": "Dodaj typ",
+			"wasteType": "Typ (np. szkło)"
+		},
+		"birthday": {
+			"list": "Lista urodzin",
+			"add": "Dodaj osobę",
+			"name": "Imię"
 		}
 	},
 	"phone": {

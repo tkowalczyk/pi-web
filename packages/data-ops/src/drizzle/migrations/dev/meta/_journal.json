@@ -120,6 +120,13 @@
       "when": 1775931431087,
       "tag": "0016_classy_prism",
       "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1776063268980,
+      "tag": "0017_exotic_shaman",
+      "breakpoints": true
     }
   ]
 }

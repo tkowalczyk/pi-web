@@ -3,7 +3,10 @@
 		"cancel": "Cancel",
 		"confirm": "Confirm",
 		"save": "Save",
-		"close": "Close"
+		"close": "Close",
+		"saving": "Saving...",
+		"delete": "Delete",
+		"deleting": "Deleting..."
 	},
 	"nav": {
 		"appName": "Waste Alerts",
@@ -13,7 +16,8 @@
 		"documentation": "Documentation",
 		"signIn": "Sign In",
 		"signOut": "Sign Out",
-		"account": "Account"
+		"account": "Account",
+		"sources": "Sources"
 	},
 	"theme": {
 		"toggle": "Toggle theme",
@@ -121,6 +125,39 @@
 				"title": "Setup Complete",
 				"smsEnabled": "SMS notifications enabled"
 			}
+		}
+	},
+	"sources": {
+		"title": "Notification Sources",
+		"add": "Add source",
+		"addFirst": "Add first source",
+		"empty": "You don't have any notification sources yet.",
+		"enabled": "Active",
+		"disabled": "Disabled",
+		"delivered": "Delivered",
+		"failed": "Failed",
+		"alertBefore": "Alert: {{hours}}h before",
+		"createTitle": "New notification source",
+		"editTitle": "Edit source",
+		"name": "Name",
+		"namePlaceholder": "e.g. Waste — Kwiatowa St.",
+		"type": "Type",
+		"selectType": "Select type",
+		"alertBeforeHours": "Alert before (hours)",
+		"create": "Create",
+		"save": "Save",
+		"deleteTitle": "Delete source",
+		"deleteDescription": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone.",
+		"waste": {
+			"address": "Address",
+			"schedule": "Schedule",
+			"addEntry": "Add type",
+			"wasteType": "Type (e.g. glass)"
+		},
+		"birthday": {
+			"list": "Birthday list",
+			"add": "Add person",
+			"name": "Name"
 		}
 	},
 	"phone": {
