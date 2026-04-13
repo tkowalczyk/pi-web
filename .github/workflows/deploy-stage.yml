@@ -48,6 +48,13 @@ jobs:
       - name: Build data-ops
         run: pnpm run build:data-ops
 
+      - name: Run database migrations (stage)
+        env:
+          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+        run: cd packages/data-ops && npx drizzle-kit migrate --config drizzle-stage.config.ts
+
       - name: Deploy data-service
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
