@@ -40,9 +40,7 @@ export function DeleteSourceDialog({
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>
-						{t("sources.deleteTitle", "Usuń źródło")}
-					</DialogTitle>
+					<DialogTitle>{t("sources.deleteTitle", "Usuń źródło")}</DialogTitle>
 					<DialogDescription>
 						{t(
 							"sources.deleteDescription",
@@ -53,18 +51,14 @@ export function DeleteSourceDialog({
 				</DialogHeader>
 				<DialogFooter>
 					<DialogClose asChild>
-						<Button variant="outline">
-							{t("common.cancel", "Anuluj")}
-						</Button>
+						<Button variant="outline">{t("common.cancel", "Anuluj")}</Button>
 					</DialogClose>
 					<Button
 						variant="destructive"
 						onClick={() => mutation.mutate()}
 						disabled={mutation.isPending}
 					>
-						{mutation.isPending
-							? t("common.deleting", "Usuwanie...")
-							: t("common.delete", "Usuń")}
+						{mutation.isPending ? t("common.deleting", "Usuwanie...") : t("common.delete", "Usuń")}
 					</Button>
 				</DialogFooter>
 			</DialogContent>

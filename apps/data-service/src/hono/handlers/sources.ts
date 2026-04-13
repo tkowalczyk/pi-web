@@ -33,11 +33,7 @@ sourcesApp.post("/", async (c) => {
 			updateSource: (sourceId, data) => updateNotificationSource(sourceId, data),
 		};
 
-		const result = await createSourceWithTopic(
-			{ householdId, name, type, config },
-			chatId,
-			deps,
-		);
+		const result = await createSourceWithTopic({ householdId, name, type, config }, chatId, deps);
 		return c.json(result, 201);
 	}
 

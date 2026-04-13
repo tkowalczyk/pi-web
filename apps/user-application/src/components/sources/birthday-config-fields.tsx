@@ -63,19 +63,12 @@ export function BirthdayConfigFields({
 							placeholder="MM-DD"
 						/>
 					</div>
-					<Button
-						type="button"
-						variant="ghost"
-						size="sm"
-						onClick={() => removeEntry(index)}
-					>
+					<Button type="button" variant="ghost" size="sm" onClick={() => removeEntry(index)}>
 						<X className="h-4 w-4" />
 					</Button>
 				</div>
 			))}
-			{errors?.birthdays && (
-				<p className="text-sm text-destructive">{errors.birthdays}</p>
-			)}
+			{errors?.birthdays && <p className="text-sm text-destructive">{errors.birthdays}</p>}
 		</div>
 	);
 }

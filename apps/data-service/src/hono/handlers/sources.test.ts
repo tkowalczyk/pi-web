@@ -39,7 +39,6 @@ vi.mock("@/domain/source-lifecycle", () => ({
 }));
 
 import { createNotificationSource } from "@repo/data-ops/queries/notification-sources";
-import { createSourceWithTopic } from "@/domain/source-lifecycle";
 
 describe("sources handler", () => {
 	let app: Hono;

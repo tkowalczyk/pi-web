@@ -45,27 +45,21 @@ export function WasteConfigFields({
 			.split(",")
 			.map((d) => d.trim())
 			.filter(Boolean);
-		const updated = schedule.map((entry, i) =>
-			i === index ? { type: entry.type, dates } : entry,
-		);
+		const updated = schedule.map((entry, i) => (i === index ? { type: entry.type, dates } : entry));
 		onScheduleChange(updated);
 	};
 
 	return (
 		<div className="space-y-4">
 			<div>
-				<Label htmlFor="address">
-					{t("sources.waste.address", "Adres")}
-				</Label>
+				<Label htmlFor="address">{t("sources.waste.address", "Adres")}</Label>
 				<Input
 					id="address"
 					value={address}
 					onChange={(e) => onAddressChange(e.target.value)}
 					placeholder="ul. Kwiatowa 5"
 				/>
-				{errors?.address && (
-					<p className="text-sm text-destructive mt-1">{errors.address}</p>
-				)}
+				{errors?.address && <p className="text-sm text-destructive mt-1">{errors.address}</p>}
 			</div>
 
 			<div className="space-y-3">
@@ -93,19 +87,12 @@ export function WasteConfigFields({
 								placeholder="2026-04-15, 2026-05-15"
 							/>
 						</div>
-						<Button
-							type="button"
-							variant="ghost"
-							size="sm"
-							onClick={() => removeEntry(index)}
-						>
+						<Button type="button" variant="ghost" size="sm" onClick={() => removeEntry(index)}>
 							<X className="h-4 w-4" />
 						</Button>
 					</div>
 				))}
-				{errors?.schedule && (
-					<p className="text-sm text-destructive">{errors.schedule}</p>
-				)}
+				{errors?.schedule && <p className="text-sm text-destructive">{errors.schedule}</p>}
 			</div>
 		</div>
 	);

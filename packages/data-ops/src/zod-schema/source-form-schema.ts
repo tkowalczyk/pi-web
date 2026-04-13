@@ -32,9 +32,6 @@ const BirthdayForm = z.object({
 	alertBeforeHours: z.number().int().positive().optional(),
 });
 
-export const SourceFormInput = z.discriminatedUnion("type", [
-	WasteCollectionForm,
-	BirthdayForm,
-]);
+export const SourceFormInput = z.discriminatedUnion("type", [WasteCollectionForm, BirthdayForm]);
 
 export type SourceFormInput = z.infer<typeof SourceFormInput>;

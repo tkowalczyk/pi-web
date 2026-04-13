@@ -94,9 +94,7 @@ export function SourceForm({ mode, initialData }: SourceFormProps) {
 		setErrors({});
 
 		const config = buildConfig();
-		const alertHours = alertBeforeHours
-			? Number(alertBeforeHours)
-			: undefined;
+		const alertHours = alertBeforeHours ? Number(alertBeforeHours) : undefined;
 
 		const input = { name, type, config, alertBeforeHours: alertHours };
 		const parsed = SourceFormInput.safeParse(input);
@@ -157,9 +155,7 @@ export function SourceForm({ mode, initialData }: SourceFormProps) {
 							placeholder={t("sources.namePlaceholder", "np. Wywóz — ul. Kwiatowa")}
 							aria-invalid={!!errors.name}
 						/>
-						{errors.name && (
-							<p className="text-sm text-destructive mt-1">{errors.name}</p>
-						)}
+						{errors.name && <p className="text-sm text-destructive mt-1">{errors.name}</p>}
 					</div>
 
 					{mode === "create" && (
@@ -177,9 +173,7 @@ export function SourceForm({ mode, initialData }: SourceFormProps) {
 									))}
 								</SelectContent>
 							</Select>
-							{errors.type && (
-								<p className="text-sm text-destructive mt-1">{errors.type}</p>
-							)}
+							{errors.type && <p className="text-sm text-destructive mt-1">{errors.type}</p>}
 						</div>
 					)}
 
@@ -215,16 +209,12 @@ export function SourceForm({ mode, initialData }: SourceFormProps) {
 								aria-invalid={!!errors.alertBeforeHours}
 							/>
 							{errors.alertBeforeHours && (
-								<p className="text-sm text-destructive mt-1">
-									{errors.alertBeforeHours}
-								</p>
+								<p className="text-sm text-destructive mt-1">{errors.alertBeforeHours}</p>
 							)}
 						</div>
 					)}
 
-					{errors._form && (
-						<p className="text-sm text-destructive">{errors._form}</p>
-					)}
+					{errors._form && <p className="text-sm text-destructive">{errors._form}</p>}
 
 					{(createMutation.error || updateMutation.error) && (
 						<p className="text-sm text-destructive">

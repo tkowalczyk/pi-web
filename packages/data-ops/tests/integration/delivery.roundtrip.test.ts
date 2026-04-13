@@ -100,7 +100,13 @@ describe("delivery log + failures CRUD (data-ops ↔ test-harness)", () => {
 
 	it("getLatestDeliveryBySourceIds returns most recent log per source", async () => {
 		await insertDeliveryLog({ sourceId, channel: "telegram", status: "success", retryCount: 0 });
-		await insertDeliveryLog({ sourceId, channel: "telegram", status: "failure", error: "err", retryCount: 1 });
+		await insertDeliveryLog({
+			sourceId,
+			channel: "telegram",
+			status: "failure",
+			error: "err",
+			retryCount: 1,
+		});
 
 		const map = await getLatestDeliveryBySourceIds([sourceId]);
 		expect(map.has(sourceId)).toBe(true);

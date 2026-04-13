@@ -1,9 +1,5 @@
 import { describe, it, expect } from "vitest";
-import {
-	SourceFormInput,
-	getAlertBeforeHoursDefault,
-	SOURCE_TYPES,
-} from "./source-form-schema";
+import { SourceFormInput, getAlertBeforeHoursDefault, SOURCE_TYPES } from "./source-form-schema";
 
 describe("SourceFormInput zod schema", () => {
 	it("accepts valid waste_collection input", () => {
@@ -110,11 +106,7 @@ describe("getAlertBeforeHoursDefault", () => {
 
 describe("SOURCE_TYPES", () => {
 	it("contains waste_collection and birthday", () => {
-		expect(SOURCE_TYPES).toContainEqual(
-			expect.objectContaining({ value: "waste_collection" }),
-		);
-		expect(SOURCE_TYPES).toContainEqual(
-			expect.objectContaining({ value: "birthday" }),
-		);
+		expect(SOURCE_TYPES).toContainEqual(expect.objectContaining({ value: "waste_collection" }));
+		expect(SOURCE_TYPES).toContainEqual(expect.objectContaining({ value: "birthday" }));
 	});
 });

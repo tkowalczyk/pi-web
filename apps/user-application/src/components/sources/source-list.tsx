@@ -84,11 +84,7 @@ export function SourceList({ sources }: { sources: SourceItem[] }) {
 									</Badge>
 									{source.lastDelivery && (
 										<Badge
-											variant={
-												source.lastDelivery.status === "success"
-													? "outline"
-													: "destructive"
-											}
+											variant={source.lastDelivery.status === "success" ? "outline" : "destructive"}
 										>
 											{source.lastDelivery.status === "success"
 												? t("sources.delivered", "Wysłane")
@@ -110,7 +106,10 @@ export function SourceList({ sources }: { sources: SourceItem[] }) {
 									</div>
 									<div className="flex gap-2">
 										<Button variant="ghost" size="sm" asChild>
-											<Link to="/app/sources/$sourceId/edit" params={{ sourceId: String(source.id) }}>
+											<Link
+												to="/app/sources/$sourceId/edit"
+												params={{ sourceId: String(source.id) }}
+											>
 												<Pencil className="h-4 w-4" />
 											</Link>
 										</Button>
