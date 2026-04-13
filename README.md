@@ -92,6 +92,8 @@ pnpm run drizzle:dev:migrate   # Apply to database
 
 Replace `dev` with `stage` or `prod`. Migrations stored in `src/drizzle/migrations/{env}/`.
 
+> **Note:** Stage/prod migrations run automatically in deploy workflows. Only run `dev` migrations locally.
+
 ### Environment Variables
 
 Config files in `packages/data-ops/`:
@@ -108,45 +110,43 @@ DATABASE_PASSWORD=
 
 ## Deployment
 
-### User Application
+Deployments are handled by GitHub Actions — **do not deploy manually**.
 
-Once the deployment is done, Cloudflare will response with URL to view the deployment. If you want to change the name associated with Worker, do so by changing the `name` in the [wrangler.jsonc](./apps/user-application/wrangler.jsonc) file.
+### Staging
 
-You can also use your own domain names associated with Cloudflare account by adding a route to this file as well.
+Automatically deploys on every merge to `main` via [`.github/workflows/deploy-stage.yml`](.github/workflows/deploy-stage.yml).
 
-#### Staging Environment
+Pipeline: install → build data-ops → generate DB migrations → apply migrations → deploy data-service → deploy user-application.
 
-```bash
-pnpm run deploy:stage:user-application
-```
+URL: https://stage.powiadomienia.info
 
-This will deploy the [user-application](./apps/user-application/) to Cloudflare Workers into staging environment.
+### Production
 
-#### Production Environment
+Manual trigger only via [`.github/workflows/deploy-prod.yml`](.github/workflows/deploy-prod.yml) (requires reviewer approval in GitHub Actions tab).
 
-```bash
-pnpm run deploy:prod:user-application
-```
+Same pipeline as staging, targeting production DB and Cloudflare Workers.
 
-This will deploy the [user-application](./apps/user-application/) to Cloudflare Workers into production environment.
+URL: https://powiadomienia.info
 
-### Data Service
+### Required GitHub Secrets
 
-Once the deployment is done, Cloudflare will response with URL to view the deployment. If you want to change the name associated with Worker, do so by changing the `name` in the [wrangler.jsonc](./apps/data-service/wrangler.jsonc) file.
+Per environment (`stage` / `production`):
 
-You can also use your own domain names associated with Cloudflare account by adding a route to this file as well.
+| Secret | Purpose |
+|--------|---------|
+| `DATABASE_HOST` | Neon Postgres host for migrations |
+| `DATABASE_USERNAME` | Neon Postgres user for migrations |
+| `DATABASE_PASSWORD` | Neon Postgres password for migrations |
 
-#### Staging Environment
+Repository-level:
 
-```bash
-pnpm run deploy:stage:data-service
-```
+| Secret | Purpose |
+|--------|---------|
+| `CLOUDFLARE_API_TOKEN` | Workers deploy |
+| `CLOUDFLARE_ACCOUNT_ID` | Workers deploy |
+| `NEON_API_KEY` | CI branch management |
 
-#### Production Environment
-
-```bash
-pnpm run deploy:prod:data-service
-```
+Application secrets (Telegram, SerwerSMS, etc.) are managed via `wrangler secret put` per environment.
 
 ## Flow
 

@@ -73,17 +73,18 @@ pnpm import:{env}            # Clear + import from files
 ### Schema Changes
 ```bash
 # 1. Edit packages/data-ops/src/drizzle/schema.ts
-# 2. Generate migration
+# 2. Generate migration (dev only — stage/prod handled by CI)
 cd packages/data-ops
 pnpm drizzle:dev:generate
 
-# 3. Apply migration
+# 3. Apply migration (dev only)
 pnpm drizzle:dev:migrate
 
 # 4. Rebuild data-ops (from root or packages/data-ops/)
 pnpm build:data-ops
 
 # 5. Apps auto-reload with new schema
+# 6. Stage/prod migrations run automatically in deploy workflows
 ```
 
 ### Adding Features
@@ -139,6 +140,12 @@ Both apps use Cloudflare Workers:
 - Config: `wrangler.jsonc` per app
 - Secrets: Via `wrangler secret put`
 - Envs: Managed via `--env` flag (stage/prod)
+
+**CI/CD handles deploys automatically — do NOT deploy manually:**
+- **Stage:** Auto-deploys on merge to `main` via `.github/workflows/deploy-stage.yml`
+- **Prod:** Manual trigger only via `.github/workflows/deploy-prod.yml` (requires reviewer approval)
+- Both workflows run: `build data-ops → generate migrations → apply migrations → deploy apps`
+- DB credentials for migrations are stored as GitHub environment secrets (`DATABASE_HOST`, `DATABASE_USERNAME`, `DATABASE_PASSWORD`) per environment (`stage`, `production`)
 
 ## Dev Notes
 
