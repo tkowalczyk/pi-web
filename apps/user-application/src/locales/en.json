@@ -18,6 +18,7 @@
 		"signOut": "Sign Out",
 		"account": "Account",
 		"sources": "Sources",
+		"deliveries": "Log",
 		"members": "Members",
 		"settings": "Settings"
 	},
@@ -161,6 +162,20 @@
 			"add": "Add person",
 			"name": "Name"
 		}
+	},
+	"deliveries": {
+		"title": "Delivery Log",
+		"allSources": "All sources",
+		"allStatuses": "All statuses",
+		"source": "Source",
+		"channel": "Channel",
+		"status": "Status",
+		"error": "Error",
+		"retries": "Retries",
+		"time": "Time",
+		"success": "Success",
+		"failure": "Failed",
+		"empty": "No entries in the delivery log."
 	},
 	"members": {
 		"title": "Household Members",

@@ -18,6 +18,7 @@
 		"signOut": "Wyloguj się",
 		"account": "Konto",
 		"sources": "Źródła",
+		"deliveries": "Log",
 		"members": "Członkowie",
 		"settings": "Ustawienia"
 	},
@@ -161,6 +162,20 @@
 			"add": "Dodaj osobę",
 			"name": "Imię"
 		}
+	},
+	"deliveries": {
+		"title": "Log dostarczeń",
+		"allSources": "Wszystkie źródła",
+		"allStatuses": "Wszystkie statusy",
+		"source": "Źródło",
+		"channel": "Kanał",
+		"status": "Status",
+		"error": "Błąd",
+		"retries": "Ponowienia",
+		"time": "Czas",
+		"success": "Sukces",
+		"failure": "Błąd",
+		"empty": "Brak wpisów w logu dostarczeń."
 	},
 	"members": {
 		"title": "Członkowie gospodarstwa",

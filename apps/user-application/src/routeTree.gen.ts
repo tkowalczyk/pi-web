@@ -23,6 +23,7 @@ import { Route as ApiAuthSplatRouteImport } from './routes/api/auth.$'
 import { Route as AuthAppSourcesIndexRouteImport } from './routes/_auth/app/sources/index'
 import { Route as AuthAppSettingsIndexRouteImport } from './routes/_auth/app/settings/index'
 import { Route as AuthAppMembersIndexRouteImport } from './routes/_auth/app/members/index'
+import { Route as AuthAppDeliveriesIndexRouteImport } from './routes/_auth/app/deliveries/index'
 import { Route as AuthAppSourcesNewRouteImport } from './routes/_auth/app/sources/new'
 import { Route as AuthAppSourcesSourceIdEditRouteImport } from './routes/_auth/app/sources/$sourceId.edit'
 
@@ -96,6 +97,11 @@ const AuthAppMembersIndexRoute = AuthAppMembersIndexRouteImport.update({
   path: '/app/members/',
   getParentRoute: () => AuthRouteRoute,
 } as any)
+const AuthAppDeliveriesIndexRoute = AuthAppDeliveriesIndexRouteImport.update({
+  id: '/app/deliveries/',
+  path: '/app/deliveries/',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
 const AuthAppSourcesNewRoute = AuthAppSourcesNewRouteImport.update({
   id: '/app/sources/new',
   path: '/app/sources/new',
@@ -120,6 +126,7 @@ export interface FileRoutesByFullPath {
   '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
   '/app': typeof AuthAppIndexRoute
   '/app/sources/new': typeof AuthAppSourcesNewRoute
+  '/app/deliveries': typeof AuthAppDeliveriesIndexRoute
   '/app/members': typeof AuthAppMembersIndexRoute
   '/app/settings': typeof AuthAppSettingsIndexRoute
   '/app/sources': typeof AuthAppSourcesIndexRoute
@@ -137,6 +144,7 @@ export interface FileRoutesByTo {
   '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
   '/app': typeof AuthAppIndexRoute
   '/app/sources/new': typeof AuthAppSourcesNewRoute
+  '/app/deliveries': typeof AuthAppDeliveriesIndexRoute
   '/app/members': typeof AuthAppMembersIndexRoute
   '/app/settings': typeof AuthAppSettingsIndexRoute
   '/app/sources': typeof AuthAppSourcesIndexRoute
@@ -156,6 +164,7 @@ export interface FileRoutesById {
   '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
   '/_auth/app/': typeof AuthAppIndexRoute
   '/_auth/app/sources/new': typeof AuthAppSourcesNewRoute
+  '/_auth/app/deliveries/': typeof AuthAppDeliveriesIndexRoute
   '/_auth/app/members/': typeof AuthAppMembersIndexRoute
   '/_auth/app/settings/': typeof AuthAppSettingsIndexRoute
   '/_auth/app/sources/': typeof AuthAppSourcesIndexRoute
@@ -175,6 +184,7 @@ export interface FileRouteTypes {
     | '/api/user/has-credential-account'
     | '/app'
     | '/app/sources/new'
+    | '/app/deliveries'
     | '/app/members'
     | '/app/settings'
     | '/app/sources'
@@ -192,6 +202,7 @@ export interface FileRouteTypes {
     | '/api/user/has-credential-account'
     | '/app'
     | '/app/sources/new'
+    | '/app/deliveries'
     | '/app/members'
     | '/app/settings'
     | '/app/sources'
@@ -210,6 +221,7 @@ export interface FileRouteTypes {
     | '/api/user/has-credential-account'
     | '/_auth/app/'
     | '/_auth/app/sources/new'
+    | '/_auth/app/deliveries/'
     | '/_auth/app/members/'
     | '/_auth/app/settings/'
     | '/_auth/app/sources/'
@@ -329,6 +341,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthAppMembersIndexRouteImport
       parentRoute: typeof AuthRouteRoute
     }
+    '/_auth/app/deliveries/': {
+      id: '/_auth/app/deliveries/'
+      path: '/app/deliveries'
+      fullPath: '/app/deliveries'
+      preLoaderRoute: typeof AuthAppDeliveriesIndexRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
     '/_auth/app/sources/new': {
       id: '/_auth/app/sources/new'
       path: '/app/sources/new'
@@ -349,6 +368,7 @@ declare module '@tanstack/react-router' {
 interface AuthRouteRouteChildren {
   AuthAppIndexRoute: typeof AuthAppIndexRoute
   AuthAppSourcesNewRoute: typeof AuthAppSourcesNewRoute
+  AuthAppDeliveriesIndexRoute: typeof AuthAppDeliveriesIndexRoute
   AuthAppMembersIndexRoute: typeof AuthAppMembersIndexRoute
   AuthAppSettingsIndexRoute: typeof AuthAppSettingsIndexRoute
   AuthAppSourcesIndexRoute: typeof AuthAppSourcesIndexRoute
@@ -358,6 +378,7 @@ interface AuthRouteRouteChildren {
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
   AuthAppIndexRoute: AuthAppIndexRoute,
   AuthAppSourcesNewRoute: AuthAppSourcesNewRoute,
+  AuthAppDeliveriesIndexRoute: AuthAppDeliveriesIndexRoute,
   AuthAppMembersIndexRoute: AuthAppMembersIndexRoute,
   AuthAppSettingsIndexRoute: AuthAppSettingsIndexRoute,
   AuthAppSourcesIndexRoute: AuthAppSourcesIndexRoute,

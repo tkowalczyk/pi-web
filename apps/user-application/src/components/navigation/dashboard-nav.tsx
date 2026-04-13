@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "@tanstack/react-router";
-import { Bell, ListChecks, Users, Settings } from "lucide-react";
+import { Bell, ListChecks, Users, Settings, ScrollText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { authClient } from "@/lib/auth-client";
@@ -65,6 +65,12 @@ export function DashboardNav() {
 							<Link to="/app/sources" className="flex items-center gap-2">
 								<ListChecks className="h-4 w-4" />
 								{t("nav.sources", "Źródła")}
+							</Link>
+						</Button>
+						<Button variant="ghost" asChild>
+							<Link to="/app/deliveries" className="flex items-center gap-2">
+								<ScrollText className="h-4 w-4" />
+								{t("nav.deliveries", "Log")}
 							</Link>
 						</Button>
 						<Button variant="ghost" asChild>
