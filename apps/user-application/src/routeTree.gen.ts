@@ -21,6 +21,8 @@ import { Route as AuthAppIndexRouteImport } from './routes/_auth/app/index'
 import { Route as ApiUserHasCredentialAccountRouteImport } from './routes/api/user/has-credential-account'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth.$'
 import { Route as AuthAppSourcesIndexRouteImport } from './routes/_auth/app/sources/index'
+import { Route as AuthAppSettingsIndexRouteImport } from './routes/_auth/app/settings/index'
+import { Route as AuthAppMembersIndexRouteImport } from './routes/_auth/app/members/index'
 import { Route as AuthAppSourcesNewRouteImport } from './routes/_auth/app/sources/new'
 import { Route as AuthAppSourcesSourceIdEditRouteImport } from './routes/_auth/app/sources/$sourceId.edit'
 
@@ -84,6 +86,16 @@ const AuthAppSourcesIndexRoute = AuthAppSourcesIndexRouteImport.update({
   path: '/app/sources/',
   getParentRoute: () => AuthRouteRoute,
 } as any)
+const AuthAppSettingsIndexRoute = AuthAppSettingsIndexRouteImport.update({
+  id: '/app/settings/',
+  path: '/app/settings/',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
+const AuthAppMembersIndexRoute = AuthAppMembersIndexRouteImport.update({
+  id: '/app/members/',
+  path: '/app/members/',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
 const AuthAppSourcesNewRoute = AuthAppSourcesNewRouteImport.update({
   id: '/app/sources/new',
   path: '/app/sources/new',
@@ -106,9 +118,11 @@ export interface FileRoutesByFullPath {
   '/auth/register': typeof AuthRegisterRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
-  '/app/': typeof AuthAppIndexRoute
+  '/app': typeof AuthAppIndexRoute
   '/app/sources/new': typeof AuthAppSourcesNewRoute
-  '/app/sources/': typeof AuthAppSourcesIndexRoute
+  '/app/members': typeof AuthAppMembersIndexRoute
+  '/app/settings': typeof AuthAppSettingsIndexRoute
+  '/app/sources': typeof AuthAppSourcesIndexRoute
   '/app/sources/$sourceId/edit': typeof AuthAppSourcesSourceIdEditRoute
 }
 export interface FileRoutesByTo {
@@ -123,6 +137,8 @@ export interface FileRoutesByTo {
   '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
   '/app': typeof AuthAppIndexRoute
   '/app/sources/new': typeof AuthAppSourcesNewRoute
+  '/app/members': typeof AuthAppMembersIndexRoute
+  '/app/settings': typeof AuthAppSettingsIndexRoute
   '/app/sources': typeof AuthAppSourcesIndexRoute
   '/app/sources/$sourceId/edit': typeof AuthAppSourcesSourceIdEditRoute
 }
@@ -140,6 +156,8 @@ export interface FileRoutesById {
   '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
   '/_auth/app/': typeof AuthAppIndexRoute
   '/_auth/app/sources/new': typeof AuthAppSourcesNewRoute
+  '/_auth/app/members/': typeof AuthAppMembersIndexRoute
+  '/_auth/app/settings/': typeof AuthAppSettingsIndexRoute
   '/_auth/app/sources/': typeof AuthAppSourcesIndexRoute
   '/_auth/app/sources/$sourceId/edit': typeof AuthAppSourcesSourceIdEditRoute
 }
@@ -155,9 +173,11 @@ export interface FileRouteTypes {
     | '/auth/register'
     | '/api/auth/$'
     | '/api/user/has-credential-account'
-    | '/app/'
+    | '/app'
     | '/app/sources/new'
-    | '/app/sources/'
+    | '/app/members'
+    | '/app/settings'
+    | '/app/sources'
     | '/app/sources/$sourceId/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -172,6 +192,8 @@ export interface FileRouteTypes {
     | '/api/user/has-credential-account'
     | '/app'
     | '/app/sources/new'
+    | '/app/members'
+    | '/app/settings'
     | '/app/sources'
     | '/app/sources/$sourceId/edit'
   id:
@@ -188,6 +210,8 @@ export interface FileRouteTypes {
     | '/api/user/has-credential-account'
     | '/_auth/app/'
     | '/_auth/app/sources/new'
+    | '/_auth/app/members/'
+    | '/_auth/app/settings/'
     | '/_auth/app/sources/'
     | '/_auth/app/sources/$sourceId/edit'
   fileRoutesById: FileRoutesById
@@ -238,7 +262,7 @@ declare module '@tanstack/react-router' {
     '/_auth': {
       id: '/_auth'
       path: ''
-      fullPath: '/'
+      fullPath: ''
       preLoaderRoute: typeof AuthRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -266,7 +290,7 @@ declare module '@tanstack/react-router' {
     '/_auth/app/': {
       id: '/_auth/app/'
       path: '/app'
-      fullPath: '/app/'
+      fullPath: '/app'
       preLoaderRoute: typeof AuthAppIndexRouteImport
       parentRoute: typeof AuthRouteRoute
     }
@@ -287,8 +311,22 @@ declare module '@tanstack/react-router' {
     '/_auth/app/sources/': {
       id: '/_auth/app/sources/'
       path: '/app/sources'
-      fullPath: '/app/sources/'
+      fullPath: '/app/sources'
       preLoaderRoute: typeof AuthAppSourcesIndexRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/_auth/app/settings/': {
+      id: '/_auth/app/settings/'
+      path: '/app/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AuthAppSettingsIndexRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/_auth/app/members/': {
+      id: '/_auth/app/members/'
+      path: '/app/members'
+      fullPath: '/app/members'
+      preLoaderRoute: typeof AuthAppMembersIndexRouteImport
       parentRoute: typeof AuthRouteRoute
     }
     '/_auth/app/sources/new': {
@@ -311,6 +349,8 @@ declare module '@tanstack/react-router' {
 interface AuthRouteRouteChildren {
   AuthAppIndexRoute: typeof AuthAppIndexRoute
   AuthAppSourcesNewRoute: typeof AuthAppSourcesNewRoute
+  AuthAppMembersIndexRoute: typeof AuthAppMembersIndexRoute
+  AuthAppSettingsIndexRoute: typeof AuthAppSettingsIndexRoute
   AuthAppSourcesIndexRoute: typeof AuthAppSourcesIndexRoute
   AuthAppSourcesSourceIdEditRoute: typeof AuthAppSourcesSourceIdEditRoute
 }
@@ -318,6 +358,8 @@ interface AuthRouteRouteChildren {
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
   AuthAppIndexRoute: AuthAppIndexRoute,
   AuthAppSourcesNewRoute: AuthAppSourcesNewRoute,
+  AuthAppMembersIndexRoute: AuthAppMembersIndexRoute,
+  AuthAppSettingsIndexRoute: AuthAppSettingsIndexRoute,
   AuthAppSourcesIndexRoute: AuthAppSourcesIndexRoute,
   AuthAppSourcesSourceIdEditRoute: AuthAppSourcesSourceIdEditRoute,
 }
@@ -341,3 +383,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.tsx'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

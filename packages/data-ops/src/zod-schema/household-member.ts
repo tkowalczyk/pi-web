@@ -25,3 +25,16 @@ export const UpdateMemberRoleInput = z.object({
 });
 
 export type UpdateMemberRoleInput = z.infer<typeof UpdateMemberRoleInput>;
+
+export const AddMemberByEmailInput = z.object({
+	email: z.string().email(),
+	roleId: z.number(),
+});
+
+export type AddMemberByEmailInput = z.infer<typeof AddMemberByEmailInput>;
+
+export const RemoveMemberInput = z.object({
+	memberId: z.number(),
+});
+
+export type RemoveMemberInput = z.infer<typeof RemoveMemberInput>;

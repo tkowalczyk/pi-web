@@ -6,6 +6,7 @@ import {
 	createNotificationSource,
 	getNotificationSourceById,
 	getNotificationSources,
+	getActiveSourcesByHousehold,
 	updateNotificationSource,
 	deleteNotificationSource,
 } from "@/queries/notification-sources";
@@ -115,5 +116,25 @@ describe("notification_sources CRUD (data-ops ↔ test-harness)", () => {
 
 		const sources = await getNotificationSources(householdId);
 		expect(sources).toHaveLength(0);
+	});
+
+	it("getActiveSourcesByHousehold returns only enabled sources", async () => {
+		await createNotificationSource({
+			householdId,
+			name: "Active",
+			type: "waste_collection",
+			config: {},
+		});
+		const disabled = await createNotificationSource({
+			householdId,
+			name: "Disabled",
+			type: "waste_collection",
+			config: {},
+		});
+		await updateNotificationSource(disabled.id, { enabled: false });
+
+		const active = await getActiveSourcesByHousehold(householdId);
+		expect(active).toHaveLength(1);
+		expect(active[0]!.name).toBe("Active");
 	});
 });

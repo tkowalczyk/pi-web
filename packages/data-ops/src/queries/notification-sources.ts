@@ -1,6 +1,6 @@
 import { getDb } from "@/database/setup";
 import { notificationSources } from "@/drizzle/schema";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import type {
 	CreateNotificationSourceInput,
 	UpdateNotificationSourceInput,
@@ -45,4 +45,14 @@ export async function updateNotificationSource(
 export async function deleteNotificationSource(sourceId: number) {
 	const db = getDb();
 	await db.delete(notificationSources).where(eq(notificationSources.id, sourceId));
+}
+
+export async function getActiveSourcesByHousehold(householdId: number) {
+	const db = getDb();
+	return await db
+		.select()
+		.from(notificationSources)
+		.where(
+			and(eq(notificationSources.householdId, householdId), eq(notificationSources.enabled, true)),
+		);
 }

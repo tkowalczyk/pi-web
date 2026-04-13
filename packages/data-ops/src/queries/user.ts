@@ -28,6 +28,19 @@ export async function updateUserLanguage(userId: string, language: string) {
 	return { success: true };
 }
 
+export async function getUserByEmail(email: string) {
+	const db = getDb();
+	const [user] = await db
+		.select({
+			id: auth_user.id,
+			name: auth_user.name,
+			email: auth_user.email,
+		})
+		.from(auth_user)
+		.where(eq(auth_user.email, email));
+	return user;
+}
+
 export async function hasCredentialAccount(userId: string) {
 	const db = getDb();
 	const [account] = await db

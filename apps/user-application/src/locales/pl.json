@@ -17,7 +17,9 @@
 		"signIn": "Zaloguj się",
 		"signOut": "Wyloguj się",
 		"account": "Konto",
-		"sources": "Źródła"
+		"sources": "Źródła",
+		"members": "Członkowie",
+		"settings": "Ustawienia"
 	},
 	"theme": {
 		"toggle": "Zmień motyw",
@@ -159,6 +161,31 @@
 			"add": "Dodaj osobę",
 			"name": "Imię"
 		}
+	},
+	"members": {
+		"title": "Członkowie gospodarstwa",
+		"add": "Dodaj członka",
+		"empty": "Brak członków w gospodarstwie.",
+		"email": "Email",
+		"emailPlaceholder": "jan@example.com",
+		"role": "Rola",
+		"selectRole": "Wybierz rolę",
+		"admin": "Administrator",
+		"member": "Członek",
+		"adding": "Dodawanie...",
+		"addSuccess": "Członek dodany pomyślnie",
+		"addError": "Nie udało się dodać członka",
+		"deleteTitle": "Usuń członka",
+		"deleteDescription": "Czy na pewno chcesz usunąć {{name}} z gospodarstwa?",
+		"userNotFound": "Nie znaleziono użytkownika o tym adresie email"
+	},
+	"settings": {
+		"title": "Ustawienia",
+		"timezone": "Strefa czasowa",
+		"timezoneDescription": "Strefa czasowa wpływa na harmonogram powiadomień.",
+		"timezoneUpdated": "Strefa czasowa zaktualizowana. Przeterminowano {{count}} źródeł.",
+		"timezoneError": "Nie udało się zmienić strefy czasowej",
+		"selectTimezone": "Wybierz strefę czasową"
 	},
 	"phone": {
 		"label": "Numer telefonu",

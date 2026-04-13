@@ -17,7 +17,9 @@
 		"signIn": "Sign In",
 		"signOut": "Sign Out",
 		"account": "Account",
-		"sources": "Sources"
+		"sources": "Sources",
+		"members": "Members",
+		"settings": "Settings"
 	},
 	"theme": {
 		"toggle": "Toggle theme",
@@ -159,6 +161,31 @@
 			"add": "Add person",
 			"name": "Name"
 		}
+	},
+	"members": {
+		"title": "Household Members",
+		"add": "Add member",
+		"empty": "No members in the household.",
+		"email": "Email",
+		"emailPlaceholder": "john@example.com",
+		"role": "Role",
+		"selectRole": "Select role",
+		"admin": "Admin",
+		"member": "Member",
+		"adding": "Adding...",
+		"addSuccess": "Member added successfully",
+		"addError": "Failed to add member",
+		"deleteTitle": "Remove member",
+		"deleteDescription": "Are you sure you want to remove {{name}} from the household?",
+		"userNotFound": "No user found with this email"
+	},
+	"settings": {
+		"title": "Settings",
+		"timezone": "Timezone",
+		"timezoneDescription": "Timezone affects notification scheduling.",
+		"timezoneUpdated": "Timezone updated. Rescheduled {{count}} sources.",
+		"timezoneError": "Failed to change timezone",
+		"selectTimezone": "Select timezone"
 	},
 	"phone": {
 		"label": "Phone Number",
