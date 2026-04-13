@@ -88,6 +88,7 @@ export const notificationSources = pgTable(
 		name: text("name").notNull(),
 		type: text("type").notNull(),
 		config: jsonb("config").notNull().default({}),
+		alertBeforeHours: integer("alert_before_hours"),
 		topicId: integer("topic_id"),
 		enabled: boolean("enabled").default(true).notNull(),
 		createdAt: timestamp("created_at").defaultNow().notNull(),

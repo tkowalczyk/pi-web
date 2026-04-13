@@ -20,6 +20,9 @@ import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as AuthAppIndexRouteImport } from './routes/_auth/app/index'
 import { Route as ApiUserHasCredentialAccountRouteImport } from './routes/api/user/has-credential-account'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth.$'
+import { Route as AuthAppSourcesIndexRouteImport } from './routes/_auth/app/sources/index'
+import { Route as AuthAppSourcesNewRouteImport } from './routes/_auth/app/sources/new'
+import { Route as AuthAppSourcesSourceIdEditRouteImport } from './routes/_auth/app/sources/$sourceId.edit'
 
 const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
   id: '/terms-of-service',
@@ -76,6 +79,22 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthAppSourcesIndexRoute = AuthAppSourcesIndexRouteImport.update({
+  id: '/app/sources/',
+  path: '/app/sources/',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
+const AuthAppSourcesNewRoute = AuthAppSourcesNewRouteImport.update({
+  id: '/app/sources/new',
+  path: '/app/sources/new',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
+const AuthAppSourcesSourceIdEditRoute =
+  AuthAppSourcesSourceIdEditRouteImport.update({
+    id: '/app/sources/$sourceId/edit',
+    path: '/app/sources/$sourceId/edit',
+    getParentRoute: () => AuthRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -87,7 +106,10 @@ export interface FileRoutesByFullPath {
   '/auth/register': typeof AuthRegisterRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
-  '/app': typeof AuthAppIndexRoute
+  '/app/': typeof AuthAppIndexRoute
+  '/app/sources/new': typeof AuthAppSourcesNewRoute
+  '/app/sources/': typeof AuthAppSourcesIndexRoute
+  '/app/sources/$sourceId/edit': typeof AuthAppSourcesSourceIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -100,6 +122,9 @@ export interface FileRoutesByTo {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
   '/app': typeof AuthAppIndexRoute
+  '/app/sources/new': typeof AuthAppSourcesNewRoute
+  '/app/sources': typeof AuthAppSourcesIndexRoute
+  '/app/sources/$sourceId/edit': typeof AuthAppSourcesSourceIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -114,6 +139,9 @@ export interface FileRoutesById {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
   '/_auth/app/': typeof AuthAppIndexRoute
+  '/_auth/app/sources/new': typeof AuthAppSourcesNewRoute
+  '/_auth/app/sources/': typeof AuthAppSourcesIndexRoute
+  '/_auth/app/sources/$sourceId/edit': typeof AuthAppSourcesSourceIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -127,7 +155,10 @@ export interface FileRouteTypes {
     | '/auth/register'
     | '/api/auth/$'
     | '/api/user/has-credential-account'
-    | '/app'
+    | '/app/'
+    | '/app/sources/new'
+    | '/app/sources/'
+    | '/app/sources/$sourceId/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -140,6 +171,9 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/api/user/has-credential-account'
     | '/app'
+    | '/app/sources/new'
+    | '/app/sources'
+    | '/app/sources/$sourceId/edit'
   id:
     | '__root__'
     | '/'
@@ -153,6 +187,9 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/api/user/has-credential-account'
     | '/_auth/app/'
+    | '/_auth/app/sources/new'
+    | '/_auth/app/sources/'
+    | '/_auth/app/sources/$sourceId/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -201,7 +238,7 @@ declare module '@tanstack/react-router' {
     '/_auth': {
       id: '/_auth'
       path: ''
-      fullPath: ''
+      fullPath: '/'
       preLoaderRoute: typeof AuthRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -229,7 +266,7 @@ declare module '@tanstack/react-router' {
     '/_auth/app/': {
       id: '/_auth/app/'
       path: '/app'
-      fullPath: '/app'
+      fullPath: '/app/'
       preLoaderRoute: typeof AuthAppIndexRouteImport
       parentRoute: typeof AuthRouteRoute
     }
@@ -247,15 +284,42 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_auth/app/sources/': {
+      id: '/_auth/app/sources/'
+      path: '/app/sources'
+      fullPath: '/app/sources/'
+      preLoaderRoute: typeof AuthAppSourcesIndexRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/_auth/app/sources/new': {
+      id: '/_auth/app/sources/new'
+      path: '/app/sources/new'
+      fullPath: '/app/sources/new'
+      preLoaderRoute: typeof AuthAppSourcesNewRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/_auth/app/sources/$sourceId/edit': {
+      id: '/_auth/app/sources/$sourceId/edit'
+      path: '/app/sources/$sourceId/edit'
+      fullPath: '/app/sources/$sourceId/edit'
+      preLoaderRoute: typeof AuthAppSourcesSourceIdEditRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
   }
 }
 
 interface AuthRouteRouteChildren {
   AuthAppIndexRoute: typeof AuthAppIndexRoute
+  AuthAppSourcesNewRoute: typeof AuthAppSourcesNewRoute
+  AuthAppSourcesIndexRoute: typeof AuthAppSourcesIndexRoute
+  AuthAppSourcesSourceIdEditRoute: typeof AuthAppSourcesSourceIdEditRoute
 }
 
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
   AuthAppIndexRoute: AuthAppIndexRoute,
+  AuthAppSourcesNewRoute: AuthAppSourcesNewRoute,
+  AuthAppSourcesIndexRoute: AuthAppSourcesIndexRoute,
+  AuthAppSourcesSourceIdEditRoute: AuthAppSourcesSourceIdEditRoute,
 }
 
 const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
@@ -277,13 +341,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.tsx'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
