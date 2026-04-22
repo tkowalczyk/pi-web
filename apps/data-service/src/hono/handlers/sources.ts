@@ -3,12 +3,13 @@ import {
 	createNotificationSource,
 	updateNotificationSource,
 	deleteNotificationSource,
+	getNotificationSourceById,
 } from "@repo/data-ops/queries/notification-sources";
 import { SourceFormInput } from "@repo/data-ops/zod-schema/source-form-schema";
 import { UpdateNotificationSourceInput } from "@repo/data-ops/zod-schema/notification-source";
 import { createSourceWithTopic, type SourceLifecycleDeps } from "@/domain/source-lifecycle";
 import { TelegramChannel } from "@/channels/telegram";
-import type { SchedulerDO } from "@/scheduler/scheduler-do";
+import { renderSourceToPayload } from "@/domain/notification";
 
 export const sourcesApp = new Hono<{ Bindings: Env }>();
 
@@ -70,8 +71,33 @@ sourcesApp.delete("/:id", async (c) => {
 
 sourcesApp.post("/:id/trigger", async (c) => {
 	const id = Number(c.req.param("id"));
-	const doId = c.env.SCHEDULER.idFromName(String(id));
-	const stub = c.env.SCHEDULER.get(doId) as DurableObjectStub<SchedulerDO>;
-	const result = await stub.triggerNow();
+	const botToken = c.env?.TELEGRAM_BOT_TOKEN;
+	const chatId = c.env?.TELEGRAM_GROUP_CHAT_ID;
+
+	if (!botToken || !chatId) {
+		return c.json({ success: false, error: "Telegram not configured" }, 500);
+	}
+
+	const source = await getNotificationSourceById(id);
+	if (!source) {
+		return c.json({ success: false, error: "Source not found" }, 404);
+	}
+
+	const payload = renderSourceToPayload(
+		{ id: source.id, name: source.name, type: source.type, config: source.config as Record<string, unknown> },
+		{
+			channelId: 0,
+			recipient: chatId,
+			scheduledDate: new Date().toISOString().slice(0, 10),
+			notificationType: "same_day",
+		},
+	);
+
+	if (source.topicId) {
+		payload.metadata = { message_thread_id: source.topicId };
+	}
+
+	const channel = new TelegramChannel({ botToken });
+	const result = await channel.send(payload);
 	return c.json(result, result.success ? 200 : 500);
 });
