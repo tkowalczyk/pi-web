@@ -84,12 +84,12 @@ export const deleteMyNotificationSource = baseFunction
 export const triggerNotificationSource = baseFunction
 	.inputValidator((data) => z.object({ id: z.number() }).parse(data))
 	.handler(async (ctx) => {
-		const { env } = await import("cloudflare:workers");
-		const response = await (env as any).DATA_SERVICE.fetch(
-			new Request(`http://internal/worker/sources/${ctx.data.id}/trigger`, {
-				method: "POST",
-			}),
-		);
+		const { getRequest } = await import("@tanstack/react-start/server");
+		const req = getRequest();
+		const origin = new URL(req.url).origin;
+		const response = await fetch(`${origin}/worker/sources/${ctx.data.id}/trigger`, {
+			method: "POST",
+		});
 		const result = await response.json();
 		return result as { success: boolean; error?: string; messageId?: string };
 	});
