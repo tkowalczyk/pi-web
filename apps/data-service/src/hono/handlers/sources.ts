@@ -8,6 +8,7 @@ import { SourceFormInput } from "@repo/data-ops/zod-schema/source-form-schema";
 import { UpdateNotificationSourceInput } from "@repo/data-ops/zod-schema/notification-source";
 import { createSourceWithTopic, type SourceLifecycleDeps } from "@/domain/source-lifecycle";
 import { TelegramChannel } from "@/channels/telegram";
+import type { SchedulerDO } from "@/scheduler/scheduler-do";
 
 export const sourcesApp = new Hono<{ Bindings: Env }>();
 
@@ -65,4 +66,12 @@ sourcesApp.delete("/:id", async (c) => {
 	const id = Number(c.req.param("id"));
 	await deleteNotificationSource(id);
 	return c.body(null, 204);
+});
+
+sourcesApp.post("/:id/trigger", async (c) => {
+	const id = Number(c.req.param("id"));
+	const doId = c.env.SCHEDULER.idFromName(String(id));
+	const stub = c.env.SCHEDULER.get(doId) as DurableObjectStub<SchedulerDO>;
+	const result = await stub.triggerNow();
+	return c.json(result, result.success ? 200 : 500);
 });

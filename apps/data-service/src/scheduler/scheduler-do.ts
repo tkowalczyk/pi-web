@@ -6,6 +6,7 @@ import {
 	renderSourceToPayload,
 } from "@/domain/notification";
 import type { DeliveryResult, NotificationChannel } from "@repo/data-ops/channels/port";
+import { TelegramChannel } from "@/channels/telegram";
 
 export type SchedulerStatus = "idle" | "scheduled";
 
@@ -24,6 +25,16 @@ export interface DeliveryTarget {
 
 export class SchedulerDO extends DurableObject<Env> {
 	channel: NotificationChannel | null = null;
+
+	private getChannel(): NotificationChannel | null {
+		if (this.channel) return this.channel;
+		const botToken = this.env?.TELEGRAM_BOT_TOKEN;
+		if (botToken) {
+			this.channel = new TelegramChannel({ botToken });
+			return this.channel;
+		}
+		return null;
+	}
 
 	async getState(): Promise<SchedulerState> {
 		const sourceId = await this.ctx.storage.get<number>("sourceId");
@@ -65,8 +76,9 @@ export class SchedulerDO extends DurableObject<Env> {
 	async triggerNow(): Promise<DeliveryResult> {
 		const sourceData = await this.ctx.storage.get<SourceData>("sourceData");
 		const deliveryTarget = await this.ctx.storage.get<DeliveryTarget>("deliveryTarget");
+		const channel = this.getChannel();
 
-		if (!sourceData || !deliveryTarget || !this.channel) {
+		if (!sourceData || !deliveryTarget || !channel) {
 			return {
 				success: false,
 				error: "Missing source data, delivery target, or channel",
@@ -81,7 +93,7 @@ export class SchedulerDO extends DurableObject<Env> {
 			notificationType: "same_day",
 		});
 
-		const result = await this.channel.send(payload);
+		const result = await channel.send(payload);
 
 		await this.ctx.storage.put("lastRunSuccess", result.success);
 		await this.ctx.storage.put("lastRunAt", Date.now());
@@ -94,8 +106,9 @@ export class SchedulerDO extends DurableObject<Env> {
 		const deliveryTarget = await this.ctx.storage.get<DeliveryTarget>("deliveryTarget");
 		const scheduleConfig = await this.ctx.storage.get<ScheduleConfig>("scheduleConfig");
 		const currentAlarmAt = await this.ctx.storage.get<number>("nextAlarmAt");
+		const channel = this.getChannel();
 
-		if (!sourceData || !deliveryTarget || !this.channel) {
+		if (!sourceData || !deliveryTarget || !channel) {
 			await this.ctx.storage.put("lastRunSuccess", false);
 			await this.ctx.storage.put("lastRunAt", Date.now());
 			return;
@@ -110,7 +123,7 @@ export class SchedulerDO extends DurableObject<Env> {
 			notificationType: "same_day",
 		});
 
-		const result = await this.channel.send(payload);
+		const result = await channel.send(payload);
 
 		await this.ctx.storage.put("lastRunSuccess", result.success);
 		await this.ctx.storage.put("lastRunAt", Date.now());
