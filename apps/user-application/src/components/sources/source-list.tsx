@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Plus, Pencil, Play } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { DeleteSourceDialog } from "./delete-source-dialog";
-import { triggerNotificationSource } from "@/core/functions/notification-sources";
 
 const TYPE_ICONS: Record<string, string> = {
 	waste_collection: "🗑",
@@ -35,7 +34,11 @@ function TriggerButton({ sourceId }: { sourceId: number }) {
 	const { t } = useTranslation();
 	const queryClient = useQueryClient();
 	const mutation = useMutation({
-		mutationFn: () => triggerNotificationSource({ data: { id: sourceId } }),
+		mutationFn: async () => {
+			const res = await fetch(`/worker/sources/${sourceId}/trigger`, { method: "POST" });
+			if (!res.ok) throw new Error(await res.text());
+			return res.json();
+		},
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["notification-sources"] });
 		},
