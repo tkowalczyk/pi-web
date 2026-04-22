@@ -14,7 +14,6 @@ import {
 	getAlertBeforeHoursDefault,
 } from "@repo/data-ops/zod-schema/source-form-schema";
 import { UpdateNotificationSourceInput } from "@repo/data-ops/zod-schema/notification-source";
-import { getRequest } from "@tanstack/react-start/server";
 import { z } from "zod";
 
 const baseFunction = createServerFn().middleware([protectedFunctionMiddleware]);
@@ -85,10 +84,13 @@ export const deleteMyNotificationSource = baseFunction
 export const triggerNotificationSource = baseFunction
 	.inputValidator((data) => z.object({ id: z.number() }).parse(data))
 	.handler(async (ctx) => {
-		const origin = new URL(getRequest().url).origin;
-		const response = await fetch(`${origin}/worker/sources/${ctx.data.id}/trigger`, {
-			method: "POST",
-		});
+		const dataService = (globalThis as any).__DATA_SERVICE as Fetcher;
+		if (!dataService) throw new Error("DATA_SERVICE binding not available");
+		const response = await dataService.fetch(
+			new Request(`http://internal/worker/sources/${ctx.data.id}/trigger`, {
+				method: "POST",
+			}),
+		);
 		const result = await response.json();
 		return result as { success: boolean; error?: string; messageId?: string };
 	});
