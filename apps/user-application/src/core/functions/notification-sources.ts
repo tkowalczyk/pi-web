@@ -14,7 +14,6 @@ import {
 	getAlertBeforeHoursDefault,
 } from "@repo/data-ops/zod-schema/source-form-schema";
 import { UpdateNotificationSourceInput } from "@repo/data-ops/zod-schema/notification-source";
-import { env } from "cloudflare:workers";
 import { z } from "zod";
 
 const baseFunction = createServerFn().middleware([protectedFunctionMiddleware]);
@@ -85,7 +84,8 @@ export const deleteMyNotificationSource = baseFunction
 export const triggerNotificationSource = baseFunction
 	.inputValidator((data) => z.object({ id: z.number() }).parse(data))
 	.handler(async (ctx) => {
-		const response = await env.DATA_SERVICE.fetch(
+		const { env } = await import("cloudflare:workers");
+		const response = await (env as any).DATA_SERVICE.fetch(
 			new Request(`http://internal/worker/sources/${ctx.data.id}/trigger`, {
 				method: "POST",
 			}),
