@@ -9,8 +9,6 @@ console.log("[server-entry]: using custom server entry in 'src/server.ts'");
 
 export default {
 	fetch: async (request: Request) => {
-		(globalThis as any).__DATA_SERVICE = env.DATA_SERVICE;
-
 		const db = initDatabase({
 			host: env.DATABASE_HOST,
 			username: env.DATABASE_USERNAME,

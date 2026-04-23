@@ -16,11 +16,12 @@
 		"@types/node": "^22.15.19",
 		"typescript": "^5.5.2",
 		"vitest": "^4.1.0",
-		"wrangler": "^4.84.1"
+		"wrangler": "^4.61.1"
 	},
 	"dependencies": {
 		"@repo/data-ops": "workspace:*",
 		"hono": "^4.8.3",
+
 		"zod": "^3.25.67"
 	}
 }

@@ -1,12 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Plus, Pencil, Play } from "lucide-react";
+import { Plus, Pencil } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { DeleteSourceDialog } from "./delete-source-dialog";
-import { triggerNotificationSource } from "@/core/functions/notification-sources";
 
 const TYPE_ICONS: Record<string, string> = {
 	waste_collection: "🗑",
@@ -29,29 +27,6 @@ interface SourceItem {
 		error: string | null;
 		createdAt: Date;
 	} | null;
-}
-
-function TriggerButton({ sourceId }: { sourceId: number }) {
-	const { t } = useTranslation();
-	const queryClient = useQueryClient();
-	const mutation = useMutation({
-		mutationFn: () => triggerNotificationSource({ data: { id: sourceId } }),
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["notification-sources"] });
-		},
-	});
-
-	return (
-		<Button
-			variant="ghost"
-			size="sm"
-			onClick={() => mutation.mutate()}
-			disabled={mutation.isPending}
-			title={t("sources.triggerNow", "Wyślij teraz")}
-		>
-			<Play className="h-4 w-4" />
-		</Button>
-	);
 }
 
 export function SourceList({ sources }: { sources: SourceItem[] }) {
@@ -130,7 +105,6 @@ export function SourceList({ sources }: { sources: SourceItem[] }) {
 										)}
 									</div>
 									<div className="flex gap-2">
-										<TriggerButton sourceId={source.id} />
 										<Button variant="ghost" size="sm" asChild>
 											<Link
 												to="/app/sources/$sourceId/edit"

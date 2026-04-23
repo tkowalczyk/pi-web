@@ -47,7 +47,7 @@ export class TelegramChannel implements NotificationChannel {
 
 	constructor(config: TelegramChannelConfig) {
 		this.botToken = config.botToken;
-		this.fetchFn = config.fetchFn ?? globalThis.fetch.bind(globalThis);
+		this.fetchFn = config.fetchFn ?? globalThis.fetch;
 		this.logger = config.logger;
 	}
 
