@@ -10,6 +10,7 @@ import { UpdateNotificationSourceInput } from "@repo/data-ops/zod-schema/notific
 import { createSourceWithTopic, type SourceLifecycleDeps } from "@/domain/source-lifecycle";
 import { TelegramChannel } from "@/channels/telegram";
 import { renderSourceToPayload } from "@/domain/notification";
+import { getTopicMetadata } from "@/domain/source-topic";
 
 export const sourcesApp = new Hono<{ Bindings: Env }>();
 
@@ -28,7 +29,7 @@ sourcesApp.post("/", async (c) => {
 	const botToken = c.env?.TELEGRAM_BOT_TOKEN;
 
 	if (chatId && botToken) {
-		const channel = new TelegramChannel({ botToken });
+		const channel = new TelegramChannel({ botToken, fetchFn: fetch.bind(globalThis) });
 		const deps: SourceLifecycleDeps = {
 			insertSource: (input) => createNotificationSource({ ...input, alertBeforeHours }),
 			createForumTopic: (cId, n, emoji) => channel.createForumTopic(cId, n, emoji),
@@ -65,6 +66,18 @@ sourcesApp.put("/:id", async (c) => {
 
 sourcesApp.delete("/:id", async (c) => {
 	const id = Number(c.req.param("id"));
+	const source = await getNotificationSourceById(id);
+	if (!source) {
+		return c.json({ error: "Source not found" }, 404);
+	}
+
+	const botToken = c.env?.TELEGRAM_BOT_TOKEN;
+	const chatId = c.env?.TELEGRAM_GROUP_CHAT_ID;
+	if (botToken && chatId && source.topicId) {
+		const channel = new TelegramChannel({ botToken, fetchFn: fetch.bind(globalThis) });
+		await channel.deleteForumTopic(chatId, source.topicId);
+	}
+
 	await deleteNotificationSource(id);
 	return c.body(null, 204);
 });
@@ -83,26 +96,47 @@ sourcesApp.post("/:id/trigger", async (c) => {
 		return c.json({ success: false, error: "Source not found" }, 404);
 	}
 
+	// For test triggers, find the nearest future date with scheduled waste
+	let scheduledDate = new Date().toISOString().slice(0, 10);
+	const config = source.config as Record<string, unknown>;
+	if (source.type === "waste_collection" && Array.isArray(config.schedule)) {
+		const today = scheduledDate;
+		const futureDates = (config.schedule as Array<{ dates: string[] }>)
+			.flatMap((e) => e.dates)
+			.filter((d) => d >= today)
+			.sort();
+		if (futureDates.length > 0) {
+			scheduledDate = futureDates[0]!;
+		}
+	}
+
 	const payload = renderSourceToPayload(
 		{
 			id: source.id,
 			name: source.name,
 			type: source.type,
-			config: source.config as Record<string, unknown>,
+			config,
 		},
 		{
 			channelId: 0,
 			recipient: chatId,
-			scheduledDate: new Date().toISOString().slice(0, 10),
-			notificationType: "same_day",
+			scheduledDate,
+			notificationType: "day_before",
 		},
 	);
 
-	if (source.topicId) {
-		payload.metadata = { message_thread_id: source.topicId };
+	const channel = new TelegramChannel({ botToken, fetchFn: fetch.bind(globalThis) });
+
+	// Auto-create topic if missing (backfill for sources created before topic support)
+	let topicId = source.topicId;
+	if (!topicId) {
+		const meta = getTopicMetadata(source.type, source.name);
+		topicId = await channel.createForumTopic(chatId, meta.name, meta.iconCustomEmojiId);
+		await updateNotificationSource(source.id, { topicId });
 	}
 
-	const channel = new TelegramChannel({ botToken, fetchFn: fetch.bind(globalThis) });
+	payload.metadata = { message_thread_id: topicId };
+
 	const result = await channel.send(payload);
 	return c.json(result, result.success ? 200 : 500);
 });

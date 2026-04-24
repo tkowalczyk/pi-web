@@ -7,6 +7,12 @@
 		"enabled": true
 	},
 	"main": "./src/server.ts",
+	"services": [
+		{
+			"binding": "DATA_SERVICE",
+			"service": "pi-web-data-service-dev"
+		}
+	],
 	"env": {
 		/**
 		 * Local / Development environment

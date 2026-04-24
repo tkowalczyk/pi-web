@@ -9,14 +9,10 @@
 import { sql } from "drizzle-orm";
 import { initDatabase, getDb } from "../src/database/setup";
 
-const env = process.env.ENV;
-if (!env) {
-	console.error("ENV not set. Use pnpm clear:{env} scripts.");
-	process.exit(1);
-}
+const host = process.env.DATABASE_HOST!;
 
 initDatabase({
-	host: process.env.DATABASE_HOST!,
+	host,
 	username: process.env.DATABASE_USERNAME!,
 	password: process.env.DATABASE_PASSWORD!,
 });
@@ -40,7 +36,7 @@ async function main() {
 		"auth_user",
 	];
 
-	console.log(`Clearing all data from ${env} database...`);
+	console.log(`Clearing all data (${host})...`);
 
 	for (const table of tables) {
 		try {
@@ -71,7 +67,7 @@ async function main() {
 		}
 	}
 
-	console.log(`\n✓ All data cleared from ${env} database. Sequences reset.`);
+	console.log(`\n✓ All data cleared. Sequences reset.`);
 }
 
 main()

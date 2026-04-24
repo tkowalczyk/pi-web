@@ -170,6 +170,20 @@ export class TelegramChannel implements NotificationChannel {
 		return data.result.message_thread_id;
 	}
 
+	async deleteForumTopic(chatId: string, messageThreadId: number): Promise<void> {
+		const url = `https://api.telegram.org/bot${this.botToken}/deleteForumTopic`;
+		const response = await this.fetchFn(url, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ chat_id: chatId, message_thread_id: messageThreadId }),
+		});
+
+		if (!response.ok) {
+			const text = await response.text();
+			throw new Error(`deleteForumTopic failed: HTTP ${response.status}: ${text}`);
+		}
+	}
+
 	private delay(ms: number): Promise<void> {
 		return new Promise((resolve) => setTimeout(resolve, ms));
 	}

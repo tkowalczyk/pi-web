@@ -50,6 +50,26 @@ export const createMyNotificationSource = baseFunction
 		const { name, type, config, alertBeforeHours } = ctx.data;
 		const effectiveAlertHours = alertBeforeHours ?? getAlertBeforeHoursDefault(type);
 
+		const dataService = ctx.context.dataService;
+		if (dataService) {
+			const response = await dataService.fetch(
+				new Request("https://internal/worker/sources", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						householdId: household.id,
+						name,
+						type,
+						config,
+						alertBeforeHours: effectiveAlertHours,
+					}),
+				}),
+			);
+			const source = (await response.json()) as Record<string, any>;
+			return source;
+		}
+
+		// Fallback: no data-service binding — insert directly (no topic created)
 		const source = await createNotificationSource({
 			householdId: household.id,
 			name,
@@ -57,7 +77,6 @@ export const createMyNotificationSource = baseFunction
 			config,
 			alertBeforeHours: effectiveAlertHours,
 		});
-
 		return { ...source, config: source.config as Record<string, any> };
 	});
 
@@ -77,6 +96,17 @@ export const updateMyNotificationSource = baseFunction
 export const deleteMyNotificationSource = baseFunction
 	.inputValidator((data) => z.object({ id: z.number() }).parse(data))
 	.handler(async (ctx) => {
+		const dataService = ctx.context.dataService;
+		if (dataService) {
+			await dataService.fetch(
+				new Request(`https://internal/worker/sources/${ctx.data.id}`, {
+					method: "DELETE",
+				}),
+			);
+			return { success: true };
+		}
+
+		// Fallback: no data-service binding — delete directly (no topic cleanup)
 		await deleteNotificationSource(ctx.data.id);
 		return { success: true };
 	});

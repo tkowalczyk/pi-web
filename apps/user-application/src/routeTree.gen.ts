@@ -124,12 +124,12 @@ export interface FileRoutesByFullPath {
   '/auth/register': typeof AuthRegisterRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
-  '/app': typeof AuthAppIndexRoute
+  '/app/': typeof AuthAppIndexRoute
   '/app/sources/new': typeof AuthAppSourcesNewRoute
-  '/app/deliveries': typeof AuthAppDeliveriesIndexRoute
-  '/app/members': typeof AuthAppMembersIndexRoute
-  '/app/settings': typeof AuthAppSettingsIndexRoute
-  '/app/sources': typeof AuthAppSourcesIndexRoute
+  '/app/deliveries/': typeof AuthAppDeliveriesIndexRoute
+  '/app/members/': typeof AuthAppMembersIndexRoute
+  '/app/settings/': typeof AuthAppSettingsIndexRoute
+  '/app/sources/': typeof AuthAppSourcesIndexRoute
   '/app/sources/$sourceId/edit': typeof AuthAppSourcesSourceIdEditRoute
 }
 export interface FileRoutesByTo {
@@ -182,12 +182,12 @@ export interface FileRouteTypes {
     | '/auth/register'
     | '/api/auth/$'
     | '/api/user/has-credential-account'
-    | '/app'
+    | '/app/'
     | '/app/sources/new'
-    | '/app/deliveries'
-    | '/app/members'
-    | '/app/settings'
-    | '/app/sources'
+    | '/app/deliveries/'
+    | '/app/members/'
+    | '/app/settings/'
+    | '/app/sources/'
     | '/app/sources/$sourceId/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -274,7 +274,7 @@ declare module '@tanstack/react-router' {
     '/_auth': {
       id: '/_auth'
       path: ''
-      fullPath: ''
+      fullPath: '/'
       preLoaderRoute: typeof AuthRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -302,7 +302,7 @@ declare module '@tanstack/react-router' {
     '/_auth/app/': {
       id: '/_auth/app/'
       path: '/app'
-      fullPath: '/app'
+      fullPath: '/app/'
       preLoaderRoute: typeof AuthAppIndexRouteImport
       parentRoute: typeof AuthRouteRoute
     }
@@ -323,28 +323,28 @@ declare module '@tanstack/react-router' {
     '/_auth/app/sources/': {
       id: '/_auth/app/sources/'
       path: '/app/sources'
-      fullPath: '/app/sources'
+      fullPath: '/app/sources/'
       preLoaderRoute: typeof AuthAppSourcesIndexRouteImport
       parentRoute: typeof AuthRouteRoute
     }
     '/_auth/app/settings/': {
       id: '/_auth/app/settings/'
       path: '/app/settings'
-      fullPath: '/app/settings'
+      fullPath: '/app/settings/'
       preLoaderRoute: typeof AuthAppSettingsIndexRouteImport
       parentRoute: typeof AuthRouteRoute
     }
     '/_auth/app/members/': {
       id: '/_auth/app/members/'
       path: '/app/members'
-      fullPath: '/app/members'
+      fullPath: '/app/members/'
       preLoaderRoute: typeof AuthAppMembersIndexRouteImport
       parentRoute: typeof AuthRouteRoute
     }
     '/_auth/app/deliveries/': {
       id: '/_auth/app/deliveries/'
       path: '/app/deliveries'
-      fullPath: '/app/deliveries'
+      fullPath: '/app/deliveries/'
       preLoaderRoute: typeof AuthAppDeliveriesIndexRouteImport
       parentRoute: typeof AuthRouteRoute
     }
