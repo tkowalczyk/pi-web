@@ -80,3 +80,17 @@ export const deleteMyNotificationSource = baseFunction
 		await deleteNotificationSource(ctx.data.id);
 		return { success: true };
 	});
+
+export const triggerNotificationSource = baseFunction
+	.inputValidator((data) => z.object({ id: z.number() }).parse(data))
+	.handler(async (ctx) => {
+		const dataService = ctx.context.dataService;
+		if (!dataService) throw new Error("DATA_SERVICE binding not available");
+		const response = await dataService.fetch(
+			new Request(`https://internal/worker/sources/${ctx.data.id}/trigger`, {
+				method: "POST",
+			}),
+		);
+		const result = await response.json();
+		return result as { success: boolean; error?: string; messageId?: string };
+	});

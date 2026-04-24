@@ -31,6 +31,7 @@ export default {
 		return handler.fetch(request, {
 			context: {
 				fromFetch: true,
+				dataService: env.DATA_SERVICE,
 			},
 		});
 	},

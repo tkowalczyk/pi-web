@@ -5,6 +5,7 @@ declare module "@tanstack/react-start" {
 		server: {
 			requestContext: {
 				fromFetch: boolean;
+				dataService?: Fetcher;
 			};
 		};
 	}
