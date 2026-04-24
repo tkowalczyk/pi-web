@@ -136,16 +136,29 @@ Env files:
 - `packages/data-ops/.env.prod` - Production
 
 ### Deployment
-Both apps use Cloudflare Workers:
+Both apps use Cloudflare Workers. **Deploys are manual** — run from local machine.
 - Config: `wrangler.jsonc` per app
-- Secrets: Via `wrangler secret put`
+- Secrets: Via `wrangler secret put` or `./sync-secrets.sh {env}`
 - Envs: Managed via `--env` flag (stage/prod)
 
-**CI/CD handles deploys automatically — do NOT deploy manually:**
-- **Stage:** Auto-deploys on merge to `main` via `.github/workflows/deploy-stage.yml`
-- **Prod:** Manual trigger only via `.github/workflows/deploy-prod.yml` (requires reviewer approval)
-- Both workflows run: `build data-ops → generate migrations → apply migrations → deploy apps`
-- DB connection string for migrations is stored as GitHub environment secret `DATABASE_URL` per environment (`stage`, `production`)
+**Manual deploy flow:**
+```bash
+# 1. Build shared package
+pnpm build:data-ops
+
+# 2. Migrations (from packages/data-ops/)
+pnpm drizzle:{env}:generate
+pnpm drizzle:{env}:migrate
+
+# 3. Deploy apps (from root)
+pnpm deploy:stage:data-service       # or deploy:prod:data-service
+pnpm deploy:stage:user-application   # or deploy:prod:user-application
+
+# 4. Sync secrets if changed (from each app dir)
+./sync-secrets.sh {env}
+```
+
+**CI** (`.github/workflows/ci.yml`) runs lint, tests, and typecheck on PRs and pushes to main — but does NOT deploy.
 
 ## Dev Notes
 

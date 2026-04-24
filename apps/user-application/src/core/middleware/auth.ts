@@ -21,7 +21,6 @@ async function getAuthContext() {
 export const protectedFunctionMiddleware = createMiddleware({
 	type: "function",
 }).server(async ({ next, context: reqContext }) => {
-	console.log("[auth-mw] reqContext keys:", Object.keys(reqContext), "dataService truthy:", !!reqContext.dataService);
 	const context = await getAuthContext();
 	return next({ context: { ...context, dataService: reqContext.dataService } });
 });

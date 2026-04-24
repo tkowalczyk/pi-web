@@ -81,10 +81,7 @@ export async function getRecentFailureSources(since: Date): Promise<string[]> {
 	const rows = await db
 		.selectDistinct({ name: notificationSources.name })
 		.from(deliveryFailures)
-		.innerJoin(
-			notificationSources,
-			eq(deliveryFailures.sourceId, notificationSources.id),
-		)
+		.innerJoin(notificationSources, eq(deliveryFailures.sourceId, notificationSources.id))
 		.where(gte(deliveryFailures.createdAt, since));
 	return rows.map((r) => r.name);
 }
@@ -115,10 +112,7 @@ export async function getDeliveryLogFiltered(opts: {
 			createdAt: deliveryLog.createdAt,
 		})
 		.from(deliveryLog)
-		.innerJoin(
-			notificationSources,
-			eq(deliveryLog.sourceId, notificationSources.id),
-		)
+		.innerJoin(notificationSources, eq(deliveryLog.sourceId, notificationSources.id))
 		.where(conditions.length > 0 ? and(...conditions) : undefined)
 		.orderBy(desc(deliveryLog.createdAt))
 		.limit(opts.limit ?? 100);

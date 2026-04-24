@@ -40,7 +40,10 @@
 		"drizzle:stage:pull": "dotenvx run -f .env.stage -- drizzle-kit pull --config drizzle-stage.config.ts",
 		"drizzle:prod:generate": "dotenvx run -f .env.prod -- drizzle-kit generate --config drizzle-prod.config.ts",
 		"drizzle:prod:migrate": "dotenvx run -f .env.prod -- drizzle-kit migrate --config drizzle-prod.config.ts",
-		"drizzle:prod:pull": "dotenvx run -f .env.prod -- drizzle-kit pull --config drizzle-prod.config.ts"
+		"drizzle:prod:pull": "dotenvx run -f .env.prod -- drizzle-kit pull --config drizzle-prod.config.ts",
+		"clear:dev": "ENV=dev dotenvx run -f .env.dev -- tsx scripts/clear-data.ts",
+		"clear:stage": "ENV=stage dotenvx run -f .env.stage -- tsx scripts/clear-data.ts",
+		"clear:prod": "ENV=prod dotenvx run -f .env.prod -- tsx scripts/clear-data.ts"
 	},
 	"keywords": [],
 	"author": "",

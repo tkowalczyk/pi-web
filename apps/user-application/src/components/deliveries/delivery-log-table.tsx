@@ -87,11 +87,19 @@ export function DeliveryLogTable({
 					<table className="w-full text-sm">
 						<thead>
 							<tr className="border-b bg-muted/50">
-								<th className="px-4 py-3 text-left font-medium">{t("deliveries.source", "Źródło")}</th>
-								<th className="px-4 py-3 text-left font-medium">{t("deliveries.channel", "Kanał")}</th>
-								<th className="px-4 py-3 text-left font-medium">{t("deliveries.status", "Status")}</th>
+								<th className="px-4 py-3 text-left font-medium">
+									{t("deliveries.source", "Źródło")}
+								</th>
+								<th className="px-4 py-3 text-left font-medium">
+									{t("deliveries.channel", "Kanał")}
+								</th>
+								<th className="px-4 py-3 text-left font-medium">
+									{t("deliveries.status", "Status")}
+								</th>
 								<th className="px-4 py-3 text-left font-medium">{t("deliveries.error", "Błąd")}</th>
-								<th className="px-4 py-3 text-right font-medium">{t("deliveries.retries", "Ponowienia")}</th>
+								<th className="px-4 py-3 text-right font-medium">
+									{t("deliveries.retries", "Ponowienia")}
+								</th>
 								<th className="px-4 py-3 text-right font-medium">{t("deliveries.time", "Czas")}</th>
 							</tr>
 						</thead>

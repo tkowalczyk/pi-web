@@ -84,7 +84,12 @@ sourcesApp.post("/:id/trigger", async (c) => {
 	}
 
 	const payload = renderSourceToPayload(
-		{ id: source.id, name: source.name, type: source.type, config: source.config as Record<string, unknown> },
+		{
+			id: source.id,
+			name: source.name,
+			type: source.type,
+			config: source.config as Record<string, unknown>,
+		},
 		{
 			channelId: 0,
 			recipient: chatId,
