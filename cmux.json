@@ -1,0 +1,251 @@
+{
+  "commands": [
+    {
+      "name": "Dev",
+      "description": "Full dev environment",
+      "keywords": ["dev", "fullstack", "all"],
+      "restart": "confirm",
+      "workspace": {
+        "name": "powiadomienia.info",
+        "cwd": ".",
+        "color": "#3b82f6",
+        "layout": {
+          "direction": "horizontal",
+          "split": 0.5,
+          "children": [
+            {
+              "direction": "vertical",
+              "split": 0.5,
+              "children": [
+                {
+                  "pane": {
+                    "surfaces": [
+                      {
+                        "type": "terminal",
+                        "name": "User App",
+                        "command": "pnpm dev:user-application",
+                        "focus": true
+                      }
+                    ]
+                  }
+                },
+                {
+                  "pane": {
+                    "surfaces": [
+                      {
+                        "type": "terminal",
+                        "name": "Data Service",
+                        "command": "pnpm dev:data-service"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "direction": "vertical",
+              "split": 0.6,
+              "children": [
+                {
+                  "pane": {
+                    "surfaces": [
+                      {
+                        "type": "browser",
+                        "name": "App",
+                        "url": "http://localhost:3000"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "pane": {
+                    "surfaces": [
+                      {
+                        "type": "terminal",
+                        "name": "Shell"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Frontend",
+      "description": "User application only",
+      "keywords": ["frontend", "ui", "tanstack"],
+      "restart": "confirm",
+      "workspace": {
+        "name": "pi-frontend",
+        "cwd": "./apps/user-application",
+        "color": "#10b981",
+        "layout": {
+          "direction": "horizontal",
+          "split": 0.5,
+          "children": [
+            {
+              "pane": {
+                "surfaces": [
+                  {
+                    "type": "terminal",
+                    "name": "Dev Server",
+                    "command": "pnpm dev",
+                    "focus": true
+                  }
+                ]
+              }
+            },
+            {
+              "direction": "vertical",
+              "split": 0.6,
+              "children": [
+                {
+                  "pane": {
+                    "surfaces": [
+                      {
+                        "type": "browser",
+                        "name": "App",
+                        "url": "http://localhost:3000"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "pane": {
+                    "surfaces": [
+                      {
+                        "type": "terminal",
+                        "name": "Shell"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Worker",
+      "description": "Data service worker only",
+      "keywords": ["backend", "worker", "cron", "sms"],
+      "restart": "confirm",
+      "workspace": {
+        "name": "pi-worker",
+        "cwd": "./apps/data-service",
+        "color": "#f59e0b",
+        "layout": {
+          "direction": "horizontal",
+          "split": 0.5,
+          "children": [
+            {
+              "pane": {
+                "surfaces": [
+                  {
+                    "type": "terminal",
+                    "name": "Worker Dev",
+                    "command": "pnpm dev",
+                    "focus": true
+                  }
+                ]
+              }
+            },
+            {
+              "pane": {
+                "surfaces": [
+                  {
+                    "type": "terminal",
+                    "name": "Shell"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "DB",
+      "description": "Database migrations and schema work",
+      "keywords": ["database", "drizzle", "migrations", "schema", "data-ops"],
+      "restart": "confirm",
+      "workspace": {
+        "name": "pi-db",
+        "cwd": "./packages/data-ops",
+        "color": "#8b5cf6",
+        "layout": {
+          "direction": "horizontal",
+          "split": 0.5,
+          "children": [
+            {
+              "pane": {
+                "surfaces": [
+                  {
+                    "type": "terminal",
+                    "name": "data-ops",
+                    "focus": true
+                  }
+                ]
+              }
+            },
+            {
+              "pane": {
+                "surfaces": [
+                  {
+                    "type": "terminal",
+                    "name": "Shell"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Build data-ops",
+      "description": "Rebuild shared DB package",
+      "keywords": ["build", "rebuild", "data-ops"],
+      "command": "pnpm build:data-ops"
+    },
+    {
+      "name": "Setup",
+      "description": "Install deps + build data-ops",
+      "keywords": ["install", "setup", "init"],
+      "command": "pnpm setup",
+      "confirm": true
+    },
+    {
+      "name": "Deploy Stage",
+      "description": "Deploy both apps to staging",
+      "keywords": ["deploy", "stage", "staging"],
+      "command": "pnpm deploy:stage:user-application && pnpm deploy:stage:data-service",
+      "confirm": true
+    },
+    {
+      "name": "Deploy Prod",
+      "description": "Deploy both apps to production",
+      "keywords": ["deploy", "prod", "production"],
+      "command": "pnpm deploy:prod:user-application && pnpm deploy:prod:data-service",
+      "confirm": true
+    },
+    {
+      "name": "Restart Dev Servers",
+      "description": "Kill and restart user-application + data-service",
+      "keywords": ["restart", "kill", "refresh"],
+      "command": "pkill -f 'dev:user-application' 2>/dev/null; pkill -f 'dev:data-service' 2>/dev/null; sleep 1; pnpm dev:user-application & pnpm dev:data-service &",
+      "confirm": true
+    },
+    {
+      "name": "Stop Dev Servers",
+      "description": "Kill user-application + data-service processes",
+      "keywords": ["stop", "kill", "quit"],
+      "command": "pkill -f 'dev:user-application' 2>/dev/null; pkill -f 'dev:data-service' 2>/dev/null; echo 'Dev servers stopped'",
+      "confirm": true
+    }
+  ]
+}

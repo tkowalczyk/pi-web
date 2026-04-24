@@ -28,6 +28,7 @@ export default {
 				provider: "pg",
 			},
 		});
+		console.log("[server-entry] DATA_SERVICE type:", typeof env.DATA_SERVICE, "truthy:", !!env.DATA_SERVICE);
 		return handler.fetch(request, {
 			context: {
 				fromFetch: true,

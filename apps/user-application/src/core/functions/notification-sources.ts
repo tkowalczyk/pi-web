@@ -84,6 +84,7 @@ export const deleteMyNotificationSource = baseFunction
 export const triggerNotificationSource = baseFunction
 	.inputValidator((data) => z.object({ id: z.number() }).parse(data))
 	.handler(async (ctx) => {
+		console.log("[trigger] ctx.context keys:", Object.keys(ctx.context), "dataService truthy:", !!ctx.context.dataService);
 		const dataService = ctx.context.dataService;
 		if (!dataService) throw new Error("DATA_SERVICE binding not available");
 		const response = await dataService.fetch(
