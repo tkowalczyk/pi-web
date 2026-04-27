@@ -1,257 +1,181 @@
 # data-ops
 
-Shared DB layer for all apps - single source of truth for schemas, queries, auth config, validation.
-
-## Purpose
-
-Central package consumed by user-application + data-service. Provides type-safe DB access, auth setup, validation schemas. Changes here require rebuild → apps auto-reload.
-
-## Stack
-
-- **Drizzle ORM** - Schema definition + migrations + queries
-- **Neon Postgres** - Serverless database (@neondatabase/serverless)
-- **Better Auth** - Auth schema (auto-generated from config)
-- **Zod** - API validation schemas
-- **TypeScript** - Compiled to `dist/`, exported as workspace package
-
-## Commands
-
-```bash
-pnpm build                     # Compile to dist/ (required after changes)
-
-# Migrations (from packages/data-ops/)
-pnpm drizzle:{env}:generate    # Generate migration for env (dev/stage/prod)
-pnpm drizzle:{env}:migrate     # Apply migration to env DB
-pnpm drizzle:{env}:pull        # Pull schema from env DB
-
-# Auth schema
-pnpm better-auth:generate      # Regenerate auth-schema.ts from config/auth.ts
-
-# Data seeding
-pnpm seed:{env}                # Seed DB with initial data
-pnpm import:{env}              # Clear + import from files
-
-# Waste schedule importer
-pnpm import:waste:{env} --file <path> [flags]
-                               # Imports raw .data-to-import/raw/YYYY_N.json
-                               # into a waste_collection notification_source.
-                               # See "Waste schedule importer" section below.
-
-# Debugging
-pnpm debug:notifications:{env} <email|userId>  # Debug why user not receiving notifications
-pnpm debug:schedules:{env} <cityId> <streetId> # Check waste schedules for city+street
-```
+Shared DB layer for both apps — single source of truth for schemas, queries, auth config, and zod validation. Compiled to `dist/` and consumed as a workspace package; changes here require a rebuild before apps see them.
 
 ## Structure
 
 ```
 src/
 ├── drizzle/
-│   ├── schema.ts          # App tables (cities, streets, addresses, etc)
-│   ├── auth-schema.ts     # Better Auth tables (auto-generated - don't edit)
-│   ├── relations.ts       # Drizzle relational queries config
-│   └── migrations/        # Per-env migration history (dev/stage/prod/)
+│   ├── schema.ts             # Domain tables: households, household_members, household_roles,
+│   │                         # notification_sources (inline JSONB config), channels,
+│   │                         # delivery_log, delivery_failures
+│   ├── auth-schema.ts        # Better Auth tables (auto-generated — don't edit)
+│   ├── relations.ts          # Drizzle relational queries config
+│   └── migrations/{env}/     # Per-env migration history (dev / stage / prod)
 ├── queries/
-│   ├── user.ts                # User profile queries
-│   ├── address.ts             # Address CRUD + city/street lookups
-│   ├── notifications.ts       # Notification scheduling queries
-│   ├── debug-notifications.ts # Debug query for notification issues
-│   └── waste.ts               # Waste schedule queries
+│   ├── household.ts          # Single-household get + timezone update
+│   ├── household-members.ts  # Member CRUD
+│   ├── notification-sources.ts  # Source CRUD + getActiveSourcesByHousehold
+│   ├── channels.ts           # Channel CRUD
+│   ├── delivery.ts           # Delivery log + failures (insert + recent queries)
+│   └── user.ts               # User profile
 ├── zod-schema/
-│   ├── user.ts           # User validation schemas
-│   └── stats.ts          # Coverage stats schemas
+│   ├── notification-source.ts        # Source row response + Create/Update inputs
+│   ├── waste-collection-config.ts    # Inline config validator for waste_collection
+│   ├── birthday-config.ts            # Inline config validator for birthday
+│   ├── source-form-schema.ts         # UI form schema + alertBeforeHours defaults per type
+│   ├── household.ts, household-member.ts, channel.ts, delivery.ts, user.ts
+│   └── (orphan: address.ts, phone.ts, stats.ts — pre-pivot, not imported anywhere current)
 ├── auth/
-│   ├── setup.ts          # Better Auth config (providers, plugins)
-│   └── server.ts         # Auth server instance
+│   ├── setup.ts              # Better Auth config (providers + plugins)
+│   ├── server.ts             # Auth server instance
+│   └── facade.ts             # Public auth helpers
+├── channels/                 # Channel port re-exports for adapters
 ├── database/
-│   ├── setup.ts                    # DB client (initDatabase, getDb)
-│   ├── debug-user-notifications.ts # Debug script for notification issues
-│   ├── debug-schedules.ts          # Debug script for waste schedules
-│   └── seed/                       # Seeding utilities
-└── lib/                   # Shared utilities
+│   └── setup.ts              # initDatabase() + getDb() + resetDatabase() (test injection)
+└── lib/
+    └── enum-translations.ts  # Shared label maps
 ```
 
-## Key Patterns
-
-### Schema Definition
-**Location:** [src/drizzle/schema.ts](src/drizzle/schema.ts)
-
-```typescript
-export const addresses = pgTable("addresses", {
-  id: serial("id").primaryKey(),
-  userId: text("user_id").references(() => auth_user.id, { onDelete: "cascade" }),
-  cityId: integer("city_id").references(() => cities.id),
-  // ...
-}, (table) => [
-  index("addresses_user_id_idx").on(table.userId),
-]);
+```
+scripts/
+├── seed.ts                   # Seed roles + household; idempotent
+├── clear-data.ts             # Truncate domain tables (preserves auth_user)
+└── import-waste-schedule/    # Modular importer (CLI entry: import-waste-schedule.ts)
+    ├── input-schema.ts, transform.ts, parse-args.ts, filename.ts
+    ├── importer.ts (DI orchestrator) + db-deps.ts (Drizzle adapter)
+    └── *.test.ts (unit + PGLite integration)
 ```
 
-### Query Pattern
-**Location:** [src/queries/*.ts](src/queries/)
+<important if="you need to run commands in packages/data-ops/">
 
-Queries handle DB connection internally via `getDb()`:
-
-```typescript
-import { getDb } from "@/database/setup";
-import { addresses } from "@/drizzle/schema";
-import { eq } from "drizzle-orm";
-
-export async function getUserAddresses(userId: string) {
-  const db = getDb();
-  return await db.select().from(addresses).where(eq(addresses.userId, userId));
-}
-```
-
-### Database Initialization
-**Location:** [src/database/setup.ts](src/database/setup.ts)
-
-Apps call `initDatabase()` once at startup, queries use `getDb()`:
-
-```typescript
-// In app (user-application or data-service)
-import { initDatabase } from "@repo/data-ops/database/setup";
-initDatabase({ host, username, password });
-
-// In queries (data-ops)
-import { getDb } from "@/database/setup";
-const db = getDb(); // Throws if not initialized
-```
-
-### Migration Workflow
-**Pattern:** Schema → Generate → Apply → Rebuild
+## Commands
 
 ```bash
-# 1. Edit src/drizzle/schema.ts
-# 2. Generate migration
-cd packages/data-ops
-pnpm drizzle:dev:generate  # Creates migration in src/drizzle/migrations/dev/
+pnpm build                    # Compile to dist/ (required after schema/query/zod changes)
 
-# 3. Apply migration
-pnpm drizzle:dev:migrate
+# Migrations (per env)
+pnpm drizzle:dev:generate     # Generate migration in src/drizzle/migrations/dev/
+pnpm drizzle:dev:migrate      # Apply to dev DB
+pnpm drizzle:dev:pull         # Pull schema from dev DB
+# Same with :stage and :prod
 
-# 4. Rebuild package (from root or packages/data-ops/)
-pnpm build
+# Auth schema regeneration (after editing config/auth.ts)
+pnpm better-auth:generate
 
-# 5. Apps auto-reload with new schema
+# Seeding & importing
+pnpm seed:{env}               # Idempotent: roles + household
+pnpm clear:{env}              # Truncate domain tables
+pnpm import:waste:{env}       # Waste schedule importer (see section below)
 ```
 
-## Exports
+</important>
 
-**Package exports** ([package.json](package.json)):
-```json
+<important if="you're writing a query">
+
+## Query pattern
+
+Queries live in [src/queries/](src/queries/) and use `getDb()` from [src/database/setup.ts](src/database/setup.ts) — the DB client is initialized once by the consuming app via `initDatabase({ host, username, password })` (or `initDatabase({ client })` in tests for PGLite injection). Reference: [src/queries/notification-sources.ts](src/queries/notification-sources.ts).
+
+</important>
+
+<important if="you're modifying the database schema">
+
+## Migration workflow
+
+1. Edit [src/drizzle/schema.ts](src/drizzle/schema.ts)
+2. `pnpm drizzle:dev:generate` — creates SQL in `src/drizzle/migrations/dev/`
+3. `pnpm drizzle:dev:migrate` — applies to local DB
+4. `pnpm build` — recompile dist/; apps auto-reload
+
+Each env keeps its own migration history (`migrations/dev/`, `migrations/stage/`, `migrations/prod/`) so dev experimentation doesn't collide with stage/prod state.
+
+</important>
+
+<important if="you're consuming data-ops from an app">
+
+## Package exports
+
+[`package.json`](package.json) exports:
+
+```jsonc
 {
-  "exports": {
-    "./auth/*": "./dist/auth/*.js",
-    "./database/*": "./dist/database/*.js",
-    "./queries/*": "./dist/queries/*.js",
-    "./zod-schema/*": "./dist/zod-schema/*.js",
-    "./lib/*": "./dist/lib/*.js"
-  }
+  "./auth/*":       "./dist/auth/*.js",
+  "./database/*":   "./dist/database/*.js",
+  "./queries/*":    "./dist/queries/*.js",
+  "./zod-schema/*": "./dist/zod-schema/*.js",
+  "./channels/*":   "./dist/channels/*.js",
+  "./lib/*":        "./dist/lib/*.js"
 }
 ```
 
-**Usage in apps:**
-```typescript
-import { getUserProfile } from "@repo/data-ops/queries/user";
-import { loginSchema } from "@repo/data-ops/zod-schema/auth";
-import { auth } from "@repo/data-ops/auth/server";
-```
+Apps import e.g. `@repo/data-ops/queries/notification-sources`, `@repo/data-ops/zod-schema/waste-collection-config`. Always rebuild data-ops after changes — apps consume the compiled `dist/`, not the source.
 
-## Environment Files
+</important>
 
-```
-.env.dev    # Local development DB
-.env.stage  # Staging DB
-.env.prod   # Production DB
-```
+<important if="you need to configure environment files">
 
-Required vars:
+## Environment files
+
+`packages/data-ops/.env.{dev,stage,prod}` (loaded by `dotenvx` for the migration / seed / import scripts):
+
 ```bash
 DATABASE_HOST=
 DATABASE_USERNAME=
 DATABASE_PASSWORD=
+TELEGRAM_BOT_TOKEN=        # optional locally; required for importer to create forum topics
+TELEGRAM_GROUP_CHAT_ID=    # optional locally; required for importer to create forum topics
 ```
 
-## Design Docs
+</important>
 
-- [001-user-profile-and-addresses.md](../../docs/001-user-profile-and-addresses.md) - Address + notification preferences schema
-- [002-cities-streets-database.md](../../docs/002-cities-streets-database.md) - Cities + streets schema
-- [004-db-feeder.md](../../docs/004-db-feeder.md) - Data import from files
-
-## Debug Scripts
-
-### debug:notifications
-Diagnoses why a user isn't receiving SMS notifications. Checks:
-- Phone format (must be `+48XXXXXXXXX`)
-- Subscription status + expiry
-- Address has city + street assigned
-- Notification preferences enabled + hour setting
-- Waste schedules exist for user's city+street on today/tomorrow
-- Hour mismatch (CET hour vs preference hour)
-
-```bash
-pnpm debug:notifications:dev user@example.com
-# or
-pnpm debug:notifications:dev userId123
-```
-
-### debug:schedules
-Shows all waste schedules for a city+street combo. Useful for verifying data import.
-
-```bash
-pnpm debug:schedules:dev 41 469  # cityId streetId
-```
+<important if="you're using or extending the waste schedule importer">
 
 ## Waste schedule importer
 
-Imports a raw region JSON file (`.data-to-import/raw/YYYY_N.json`) into a `waste_collection` row in `notification_sources`. Per-env wrappers use the same `dotenvx` pattern as seed/clear. See [GitHub issue #28](https://github.com/tkowalczyk/pi-web/issues/28) for the full contract.
+Imports `.data-to-import/raw/YYYY_N.json` into a `waste_collection` row in `notification_sources`. Per-env wrappers use the same `dotenvx` pattern as seed/clear. Full contract in [GitHub issue #28](https://github.com/tkowalczyk/pi-web/issues/28).
 
 ```bash
-# Dev / stage / prod
 pnpm import:waste:dev   --file ../../.data-to-import/raw/2026_4.json --address "Nieporęt, ul. Agawy"
-pnpm import:waste:stage --file ../../.data-to-import/raw/2026_4.json --address "Nieporęt, ul. Agawy"
-pnpm import:waste:prod  --file ../../.data-to-import/raw/2026_4.json --address "Nieporęt, ul. Agawy"
+pnpm import:waste:stage --file ... --address "..." --scheduler-url https://stage.powiadomienia.info/worker
+pnpm import:waste:prod  --file ... --address "..." --scheduler-url https://powiadomienia.info/worker
 
-# Validate without writing (no DB connection needed if --household-id is set)
+# Validate without DB
 pnpm import:waste:dev --file ... --household-id 1 --dry-run
 ```
 
 ### Flags
 
-- `--file <path>` (required) — path to raw `YYYY_N.json`, relative to cwd
-- `--household-id <id>` (optional, integer) — defaults to single household; errors if 0 or >1
-- `--address "<label>"` (optional) — used as both `notification_source.name` and `config.address`; defaults to `region` from input
-- `--year <YYYY>` (optional) — overrides year parsed from filename
-- `--scheduler-url <url>` (optional) — base URL of `data-service` Worker. POSTs to `{url}/sources/:id/reschedule` after upsert. Skip to leave DO scheduling to admin UI „Edit → Save".
-- `--dry-run` — parse + validate + log diff, no DB writes
+- `--file <path>` (required)
+- `--household-id <id>` (optional integer; defaults to single household; errors if 0 or >1)
+- `--address "<label>"` (optional; defaults to `region` from input; used as both `notification_source.name` and `config.address`)
+- `--year <YYYY>` (optional; overrides year parsed from filename)
+- `--scheduler-url <url>` (optional; POSTs `/sources/:id/reschedule` after upsert to refresh the SchedulerDO)
+- `--dry-run` (parse + validate only)
 
 ### Behavior
 
-1. Read JSON, validate against input zod schema (`scripts/import-waste-schedule/input-schema.ts`).
-2. Transform `wasteCollectionSchedule` (month-keyed `{ type → day[] }`) into flat `WasteCollectionConfig` shape (`{ address, schedule: [{ type, dates: ["YYYY-MM-DD", ...] }] }`), sorted ASC.
-3. Validate output against existing `WasteCollectionConfig` zod schema in [src/zod-schema/waste-collection-config.ts](src/zod-schema/waste-collection-config.ts).
-4. Resolve household.
-5. **Upsert** with match key `(household_id, type='waste_collection', config.address)`:
-   - Insert new + `createForumTopic` via Telegram Bot API + store `topic_id`
-   - Update config of existing match (no topic recreate)
-6. If `--scheduler-url`, POST to refresh DO. Otherwise skip.
-7. Log structured summary.
-
-### Required env vars
-
-- `DATABASE_HOST`, `DATABASE_USERNAME`, `DATABASE_PASSWORD` — required for non-dry-run; loaded by `dotenvx` from `.env.{dev,stage,prod}`
-- `TELEGRAM_BOT_TOKEN`, `TELEGRAM_GROUP_CHAT_ID` — optional; if unset, `createForumTopic` is skipped with a warning (the source row still gets inserted)
+1. Read JSON → validate against [scripts/import-waste-schedule/input-schema.ts](scripts/import-waste-schedule/input-schema.ts).
+2. Transform month-keyed `{ type → day[] }` → flat `WasteCollectionConfig` (`{ address, schedule: [{ type, dates: ["YYYY-MM-DD", ...] }] }`), sorted ASC. Validate against [src/zod-schema/waste-collection-config.ts](src/zod-schema/waste-collection-config.ts).
+3. Resolve household.
+4. Upsert with match key `(household_id, type='waste_collection', config.address)`:
+   - **Insert** → `createForumTopic` via Telegram Bot API + store `topic_id`.
+   - **Update** → also creates topic if `existing.topicId === null` (backfill).
+5. If `--scheduler-url`, POST to refresh the DO. Otherwise admin UI Edit→Save (also wired) takes care of it.
+6. Log structured summary.
 
 ### Tests
 
-- Unit (mocked deps): `scripts/import-waste-schedule/{transform,parse-args,filename,input-schema,importer}.test.ts`
-- Integration (PGLite via `@repo/test-harness`): `scripts/import-waste-schedule/db-deps.test.ts`
+- Unit (mocked deps): [scripts/import-waste-schedule/](scripts/import-waste-schedule/) `transform`, `parse-args`, `filename`, `input-schema`, `importer`
+- Integration (PGLite via `@repo/test-harness/db`): [scripts/import-waste-schedule/db-deps.test.ts](scripts/import-waste-schedule/db-deps.test.ts)
 
-## Dev Notes
+</important>
 
-- Path alias: `@/*` → `src/*`
-- Build output: `dist/` (gitignored, apps import from here)
-- Auth schema: Auto-generated from `config/auth.ts` - don't edit `auth-schema.ts` manually
-- Migration isolation: Each env has separate migration history (prevents stage/prod conflicts)
-- Always rebuild after schema changes: Apps won't see changes until `pnpm build` completes
+<important if="you're touching the auth schema">
+
+## Auth schema is generated
+
+[src/drizzle/auth-schema.ts](src/drizzle/auth-schema.ts) is auto-generated from [config/auth.ts](config/auth.ts) via `pnpm better-auth:generate`. Don't edit `auth-schema.ts` by hand — change `config/auth.ts` and regenerate.
+
+</important>
