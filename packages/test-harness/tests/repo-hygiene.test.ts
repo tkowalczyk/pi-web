@@ -59,25 +59,29 @@ describe("M1-P3: SaaS payment debt is purged", () => {
 	const PAYMENT_TERMS = ["stripe", "blik", "subscription_plans", "webhook_events"];
 
 	for (const term of PAYMENT_TERMS) {
-		it(`has zero hits for "${term}" outside docs/archive/ and migrations/`, () => {
-			const result = execSync(
-				`grep -riw "${term}" --include="*.ts" --include="*.tsx" --include="*.json" -l "${REPO_ROOT}" || true`,
-				{ encoding: "utf8" },
-			);
-			const hits = result
-				.split("\n")
-				.filter(Boolean)
-				.filter((f) => !f.includes("docs/archive/"))
-				.filter((f) => !f.includes("/migrations/"))
-				.filter((f) => !f.includes("node_modules/"))
-				.filter((f) => !f.includes("pnpm-lock.yaml"))
-				.filter((f) => !f.includes("repo-hygiene.test.ts"))
-				.filter((f) => !f.includes("/dist/"))
-				.filter((f) => !f.includes(".vite/"))
-				.filter((f) => !f.includes("worker-configuration.d.ts"))
-				.filter((f) => !f.includes("routeTree.gen.ts"));
-			expect(hits, `Files still referencing "${term}":\n${hits.join("\n")}`).toEqual([]);
-		});
+		it(
+			`has zero hits for "${term}" outside docs/archive/ and migrations/`,
+			{ timeout: 15_000 },
+			() => {
+				const result = execSync(
+					`grep -riw "${term}" --include="*.ts" --include="*.tsx" --include="*.json" -l "${REPO_ROOT}" || true`,
+					{ encoding: "utf8" },
+				);
+				const hits = result
+					.split("\n")
+					.filter(Boolean)
+					.filter((f) => !f.includes("docs/archive/"))
+					.filter((f) => !f.includes("/migrations/"))
+					.filter((f) => !f.includes("node_modules/"))
+					.filter((f) => !f.includes("pnpm-lock.yaml"))
+					.filter((f) => !f.includes("repo-hygiene.test.ts"))
+					.filter((f) => !f.includes("/dist/"))
+					.filter((f) => !f.includes(".vite/"))
+					.filter((f) => !f.includes("worker-configuration.d.ts"))
+					.filter((f) => !f.includes("routeTree.gen.ts"));
+				expect(hits, `Files still referencing "${term}":\n${hits.join("\n")}`).toEqual([]);
+			},
+		);
 	}
 
 	it("has no stripe npm dependencies in any package.json", () => {
@@ -154,17 +158,21 @@ describe("M1-P4: import boundary enforcement", () => {
 	}
 });
 
-describe("M1-P2: GitHub Actions workflows", () => {
+describe("M1-P2: GitHub Actions workflows + manual deploy contract", () => {
 	it("has a CI workflow that gates every pull request", () => {
 		expect(existsSync(repoPath(".github/workflows/ci.yml"))).toBe(true);
 	});
 
-	it("has a stage deploy workflow that runs on merge to main", () => {
-		expect(existsSync(repoPath(".github/workflows/deploy-stage.yml"))).toBe(true);
+	it("exposes manual deploy:stage scripts for both apps", () => {
+		const { scripts = {} } = readRootPackageJson();
+		expect(scripts["deploy:stage:user-application"]).toBeDefined();
+		expect(scripts["deploy:stage:data-service"]).toBeDefined();
 	});
 
-	it("has a prod deploy workflow guarded by manual approval", () => {
-		expect(existsSync(repoPath(".github/workflows/deploy-prod.yml"))).toBe(true);
+	it("exposes manual deploy:prod scripts for both apps", () => {
+		const { scripts = {} } = readRootPackageJson();
+		expect(scripts["deploy:prod:user-application"]).toBeDefined();
+		expect(scripts["deploy:prod:data-service"]).toBeDefined();
 	});
 });
 

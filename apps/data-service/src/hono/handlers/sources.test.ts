@@ -16,6 +16,18 @@ vi.mock("@repo/data-ops/queries/notification-sources", () => ({
 		createdAt: new Date(),
 		updatedAt: new Date(),
 	}),
+	getNotificationSourceById: vi.fn().mockResolvedValue({
+		id: 1,
+		householdId: 10,
+		name: "Wywóz — Kwiatowa",
+		type: "waste_collection",
+		config: { address: "ul. Kwiatowa 5", schedule: [{ type: "szkło", dates: ["2026-04-15"] }] },
+		alertBeforeHours: 18,
+		topicId: null,
+		enabled: true,
+		createdAt: new Date(),
+		updatedAt: new Date(),
+	}),
 	updateNotificationSource: vi.fn().mockResolvedValue({
 		id: 1,
 		name: "Updated",

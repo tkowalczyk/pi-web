@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { createSourceWithTopic, type SourceLifecycleDeps } from "./source-lifecycle";
+import { TELEGRAM_TOPIC_EMOJI } from "./source-topic";
 
 function makeDeps(overrides: Partial<SourceLifecycleDeps> = {}): SourceLifecycleDeps {
 	return {
@@ -39,7 +40,11 @@ describe("createSourceWithTopic", () => {
 		);
 
 		expect(deps.insertSource).toHaveBeenCalledOnce();
-		expect(deps.createForumTopic).toHaveBeenCalledWith("-1001234567890", "Wywóz — Kwiatowa", "🗑");
+		expect(deps.createForumTopic).toHaveBeenCalledWith(
+			"-1001234567890",
+			"Wywóz — Kwiatowa",
+			TELEGRAM_TOPIC_EMOJI.waste_collection,
+		);
 		expect(deps.updateSource).toHaveBeenCalledWith(1, { topicId: 777 });
 		expect(result.topicId).toBe(777);
 	});
@@ -70,7 +75,11 @@ describe("createSourceWithTopic", () => {
 			deps,
 		);
 
-		expect(deps.createForumTopic).toHaveBeenCalledWith("-1001234567890", "Urodziny rodziny", "🎂");
+		expect(deps.createForumTopic).toHaveBeenCalledWith(
+			"-1001234567890",
+			"Urodziny rodziny",
+			TELEGRAM_TOPIC_EMOJI.birthday,
+		);
 	});
 
 	it("still creates source even if type has no emoji", async () => {
