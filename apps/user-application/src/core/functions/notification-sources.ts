@@ -66,6 +66,21 @@ export const createMyNotificationSource = baseFunction
 				}),
 			);
 			const source = (await response.json()) as Record<string, any>;
+
+			// Best-effort: schedule the SchedulerDO right after creation so the
+			// alarm fires without waiting for a separate Edit→Save round-trip.
+			if (typeof source?.id === "number") {
+				try {
+					await dataService.fetch(
+						new Request(`https://internal/worker/sources/${source.id}/reschedule`, {
+							method: "POST",
+						}),
+					);
+				} catch (e) {
+					console.warn(`reschedule failed for new source ${source.id}:`, e);
+				}
+			}
+
 			return source;
 		}
 
@@ -90,6 +105,23 @@ export const updateMyNotificationSource = baseFunction
 	.handler(async (ctx) => {
 		const updated = await updateNotificationSource(ctx.data.id, ctx.data.data);
 		if (!updated) throw new Error("Source not found");
+
+		const dataService = ctx.context.dataService;
+		if (dataService) {
+			// Best-effort: refresh SchedulerDO so config/alertBeforeHours changes
+			// take effect on the next alarm. DB write is the source of truth and
+			// must not be rolled back if reschedule fails.
+			try {
+				await dataService.fetch(
+					new Request(`https://internal/worker/sources/${ctx.data.id}/reschedule`, {
+						method: "POST",
+					}),
+				);
+			} catch (e) {
+				console.warn(`reschedule failed for source ${ctx.data.id}:`, e);
+			}
+		}
+
 		return { ...updated, config: updated.config as Record<string, any> };
 	});
 
