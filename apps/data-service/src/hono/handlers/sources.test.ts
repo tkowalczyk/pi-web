@@ -50,6 +50,14 @@ vi.mock("@/domain/source-lifecycle", () => ({
 	}),
 }));
 
+vi.mock("@repo/data-ops/queries/household", () => ({
+	getHousehold: vi.fn().mockResolvedValue({
+		id: 10,
+		name: "Dom",
+		timezone: "Europe/Warsaw",
+	}),
+}));
+
 import { createNotificationSource } from "@repo/data-ops/queries/notification-sources";
 
 describe("sources handler", () => {
@@ -106,6 +114,51 @@ describe("sources handler", () => {
 		});
 
 		expect(res.status).toBe(200);
+	});
+
+	it("POST /sources/:id/reschedule calls SchedulerDO.scheduleFromSource", async () => {
+		const scheduleFromSource = vi.fn().mockResolvedValue({
+			sourceId: 1,
+			nextAlarmAt: new Date("2030-04-29T04:00:00Z"),
+			lastRunAt: null,
+			lastRunSuccess: null,
+			status: "scheduled",
+		});
+
+		const stub = { scheduleFromSource };
+		const env = {
+			TELEGRAM_GROUP_CHAT_ID: "-100123",
+			SCHEDULER: {
+				idFromName: vi.fn().mockReturnValue("doid"),
+				get: vi.fn().mockReturnValue(stub),
+			},
+		};
+
+		const res = await app.request("/sources/1/reschedule", { method: "POST" }, env);
+
+		expect(res.status).toBe(200);
+		expect(scheduleFromSource).toHaveBeenCalledWith(
+			expect.objectContaining({ id: 1, type: "waste_collection" }),
+			18,
+			"Europe/Warsaw",
+			expect.objectContaining({ recipient: "-100123" }),
+		);
+		expect(env.SCHEDULER.idFromName).toHaveBeenCalledWith("source-1");
+	});
+
+	it("POST /sources/:id/reschedule returns 404 when source missing", async () => {
+		const { getNotificationSourceById } = await import(
+			"@repo/data-ops/queries/notification-sources"
+		);
+		vi.mocked(getNotificationSourceById).mockResolvedValueOnce(undefined as never);
+
+		const env = {
+			TELEGRAM_GROUP_CHAT_ID: "-100123",
+			SCHEDULER: { idFromName: vi.fn(), get: vi.fn() },
+		};
+
+		const res = await app.request("/sources/9999/reschedule", { method: "POST" }, env);
+		expect(res.status).toBe(404);
 	});
 
 	it("DELETE /sources/:id deletes source", async () => {

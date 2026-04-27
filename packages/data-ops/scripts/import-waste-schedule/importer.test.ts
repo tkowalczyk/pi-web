@@ -88,6 +88,44 @@ describe("runImport — insert path", () => {
 		);
 	});
 
+	it("on update path, creates topic if existing source has no topicId yet", async () => {
+		const existing: import("./importer").SourceRow = {
+			id: 50,
+			name: "Nieporęt",
+			type: "waste_collection",
+			config: { address: "Nieporęt", schedule: [] },
+			topicId: null,
+		};
+		const deps = makeDeps({
+			findExistingSource: vi.fn().mockResolvedValue(existing),
+		});
+
+		await runImport({ file: "2026_4.json", address: "Nieporęt", dryRun: false }, deps);
+
+		expect(deps.createForumTopic).toHaveBeenCalledOnce();
+		// updateSource called twice: once for config, once for topicId
+		const calls = (deps.updateSource as ReturnType<typeof vi.fn>).mock.calls;
+		expect(calls).toContainEqual([50, expect.objectContaining({ config: expect.any(Object) })]);
+		expect(calls).toContainEqual([50, { topicId: 42 }]);
+	});
+
+	it("on update path, skips topic creation if existing source already has topicId", async () => {
+		const existing: import("./importer").SourceRow = {
+			id: 50,
+			name: "Nieporęt",
+			type: "waste_collection",
+			config: { address: "Nieporęt", schedule: [] },
+			topicId: 99,
+		};
+		const deps = makeDeps({
+			findExistingSource: vi.fn().mockResolvedValue(existing),
+		});
+
+		await runImport({ file: "2026_4.json", address: "Nieporęt", dryRun: false }, deps);
+
+		expect(deps.createForumTopic).not.toHaveBeenCalled();
+	});
+
 	it("findExistingSource called with normalized match key (householdId, type, address)", async () => {
 		const deps = makeDeps();
 

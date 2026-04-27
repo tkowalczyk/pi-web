@@ -105,7 +105,17 @@ export async function runImport(
 		await deps.updateSource(existing.id, { config });
 		sourceId = existing.id;
 		action = "update";
-		deps.log(`[update] source #${sourceId} address="${address}" totalDates=${totalDates}`);
+
+		let topicId: number | null = existing.topicId ?? null;
+		if (topicId === null) {
+			topicId = await deps.createForumTopic(address);
+			if (topicId !== null) {
+				await deps.updateSource(sourceId, { topicId });
+			}
+		}
+		deps.log(
+			`[update] source #${sourceId} address="${address}" topicId=${topicId ?? "null"} totalDates=${totalDates}`,
+		);
 	} else {
 		const inserted = await deps.insertSource({
 			householdId,

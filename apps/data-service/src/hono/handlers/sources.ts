@@ -5,12 +5,18 @@ import {
 	deleteNotificationSource,
 	getNotificationSourceById,
 } from "@repo/data-ops/queries/notification-sources";
+import { getHousehold } from "@repo/data-ops/queries/household";
 import { SourceFormInput } from "@repo/data-ops/zod-schema/source-form-schema";
 import { UpdateNotificationSourceInput } from "@repo/data-ops/zod-schema/notification-source";
 import { createSourceWithTopic, type SourceLifecycleDeps } from "@/domain/source-lifecycle";
 import { TelegramChannel } from "@/channels/telegram";
 import { renderSourceToPayload } from "@/domain/notification";
 import { getTopicMetadata } from "@/domain/source-topic";
+
+const DEFAULT_ALERT_BEFORE_HOURS: Record<string, number> = {
+	waste_collection: 18,
+	birthday: 24,
+};
 
 export const sourcesApp = new Hono<{ Bindings: Env }>();
 
@@ -80,6 +86,41 @@ sourcesApp.delete("/:id", async (c) => {
 
 	await deleteNotificationSource(id);
 	return c.body(null, 204);
+});
+
+sourcesApp.post("/:id/reschedule", async (c) => {
+	const id = Number(c.req.param("id"));
+	const source = await getNotificationSourceById(id);
+	if (!source) {
+		return c.json({ error: "Source not found" }, 404);
+	}
+
+	const household = await getHousehold();
+	if (!household) {
+		return c.json({ error: "Household not found" }, 404);
+	}
+
+	const chatId = c.env?.TELEGRAM_GROUP_CHAT_ID;
+	const alertBeforeHours = source.alertBeforeHours ?? DEFAULT_ALERT_BEFORE_HOURS[source.type] ?? 24;
+
+	const stub = c.env.SCHEDULER.get(c.env.SCHEDULER.idFromName(`source-${id}`));
+	const state = await stub.scheduleFromSource(
+		{
+			id: source.id,
+			name: source.name,
+			type: source.type,
+			config: source.config as Record<string, unknown>,
+		},
+		alertBeforeHours,
+		household.timezone,
+		{ channelId: 0, recipient: chatId ?? "" },
+	);
+
+	return c.json({
+		sourceId: state.sourceId,
+		nextAlarmAt: state.nextAlarmAt,
+		status: state.status,
+	});
 });
 
 sourcesApp.post("/:id/trigger", async (c) => {

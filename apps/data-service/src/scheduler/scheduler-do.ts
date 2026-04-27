@@ -5,6 +5,8 @@ import {
 	computeNextScheduledRun,
 	renderSourceToPayload,
 } from "@/domain/notification";
+import { computeNextAlarmForSource } from "@/domain/source-scheduling";
+import { TelegramChannel } from "@/channels/telegram";
 import type { DeliveryResult, NotificationChannel } from "@repo/data-ops/channels/port";
 
 export type SchedulerStatus = "idle" | "scheduled";
@@ -24,6 +26,14 @@ export interface DeliveryTarget {
 
 export class SchedulerDO extends DurableObject<Env> {
 	channel: NotificationChannel | null = null;
+
+	private resolveChannel(): NotificationChannel | null {
+		if (this.channel) return this.channel;
+		const botToken = this.env?.TELEGRAM_BOT_TOKEN;
+		if (!botToken) return null;
+		this.channel = new TelegramChannel({ botToken, fetchFn: fetch.bind(globalThis) });
+		return this.channel;
+	}
 
 	async getState(): Promise<SchedulerState> {
 		const sourceId = await this.ctx.storage.get<number>("sourceId");
@@ -56,8 +66,40 @@ export class SchedulerDO extends DurableObject<Env> {
 			scheduleConfig,
 			deliveryTarget,
 			nextAlarmAt: nextRun.getTime(),
+			scheduleMode: "cron",
 		});
 		await this.ctx.storage.setAlarm(nextRun);
+
+		return this.getState();
+	}
+
+	async scheduleFromSource(
+		sourceData: SourceData,
+		alertBeforeHours: number,
+		timezone: string,
+		deliveryTarget: DeliveryTarget,
+	): Promise<SchedulerState> {
+		const now = new Date();
+		const nextRun = computeNextAlarmForSource(sourceData, alertBeforeHours, timezone, now);
+
+		const baseStorage: Record<string, unknown> = {
+			sourceId: sourceData.id,
+			sourceData,
+			alertBeforeHours,
+			timezone,
+			deliveryTarget,
+			scheduleMode: "dateList",
+		};
+
+		if (nextRun) {
+			baseStorage.nextAlarmAt = nextRun.getTime();
+			await this.ctx.storage.put(baseStorage);
+			await this.ctx.storage.setAlarm(nextRun);
+		} else {
+			baseStorage.nextAlarmAt = null;
+			await this.ctx.storage.put(baseStorage);
+			await this.ctx.storage.deleteAlarm();
+		}
 
 		return this.getState();
 	}
@@ -66,7 +108,8 @@ export class SchedulerDO extends DurableObject<Env> {
 		const sourceData = await this.ctx.storage.get<SourceData>("sourceData");
 		const deliveryTarget = await this.ctx.storage.get<DeliveryTarget>("deliveryTarget");
 
-		if (!sourceData || !deliveryTarget || !this.channel) {
+		const channel = this.resolveChannel();
+		if (!sourceData || !deliveryTarget || !channel) {
 			return {
 				success: false,
 				error: "Missing source data, delivery target, or channel",
@@ -81,7 +124,7 @@ export class SchedulerDO extends DurableObject<Env> {
 			notificationType: "same_day",
 		});
 
-		const result = await this.channel.send(payload);
+		const result = await channel.send(payload);
 
 		await this.ctx.storage.put("lastRunSuccess", result.success);
 		await this.ctx.storage.put("lastRunAt", Date.now());
@@ -93,9 +136,13 @@ export class SchedulerDO extends DurableObject<Env> {
 		const sourceData = await this.ctx.storage.get<SourceData>("sourceData");
 		const deliveryTarget = await this.ctx.storage.get<DeliveryTarget>("deliveryTarget");
 		const scheduleConfig = await this.ctx.storage.get<ScheduleConfig>("scheduleConfig");
+		const scheduleMode = await this.ctx.storage.get<string>("scheduleMode");
+		const alertBeforeHours = await this.ctx.storage.get<number>("alertBeforeHours");
+		const timezone = await this.ctx.storage.get<string>("timezone");
 		const currentAlarmAt = await this.ctx.storage.get<number>("nextAlarmAt");
 
-		if (!sourceData || !deliveryTarget || !this.channel) {
+		const channel = this.resolveChannel();
+		if (!sourceData || !deliveryTarget || !channel) {
 			await this.ctx.storage.put("lastRunSuccess", false);
 			await this.ctx.storage.put("lastRunAt", Date.now());
 			return;
@@ -110,12 +157,24 @@ export class SchedulerDO extends DurableObject<Env> {
 			notificationType: "same_day",
 		});
 
-		const result = await this.channel.send(payload);
+		const result = await channel.send(payload);
 
 		await this.ctx.storage.put("lastRunSuccess", result.success);
 		await this.ctx.storage.put("lastRunAt", Date.now());
 
-		if (scheduleConfig) {
+		if (scheduleMode === "dateList" && alertBeforeHours !== undefined && timezone) {
+			// Use the alarm's local-time as "now" so the next collection date in
+			// the list is selected, not the same one we just fired on.
+			const reference = new Date(alarmTime.getTime() + 1000);
+			const nextRun = computeNextAlarmForSource(sourceData, alertBeforeHours, timezone, reference);
+			if (nextRun) {
+				await this.ctx.storage.put("nextAlarmAt", nextRun.getTime());
+				await this.ctx.storage.setAlarm(nextRun);
+			} else {
+				await this.ctx.storage.put("nextAlarmAt", null);
+				await this.ctx.storage.deleteAlarm();
+			}
+		} else if (scheduleConfig) {
 			const nextRun = computeNextScheduledRun(scheduleConfig, alarmTime);
 			await this.ctx.storage.put("nextAlarmAt", nextRun.getTime());
 			await this.ctx.storage.setAlarm(nextRun);

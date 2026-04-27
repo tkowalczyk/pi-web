@@ -212,6 +212,61 @@ describe("SchedulerDO", () => {
 		expect(state.nextAlarmAt).not.toBeNull();
 	});
 
+	it("scheduleFromSource (waste): sets alarm computed via date-list + alertBeforeHours + timezone", async () => {
+		const id = env.SCHEDULER.idFromName("test-schedule-from-source-waste");
+		const stub = env.SCHEDULER.get(id);
+
+		// Future date well past test run time. Local midnight 2030-04-30 in
+		// Europe/Warsaw (CEST, UTC+2) = 2030-04-29T22:00:00Z. Minus 18h = 2030-04-29T04:00:00Z.
+		const wasteWith2030: SourceData = {
+			id: 200,
+			name: "Wywóz 2030",
+			type: "waste_collection",
+			config: {
+				address: "ul. Z",
+				schedule: [{ type: "metalsAndPlastics", dates: ["2030-04-30"] }],
+			} as unknown as Record<string, unknown>,
+		};
+
+		const state = await stub.scheduleFromSource(wasteWith2030, 18, "Europe/Warsaw", deliveryTarget);
+
+		expect(state.sourceId).toBe(200);
+		expect(state.nextAlarmAt?.toISOString()).toBe("2030-04-29T04:00:00.000Z");
+	});
+
+	it("alarm reschedules waste source via date-list when scheduled via scheduleFromSource", async () => {
+		const id = env.SCHEDULER.idFromName("test-alarm-waste-datelist");
+		const stub = env.SCHEDULER.get(id);
+
+		const noop = new NoopChannel();
+		await runInDurableObject(stub, async (instance: SchedulerDO) => {
+			instance.channel = noop;
+		});
+
+		// Two future dates so the post-alarm reschedule has a next one.
+		const wasteWithTwoDates: SourceData = {
+			id: 201,
+			name: "Wywóz dwa terminy",
+			type: "waste_collection",
+			config: {
+				address: "ul. Q",
+				schedule: [{ type: "mixed", dates: ["2030-04-30", "2030-05-15"] }],
+			} as unknown as Record<string, unknown>,
+		};
+
+		await stub.scheduleFromSource(wasteWithTwoDates, 18, "Europe/Warsaw", deliveryTarget);
+		const initialState = await stub.getState();
+		expect(initialState.nextAlarmAt?.toISOString()).toBe("2030-04-29T04:00:00.000Z");
+
+		await runDurableObjectAlarm(stub);
+
+		const afterAlarm = await stub.getState();
+		expect(afterAlarm.lastRunSuccess).toBe(true);
+		// Next alarm should advance to the next collection date (2030-05-15).
+		// Local midnight 2030-05-15 (CEST, UTC+2) = 2030-05-14T22:00:00Z, minus 18h = 2030-05-14T04:00:00Z.
+		expect(afterAlarm.nextAlarmAt?.toISOString()).toBe("2030-05-14T04:00:00.000Z");
+	});
+
 	it("alarm reschedules the next run after firing", async () => {
 		const id = env.SCHEDULER.idFromName("test-reschedule");
 		const stub = env.SCHEDULER.get(id);
