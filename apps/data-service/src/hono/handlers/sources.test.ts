@@ -161,6 +161,32 @@ describe("sources handler", () => {
 		expect(res.status).toBe(404);
 	});
 
+	it("GET /sources/:id/state returns SchedulerDO state", async () => {
+		const stubState = {
+			sourceId: 1,
+			nextAlarmAt: new Date("2026-04-29T04:00:00Z"),
+			lastRunAt: null,
+			lastRunSuccess: null,
+			status: "scheduled",
+		};
+		const stub = { getState: vi.fn().mockResolvedValue(stubState) };
+		const env = {
+			SCHEDULER: {
+				idFromName: vi.fn().mockReturnValue("doid"),
+				get: vi.fn().mockReturnValue(stub),
+			},
+		};
+
+		const res = await app.request("/sources/1/state", { method: "GET" }, env);
+
+		expect(res.status).toBe(200);
+		const body = (await res.json()) as Record<string, unknown>;
+		expect(body.sourceId).toBe(1);
+		expect(body.nextAlarmAt).toBe("2026-04-29T04:00:00.000Z");
+		expect(body.status).toBe("scheduled");
+		expect(env.SCHEDULER.idFromName).toHaveBeenCalledWith("source-1");
+	});
+
 	it("DELETE /sources/:id deletes source", async () => {
 		const res = await app.request("/sources/1", {
 			method: "DELETE",

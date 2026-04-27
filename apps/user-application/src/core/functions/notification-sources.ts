@@ -18,7 +18,32 @@ import { z } from "zod";
 
 const baseFunction = createServerFn().middleware([protectedFunctionMiddleware]);
 
-export const getMyNotificationSources = baseFunction.handler(async () => {
+interface SchedulerStateLite {
+	nextAlarmAt: string | null;
+	lastRunAt: string | null;
+	lastRunSuccess: boolean | null;
+	status: "idle" | "scheduled";
+}
+
+async function fetchSchedulerState(
+	dataService: { fetch: (req: Request) => Promise<Response> },
+	sourceId: number,
+): Promise<SchedulerStateLite | null> {
+	try {
+		const response = await dataService.fetch(
+			new Request(`https://internal/worker/sources/${sourceId}/state`, {
+				method: "GET",
+			}),
+		);
+		if (!response.ok) return null;
+		const body = (await response.json()) as SchedulerStateLite;
+		return body;
+	} catch {
+		return null;
+	}
+}
+
+export const getMyNotificationSources = baseFunction.handler(async (ctx) => {
 	const household = await getHousehold();
 	if (!household) throw new Error("No household found");
 
@@ -26,10 +51,20 @@ export const getMyNotificationSources = baseFunction.handler(async () => {
 	const sourceIds = sources.map((s) => s.id);
 	const deliveryMap = await getLatestDeliveryBySourceIds(sourceIds);
 
+	const dataService = ctx.context.dataService;
+	const stateMap = new Map<number, SchedulerStateLite | null>();
+	if (dataService) {
+		const states = await Promise.all(sourceIds.map((id) => fetchSchedulerState(dataService, id)));
+		for (let i = 0; i < sourceIds.length; i++) {
+			stateMap.set(sourceIds[i], states[i] ?? null);
+		}
+	}
+
 	return sources.map((source) => ({
 		...source,
 		config: source.config as Record<string, any>,
 		lastDelivery: deliveryMap.get(source.id) ?? null,
+		schedulerState: stateMap.get(source.id) ?? null,
 	}));
 });
 

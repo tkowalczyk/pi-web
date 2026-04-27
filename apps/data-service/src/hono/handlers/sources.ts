@@ -88,6 +88,13 @@ sourcesApp.delete("/:id", async (c) => {
 	return c.body(null, 204);
 });
 
+sourcesApp.get("/:id/state", async (c) => {
+	const id = Number(c.req.param("id"));
+	const stub = c.env.SCHEDULER.get(c.env.SCHEDULER.idFromName(`source-${id}`));
+	const state = await stub.getState();
+	return c.json(state);
+});
+
 sourcesApp.post("/:id/reschedule", async (c) => {
 	const id = Number(c.req.param("id"));
 	const source = await getNotificationSourceById(id);

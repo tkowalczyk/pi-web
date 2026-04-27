@@ -24,11 +24,27 @@ interface SourceItem {
 	type: string;
 	enabled: boolean;
 	alertBeforeHours: number | null;
+	topicId: number | null;
 	lastDelivery: {
 		status: string;
 		error: string | null;
 		createdAt: Date;
 	} | null;
+	schedulerState: {
+		nextAlarmAt: string | null;
+		lastRunAt: string | null;
+		lastRunSuccess: boolean | null;
+		status: "idle" | "scheduled";
+	} | null;
+}
+
+function formatAlarm(iso: string | null): string {
+	if (!iso) return "—";
+	return new Date(iso).toLocaleString("pl-PL", {
+		timeZone: "Europe/Warsaw",
+		dateStyle: "medium",
+		timeStyle: "short",
+	});
 }
 
 function TriggerButton({ sourceId }: { sourceId: number }) {
@@ -119,28 +135,62 @@ export function SourceList({ sources }: { sources: SourceItem[] }) {
 								</div>
 							</CardHeader>
 							<CardContent>
-								<div className="flex items-center justify-between">
-									<div className="text-sm text-muted-foreground">
-										{source.alertBeforeHours && (
-											<span>
+								<dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 text-sm mb-3">
+									{source.alertBeforeHours && (
+										<div className="flex justify-between sm:block">
+											<dt className="text-muted-foreground">
 												{t("sources.alertBefore", "Alert: {{hours}}h przed", {
 													hours: source.alertBeforeHours,
 												})}
-											</span>
-										)}
+											</dt>
+										</div>
+									)}
+									<div className="flex justify-between sm:block">
+										<dt className="text-muted-foreground inline">
+											{t("sources.nextAlarm", "Najbliższy alarm")}:{" "}
+										</dt>
+										<dd className="inline font-medium">
+											{formatAlarm(source.schedulerState?.nextAlarmAt ?? null)}
+										</dd>
 									</div>
-									<div className="flex gap-2">
-										<TriggerButton sourceId={source.id} />
-										<Button variant="ghost" size="sm" asChild>
-											<Link
-												to="/app/sources/$sourceId/edit"
-												params={{ sourceId: String(source.id) }}
-											>
-												<Pencil className="h-4 w-4" />
-											</Link>
-										</Button>
-										<DeleteSourceDialog sourceId={source.id} sourceName={source.name} />
+									<div className="flex justify-between sm:block">
+										<dt className="text-muted-foreground inline">
+											{t("sources.schedulerStatus", "Scheduler")}:{" "}
+										</dt>
+										<dd className="inline font-medium">
+											{source.schedulerState?.status === "scheduled"
+												? t("sources.statusScheduled", "zaplanowany")
+												: t("sources.statusIdle", "bezczynny")}
+										</dd>
 									</div>
+									<div className="flex justify-between sm:block">
+										<dt className="text-muted-foreground inline">
+											{t("sources.topicId", "Topic id")}:{" "}
+										</dt>
+										<dd className="inline font-medium">{source.topicId ?? "—"}</dd>
+									</div>
+									{source.schedulerState?.lastRunAt && (
+										<div className="flex justify-between sm:block sm:col-span-2">
+											<dt className="text-muted-foreground inline">
+												{t("sources.lastRun", "Ostatni alarm")}:{" "}
+											</dt>
+											<dd className="inline font-medium">
+												{formatAlarm(source.schedulerState.lastRunAt)}{" "}
+												{source.schedulerState.lastRunSuccess === false && (
+													<span className="text-destructive">({t("sources.failed", "Błąd")})</span>
+												)}
+											</dd>
+										</div>
+									)}
+								</dl>
+								<div className="flex items-center justify-end gap-2">
+									<TriggerButton sourceId={source.id} />
+									<Button variant="ghost" size="sm" asChild>
+										<Link to="/app/sources/$sourceId/edit" params={{ sourceId: String(source.id) }}>
+											<Pencil className="h-4 w-4" />
+										</Link>
+									</Button>
+									<DeleteSourceDialog sourceId={source.id} sourceName={source.name} />
 								</div>
 							</CardContent>
 						</Card>
