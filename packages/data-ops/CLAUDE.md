@@ -31,6 +31,12 @@ pnpm better-auth:generate      # Regenerate auth-schema.ts from config/auth.ts
 pnpm seed:{env}                # Seed DB with initial data
 pnpm import:{env}              # Clear + import from files
 
+# Waste schedule importer
+pnpm import:waste:{env} --file <path> [flags]
+                               # Imports raw .data-to-import/raw/YYYY_N.json
+                               # into a waste_collection notification_source.
+                               # See "Waste schedule importer" section below.
+
 # Debugging
 pnpm debug:notifications:{env} <email|userId>  # Debug why user not receiving notifications
 pnpm debug:schedules:{env} <cityId> <streetId> # Check waste schedules for city+street
@@ -196,6 +202,51 @@ Shows all waste schedules for a city+street combo. Useful for verifying data imp
 ```bash
 pnpm debug:schedules:dev 41 469  # cityId streetId
 ```
+
+## Waste schedule importer
+
+Imports a raw region JSON file (`.data-to-import/raw/YYYY_N.json`) into a `waste_collection` row in `notification_sources`. Per-env wrappers use the same `dotenvx` pattern as seed/clear. See [GitHub issue #28](https://github.com/tkowalczyk/pi-web/issues/28) for the full contract.
+
+```bash
+# Dev / stage / prod
+pnpm import:waste:dev   --file ../../.data-to-import/raw/2026_4.json --address "Nieporęt, ul. Agawy"
+pnpm import:waste:stage --file ../../.data-to-import/raw/2026_4.json --address "Nieporęt, ul. Agawy"
+pnpm import:waste:prod  --file ../../.data-to-import/raw/2026_4.json --address "Nieporęt, ul. Agawy"
+
+# Validate without writing (no DB connection needed if --household-id is set)
+pnpm import:waste:dev --file ... --household-id 1 --dry-run
+```
+
+### Flags
+
+- `--file <path>` (required) — path to raw `YYYY_N.json`, relative to cwd
+- `--household-id <id>` (optional, integer) — defaults to single household; errors if 0 or >1
+- `--address "<label>"` (optional) — used as both `notification_source.name` and `config.address`; defaults to `region` from input
+- `--year <YYYY>` (optional) — overrides year parsed from filename
+- `--scheduler-url <url>` (optional) — base URL of `data-service` Worker. POSTs to `{url}/sources/:id/reschedule` after upsert. Skip to leave DO scheduling to admin UI „Edit → Save".
+- `--dry-run` — parse + validate + log diff, no DB writes
+
+### Behavior
+
+1. Read JSON, validate against input zod schema (`scripts/import-waste-schedule/input-schema.ts`).
+2. Transform `wasteCollectionSchedule` (month-keyed `{ type → day[] }`) into flat `WasteCollectionConfig` shape (`{ address, schedule: [{ type, dates: ["YYYY-MM-DD", ...] }] }`), sorted ASC.
+3. Validate output against existing `WasteCollectionConfig` zod schema in [src/zod-schema/waste-collection-config.ts](src/zod-schema/waste-collection-config.ts).
+4. Resolve household.
+5. **Upsert** with match key `(household_id, type='waste_collection', config.address)`:
+   - Insert new + `createForumTopic` via Telegram Bot API + store `topic_id`
+   - Update config of existing match (no topic recreate)
+6. If `--scheduler-url`, POST to refresh DO. Otherwise skip.
+7. Log structured summary.
+
+### Required env vars
+
+- `DATABASE_HOST`, `DATABASE_USERNAME`, `DATABASE_PASSWORD` — required for non-dry-run; loaded by `dotenvx` from `.env.{dev,stage,prod}`
+- `TELEGRAM_BOT_TOKEN`, `TELEGRAM_GROUP_CHAT_ID` — optional; if unset, `createForumTopic` is skipped with a warning (the source row still gets inserted)
+
+### Tests
+
+- Unit (mocked deps): `scripts/import-waste-schedule/{transform,parse-args,filename,input-schema,importer}.test.ts`
+- Integration (PGLite via `@repo/test-harness`): `scripts/import-waste-schedule/db-deps.test.ts`
 
 ## Dev Notes
 

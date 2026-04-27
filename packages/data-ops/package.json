@@ -46,7 +46,10 @@
 		"clear:prod": "dotenvx run -f .env.prod -- tsx scripts/clear-data.ts",
 		"seed:dev": "dotenvx run -f .env.dev -- tsx scripts/seed.ts",
 		"seed:stage": "dotenvx run -f .env.stage -- tsx scripts/seed.ts",
-		"seed:prod": "dotenvx run -f .env.prod -- tsx scripts/seed.ts"
+		"seed:prod": "dotenvx run -f .env.prod -- tsx scripts/seed.ts",
+		"import:waste:dev": "dotenvx run -f .env.dev -- tsx scripts/import-waste-schedule.ts",
+		"import:waste:stage": "dotenvx run -f .env.stage -- tsx scripts/import-waste-schedule.ts",
+		"import:waste:prod": "dotenvx run -f .env.prod -- tsx scripts/import-waste-schedule.ts"
 	},
 	"keywords": [],
 	"author": "",
