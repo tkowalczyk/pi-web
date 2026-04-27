@@ -42,6 +42,7 @@ src/
 scripts/
 ├── seed.ts                   # Seed roles + household; idempotent
 ├── clear-data.ts             # Truncate domain tables (preserves auth_user)
+├── check-source.ts           # Read-only inspect notification_sources (list / detail)
 └── import-waste-schedule/    # Modular importer (CLI entry: import-waste-schedule.ts)
     ├── input-schema.ts, transform.ts, parse-args.ts, filename.ts
     ├── importer.ts (DI orchestrator) + db-deps.ts (Drizzle adapter)
@@ -68,6 +69,10 @@ pnpm better-auth:generate
 pnpm seed:{env}               # Idempotent: roles + household
 pnpm clear:{env}              # Truncate domain tables
 pnpm import:waste:{env}       # Waste schedule importer (see section below)
+
+# Read-only inspection (diagnostic — no DB writes)
+pnpm check:source:{env}       # List all notification_sources (compact)
+pnpm check:source:{env} <id>  # Detail view of one source (full row + JSON config)
 ```
 
 </important>

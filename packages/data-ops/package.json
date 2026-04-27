@@ -49,7 +49,10 @@
 		"seed:prod": "dotenvx run -f .env.prod -- tsx scripts/seed.ts",
 		"import:waste:dev": "dotenvx run -f .env.dev -- tsx scripts/import-waste-schedule.ts",
 		"import:waste:stage": "dotenvx run -f .env.stage -- tsx scripts/import-waste-schedule.ts",
-		"import:waste:prod": "dotenvx run -f .env.prod -- tsx scripts/import-waste-schedule.ts"
+		"import:waste:prod": "dotenvx run -f .env.prod -- tsx scripts/import-waste-schedule.ts",
+		"check:source:dev": "dotenvx run -f .env.dev -- tsx scripts/check-source.ts",
+		"check:source:stage": "dotenvx run -f .env.stage -- tsx scripts/check-source.ts",
+		"check:source:prod": "dotenvx run -f .env.prod -- tsx scripts/check-source.ts"
 	},
 	"keywords": [],
 	"author": "",
