@@ -4,7 +4,6 @@ import { errorHandler } from "./middleware/error-handler";
 import { createCorsMiddleware } from "./middleware/cors";
 import { rateLimit } from "./middleware/rate-limit";
 import { healthHandler } from "./handlers/health";
-import { statsHandler } from "./handlers/stats";
 import { sourcesApp } from "./handlers/sources";
 
 export const app = new Hono<{ Bindings: Env }>();
@@ -19,5 +18,4 @@ app.use("/worker/*", rateLimit(100, 60_000));
 
 // Routes
 app.get("/worker/health", healthHandler);
-app.get("/worker/stats", statsHandler);
 app.route("/worker/sources", sourcesApp);

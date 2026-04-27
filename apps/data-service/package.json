@@ -7,8 +7,7 @@
 		"deploy:prod": "wrangler deploy --env prod",
 		"dev": "wrangler dev --env dev --port 8788",
 		"test": "vitest",
-		"cf-typegen:dev": "wrangler types --env-interface BaseEnv --env dev",
-		"test:sms": "tsx scripts/test-sms.ts"
+		"cf-typegen:dev": "wrangler types --env-interface BaseEnv --env dev"
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "^0.14.9",

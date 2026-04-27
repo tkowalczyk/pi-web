@@ -25,8 +25,8 @@ src/
 │   ├── waste-collection-config.ts    # Inline config validator for waste_collection
 │   ├── birthday-config.ts            # Inline config validator for birthday
 │   ├── source-form-schema.ts         # UI form schema + alertBeforeHours defaults per type
-│   ├── household.ts, household-member.ts, channel.ts, delivery.ts, user.ts
-│   └── (orphan: address.ts, phone.ts, stats.ts — pre-pivot, not imported anywhere current)
+│   ├── phone.ts                      # phoneSchema + UpdatePhoneInput (used by user-application profile)
+│   └── household.ts, household-member.ts, channel.ts, delivery.ts, user.ts
 ├── auth/
 │   ├── setup.ts              # Better Auth config (providers + plugins)
 │   ├── server.ts             # Auth server instance

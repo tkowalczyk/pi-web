@@ -9,8 +9,7 @@ src/
 ├── index.ts                  # WorkerEntrypoint (fetch / scheduled / queue handlers)
 ├── channels/                 # NotificationChannel adapters (delivery layer)
 │   ├── telegram.ts           # Real TG Bot API adapter (retry + dead-letter)
-│   ├── db-delivery-logger.ts # Writes delivery_log / delivery_failures rows
-│   └── serwer-sms.ts         # Legacy SMS adapter (kept for tests; not in production path)
+│   └── db-delivery-logger.ts # Writes delivery_log / delivery_failures rows
 ├── domain/                   # Pure functions — no I/O
 │   ├── notification.ts       # SourceData, ScheduleConfig, renderSourceToPayload, computeNextScheduledRun
 │   ├── source-scheduling.ts  # computeNextAlarmForSource (waste / birthday dispatcher)
@@ -27,14 +26,11 @@ src/
     ├── app.ts                # Hono app: middleware + route registration
     ├── handlers/
     │   ├── sources.ts        # POST/PUT/DELETE /worker/sources, GET /:id/state, POST /:id/reschedule, POST /:id/trigger
-    │   ├── health.ts         # GET /worker/health
-    │   └── stats.ts          # GET /worker/stats (legacy KV cache, kept for compatibility)
+    │   └── health.ts         # GET /worker/health
     ├── middleware/           # request-id, error-handler, cors, rate-limit
     ├── services/
     │   ├── scheduled.ts      # Hourly cron — runs self-alert via TelegramChannel
-    │   ├── queues.ts         # Drain-only legacy queue consumer (M2-P2 left it as no-op ack)
-    │   ├── sms.ts            # Legacy SerwerSMS helper (orphan — not wired)
-    │   └── cache-stats.ts    # Legacy KV stats cache (orphan — not wired)
+    │   └── queues.ts         # Drain-only legacy queue consumer (M2-P2 left it as no-op ack)
     ├── types/                # Shared TS definitions
     └── utils/
         └── logger.ts         # Structured JSON logger (request-id-bound)
@@ -91,7 +87,7 @@ The `triggerNow` path (admin UI „Trigger now" button → `POST /worker/sources
 [`wrangler.jsonc`](wrangler.jsonc) binds (per env: dev / stage / prod):
 
 - `SCHEDULER` — Durable Object namespace for `SchedulerDO` (one DO per source, named `source-${id}`)
-- `CACHE` — KV namespace (used by self-alert `getOrCreateSystemTopicId`; legacy stats endpoint still uses the same binding)
+- `CACHE` — KV namespace (used by self-alert `getOrCreateSystemTopicId` to remember the „⚠️ System" forum topic id)
 - `NOTIFICATION_QUEUE` — legacy queue producer/consumer (drained, not used by current pipeline)
 - `triggers.crons` — `0 * * * *`
 - `routes` — `stage.powiadomienia.info/worker/*`, `powiadomienia.info/worker/*`
@@ -128,13 +124,6 @@ The `triggerNow` handler auto-creates the forum topic if `topicId === null`, use
 
 ## Legacy artifacts
 
-A few files survive from the pre-pivot SMS stack and are NOT in the current pipeline:
-
-- [`src/channels/serwer-sms.ts`](src/channels/serwer-sms.ts) — kept because contract tests run against it; not wired into delivery
-- [`src/hono/services/queues.ts`](src/hono/services/queues.ts) — drain-only queue consumer (M2-P2 turned it into a no-op ack)
-- [`src/hono/services/sms.ts`](src/hono/services/sms.ts) — orphan SerwerSMS helper, not imported by any wired path
-- [`src/hono/services/cache-stats.ts`](src/hono/services/cache-stats.ts) — orphan KV stats cache; the `/worker/stats` route still references it
-
-When refactoring, prefer to delete these rather than extend them. The Telegram + SchedulerDO pipeline is the canonical path going forward.
+[`src/hono/services/queues.ts`](src/hono/services/queues.ts) is a drain-only queue consumer (M2-P2 turned it into a no-op ack). The `NOTIFICATION_QUEUE` binding stays in `wrangler.jsonc` until any in-flight messages from the pre-pivot SMS pipeline are confirmed drained; once that's done, the binding + handler can be removed together.
 
 </important>
