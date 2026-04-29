@@ -268,7 +268,7 @@ describe("SchedulerDO", () => {
 			// the waste type — both come from the persisted nextScheduledDate, not the alarm
 			// fire date (which would be 2030-04-29).
 			expect(body).toContain("30 kwietnia 2030");
-			expect(body).toContain("mixed");
+			expect(body).toContain("zmieszane");
 		});
 
 		const afterAlarm = await stub.getState();

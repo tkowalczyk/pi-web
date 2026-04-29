@@ -8,6 +8,20 @@ export interface WasteCollectionConfig {
 	schedule: WasteScheduleEntry[];
 }
 
+const WASTE_TYPE_LABELS_PL: Record<string, string> = {
+	mixed: "zmieszane",
+	metalsAndPlastics: "metale i tworzywa",
+	paper: "papier",
+	glass: "szkło",
+	bioWaste: "bio",
+	christmasTrees: "choinki",
+	bulkyWaste: "wielkogabarytowe",
+};
+
+function translateWasteType(type: string): string {
+	return WASTE_TYPE_LABELS_PL[type] ?? type;
+}
+
 const MONTHS_PL = [
 	"stycznia",
 	"lutego",
@@ -35,7 +49,7 @@ function formatDatePl(isoDate: string): string {
 export function renderMessage(config: WasteCollectionConfig, collectionDate: string): string {
 	const matchingTypes = config.schedule
 		.filter((entry) => entry.dates.includes(collectionDate))
-		.map((entry) => entry.type);
+		.map((entry) => translateWasteType(entry.type));
 
 	const typesList = matchingTypes.join(", ");
 	const datePl = formatDatePl(collectionDate);
