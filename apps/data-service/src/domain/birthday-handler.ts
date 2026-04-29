@@ -68,7 +68,7 @@ function resolveBirthdayDate(monthDay: string, year: number): string {
 	return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 }
 
-export interface ScheduledAlarm {
+interface ScheduledAlarm {
 	alarm: Date;
 	scheduledDate: string;
 }

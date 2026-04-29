@@ -21,7 +21,7 @@ export interface DeliveryLogger {
 	}): void;
 }
 
-export interface TelegramChannelConfig {
+interface TelegramChannelConfig {
 	botToken: string;
 	fetchFn?: typeof fetch;
 	logger?: DeliveryLogger;

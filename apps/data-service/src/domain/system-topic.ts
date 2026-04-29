@@ -1,4 +1,4 @@
-export const SYSTEM_TOPIC_NAME = "⚠️ System";
+const SYSTEM_TOPIC_NAME = "⚠️ System";
 export const SYSTEM_TOPIC_KV_KEY = "system-alert-topic-id";
 
 export interface SystemTopicDeps {

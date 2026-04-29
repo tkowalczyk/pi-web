@@ -1,4 +1,4 @@
-export interface TopicMetadata {
+interface TopicMetadata {
 	name: string;
 	iconCustomEmojiId?: string;
 }

@@ -1,21 +1,16 @@
 {
 	"$schema": "https://unpkg.com/knip@5/schema.json",
-	"ignoreDependencies": ["@cloudflare/vitest-pool-workers"],
-	"ignore": [
-		"**/routeTree.gen.ts",
-		"**/auth-schema.ts",
-		"packages/data-ops/src/drizzle/auth-schema.ts"
-	],
+	"ignoreDependencies": ["cloudflare"],
+	"ignore": ["**/auth-schema.ts", "packages/data-ops/src/drizzle/auth-schema.ts"],
 	"workspaces": {
 		".": {},
 		"apps/data-service": {
-			"entry": ["scripts/*.ts"],
 			"ignoreDependencies": []
 		},
 		"apps/user-application": {
 			"entry": ["src/start.tsx", "src/router.tsx", "src/routes/**/*.{ts,tsx}"],
 			"ignoreDependencies": ["web-vitals", "@types/remark-prism"],
-			"ignore": ["src/routeTree.gen.ts", "src/components/ui/**", "src/integrations/**"]
+			"ignore": ["src/components/ui/**", "src/integrations/**"]
 		},
 		"packages/data-ops": {
 			"entry": [

@@ -28,11 +28,11 @@ describe("handleSelfAlert", () => {
 		await handleSelfAlert(deps);
 
 		expect(channel.invocations).toHaveLength(1);
-		const sent = channel.invocations[0]!.payload;
-		expect(sent.body).toContain("6");
-		expect(sent.body).toContain("Wywóz śmieci");
-		expect(sent.body).toContain("Urodziny");
-		expect(sent.metadata).toEqual({ message_thread_id: 999 });
+		const invocation = channel.invocations[0];
+		expect(invocation?.payload.body).toContain("6");
+		expect(invocation?.payload.body).toContain("Wywóz śmieci");
+		expect(invocation?.payload.body).toContain("Urodziny");
+		expect(invocation?.payload.metadata).toEqual({ message_thread_id: 999 });
 	});
 
 	it("does not send alert when failure count is below threshold", async () => {
@@ -76,6 +76,6 @@ describe("handleSelfAlert", () => {
 		await handleSelfAlert(deps);
 
 		expect(getOrCreateSystemTopicId).toHaveBeenCalledOnce();
-		expect(channel.invocations[0]!.payload.metadata).toEqual({ message_thread_id: 777 });
+		expect(channel.invocations[0]?.payload.metadata).toEqual({ message_thread_id: 777 });
 	});
 });

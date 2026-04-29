@@ -9,9 +9,9 @@ import { computeNextAlarmForSource } from "@/domain/source-scheduling";
 import { TelegramChannel } from "@/channels/telegram";
 import type { DeliveryResult, NotificationChannel } from "@repo/data-ops/channels/port";
 
-export type SchedulerStatus = "idle" | "scheduled";
+type SchedulerStatus = "idle" | "scheduled";
 
-export interface SchedulerState {
+interface SchedulerState {
 	sourceId: number | null;
 	nextAlarmAt: Date | null;
 	lastRunAt: Date | null;
@@ -19,7 +19,7 @@ export interface SchedulerState {
 	status: SchedulerStatus;
 }
 
-export interface DeliveryTarget {
+interface DeliveryTarget {
 	channelId: number;
 	recipient: string;
 	topicId?: number | null;

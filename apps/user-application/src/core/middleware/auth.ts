@@ -24,10 +24,3 @@ export const protectedFunctionMiddleware = createMiddleware({
 	const context = await getAuthContext();
 	return next({ context: { ...context, dataService: reqContext.dataService } });
 });
-
-export const protectedRequestMiddleware = createMiddleware({
-	type: "request",
-}).server(async ({ next }) => {
-	const context = await getAuthContext();
-	return next({ context });
-});

@@ -35,7 +35,7 @@ export async function handleSelfAlert(deps: SelfAlertDeps): Promise<void> {
 	}
 }
 
-export interface SelfAlertInput {
+interface SelfAlertInput {
 	failureCount: number;
 	threshold: number;
 	sourceNames: string[];

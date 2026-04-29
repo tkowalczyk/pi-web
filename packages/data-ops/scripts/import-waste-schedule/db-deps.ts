@@ -7,7 +7,7 @@ import {
 import { and, eq, sql } from "drizzle-orm";
 import type { ImporterDeps, SourceRow } from "./importer";
 
-export interface DbDepsExternal {
+interface DbDepsExternal {
 	readFile: (path: string) => Promise<string>;
 	createForumTopic: (name: string) => Promise<number | null>;
 	reschedule: (sourceId: number) => Promise<void>;

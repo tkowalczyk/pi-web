@@ -29,7 +29,7 @@ export interface SourceData {
 	config: Record<string, unknown>;
 }
 
-export interface RenderContext {
+interface RenderContext {
 	channelId: number;
 	recipient: string;
 	scheduledDate: string;

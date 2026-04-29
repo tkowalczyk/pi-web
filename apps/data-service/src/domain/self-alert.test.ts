@@ -13,11 +13,11 @@ describe("buildSelfAlertPayload", () => {
 		});
 
 		expect(payload).not.toBeNull();
-		expect(payload!.body).toContain("6");
-		expect(payload!.body).toContain("Wywóz śmieci");
-		expect(payload!.body).toContain("Urodziny");
-		expect(payload!.recipient).toBe("chat-123");
-		expect(payload!.metadata).toEqual({ message_thread_id: 999 });
+		expect(payload?.body).toContain("6");
+		expect(payload?.body).toContain("Wywóz śmieci");
+		expect(payload?.body).toContain("Urodziny");
+		expect(payload?.recipient).toBe("chat-123");
+		expect(payload?.metadata).toEqual({ message_thread_id: 999 });
 	});
 
 	it("returns null when failure count is at threshold", () => {
@@ -56,7 +56,7 @@ describe("buildSelfAlertPayload", () => {
 			messageThreadId: 999,
 		});
 
-		expect(payload!.body).toContain("⚠️");
+		expect(payload?.body).toContain("⚠️");
 	});
 
 	it("uses sourceId 0 for system alerts", () => {
@@ -69,7 +69,7 @@ describe("buildSelfAlertPayload", () => {
 			messageThreadId: 999,
 		});
 
-		expect(payload!.sourceId).toBe(0);
-		expect(payload!.subject).toContain("System");
+		expect(payload?.sourceId).toBe(0);
+		expect(payload?.subject).toContain("System");
 	});
 });

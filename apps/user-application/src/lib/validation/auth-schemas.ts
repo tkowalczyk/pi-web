@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const passwordSchema = z
+const passwordSchema = z
 	.string()
 	.min(8, "validation.password.minLength")
 	.max(128, "validation.password.maxLength")
@@ -8,7 +8,7 @@ export const passwordSchema = z
 	.regex(/[a-z]/, "validation.password.lowercase")
 	.regex(/[0-9]/, "validation.password.number");
 
-export const emailSchema = z
+const emailSchema = z
 	.string()
 	.email("validation.email.invalid")
 	.min(1, "validation.email.required");

@@ -35,7 +35,7 @@ export interface ImporterDeps {
 	log(line: string): void;
 }
 
-export interface ImportSummary {
+interface ImportSummary {
 	householdId: number;
 	sourceId: number | null;
 	type: "waste_collection";

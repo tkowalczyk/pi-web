@@ -7,8 +7,6 @@ import {
 import { computeNextAlarm as computeBirthdayAlarm } from "./birthday-handler";
 import type { BirthdayEntry } from "./birthday-handler";
 
-export type { ScheduledAlarm };
-
 export function computeNextAlarmForSource(
 	source: SourceData,
 	alertBeforeHours: number,

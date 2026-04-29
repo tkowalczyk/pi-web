@@ -6,8 +6,8 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import enTranslations from "@/locales/en.json";
 import plTranslations from "@/locales/pl.json";
 
-export const defaultNS = "translation";
-export const resources = {
+const defaultNS = "translation";
+const resources = {
 	en: { translation: enTranslations },
 	pl: { translation: plTranslations },
 } as const;

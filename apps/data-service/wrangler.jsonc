@@ -42,7 +42,7 @@
 				{
 					"binding": "CACHE",
 					"id": "eed883194c594bf8ac25811ec3d37751",
-					"remote": true
+					"remote": false
 				}
 			],
 			"queues": {
