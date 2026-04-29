@@ -91,8 +91,8 @@ describe("SourceFormInput zod schema", () => {
 });
 
 describe("getAlertBeforeHoursDefault", () => {
-	it("returns 18 for waste_collection", () => {
-		expect(getAlertBeforeHoursDefault("waste_collection")).toBe(18);
+	it("returns 6 for waste_collection (= 18:00 local on the day before midnight pickup)", () => {
+		expect(getAlertBeforeHoursDefault("waste_collection")).toBe(6);
 	});
 
 	it("returns 24 for birthday", () => {

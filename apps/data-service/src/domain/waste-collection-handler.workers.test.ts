@@ -7,24 +7,41 @@ const schedule = [
 ];
 
 describe("computeNextAlarm", () => {
-	it("returns correct UTC alarm for next collection date with alertBeforeHours", () => {
+	it("returns correct UTC alarm and collection date for next pickup with alertBeforeHours", () => {
 		// 2026-04-15 collection, alertBeforeHours=18, timezone=Europe/Warsaw (UTC+2 in April)
 		// Alert should fire at: 2026-04-14 06:00 local = 2026-04-14 04:00 UTC
 		const now = new Date("2026-04-10T12:00:00Z");
 		const result = computeNextAlarm(schedule, 18, "Europe/Warsaw", now);
 
 		expect(result).not.toBeNull();
-		expect(result!.toISOString()).toBe("2026-04-14T04:00:00.000Z");
+		expect(result!.alarm.toISOString()).toBe("2026-04-14T04:00:00.000Z");
+		expect(result!.scheduledDate).toBe("2026-04-15");
+	});
+
+	it("uses alertBeforeHours=6 to fire at 18:00 local of the day before", () => {
+		// 2026-04-30 collection (CEST UTC+2), alertBeforeHours=6
+		// Local midnight 2026-04-30 = 2026-04-29T22:00:00Z, minus 6h = 2026-04-29T16:00:00Z
+		// = 2026-04-29 18:00 local — exactly the desired evening-before slot.
+		const now = new Date("2026-04-25T12:00:00Z");
+		const result = computeNextAlarm(
+			[{ type: "mixed", dates: ["2026-04-30"] }],
+			6,
+			"Europe/Warsaw",
+			now,
+		);
+
+		expect(result).not.toBeNull();
+		expect(result!.alarm.toISOString()).toBe("2026-04-29T16:00:00.000Z");
+		expect(result!.scheduledDate).toBe("2026-04-30");
 	});
 
 	it("skips past dates and picks the next future alarm", () => {
-		// now is after 2026-04-15 alarm time, so next should be 2026-04-20 (papier)
-		// 2026-04-20 collection, alert 18h before = 2026-04-19 06:00 local = 2026-04-19 04:00 UTC
 		const now = new Date("2026-04-15T10:00:00Z");
 		const result = computeNextAlarm(schedule, 18, "Europe/Warsaw", now);
 
 		expect(result).not.toBeNull();
-		expect(result!.toISOString()).toBe("2026-04-19T04:00:00.000Z");
+		expect(result!.alarm.toISOString()).toBe("2026-04-19T04:00:00.000Z");
+		expect(result!.scheduledDate).toBe("2026-04-20");
 	});
 
 	it("returns null when all dates are in the past", () => {
@@ -36,39 +53,31 @@ describe("computeNextAlarm", () => {
 	});
 
 	it("handles DST spring forward (CET→CEST, last Sunday of March)", () => {
-		// 2026-03-29 is Sunday — DST transition in Europe/Warsaw: clocks move 02:00→03:00
-		// Collection on 2026-03-30, alertBeforeHours=18
-		// Alert at: 2026-03-29 06:00 local (already CEST, UTC+2) = 2026-03-29 04:00 UTC
 		const springSchedule = [{ type: "szkło", dates: ["2026-03-30"] }];
 		const now = new Date("2026-03-25T12:00:00Z");
 		const result = computeNextAlarm(springSchedule, 18, "Europe/Warsaw", now);
 
 		expect(result).not.toBeNull();
-		// 2026-03-30 00:00 local (CEST UTC+2) minus 18h = 2026-03-29 06:00 local = 2026-03-29 04:00 UTC
-		expect(result!.toISOString()).toBe("2026-03-29T04:00:00.000Z");
+		expect(result!.alarm.toISOString()).toBe("2026-03-29T04:00:00.000Z");
+		expect(result!.scheduledDate).toBe("2026-03-30");
 	});
 
 	it("handles DST fall back (CEST→CET, last Sunday of October)", () => {
-		// 2026-10-25 is Sunday — DST transition: clocks move 03:00→02:00
-		// Collection on 2026-10-26, alertBeforeHours=18
-		// Alert at: 2026-10-25 06:00 local (CET UTC+1) = 2026-10-25 05:00 UTC
 		const fallSchedule = [{ type: "papier", dates: ["2026-10-26"] }];
 		const now = new Date("2026-10-20T12:00:00Z");
 		const result = computeNextAlarm(fallSchedule, 18, "Europe/Warsaw", now);
 
 		expect(result).not.toBeNull();
-		// 2026-10-26 00:00 local (CET UTC+1) minus 18h = 2026-10-25 06:00 local = 2026-10-25 05:00 UTC
-		expect(result!.toISOString()).toBe("2026-10-25T05:00:00.000Z");
+		expect(result!.alarm.toISOString()).toBe("2026-10-25T05:00:00.000Z");
+		expect(result!.scheduledDate).toBe("2026-10-26");
 	});
 
 	it("deduplicates dates across schedule entries", () => {
-		// Both types have 2026-04-20 — should only produce one alarm candidate
 		const now = new Date("2026-04-16T12:00:00Z");
 		const result = computeNextAlarm(schedule, 18, "Europe/Warsaw", now);
 
 		expect(result).not.toBeNull();
-		// Next unique date after now's alarm is 2026-04-20
-		// 2026-04-20 alert = 2026-04-19 06:00 local (CEST, UTC+2) = 2026-04-19 04:00 UTC
-		expect(result!.toISOString()).toBe("2026-04-19T04:00:00.000Z");
+		expect(result!.alarm.toISOString()).toBe("2026-04-19T04:00:00.000Z");
+		expect(result!.scheduledDate).toBe("2026-04-20");
 	});
 });

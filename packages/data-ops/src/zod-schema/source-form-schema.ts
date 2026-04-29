@@ -10,7 +10,7 @@ export const SOURCE_TYPES = [
 export type SourceType = (typeof SOURCE_TYPES)[number]["value"];
 
 const ALERT_DEFAULTS: Record<string, number> = {
-	waste_collection: 18,
+	waste_collection: 6,
 	birthday: 24,
 };
 

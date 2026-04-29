@@ -234,7 +234,7 @@ describe("SchedulerDO", () => {
 		expect(state.nextAlarmAt?.toISOString()).toBe("2030-04-29T04:00:00.000Z");
 	});
 
-	it("alarm reschedules waste source via date-list when scheduled via scheduleFromSource", async () => {
+	it("alarm reschedules waste source via date-list and renders the collection date (not the alarm date)", async () => {
 		const id = env.SCHEDULER.idFromName("test-alarm-waste-datelist");
 		const stub = env.SCHEDULER.get(id);
 
@@ -260,11 +260,89 @@ describe("SchedulerDO", () => {
 
 		await runDurableObjectAlarm(stub);
 
+		await runInDurableObject(stub, async (instance: SchedulerDO) => {
+			const ch = instance.channel as NoopChannel;
+			expect(ch.invocations).toHaveLength(1);
+			const body = ch.invocations[0]!.payload.body;
+			// Body must reference the collection day (2030-04-30 = "30 kwietnia 2030") and
+			// the waste type — both come from the persisted nextScheduledDate, not the alarm
+			// fire date (which would be 2030-04-29).
+			expect(body).toContain("30 kwietnia 2030");
+			expect(body).toContain("mixed");
+		});
+
 		const afterAlarm = await stub.getState();
 		expect(afterAlarm.lastRunSuccess).toBe(true);
 		// Next alarm should advance to the next collection date (2030-05-15).
-		// Local midnight 2030-05-15 (CEST, UTC+2) = 2030-05-14T22:00:00Z, minus 18h = 2030-05-14T04:00:00Z.
 		expect(afterAlarm.nextAlarmAt?.toISOString()).toBe("2030-05-14T04:00:00.000Z");
+	});
+
+	it("alarm sets payload.metadata.message_thread_id from deliveryTarget.topicId", async () => {
+		const id = env.SCHEDULER.idFromName("test-alarm-topic-id");
+		const stub = env.SCHEDULER.get(id);
+
+		const noop = new NoopChannel();
+		await runInDurableObject(stub, async (instance: SchedulerDO) => {
+			instance.channel = noop;
+		});
+
+		const wasteWithTopic: SourceData = {
+			id: 202,
+			name: "Wywóz z topikiem",
+			type: "waste_collection",
+			config: {
+				address: "ul. R",
+				schedule: [{ type: "paper", dates: ["2030-06-10"] }],
+			} as unknown as Record<string, unknown>,
+		};
+
+		await stub.scheduleFromSource(wasteWithTopic, 18, "Europe/Warsaw", {
+			channelId: 0,
+			recipient: "-100123",
+			topicId: 5555,
+		});
+
+		await runDurableObjectAlarm(stub);
+
+		await runInDurableObject(stub, async (instance: SchedulerDO) => {
+			const ch = instance.channel as NoopChannel;
+			expect(ch.invocations).toHaveLength(1);
+			expect(ch.invocations[0]!.payload.metadata).toEqual({ message_thread_id: 5555 });
+		});
+	});
+
+	it("alarm without topicId leaves payload.metadata unset (defaults to General)", async () => {
+		const id = env.SCHEDULER.idFromName("test-alarm-no-topic");
+		const stub = env.SCHEDULER.get(id);
+
+		const noop = new NoopChannel();
+		await runInDurableObject(stub, async (instance: SchedulerDO) => {
+			instance.channel = noop;
+		});
+
+		const wasteNoTopic: SourceData = {
+			id: 203,
+			name: "Wywóz bez topica",
+			type: "waste_collection",
+			config: {
+				address: "ul. S",
+				schedule: [{ type: "mixed", dates: ["2030-07-01"] }],
+			} as unknown as Record<string, unknown>,
+		};
+
+		await stub.scheduleFromSource(wasteNoTopic, 18, "Europe/Warsaw", {
+			channelId: 0,
+			recipient: "-100123",
+			topicId: null,
+		});
+
+		await runDurableObjectAlarm(stub);
+
+		await runInDurableObject(stub, async (instance: SchedulerDO) => {
+			const ch = instance.channel as NoopChannel;
+			expect(ch.invocations).toHaveLength(1);
+			expect(ch.invocations[0]!.payload.metadata).toBeUndefined();
+		});
 	});
 
 	it("alarm reschedules the next run after firing", async () => {

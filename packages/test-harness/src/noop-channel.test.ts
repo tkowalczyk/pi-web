@@ -25,7 +25,7 @@ describe("NoopChannel", () => {
 		expect(result.success).toBe(true);
 		expect(result.messageId).toBeDefined();
 		expect(channel.invocations).toHaveLength(1);
-		expect(channel.invocations[0]!.payload).toEqual(payload);
+		expect(channel.invocations[0]?.payload).toEqual(payload);
 		expect(channel.invocations[0]?.result).toEqual(result);
 	});
 

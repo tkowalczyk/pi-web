@@ -68,26 +68,32 @@ function resolveBirthdayDate(monthDay: string, year: number): string {
 	return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 }
 
+export interface ScheduledAlarm {
+	alarm: Date;
+	scheduledDate: string;
+}
+
 /**
- * Given birthday entries, computes the next UTC alarm timestamp.
- * DST-safe. Birthdays repeat yearly; Feb 29 in non-leap years resolves to March 1.
+ * Given birthday entries, computes the next UTC alarm and the birthday occurrence
+ * date that alarm refers to. DST-safe. Birthdays repeat yearly; Feb 29 in non-leap
+ * years resolves to March 1.
  *
  * @param birthdays - birthday entries with name and MM-DD date
  * @param alertBeforeHours - hours before midnight (birthday start) to fire alarm
  * @param timezone - IANA timezone (e.g. "Europe/Warsaw")
  * @param now - current time
- * @returns next alarm as UTC Date, or null if no birthdays
+ * @returns next alarm UTC Date paired with its YYYY-MM-DD birthday date, or null if no birthdays
  */
 export function computeNextAlarm(
 	birthdays: BirthdayEntry[],
 	alertBeforeHours: number,
 	timezone: string,
 	now: Date,
-): Date | null {
+): ScheduledAlarm | null {
 	if (birthdays.length === 0) return null;
 
 	const currentYear = now.getUTCFullYear();
-	let earliestMs = Number.POSITIVE_INFINITY;
+	let earliest: { alarmMs: number; scheduledDate: string } | null = null;
 
 	for (const entry of birthdays) {
 		for (const year of [currentYear, currentYear + 1]) {
@@ -97,13 +103,13 @@ export function computeNextAlarm(
 
 			if (alarmUtcMs <= now.getTime()) continue;
 
-			if (alarmUtcMs < earliestMs) {
-				earliestMs = alarmUtcMs;
+			if (!earliest || alarmUtcMs < earliest.alarmMs) {
+				earliest = { alarmMs: alarmUtcMs, scheduledDate: isoDate };
 			}
 		}
 	}
 
-	if (earliestMs === Number.POSITIVE_INFINITY) return null;
+	if (!earliest) return null;
 
-	return new Date(earliestMs);
+	return { alarm: new Date(earliest.alarmMs), scheduledDate: earliest.scheduledDate };
 }

@@ -14,7 +14,7 @@ import { renderSourceToPayload } from "@/domain/notification";
 import { getTopicMetadata } from "@/domain/source-topic";
 
 const DEFAULT_ALERT_BEFORE_HOURS: Record<string, number> = {
-	waste_collection: 18,
+	waste_collection: 6,
 	birthday: 24,
 };
 
@@ -120,7 +120,7 @@ sourcesApp.post("/:id/reschedule", async (c) => {
 		},
 		alertBeforeHours,
 		household.timezone,
-		{ channelId: 0, recipient: chatId ?? "" },
+		{ channelId: 0, recipient: chatId ?? "", topicId: source.topicId ?? null },
 	);
 
 	return c.json({

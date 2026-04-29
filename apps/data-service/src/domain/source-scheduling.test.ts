@@ -17,11 +17,12 @@ describe("computeNextAlarmForSource", () => {
 			},
 		};
 
-		const alarm = computeNextAlarmForSource(source, 18, TZ, NOW);
+		const result = computeNextAlarmForSource(source, 18, TZ, NOW);
 
 		// Local midnight 2026-04-30 in Europe/Warsaw (CEST, UTC+2) = 2026-04-29T22:00:00Z
 		// minus 18h = 2026-04-29T04:00:00Z = 2026-04-29 06:00 CEST
-		expect(alarm).toEqual(new Date("2026-04-29T04:00:00.000Z"));
+		expect(result?.alarm).toEqual(new Date("2026-04-29T04:00:00.000Z"));
+		expect(result?.scheduledDate).toBe("2026-04-30");
 	});
 
 	it("dispatches birthday to the birthday-list computer", () => {
@@ -32,10 +33,11 @@ describe("computeNextAlarmForSource", () => {
 			config: { birthdays: [{ name: "Mama", date: "05-01" }] },
 		};
 
-		const alarm = computeNextAlarmForSource(source, 24, TZ, NOW);
+		const result = computeNextAlarmForSource(source, 24, TZ, NOW);
 
 		// Birthday Mama on 2026-05-01, alarm 24h before local midnight = 2026-04-30 00:00 CEST = 2026-04-29T22:00:00Z
-		expect(alarm).toEqual(new Date("2026-04-29T22:00:00.000Z"));
+		expect(result?.alarm).toEqual(new Date("2026-04-29T22:00:00.000Z"));
+		expect(result?.scheduledDate).toBe("2026-05-01");
 	});
 
 	it("returns null for unknown / generic source types", () => {

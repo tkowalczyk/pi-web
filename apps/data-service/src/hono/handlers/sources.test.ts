@@ -141,7 +141,7 @@ describe("sources handler", () => {
 			expect.objectContaining({ id: 1, type: "waste_collection" }),
 			18,
 			"Europe/Warsaw",
-			expect.objectContaining({ recipient: "-100123" }),
+			expect.objectContaining({ recipient: "-100123", topicId: null }),
 		);
 		expect(env.SCHEDULER.idFromName).toHaveBeenCalledWith("source-1");
 	});

@@ -95,22 +95,27 @@ function localMidnightToUtc(isoDate: string, timezone: string): Date {
 	return midnightUtc;
 }
 
+export interface ScheduledAlarm {
+	alarm: Date;
+	scheduledDate: string;
+}
+
 /**
- * Given a waste schedule, computes the next UTC alarm timestamp.
- * DST-safe using Intl.DateTimeFormat for timezone conversions.
+ * Given a waste schedule, computes the next UTC alarm and the collection date
+ * that alarm refers to. DST-safe using Intl.DateTimeFormat for timezone conversions.
  *
  * @param schedule - waste schedule entries with dates
  * @param alertBeforeHours - hours before midnight (collection day start) to fire alarm
  * @param timezone - IANA timezone (e.g. "Europe/Warsaw")
  * @param now - current time
- * @returns next alarm as UTC Date, or null if no future dates
+ * @returns next alarm UTC Date paired with its collection date, or null if no future dates
  */
 export function computeNextAlarm(
 	schedule: WasteScheduleEntry[],
 	alertBeforeHours: number,
 	timezone: string,
 	now: Date,
-): Date | null {
+): ScheduledAlarm | null {
 	const allDates = new Set<string>();
 	for (const entry of schedule) {
 		for (const d of entry.dates) {
@@ -118,7 +123,7 @@ export function computeNextAlarm(
 		}
 	}
 
-	let earliestMs = Number.POSITIVE_INFINITY;
+	let earliest: { alarmMs: number; scheduledDate: string } | null = null;
 
 	for (const isoDate of allDates) {
 		const midnightUtc = localMidnightToUtc(isoDate, timezone);
@@ -126,12 +131,12 @@ export function computeNextAlarm(
 
 		if (alarmUtcMs <= now.getTime()) continue;
 
-		if (alarmUtcMs < earliestMs) {
-			earliestMs = alarmUtcMs;
+		if (!earliest || alarmUtcMs < earliest.alarmMs) {
+			earliest = { alarmMs: alarmUtcMs, scheduledDate: isoDate };
 		}
 	}
 
-	if (earliestMs === Number.POSITIVE_INFINITY) return null;
+	if (!earliest) return null;
 
-	return new Date(earliestMs);
+	return { alarm: new Date(earliest.alarmMs), scheduledDate: earliest.scheduledDate };
 }
