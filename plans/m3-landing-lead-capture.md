@@ -1,55 +1,138 @@
-# Plan: M3 Landing + Lead Capture (STUB)
+# Plan: M3 Landing + Lead Capture
 
-> **Status: STUB — not yet carved.** This placeholder exists for structural consistency with `plans/m1-fundament.md`. The full tracer-bullet phases will be authored after M2 is complete.
->
-> **Source PRD (stub):** [`docs/prd-m3-landing-lead-capture.md`](../docs/prd-m3-landing-lead-capture.md)
-> **Tracking issue:** [#11 M3 — PRD stub (waiting for M2 retro)](https://github.com/tkowalczyk/pi-web/issues/11)
-> **Blocked by:** M2 Personal Notification Hub milestone must be complete.
+> Source PRD: [`docs/prd-m3-landing-lead-capture.md`](../docs/prd-m3-landing-lead-capture.md)
+> M2 retro: [`docs/m2-retro.md`](../docs/m2-retro.md)
 
-## Why this plan is deliberately empty
+## Architectural decisions
 
-M3 is a dogfood milestone: the lead capture form triggers a new `notification_source` type that notifies the owner via the M2 hub. The moment M2 framework exists and works for the family, M3 is mostly scaffolding + new content. But its architecture depends entirely on M2 shape:
+Durable decisions applied across all phases.
 
-- How hard is it to add a new notification source type? (If easy → M3 is small.)
-- Does the source model support HTTP trigger (not just scheduled)? (If no → M2 needs extension first.)
-- What does the owner-notification flow look like in M2? (M3 reuses it for lead alerts.)
-- Are there ergonomic issues with the UI from M2 that should inform landing page stack decisions?
+- **Architecture style**: Cloudflare Workers monorepo (pnpm workspaces). New public routes in `user-application` (TanStack Start). New cron trigger and handler in `data-service`. Shared schema + queries in `data-ops`.
+- **Data model**: `leads` table — `id`, `email`, `status` (enum: new/contacted/interested/closed_won/closed_lost), `notes` (text, nullable), `consent_given_at`, `created_at`, `updated_at`. No foreign keys to household — leads are standalone.
+- **Key entities**: `lead`.
+- **Routing**: `/` is public landing for unauthenticated users; authenticated users are redirected to admin dashboard. No subdomain split — single deployment.
+- **Lead notification**: `LeadNotificationHandler` follows the same `renderMessage()` pattern as M2 handlers. HTTP trigger (form submit), not scheduled alarm. No `SchedulerDO` involved — direct handler → channel call.
+- **Anti-spam**: Cloudflare Turnstile only. Token verified server-side before DB write. No IP rate limiting, no honeypot.
+- **TG topic**: „📩 Leads" created via same `createForumTopic` mechanism as M2 sources. Full email + timestamp in message body.
+- **i18n**: pl/en from day one. Reuse existing i18n system. Admin panel Polish only.
+- **RODO**: Mandatory consent checkbox on form, linked to `/privacy`. Auto-delete cron (3-month retention). Manual delete in admin panel.
+- **Testing**: Unit tests for handler (pure function). Integration tests for form endpoint (Zod + Turnstile + DB write + channel call). Existing M2 contract tests must remain green.
 
-Planning M3 phases now would guess at all of these.
+---
 
-## Architectural decisions (from discovery)
+## Phase 1: Schema + formularz + routing
 
-- Landing = lead capture + portfolio dual role.
-- Form pattern mirrors `wizytowka.link` — simple field set, email OR phone, optional message.
-- Single admin (owner), Better Auth handles it (same config as rest of app).
-- New lead → notification to owner via M2 hub. This is dogfooding — M3 tests M2 framework.
-- M3 is the last milestone. After it: wielki retro całego pivotu.
+**User stories**: 7, 8, 9, 10, 11, 12
 
-## Draft phases (placeholder — not the final plan)
+### What to build
 
-Rough shape. Exact boundaries post-M2.
+Lay the end-to-end skeleton: database, form, and routing. Add the `leads` table migration and data-ops queries (insert, list, update status/notes, delete). Wire the `/` route in TanStack Start to show a minimal landing skeleton (just the form area) for unauthenticated visitors; authenticated users are redirected immediately to the admin dashboard. Build the lead capture form: email field, RODO consent checkbox (required), Cloudflare Turnstile widget. The form submission server function validates input with Zod, verifies the Turnstile token server-side, inserts a `lead` row, and returns an inline thank-you confirmation. No Telegram notification yet. No landing content beyond the form. Demoable: submit the form → lead appears in DB → inline thank-you rendered.
 
-1. **Landing page content + i18n + portfolio section** (reuse pl/en from M1)
-2. **Lead capture form — schema + endpoint + validation + anti-spam** (Turnstile or honeypot, RODO consent)
-3. **Lead notification source — dogfoods M2 hub** (new `notification_source` type, handler triggers on insert)
-4. **Admin panel — leads list + statuses + notes** (minimum viable CRUD)
-5. **RODO compliance** — privacy policy update, consent flow, retention policy
-6. **Routing finalization** — landing on root vs app on subdomain decision
-7. **Stage + Prod deploy + M3 retro + pivot closeout** (wielki retro całego projektu)
+### Acceptance criteria
 
-## Open questions
+- [ ] Schema migration adds `leads` table with all columns; applies cleanly on fresh and existing databases
+- [ ] data-ops exposes: `insertLead`, `listLeads`, `updateLeadStatus`, `updateLeadNotes`, `deleteLead` queries with correct Zod types
+- [ ] `/` renders a minimal public landing (form visible) for unauthenticated users
+- [ ] Authenticated users visiting `/` are redirected to admin dashboard without rendering the landing
+- [ ] Form has email field (required) and consent checkbox (required); submit button disabled until both are valid
+- [ ] Invalid email format shows inline validation error; form does not submit
+- [ ] Unchecked consent checkbox blocks submission with inline error
+- [ ] Turnstile widget renders and its token is sent with the form payload
+- [ ] Server function rejects requests with missing or invalid Turnstile token (returns 400, no DB write)
+- [ ] Valid submission: lead row inserted with `status = 'new'` and `consent_given_at` populated
+- [ ] Valid submission: inline thank-you message shown; form hidden after success
+- [ ] All existing M2 tests pass
+- [ ] CI green
 
-See [`docs/prd-m3-landing-lead-capture.md`](../docs/prd-m3-landing-lead-capture.md) — 24 questions grouped into 7 areas (content, form, anti-spam, RODO, admin panel, routing, dogfood flow).
+---
 
-## Next step (after M2 closes)
+## Phase 2: TG dogfood — lead notification
 
-1. Close GitHub milestone M2 and merge `docs/m2-retro.md`
-2. Fresh `/ask:ask` session on M3 open questions (shorter than M1 — scope is smaller)
-3. `/blueprint:blueprint` → overwrite `docs/prd-m3-landing-lead-capture.md` with full PRD
-4. `/carve:carve` → overwrite this file with tracer-bullet phases
-5. `/dispatch:dispatch` → create real M3 phase issues under milestone #3
-6. Close tracking issue #11 once real issues are created
+**User stories**: 18, 19, 20
 
-## After M3 closes
+### What to build
 
-Write `docs/pivot-retro.md` — full retrospective of the entire three-milestone pivot. Back-port all lessons to the `saas-on-cf` template. This is the formal end of the project's restructuring phase.
+Wire the lead capture into the M2 notification framework. Implement `LeadNotificationHandler` as a pure domain function following the same `renderMessage()` contract as `WasteCollectionHandler` and `BirthdayHandler`. Message format: `📩 <b>Nowy lead</b>\n<code>{email}</code>\n📅 {timestamp}`. The „📩 Leads" Telegram topic is created automatically on first use via `createForumTopic` (same mechanism as notification sources in M2) and its `message_thread_id` stored in a config entry. The form submission server function, after inserting the lead row, calls `NotificationChannel.send()` directly (no `SchedulerDO`) with the rendered payload. Demoable: submit the form → lead in DB + TG message appears on „📩 Leads" topic.
+
+### Acceptance criteria
+
+- [ ] `LeadNotificationHandler.renderMessage()` returns correct HTML with email and timestamp
+- [ ] Handler is a pure function with zero I/O — passes same contract interface as M2 handlers
+- [ ] „📩 Leads" topic created automatically via `createForumTopic` if it doesn't exist; `message_thread_id` persisted
+- [ ] Form submit triggers `NotificationChannel.send()` with correct payload and topic id after DB insert
+- [ ] TG notification delivery does not block the form response — failure to notify must not fail the lead insert
+- [ ] Unit test: `LeadNotificationHandler.renderMessage()` covers email + timestamp formatting
+- [ ] Integration test: form submit → `NoopChannel` records correct payload (email, topic „📩 Leads")
+- [ ] M3 forward-compatibility confirmed: handler → direct channel call succeeds without `SchedulerDO`
+- [ ] All Phase 1 and M2 tests pass
+- [ ] CI green
+
+---
+
+## Phase 3: Admin panel — zarządzanie leadami
+
+**User stories**: 13, 14, 15, 16, 17
+
+### What to build
+
+Build the leads management interface in the admin panel. A leads list view shows all submitted leads sorted by `created_at` descending, with columns: email, submission timestamp, status, notes snippet. Status is updatable inline (select or modal) from the list. Clicking a lead opens a detail view or expands inline: full notes field (editable textarea), status selector, delete button. Delete shows a confirmation dialog before calling the server function. All mutations use server functions backed by data-ops queries from Phase 1. The admin panel is auth-guarded — Better Auth (existing) covers this without changes. Demoable: open admin leads list → change status → add notes → delete a lead → all persist on reload.
+
+### Acceptance criteria
+
+- [ ] Leads list view renders all leads sorted by `created_at` descending with email, timestamp, status, notes snippet
+- [ ] Status can be updated per lead (new / contacted / interested / closed-won / closed-lost); change persists on reload
+- [ ] Notes field is editable per lead (freeform text); change persists on reload
+- [ ] Delete lead shows confirmation dialog; confirmed delete removes row from DB and list
+- [ ] Leads list is only accessible to authenticated admin — unauthenticated request redirected to login
+- [ ] Empty state shown when no leads exist
+- [ ] All server functions use data-ops queries; no raw SQL outside data-ops
+- [ ] All Phase 1–2 tests pass
+- [ ] CI green
+
+---
+
+## Phase 4: RODO — auto-delete + polityka prywatności
+
+**User stories**: 21, 22, 23
+
+### What to build
+
+Close the RODO compliance loop with two additions. First, a Worker cron trigger (daily) that deletes all leads where `created_at < now() - interval '3 months'`. The cron is silent — no notification on delete, only a DB operation. Second, a static public route `/privacy` in TanStack Start containing the privacy policy (owner-provided content placeholder if copy not yet available). The consent checkbox in the form (Phase 1) links to `/privacy`. Demoable: insert a lead with a backdated timestamp → run cron → lead deleted; `/privacy` responds 200 with content.
+
+### Acceptance criteria
+
+- [ ] Worker cron trigger configured (daily) in `data-service` wrangler config
+- [ ] Cron deletes leads with `created_at < now() - 3 months`; does not touch newer leads
+- [ ] Cron is idempotent — running twice with no new old leads produces no errors
+- [ ] Integration test: insert lead with `created_at = 4 months ago` → run cron → lead deleted
+- [ ] Integration test: insert lead with `created_at = 2 months ago` → run cron → lead remains
+- [ ] `/privacy` route is publicly accessible without auth and returns 200
+- [ ] Consent checkbox in form links to `/privacy`
+- [ ] All Phase 1–3 tests pass
+- [ ] CI green
+
+---
+
+## Phase 5: Landing page — pełna treść + i18n
+
+**User stories**: 1, 2, 3, 4, 5, 6
+
+### What to build
+
+Replace the Phase 1 minimal skeleton with the full public landing page. Structure (top to bottom): Hero section (headline + subheadline describing the product), Lead capture form (already wired from Phase 1 — just repositioned/styled), "How it works" section, Use case examples (waste collection reminders, birthday alerts — concrete and visual), Auditmos footer (company name, auditmos.com link, tom@auditmos.com). All copy is i18n-keyed (pl/en), reusing the existing i18n system. Language switcher allows manual toggle. Default language determined by browser `Accept-Language` header. Landing is responsive and loads fast on mobile. Demoable: open `powiadomienia.info` → full landing in Polish, switch to English → same layout in English, scroll to form → submit → thank-you → TG notification fires.
+
+### Acceptance criteria
+
+- [ ] Hero section renders with headline and subheadline
+- [ ] Lead capture form appears below hero (form fully functional from Phase 1)
+- [ ] "How it works" section present with product explanation
+- [ ] Use case examples section shows at least two concrete examples (waste collection, birthdays)
+- [ ] Auditmos footer present: company name, link to auditmos.com, tom@auditmos.com
+- [ ] All landing content available in Polish and English via i18n keys
+- [ ] Language switcher toggles all visible text between pl and en
+- [ ] Default language follows browser `Accept-Language` header
+- [ ] `<title>`, `<meta description>`, Open Graph tags present and localised in both languages
+- [ ] Landing loads and is usable on mobile viewport (manual check)
+- [ ] Authenticated admin visiting `/` is still redirected to admin dashboard (regression check)
+- [ ] All Phase 1–4 tests pass
+- [ ] CI green
