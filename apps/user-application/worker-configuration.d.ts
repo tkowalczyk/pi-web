@@ -15,6 +15,7 @@ declare namespace Cloudflare {
 		GOOGLE_CLIENT_ID: string;
 		GOOGLE_CLIENT_SECRET: string;
 		VITE_DATA_SERVICE_URL: string;
+		TURNSTILE_SECRET_KEY: string;
 		DATA_SERVICE: Fetcher /* pi-web-data-service-dev */;
 	}
 }
@@ -23,7 +24,7 @@ type StringifyValues<EnvType extends Record<string, unknown>> = {
 	[Binding in keyof EnvType]: EnvType[Binding] extends string ? EnvType[Binding] : string;
 };
 declare namespace NodeJS {
-	interface ProcessEnv extends StringifyValues<Pick<Cloudflare.Env, "CLOUDFLARE_ENV" | "DATABASE_HOST" | "DATABASE_USERNAME" | "DATABASE_PASSWORD" | "BETTER_AUTH_SECRET" | "BETTER_AUTH_BASE_URL" | "GOOGLE_CLIENT_ID" | "GOOGLE_CLIENT_SECRET" | "VITE_DATA_SERVICE_URL">> {}
+	interface ProcessEnv extends StringifyValues<Pick<Cloudflare.Env, "CLOUDFLARE_ENV" | "DATABASE_HOST" | "DATABASE_USERNAME" | "DATABASE_PASSWORD" | "BETTER_AUTH_SECRET" | "BETTER_AUTH_BASE_URL" | "GOOGLE_CLIENT_ID" | "GOOGLE_CLIENT_SECRET" | "VITE_DATA_SERVICE_URL" | "TURNSTILE_SECRET_KEY">> {}
 }
 
 // Begin runtime types

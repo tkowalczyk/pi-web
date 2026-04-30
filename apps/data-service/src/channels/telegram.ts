@@ -81,7 +81,7 @@ export class TelegramChannel implements NotificationChannel {
 			lastError = r.error;
 			if (r.outcome === "retry") {
 				retryCount = attempt + 1;
-				await this.delay(RETRY_DELAYS[attempt]);
+				await this.delay(RETRY_DELAYS[attempt] ?? 0);
 				continue;
 			}
 			break;

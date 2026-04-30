@@ -20,7 +20,7 @@ describe("error-handler middleware", () => {
 		const res = await app.request("/boom");
 
 		expect(res.status).toBe(500);
-		const body = await res.json();
+		const body = (await res.json()) as { error: string; status: number; requestId: string };
 		expect(body).toMatchObject({
 			error: "Internal Server Error",
 			status: 500,
@@ -37,7 +37,7 @@ describe("error-handler middleware", () => {
 		const res = await app.request("/not-found");
 
 		expect(res.status).toBe(404);
-		const body = await res.json();
+		const body = (await res.json()) as { error: string; status: number; requestId: string };
 		expect(body).toMatchObject({
 			error: "Resource not found",
 			status: 404,
@@ -55,7 +55,7 @@ describe("error-handler middleware", () => {
 			headers: { "X-Request-Id": "trace-abc" },
 		});
 
-		const body = await res.json();
+		const body = (await res.json()) as { error: string; status: number; requestId: string };
 		expect(body.requestId).toBe("trace-abc");
 	});
 
@@ -66,7 +66,7 @@ describe("error-handler middleware", () => {
 		});
 
 		const res = await app.request("/secret");
-		const body = await res.json();
+		const body = (await res.json()) as { error: string; status: number; requestId: string };
 
 		expect(body.error).toBe("Internal Server Error");
 		expect(JSON.stringify(body)).not.toContain("hunter2");

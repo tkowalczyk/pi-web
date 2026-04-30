@@ -139,5 +139,25 @@ export const deliveryFailures = pgTable(
 	],
 );
 
+export const leads = pgTable(
+	"leads",
+	{
+		id: serial("id").primaryKey(),
+		email: text("email").notNull(),
+		status: text("status").notNull().default("new"),
+		notes: text("notes"),
+		consentGivenAt: timestamp("consent_given_at").notNull(),
+		createdAt: timestamp("created_at").defaultNow().notNull(),
+		updatedAt: timestamp("updated_at")
+			.defaultNow()
+			.notNull()
+			.$onUpdate(() => new Date()),
+	},
+	(table) => [
+		index("leads_status_idx").on(table.status),
+		index("leads_created_at_idx").on(table.createdAt),
+	],
+);
+
 // Legacy tables (cities, streets, addresses, waste_schedules, waste_types,
 // notification_preferences, notification_logs) removed in M2-P2 migration.

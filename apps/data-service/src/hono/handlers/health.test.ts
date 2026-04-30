@@ -20,7 +20,7 @@ describe("health handler", () => {
 		const res = await app.request("/worker/health");
 
 		expect(res.status).toBe(200);
-		const body = await res.json();
+		const body = (await res.json()) as { name: string; version: string };
 		expect(body.name).toBe("powiadomienia.info Worker");
 		expect(body.version).toBeTruthy();
 	});

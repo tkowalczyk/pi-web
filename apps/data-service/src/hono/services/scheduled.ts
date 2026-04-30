@@ -11,8 +11,8 @@ export async function handleScheduled(
 	env: Env,
 	_ctx: ExecutionContext,
 ) {
-	const botToken = (env as Record<string, unknown>).TELEGRAM_BOT_TOKEN as string | undefined;
-	const chatId = (env as Record<string, unknown>).TELEGRAM_GROUP_CHAT_ID as string | undefined;
+	const botToken = env.TELEGRAM_BOT_TOKEN;
+	const chatId = env.TELEGRAM_GROUP_CHAT_ID;
 
 	if (!botToken || !chatId) {
 		console.log("Cron: TELEGRAM_BOT_TOKEN or TELEGRAM_GROUP_CHAT_ID not set, skipping self-alert.");

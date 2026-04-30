@@ -19,6 +19,7 @@ export default defineConfig({
 			"packages/test-harness/vitest.config.ts",
 			"apps/data-service/vitest.config.ts",
 			"apps/data-service/vitest.workers.config.mts",
+			"apps/user-application/vitest.config.ts",
 		],
 	},
 });

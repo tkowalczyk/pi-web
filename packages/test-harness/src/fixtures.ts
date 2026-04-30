@@ -1,15 +1,6 @@
 import { randomUUID } from "node:crypto";
 import type { TestDb } from "./db";
-import {
-	pgTable,
-	serial,
-	text,
-	timestamp,
-	boolean,
-	integer,
-	index,
-	jsonb,
-} from "drizzle-orm/pg-core";
+import { pgTable, serial, text, timestamp, boolean, integer, jsonb } from "drizzle-orm/pg-core";
 
 // ─── Inline table references ──────────────────────────────────────────
 // We duplicate the minimal table definitions here instead of importing from

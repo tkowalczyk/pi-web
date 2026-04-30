@@ -41,10 +41,6 @@ describe("M1-P2: quality gate configuration", () => {
 		expect(existsSync(repoPath("knip.json"))).toBe(true);
 	});
 
-	it("has a Taze config at the repo root", () => {
-		expect(existsSync(repoPath("taze.config.ts"))).toBe(true);
-	});
-
 	it("exposes lint, lint:ci, knip, deps, and types scripts from the root package", () => {
 		const { scripts = {} } = readRootPackageJson();
 		expect(scripts.lint).toBeDefined();

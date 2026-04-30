@@ -34,7 +34,7 @@ describe("rate-limit middleware", () => {
 		const res = await app.request("/test");
 
 		expect(res.status).toBe(429);
-		const body = await res.json();
+		const body = (await res.json()) as { error: string };
 		expect(body.error).toBe("Too many requests");
 	});
 

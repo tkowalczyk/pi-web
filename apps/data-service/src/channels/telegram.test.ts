@@ -58,7 +58,7 @@ describe("TelegramChannel", () => {
 		expect(result.timestamp).toBeInstanceOf(Date);
 
 		expect(fetchFn).toHaveBeenCalledOnce();
-		const [url, options] = (fetchFn as ReturnType<typeof vi.fn>).mock.calls[0];
+		const [url, options] = (fetchFn as ReturnType<typeof vi.fn>).mock.calls[0]!;
 		expect(url).toBe("https://api.telegram.org/botfake-bot-token/sendMessage");
 		const body = JSON.parse(options.body);
 		expect(body.chat_id).toBe("-1001234567890");
@@ -166,7 +166,7 @@ describe("TelegramChannel.createForumTopic", () => {
 
 		expect(threadId).toBe(777);
 		expect(fetchFn).toHaveBeenCalledOnce();
-		const [url, options] = fetchFn.mock.calls[0];
+		const [url, options] = fetchFn.mock.calls[0]!;
 		expect(url).toBe("https://api.telegram.org/botfake-bot-token/createForumTopic");
 		const body = JSON.parse(options.body);
 		expect(body.chat_id).toBe("-1001234567890");

@@ -55,9 +55,9 @@ export const getMyNotificationSources = baseFunction.handler(async (ctx) => {
 	const stateMap = new Map<number, SchedulerStateLite | null>();
 	if (dataService) {
 		const states = await Promise.all(sourceIds.map((id) => fetchSchedulerState(dataService, id)));
-		for (let i = 0; i < sourceIds.length; i++) {
-			stateMap.set(sourceIds[i], states[i] ?? null);
-		}
+		sourceIds.forEach((id, i) => {
+			stateMap.set(id, states[i] ?? null);
+		});
 	}
 
 	return sources.map((source) => ({

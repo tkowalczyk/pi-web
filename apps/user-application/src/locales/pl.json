@@ -244,7 +244,20 @@
 		"activeUsers": "Użytkowników",
 		"coverageDescription": "Codziennie rośnie",
 		"metaTitle": "powiadomienia.info - Przypomnienia SMS o wywozie śmieci",
-		"metaDescription": "Nigdy nie przegap dnia odbioru odpadów. Wpisz adres i otrzymuj bezpłatne przypomnienia SMS o harmonogramie wywozu śmieci w Twojej okolicy."
+		"metaDescription": "Nigdy nie przegap dnia odbioru odpadów. Wpisz adres i otrzymuj bezpłatne przypomnienia SMS o harmonogramie wywozu śmieci w Twojej okolicy.",
+		"heroTitle": "Osobisty hub powiadomień",
+		"heroSubtitle": "Zostaw e-mail — odezwiemy się, gdy uruchomimy wcześniejszy dostęp."
+	},
+	"leads": {
+		"emailLabel": "Adres e-mail",
+		"emailInvalid": "Podaj poprawny adres e-mail.",
+		"consentPrefix": "Wyrażam zgodę na przetwarzanie moich danych zgodnie z ",
+		"consentLink": "polityką prywatności",
+		"submit": "Zapisz mnie",
+		"submitting": "Wysyłanie...",
+		"submitError": "Coś poszło nie tak. Spróbuj ponownie.",
+		"thankYouTitle": "Dziękujemy!",
+		"thankYouBody": "Otrzymaliśmy Twój zapis. Odezwiemy się wkrótce."
 	},
 	"auth": {
 		"welcomeBack": "Witaj ponownie",

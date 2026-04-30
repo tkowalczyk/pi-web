@@ -127,6 +127,13 @@
       "when": 1776063268980,
       "tag": "0017_exotic_shaman",
       "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1777531149660,
+      "tag": "0018_wealthy_silverclaw",
+      "breakpoints": true
     }
   ]
 }

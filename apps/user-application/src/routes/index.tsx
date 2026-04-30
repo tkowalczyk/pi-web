@@ -1,23 +1,31 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { MapPin, Phone, Bell, ArrowRight } from "lucide-react";
-import { authClient } from "@/components/auth/client";
+import { createFileRoute, redirect } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
+import { checkSession } from "@/core/functions/session";
 import { LandingNav } from "@/components/navigation/landing-nav";
 import { Footer } from "@/components/landing/footer";
+import { LeadCaptureForm } from "@/components/leads/lead-capture-form";
 
-import { useTranslation } from "react-i18next";
+const TURNSTILE_TEST_SITE_KEY = "1x00000000000000000000AA";
 
 export const Route = createFileRoute("/")({
+	beforeLoad: async () => {
+		const session = await checkSession();
+		if (session?.user) {
+			throw redirect({ to: "/app", replace: true });
+		}
+	},
+	loader: () => ({
+		turnstileSiteKey:
+			(import.meta.env.VITE_TURNSTILE_SITE_KEY as string | undefined) ?? TURNSTILE_TEST_SITE_KEY,
+	}),
 	component: LandingPage,
 	head: () => ({
 		meta: [
-			{ title: "powiadomienia.info - Przypomnienia SMS o wywozie śmieci" },
+			{ title: "powiadomienia.info — osobisty hub powiadomień" },
 			{
 				name: "description",
 				content:
-					"Nigdy nie przegap dnia odbioru odpadów. Wpisz adres i otrzymuj bezpłatne przypomnienia SMS o harmonogramie wywozu śmieci w Twojej okolicy.",
+					"Zarządzaj rodzinnymi i osobistymi powiadomieniami w jednym miejscu — wywóz odpadów, urodziny i inne przypomnienia.",
 			},
 			{ property: "og:url", content: "https://powiadomienia.info" },
 			{ property: "og:type", content: "website" },
@@ -28,84 +36,25 @@ export const Route = createFileRoute("/")({
 
 function LandingPage() {
 	const { t } = useTranslation();
-	const { data: session } = authClient.useSession();
-	const isLoggedIn = !!session?.user;
+	const { turnstileSiteKey } = Route.useLoaderData();
 
 	return (
 		<div className="min-h-dvh flex flex-col bg-background">
 			<LandingNav />
-			<section className="flex-1 relative px-6 lg:px-8 pt-32 pb-12">
-				<div className="mx-auto max-w-5xl">
-					{/* Hero */}
-					<div className="text-center mb-16">
-						<Badge variant="outline" className="mb-4">
-							{t("landing.badge")}
-						</Badge>
-						<h1 className="text-5xl font-bold tracking-tight text-foreground sm:text-6xl mb-6 text-balance">
-							{t("landing.neverMiss")}{" "}
-							<span className="text-primary">{t("landing.collectionDay")}</span>
+			<section className="flex-1 px-6 lg:px-8 pt-24 pb-12">
+				<div className="mx-auto w-full max-w-xl">
+					<div className="text-center mb-8">
+						<h1 className="text-3xl font-bold tracking-tight sm:text-4xl mb-3 text-balance">
+							{t("landing.heroTitle", "Osobisty hub powiadomień")}
 						</h1>
-						<p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-							{t("landing.getNotifications")}
+						<p className="text-muted-foreground">
+							{t(
+								"landing.heroSubtitle",
+								"Zostaw e-mail — odezwiemy się, gdy uruchomimy wcześniejszy dostęp.",
+							)}
 						</p>
-						<Link to="/app">
-							<Button size="lg" className="text-lg px-8 py-6 group">
-								{isLoggedIn ? t("landing.goToDashboard") : t("landing.getStarted")}
-								<ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-							</Button>
-						</Link>
 					</div>
-
-					{/* How it works */}
-					<Card className="border-primary/20 bg-primary/5">
-						<CardHeader>
-							<CardTitle className="text-2xl text-balance">{t("landing.howItWorks")}</CardTitle>
-							<CardDescription>{t("landing.simpleSetup")}</CardDescription>
-						</CardHeader>
-						<CardContent>
-							<div className="grid gap-6 md:grid-cols-3">
-								<div className="flex flex-col items-center text-center space-y-3">
-									<div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-										<MapPin className="h-6 w-6 text-primary" />
-									</div>
-									<div>
-										<p className="font-semibold mb-1">1. {t("landing.addAddress")}</p>
-										<p className="text-sm text-muted-foreground">
-											{t("landing.addAddressDescription")}
-										</p>
-									</div>
-								</div>
-
-								<div className="flex flex-col items-center text-center space-y-3">
-									<div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-										<Phone className="h-6 w-6 text-primary" />
-									</div>
-									<div>
-										<p className="font-semibold mb-1">2. {t("landing.addPhone")}</p>
-										<p className="text-sm text-muted-foreground">
-											{t("landing.addPhoneDescription")}
-										</p>
-									</div>
-								</div>
-
-								<div className="flex flex-col items-center text-center space-y-3">
-									<div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-										<Bell className="h-6 w-6 text-primary" />
-									</div>
-									<div>
-										<p className="font-semibold mb-1">3. {t("landing.notifications")}</p>
-										<p className="text-sm text-muted-foreground">
-											{t("landing.notificationsDescription")}
-										</p>
-									</div>
-								</div>
-							</div>
-						</CardContent>
-					</Card>
-
-					<p className="text-center text-sm text-muted-foreground mt-12 mb-8">
-						{t("landing.freeNotifications")}
-					</p>
+					<LeadCaptureForm siteKey={turnstileSiteKey} />
 				</div>
 			</section>
 			<Footer />

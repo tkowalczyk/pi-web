@@ -244,7 +244,20 @@
 		"activeUsers": "Active Users",
 		"coverageDescription": "Growing every day",
 		"metaTitle": "powiadomienia.info - Waste Pickup SMS Reminders",
-		"metaDescription": "Never miss waste collection day. Enter your address and get free SMS reminders about trash pickup schedules in your area."
+		"metaDescription": "Never miss waste collection day. Enter your address and get free SMS reminders about trash pickup schedules in your area.",
+		"heroTitle": "Personal notification hub",
+		"heroSubtitle": "Drop your email — we'll reach out when early access opens."
+	},
+	"leads": {
+		"emailLabel": "Email address",
+		"emailInvalid": "Please enter a valid email address.",
+		"consentPrefix": "I agree to the processing of my data per the ",
+		"consentLink": "privacy policy",
+		"submit": "Sign me up",
+		"submitting": "Submitting...",
+		"submitError": "Something went wrong. Please try again.",
+		"thankYouTitle": "Thank you!",
+		"thankYouBody": "We received your sign-up. We'll be in touch soon."
 	},
 	"auth": {
 		"welcomeBack": "Welcome back",

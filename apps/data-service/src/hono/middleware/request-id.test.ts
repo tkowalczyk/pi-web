@@ -20,7 +20,7 @@ describe("request-id middleware", () => {
 		expect(typeof header).toBe("string");
 		expect(header?.length).toBeGreaterThan(0);
 
-		const body = await res.json();
+		const body = (await res.json()) as { requestId: string };
 		expect(body.requestId).toBe(header);
 	});
 
@@ -31,7 +31,7 @@ describe("request-id middleware", () => {
 		});
 
 		expect(res.headers.get("X-Request-Id")).toBe("existing-id-123");
-		const body = await res.json();
+		const body = (await res.json()) as { requestId: string };
 		expect(body.requestId).toBe("existing-id-123");
 	});
 

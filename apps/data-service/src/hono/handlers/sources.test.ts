@@ -83,7 +83,7 @@ describe("sources handler", () => {
 		});
 
 		expect(res.status).toBe(201);
-		const body = await res.json();
+		const body = (await res.json()) as { id: number };
 		expect(body.id).toBe(1);
 		expect(createNotificationSource).toHaveBeenCalledOnce();
 	});

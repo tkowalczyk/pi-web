@@ -37,12 +37,17 @@
 
 		/* Skip type checking all .d.ts files. */
 		"skipLibCheck": true,
-		"types": ["./worker-configuration.d.ts", "./service-bindings.d.ts"],
+		"types": ["./worker-configuration.d.ts", "./service-bindings.d.ts", "node"],
 		"paths": {
 			"@/*": ["./src/*"],
 			"@/bindings": ["./service-bindings.d.ts"]
 		}
 	},
 	"exclude": ["test"],
-	"include": ["worker-configuration.d.ts", "service-bindings.d.ts", "src/**/*.ts"]
+	"include": [
+		"worker-configuration.d.ts",
+		"service-bindings.d.ts",
+		"cloudflare-test.d.ts",
+		"src/**/*.ts"
+	]
 }
