@@ -65,6 +65,12 @@ export function Footer() {
 
 					<div className="flex flex-col space-y-4">
 						<nav className="flex flex-col space-y-2 text-sm">
+							<a
+								href="mailto:tom@auditmos.com"
+								className="text-muted-foreground hover:text-foreground transition-colors"
+							>
+								{t("footer.contactLabel")}: tom@auditmos.com
+							</a>
 							<Link
 								to="/privacy-policy"
 								className="text-muted-foreground hover:text-foreground transition-colors"

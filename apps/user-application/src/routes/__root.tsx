@@ -2,7 +2,7 @@
 import { HeadContent, Outlet, Scripts, createRootRouteWithContext } from "@tanstack/react-router";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-import * as React from "react";
+import type * as React from "react";
 import type { QueryClient } from "@tanstack/react-query";
 import type { User } from "better-auth/types";
 import { DefaultCatchBoundary } from "@/components/default-catch-boundary";
@@ -12,12 +12,17 @@ import { LanguageProvider } from "@/components/language/language-provider";
 import appCss from "@/styles.css?url";
 import { seo } from "@/utils/seo";
 import { Toaster } from "sonner";
-import i18n from "@/lib/i18n";
+import { detectInitialLanguage } from "@/core/functions/detect-language";
+import type { SupportedLanguage } from "@/lib/parse-accept-language";
 
 export const Route = createRootRouteWithContext<{
 	queryClient: QueryClient;
 	user?: User;
 }>()({
+	beforeLoad: async () => {
+		const initialLanguage = await detectInitialLanguage();
+		return { initialLanguage };
+	},
 	head: () => ({
 		meta: [
 			{
@@ -43,8 +48,9 @@ export const Route = createRootRouteWithContext<{
 		],
 	}),
 	errorComponent: (props) => {
+		const initialLanguage = Route.useRouteContext({ select: (s) => s.initialLanguage });
 		return (
-			<RootDocument>
+			<RootDocument lang={initialLanguage}>
 				<DefaultCatchBoundary {...props} />
 			</RootDocument>
 		);
@@ -54,8 +60,10 @@ export const Route = createRootRouteWithContext<{
 });
 
 function RootComponent() {
+	const initialLanguage = Route.useRouteContext({ select: (s) => s.initialLanguage });
+
 	return (
-		<RootDocument>
+		<RootDocument lang={initialLanguage}>
 			<ThemeProvider
 				attribute="class"
 				defaultTheme="system"
@@ -71,15 +79,7 @@ function RootComponent() {
 	);
 }
 
-function RootDocument({ children }: { children: React.ReactNode }) {
-	// Use default language during SSR to prevent hydration mismatch
-	// Client-side LanguageProvider will update this after mount
-	const [lang, setLang] = React.useState("pl");
-
-	React.useEffect(() => {
-		setLang(i18n.language);
-	}, []);
-
+function RootDocument({ children, lang }: { children: React.ReactNode; lang: SupportedLanguage }) {
 	return (
 		<html lang={lang} suppressHydrationWarning>
 			<head>

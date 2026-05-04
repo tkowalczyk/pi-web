@@ -223,31 +223,30 @@
 		"invalidFormat": "Nieprawidłowy format polskiego numeru telefonu"
 	},
 	"landing": {
-		"badge": "Powiadomienia o Odbiorze Śmieci",
-		"neverMiss": "Nigdy nie przegap",
-		"collectionDay": "Dnia Wywozu",
-		"getNotifications": "Otrzymuj powiadomienia SMS przed odbiorem śmieci na Twojej ulicy",
-		"goToDashboard": "Przejdź do Panelu",
-		"getStarted": "Zacznij",
-		"howItWorks": "Jak to działa",
-		"simpleSetup": "Prosta konfiguracja w 3 krokach",
-		"addAddress": "Dodaj Adres",
-		"addAddressDescription": "Wybierz swoją miejscowość i ulicę",
-		"addPhone": "Dodaj Telefon",
-		"addPhoneDescription": "Podaj numer do alertów SMS",
-		"notifications": "Otrzymuj Powiadomienia",
-		"notificationsDescription": "19:00 dzień wcześniej, 7:00 tego samego dnia",
-		"freeNotifications": "Powiadomienia o harmonogramie wywozu śmieci dla Twojego adresu",
-		"coverage": "Zasięg",
-		"cities": "Miejscowości",
-		"streets": "Ulic",
-		"wasteSchedules": "Harmonogramów",
-		"activeUsers": "Użytkowników",
-		"coverageDescription": "Codziennie rośnie",
-		"metaTitle": "powiadomienia.info - Przypomnienia SMS o wywozie śmieci",
-		"metaDescription": "Nigdy nie przegap dnia odbioru odpadów. Wpisz adres i otrzymuj bezpłatne przypomnienia SMS o harmonogramie wywozu śmieci w Twojej okolicy.",
-		"heroTitle": "Osobisty hub powiadomień",
-		"heroSubtitle": "Zostaw e-mail — odezwiemy się, gdy uruchomimy wcześniejszy dostęp."
+		"metaTitle": "powiadomienia.info | Twój rodzinny asystent",
+		"metaDescription": "Osobiste powiadomienia na Telegramie. Przypomnienia o śmieciach i urodzinach dla Ciebie i Twojej rodziny.",
+		"heroTitle": "Pamiętamy o tym, co ważne dla Twojego domu",
+		"heroSubtitle": "Osobisty hub powiadomień dla Ciebie i Twojej rodziny. Przypomnimy o wywozie śmieci, urodzinach bliskich i innych ważnych datach prosto na Telegramie.",
+		"earlyAccessLabel": "Wczesny dostęp",
+		"earlyAccessHint": "Zostaw e-mail — odezwiemy się, gdy uruchomimy wcześniejszy dostęp.",
+		"howItWorks": {
+			"title": "Jak to działa",
+			"subtitle": "Uporządkuj codzienność w trzech prostych krokach.",
+			"step1Title": "Powiedz nam, co ważne",
+			"step1Body": "Wpisz swój adres, aby śledzić harmonogram śmieci, lub dodaj daty urodzin członków rodziny.",
+			"step2Title": "Podłącz Telegrama",
+			"step2Body": "Połącz się z naszym botem. Możesz go używać solo lub dodać do wspólnego czatu z rodziną.",
+			"step3Title": "Ciesz się spokojem",
+			"step3Body": "To wszystko. Wyślemy Ci krótką wiadomość dokładnie wtedy, gdy będziesz jej potrzebować."
+		},
+		"useCases": {
+			"title": "W czym możemy Ci pomóc",
+			"subtitle": "Rozwiązujemy małe problemy, które robią dużą różnicę w domowym grafiku.",
+			"case1Title": "Wywóz odpadów",
+			"case1Body": "Koniec z zastanawianiem się, czy to dzisiaj wystawia się plastik. Powiadomimy Cię o odpowiednim kolorze kubła.",
+			"case2Title": "Ważne daty",
+			"case2Body": "Urodziny babci, rocznica czy termin płatności. Wszystkie cykliczne zdarzenia w jednym, pewnym miejscu."
+		}
 	},
 	"leads": {
 		"emailLabel": "Adres e-mail",
@@ -362,7 +361,8 @@
 		"privacyPolicy": "Polityka Prywatności",
 		"legal": "Informacje Prawne",
 		"termsOfService": "Regulamin",
-		"cookiePolicy": "Polityka Cookies"
+		"cookiePolicy": "Polityka Cookies",
+		"contactLabel": "Kontakt"
 	},
 	"legal": {
 		"termsOfService": "Regulamin",

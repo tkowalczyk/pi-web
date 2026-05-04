@@ -222,31 +222,30 @@
 		"invalidFormat": "Invalid Polish phone format"
 	},
 	"landing": {
-		"badge": "Waste Collection Notifications",
-		"neverMiss": "Never Miss",
-		"collectionDay": "Collection Day",
-		"getNotifications": "Get SMS notifications before waste pickup times for your street",
-		"goToDashboard": "Go to Dashboard",
-		"getStarted": "Get Started",
-		"howItWorks": "How it works",
-		"simpleSetup": "Simple setup in 3 steps",
-		"addAddress": "Add Address",
-		"addAddressDescription": "Select your city and street",
-		"addPhone": "Add Phone",
-		"addPhoneDescription": "Provide number for SMS alerts",
-		"notifications": "Get Notifications",
-		"notificationsDescription": "19:00 before, 7:00 same day",
-		"freeNotifications": "Waste collection schedule notifications for your area",
-		"coverage": "Coverage",
-		"cities": "Cities",
-		"streets": "Streets",
-		"wasteSchedules": "Waste Schedules",
-		"activeUsers": "Active Users",
-		"coverageDescription": "Growing every day",
-		"metaTitle": "powiadomienia.info - Waste Pickup SMS Reminders",
-		"metaDescription": "Never miss waste collection day. Enter your address and get free SMS reminders about trash pickup schedules in your area.",
-		"heroTitle": "Personal notification hub",
-		"heroSubtitle": "Drop your email — we'll reach out when early access opens."
+		"metaTitle": "powiadomienia.info | Your family notification hub",
+		"metaDescription": "Personal Telegram reminders for waste collection and family birthdays. Keep your household organised with one reliable hub.",
+		"heroTitle": "We remember the small things for your home",
+		"heroSubtitle": "A personal notification hub for you and your family. Get reminders about waste collection, birthdays and important dates straight on Telegram.",
+		"earlyAccessLabel": "Early access",
+		"earlyAccessHint": "Drop your email — we'll reach out when early access opens.",
+		"howItWorks": {
+			"title": "How it works",
+			"subtitle": "Organise your daily life in three simple steps.",
+			"step1Title": "Tell us what matters",
+			"step1Body": "Enter your address for trash schedules or add your family's important dates.",
+			"step2Title": "Connect Telegram",
+			"step2Body": "Link our bot to your account. Use it privately or add it to a family group chat.",
+			"step3Title": "Stay relaxed",
+			"step3Body": "That's it. We'll send you a quick message exactly when you need it. No more forgotten tasks."
+		},
+		"useCases": {
+			"title": "Real help for daily life",
+			"subtitle": "Designed to make your household run a little smoother every day.",
+			"case1Title": "Waste collection",
+			"case1Body": "No more checking the calendar to see which bin goes out. We'll tell you exactly what and when.",
+			"case2Title": "Family milestones",
+			"case2Body": "Birthdays, anniversaries or recurring bills. Keep all your important dates in one reliable place."
+		}
 	},
 	"leads": {
 		"emailLabel": "Email address",
@@ -343,7 +342,8 @@
 		"privacyPolicy": "Privacy Policy",
 		"legal": "Legal",
 		"termsOfService": "Terms of Service",
-		"cookiePolicy": "Cookie Policy"
+		"cookiePolicy": "Cookie Policy",
+		"contactLabel": "Contact"
 	},
 	"legal": {
 		"termsOfService": "Terms of Service",
