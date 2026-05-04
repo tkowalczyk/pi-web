@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createTestDb, type TestDbHandle } from "@repo/test-harness";
 import { initDatabase, resetDatabase } from "@repo/data-ops/database/setup";
 import { listLeads } from "@repo/data-ops/queries/leads";
@@ -19,10 +19,11 @@ describe("submitLeadHandler", () => {
 		await handle.cleanup();
 	});
 
-	function deps(verifyResult: boolean) {
+	function deps(verifyResult: boolean, notify = vi.fn().mockResolvedValue(undefined)) {
 		return {
 			verifyToken: async () => ({ success: verifyResult }),
 			now: () => fixedNow,
+			notify,
 		};
 	}
 
@@ -89,6 +90,31 @@ describe("submitLeadHandler", () => {
 		).rejects.toThrow();
 
 		expect(await listLeads()).toHaveLength(0);
+	});
+
+	it("calls notify with email + createdAt after successful insert", async () => {
+		const notify = vi.fn().mockResolvedValue(undefined);
+		await submitLeadHandler(
+			{ email: "lead@example.com", consent: true, turnstileToken: "valid-token" },
+			deps(true, notify),
+		);
+
+		expect(notify).toHaveBeenCalledTimes(1);
+		expect(notify).toHaveBeenCalledWith({
+			email: "lead@example.com",
+			createdAt: fixedNow,
+		});
+	});
+
+	it("returns success even if notify rejects (delivery failure must not fail the insert)", async () => {
+		const notify = vi.fn().mockRejectedValue(new Error("TG down"));
+		const result = await submitLeadHandler(
+			{ email: "lead@example.com", consent: true, turnstileToken: "valid-token" },
+			deps(true, notify),
+		);
+
+		expect(result.success).toBe(true);
+		expect(await listLeads()).toHaveLength(1);
 	});
 
 	it("normalizes email to lowercase before insert", async () => {

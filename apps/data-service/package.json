@@ -7,6 +7,7 @@
 		"deploy:prod": "wrangler deploy --env prod",
 		"dev": "wrangler dev --env dev --port 8788",
 		"test": "vitest",
+		"types": "tsc --noEmit",
 		"cf-typegen:dev": "wrangler types --env-interface BaseEnv --env dev"
 	},
 	"devDependencies": {

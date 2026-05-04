@@ -33,3 +33,9 @@ export const UpdateLeadNotesInput = z.object({
 	notes: z.string().nullable(),
 });
 export type UpdateLeadNotesInput = z.infer<typeof UpdateLeadNotesInput>;
+
+export const NotifyLeadInput = z.object({
+	email: z.string().email(),
+	createdAt: z.coerce.date(),
+});
+export type NotifyLeadInput = z.infer<typeof NotifyLeadInput>;

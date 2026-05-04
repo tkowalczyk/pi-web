@@ -22,6 +22,7 @@ export type SubmitLeadInput = z.infer<typeof SubmitLeadInput>;
 export interface SubmitLeadDeps {
 	verifyToken: (token: string) => Promise<{ success: boolean }>;
 	now?: () => Date;
+	notify?: (input: { email: string; createdAt: Date }) => Promise<unknown>;
 }
 
 export interface SubmitLeadResult {
@@ -41,6 +42,14 @@ export async function submitLeadHandler(
 
 	const consentGivenAt = (deps.now ?? (() => new Date()))();
 	await insertLead({ email: input.email, consentGivenAt });
+
+	if (deps.notify) {
+		try {
+			await deps.notify({ email: input.email, createdAt: consentGivenAt });
+		} catch (err) {
+			console.warn("Lead notification failed", err);
+		}
+	}
 
 	return { success: true };
 }
