@@ -20,6 +20,7 @@
 		"sources": "Źródła",
 		"deliveries": "Log",
 		"members": "Członkowie",
+		"leads": "Leady",
 		"settings": "Ustawienia"
 	},
 	"theme": {
@@ -257,7 +258,25 @@
 		"submitting": "Wysyłanie...",
 		"submitError": "Coś poszło nie tak. Spróbuj ponownie.",
 		"thankYouTitle": "Dziękujemy!",
-		"thankYouBody": "Otrzymaliśmy Twój zapis. Odezwiemy się wkrótce."
+		"thankYouBody": "Otrzymaliśmy Twój zapis. Odezwiemy się wkrótce.",
+		"title": "Leady",
+		"empty": "Brak zgłoszonych leadów.",
+		"email": "Email",
+		"submittedAt": "Zgłoszono",
+		"notes": "Notatki",
+		"notesFull": "Notatki (pełne)",
+		"notesPlaceholder": "Notatki…",
+		"actions": "Akcje",
+		"deleteTitle": "Usuń lead",
+		"deleteDescription": "Czy na pewno chcesz usunąć lead \"{{email}}\"? Tej operacji nie można cofnąć.",
+		"status": {
+			"label": "Status",
+			"new": "Nowy",
+			"contacted": "Skontaktowano",
+			"interested": "Zainteresowany",
+			"closed_won": "Zamknięty (sukces)",
+			"closed_lost": "Zamknięty (porażka)"
+		}
 	},
 	"auth": {
 		"welcomeBack": "Witaj ponownie",
