@@ -6,6 +6,8 @@
 		"deploy:stage": "wrangler deploy --env stage",
 		"deploy:prod": "wrangler deploy --env prod",
 		"dev": "wrangler dev --env dev --port 8788",
+		"dev:cron:self-alert": "curl -fsS 'http://localhost:8788/__scheduled?cron=0+*+*+*+*'",
+		"dev:cron:prune": "curl -fsS 'http://localhost:8788/__scheduled?cron=0+3+*+*+*'",
 		"test": "vitest",
 		"types": "tsc --noEmit",
 		"cf-typegen:dev": "wrangler types --env-interface BaseEnv --env dev"

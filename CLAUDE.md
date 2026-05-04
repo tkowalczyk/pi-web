@@ -46,6 +46,10 @@ pnpm setup                # Install deps + build data-ops (required first)
 pnpm dev:user-application # Admin UI on :3000
 pnpm dev:data-service     # Worker on :8788
 
+# Manually fire scheduled handlers against the running worker (:8788)
+pnpm dev:data-service:cron:self-alert  # hourly cron — self-alert path
+pnpm dev:data-service:cron:prune       # daily cron — auto-delete leads older than 3 months
+
 # Testing & quality (from root)
 pnpm test                 # All tests, local PGLite profile
 pnpm test:ci              # All tests, managed Neon profile (CI)

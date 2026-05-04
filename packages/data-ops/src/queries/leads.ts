@@ -1,6 +1,6 @@
 import { getDb } from "@/database/setup";
 import { leads } from "@/drizzle/schema";
-import { desc, eq } from "drizzle-orm";
+import { desc, eq, lt } from "drizzle-orm";
 import type { LeadStatus } from "@/zod-schema/lead";
 
 interface InsertLeadInput {
@@ -34,4 +34,12 @@ export async function updateLeadNotes(id: number, notes: string | null) {
 export async function deleteLead(id: number) {
 	const db = getDb();
 	await db.delete(leads).where(eq(leads.id, id));
+}
+
+export async function deleteLeadsOlderThan(cutoff: Date): Promise<number> {
+	const db = getDb();
+	const deleted = await db.delete(leads).where(lt(leads.createdAt, cutoff)).returning({
+		id: leads.id,
+	});
+	return deleted.length;
 }

@@ -390,7 +390,7 @@
 		"whatShared": "Jakie dane będą udostępniane?",
 		"whatSharedContent": "Nie będziemy udostępniać Twoich danych żadnym stronom trzecim innym niż opisane tutaj w celu wypełnienia naszych zobowiązań wobec Ciebie (np. Bezpieczeństwo przez Cloudflare). Możemy udostępnić Twoje informacje organom regulacyjnym lub prawnym, jeśli wymaga tego prawo.",
 		"howLong": "Jak długo?",
-		"howLongContent": "Auditmos OU przechowuje dane tylko tak długo, jak jest to konieczne do świadczenia naszych usług oraz spełnienia wymogów operacyjnych, umownych i regulacyjnych. Dane konta są przechowywane przez okres istnienia konta. Dane transakcyjne są przechowywane zgodnie z wymogami prawa podatkowego (zazwyczaj 7 lat). Logi powiadomień są przechowywane przez ograniczony czas w celach debugowania i audytu, a następnie usuwane.",
+		"howLongContent": "Auditmos OU przechowuje dane tylko tak długo, jak jest to konieczne do świadczenia naszych usług oraz spełnienia wymogów operacyjnych, umownych i regulacyjnych. Dane konta są przechowywane przez okres istnienia konta. Dane transakcyjne są przechowywane zgodnie z wymogami prawa podatkowego (zazwyczaj 7 lat). Logi powiadomień są przechowywane przez ograniczony czas w celach debugowania i audytu, a następnie usuwane. **Adresy e-mail przesłane przez formularz wczesnego dostępu (leady) przechowujemy maksymalnie przez 3 miesiące od daty zapisu — po upływie tego okresu są automatycznie i nieodwracalnie usuwane przez codzienny proces porządkujący.**",
 		"whoAccess": "Kto ma dostęp do moich danych?",
 		"whoAccessContent": "Nigdy nie będziemy sprzedawać, udostępniać ani w inny sposób rozpowszechniać Twoich danych żadnym stronom trzecim innym niż opisane tutaj. Dostęp do Twoich danych jest ściśle kontrolowany i ograniczony do upoważnionego personelu.",
 		"howSecure": "Jak zabezpieczane są moje dane?",
@@ -400,7 +400,7 @@
 		"principles": "Zasady Przetwarzania Danych Osobowych",
 		"principlesContent": "Przestrzegamy zasad RODO: Dane muszą być przetwarzane rzetelnie i zgodnie z prawem; zbierane w konkretnych celach; adekwatne i istotne; dokładne; nieprzechowywane dłużej niż to konieczne; przetwarzane zgodnie z prawami osób, których dane dotyczą; odpowiednio chronione; oraz nieprzekazywane za granicę bez odpowiednich zabezpieczeń.",
 		"whoWeAre": "Kim jesteśmy i jak się z nami skontaktować",
-		"whoWeAreContent": "Auditmos OU jest firmą zarejestrowaną w Estonii.\n\n- **Imię i nazwisko Administratora Danych:** Tomasz Kowalczyk\n- **Nazwa firmy:** Auditmos OU\n- **E-mail:** legal@powiadomienia.info",
+		"whoWeAreContent": "Auditmos OU jest firmą zarejestrowaną w Estonii.\n\n- **Imię i nazwisko Administratora Danych:** Tomasz Kowalczyk\n- **Nazwa firmy:** Auditmos OU\n- **E-mail (sprawy RODO i prawo do usunięcia danych):** tom@auditmos.com",
 		"article27": "Nasi przedstawiciele z art. 27",
 		"article27Content": "Ponieważ Auditmos OU ma siedzibę w Unii Europejskiej (Estonia), nie jesteśmy zobowiązani do wyznaczania zewnętrznego przedstawiciela ds. RODO w UE.",
 		"ukRep": "Nasz przedstawiciel w Wielkiej Brytanii",
@@ -414,7 +414,7 @@
 		"howCollected": "W jaki sposób Twoje informacje będą zbierane i wykorzystywane?",
 		"howCollectedContent": "Zbieramy dane przede wszystkim bezpośrednio od Ciebie (rejestracja) lub automatycznie poprzez Twoje korzystanie z usługi (logi). Używamy tych danych, aby:\n\n- Zarejestrować Cię jako klienta (Wykonanie Umowy).\n- Administrować i chronić naszą firmę (Prawnie Uzasadniony Interes).\n- Używać analityki danych do ulepszania naszej strony (Prawnie Uzasadniony Interes).",
 		"changePrefs": "Jak zmienić swoje preferencje",
-		"changePrefsContent": "Działamy zgodnie z RODO. Możesz skontaktować się z nami pod adresem legal@powiadomienia.info, aby zażądać dostępu, sprostowania, usunięcia lub ograniczenia przetwarzania Twoich danych.",
+		"changePrefsContent": "Działamy zgodnie z RODO. Możesz skontaktować się z nami pod adresem tom@auditmos.com, aby zażądać dostępu, sprostowania, usunięcia lub ograniczenia przetwarzania Twoich danych.",
 		"optingOut": "Rezygnacja w późniejszym terminie",
 		"optingOutContent": "Masz prawo wycofać swoją zgodę w dowolnym momencie. Możesz sprzeciwić się przetwarzaniu Twoich danych i zażądać ich usunięcia, pod warunkiem że dane te nie są wymagane do celów podatkowych lub prawnych.",
 		"howStore": "Jak przechowujemy i przetwarzamy Twoje dane",
@@ -428,7 +428,7 @@
 		"cookies": "Pliki Cookie",
 		"cookiesContent": "Używamy niezbędnych plików cookie, aby zapewnić poprawne działanie strony (np. utrzymanie zalogowania). Szczegółowe informacje znajdują się w naszej Polityce Plików Cookie.",
 		"contacting": "Kontakt z nami, realizacja praw i skargi",
-		"contactingContent": "Jeśli masz pytania, skontaktuj się z Tomaszem Kowalczykiem pod adresem legal@powiadomienia.info. Jeśli pozostaniesz niezadowolony, masz prawo złożyć skargę do Estońskiego Inspektoratu Ochrony Danych (AKI) lub lokalnego organu ochrony danych."
+		"contactingContent": "Jeśli masz pytania, skontaktuj się z Tomaszem Kowalczykiem pod adresem tom@auditmos.com. Jeśli pozostaniesz niezadowolony, masz prawo złożyć skargę do Estońskiego Inspektoratu Ochrony Danych (AKI) lub lokalnego organu ochrony danych."
 	},
 	"termsOfService": {
 		"lastUpdate": "Ostatnia aktualizacja: 29 grudnia 2025 r.",

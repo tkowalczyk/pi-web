@@ -59,6 +59,13 @@ pnpm dev:user-application # admin UI on :3000
 pnpm dev:data-service     # worker on :8788
 ```
 
+While the worker is running, fire the scheduled handlers manually:
+
+```bash
+pnpm dev:data-service:cron:self-alert  # hourly cron — self-alert path
+pnpm dev:data-service:cron:prune       # daily cron — auto-delete leads older than 3 months
+```
+
 DB migrations (from `packages/data-ops/`):
 
 ```bash

@@ -7,7 +7,10 @@ import {
 	updateLeadStatus,
 	updateLeadNotes,
 	deleteLead,
+	deleteLeadsOlderThan,
 } from "@/queries/leads";
+import { leads } from "@/drizzle/schema";
+import { eq } from "drizzle-orm";
 import { LeadResponse } from "@/zod-schema/lead";
 
 describe("leads — insertLead + listLeads (data-ops ↔ test-harness)", () => {
@@ -92,5 +95,63 @@ describe("leads — insertLead + listLeads (data-ops ↔ test-harness)", () => {
 
 		const rows = await listLeads();
 		expect(rows.find((r) => r.id === lead.id)).toBeUndefined();
+	});
+
+	it("deleteLeadsOlderThan removes leads with createdAt < cutoff and returns the deleted count", async () => {
+		const now = new Date("2026-05-04T12:00:00Z");
+		const cutoff = new Date("2026-02-04T12:00:00Z");
+
+		const fourMonthsAgo = await insertLead({
+			email: "old@example.com",
+			consentGivenAt: now,
+		});
+		const twoMonthsAgo = await insertLead({
+			email: "fresh@example.com",
+			consentGivenAt: now,
+		});
+
+		// Backdate one row past the cutoff, leave the other inside the window.
+		await handle.db
+			.update(leads)
+			.set({ createdAt: new Date("2026-01-04T12:00:00Z") })
+			.where(eq(leads.id, fourMonthsAgo.id));
+		await handle.db
+			.update(leads)
+			.set({ createdAt: new Date("2026-03-04T12:00:00Z") })
+			.where(eq(leads.id, twoMonthsAgo.id));
+
+		const deleted = await deleteLeadsOlderThan(cutoff);
+		expect(deleted).toBe(1);
+
+		const remaining = await listLeads();
+		expect(remaining.map((r) => r.id)).toEqual([twoMonthsAgo.id]);
+	});
+
+	it("deleteLeadsOlderThan is idempotent — running twice with no old leads returns 0 and does not error", async () => {
+		const cutoff = new Date("2026-02-04T12:00:00Z");
+		await insertLead({
+			email: "fresh@example.com",
+			consentGivenAt: new Date("2026-04-30T10:00:00Z"),
+		});
+
+		const firstRun = await deleteLeadsOlderThan(cutoff);
+		const secondRun = await deleteLeadsOlderThan(cutoff);
+
+		expect(firstRun).toBe(0);
+		expect(secondRun).toBe(0);
+		expect((await listLeads()).length).toBe(1);
+	});
+
+	it("deleteLeadsOlderThan does not delete leads at exactly the cutoff timestamp", async () => {
+		const cutoff = new Date("2026-02-04T12:00:00.000Z");
+		const lead = await insertLead({
+			email: "edge@example.com",
+			consentGivenAt: cutoff,
+		});
+		await handle.db.update(leads).set({ createdAt: cutoff }).where(eq(leads.id, lead.id));
+
+		const deleted = await deleteLeadsOlderThan(cutoff);
+		expect(deleted).toBe(0);
+		expect((await listLeads()).length).toBe(1);
 	});
 });

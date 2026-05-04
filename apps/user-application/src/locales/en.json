@@ -371,7 +371,7 @@
 		"whatShared": "What data will be shared?",
 		"whatSharedContent": "We will not share your data with any third parties other than as described here to fulfill our obligations to you (e.g., Security via Cloudflare). We may share your information with regulators or legal bodies if required by law.",
 		"howLong": "How long?",
-		"howLongContent": "Auditmos OU retains data only as long as needed to provide our services and to meet operational, contractual, and regulatory requirements. Account data is retained for the life of the account. Transactional data is retained as required by tax law (usually 7 years). Notification logs are retained for a limited period for debugging and audit purposes before being deleted.",
+		"howLongContent": "Auditmos OU retains data only as long as needed to provide our services and to meet operational, contractual, and regulatory requirements. Account data is retained for the life of the account. Transactional data is retained as required by tax law (usually 7 years). Notification logs are retained for a limited period for debugging and audit purposes before being deleted. **Email addresses submitted via the early-access lead form are kept for a maximum of 3 months from sign-up — after that period they are automatically and irrevocably deleted by a daily cleanup job.**",
 		"whoAccess": "Who can access my data?",
 		"whoAccessContent": "We will never sell, share or otherwise distribute your data to any other third party other than as described here. Access to your data is carefully controlled and restricted to authorized personnel.",
 		"howSecure": "How is my data kept secure?",
@@ -381,7 +381,7 @@
 		"principles": "Principles of Processing Personal Information",
 		"principlesContent": "We adhere to the GDPR principles: Data must be processed fairly and lawfully; obtained for specific purposes; be adequate and relevant; be accurate; not held longer than necessary; processed in accordance with rights of data subjects; be protected appropriately; and not transferred internationally without adequate protection.",
 		"whoWeAre": "Who We Are And How To Contact Us",
-		"whoWeAreContent": "Auditmos OU is a company registered in Estonia.\n\n- **Name of Data Protection Lead:** Tomasz Kowalczyk\n- **Company name:** Auditmos OU\n- **Email:** legal@powiadomienia.info",
+		"whoWeAreContent": "Auditmos OU is a company registered in Estonia.\n\n- **Name of Data Protection Lead:** Tomasz Kowalczyk\n- **Company name:** Auditmos OU\n- **Email (GDPR matters and right to erasure):** tom@auditmos.com",
 		"article27": "Our Article 27 Representatives",
 		"article27Content": "As Auditmos OU is established within the European Union (Estonia), we are not required to appoint an external Article 27 Representative for the EU.",
 		"ukRep": "Our UK Representative",
@@ -395,7 +395,7 @@
 		"howCollected": "How will your information be collected and used?",
 		"howCollectedContent": "We collect data primarily directly from you (registration) or automatically through your use of the service (logs). We use this data to:\n\n- Register you as a customer (Performance of Contract).\n- Administer and protect our business (Legitimate Interest).\n- Use data analytics to improve our website (Legitimate Interest).",
 		"changePrefs": "How to change your preferences",
-		"changePrefsContent": "We operate in line with GDPR. You can contact us at legal@powiadomienia.info to request access, rectification, deletion, or restriction of your data.",
+		"changePrefsContent": "We operate in line with GDPR. You can contact us at tom@auditmos.com to request access, rectification, deletion, or restriction of your data.",
 		"optingOut": "Opting out at a later date",
 		"optingOutContent": "You have the right to withdraw your consent at any time. You can object to the processing of your data and request its deletion, provided the data is not required for tax or legal obligations.",
 		"howStore": "How we store and process your data",
@@ -409,7 +409,7 @@
 		"cookies": "Cookies",
 		"cookiesContent": "We use strictly necessary cookies to ensure the site functions correctly (e.g., keeping you logged in). For detailed information, please refer to our Cookie Policy.",
 		"contacting": "Contacting us, exercising your information rights and Complaints",
-		"contactingContent": "If you have questions, please contact Tomasz Kowalczyk at legal@powiadomienia.info. If you remain dissatisfied, you have the right to lodge a complaint with the Estonian Data Protection Inspectorate (AKI) or your local data protection authority."
+		"contactingContent": "If you have questions, please contact Tomasz Kowalczyk at tom@auditmos.com. If you remain dissatisfied, you have the right to lodge a complaint with the Estonian Data Protection Inspectorate (AKI) or your local data protection authority."
 	},
 	"termsOfService": {
 		"lastUpdate": "Last updated: December 29, 2025",
