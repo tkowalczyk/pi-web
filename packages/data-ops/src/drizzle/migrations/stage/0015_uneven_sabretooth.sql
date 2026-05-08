@@ -1,4 +1,4 @@
-CREATE TABLE "email_whitelist" (
+CREATE TABLE IF NOT EXISTS "email_whitelist" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"email" text NOT NULL,
 	"note" text,
@@ -6,7 +6,7 @@ CREATE TABLE "email_whitelist" (
 	CONSTRAINT "email_whitelist_email_unique" UNIQUE("email")
 );
 --> statement-breakpoint
-CREATE TABLE "leads" (
+CREATE TABLE IF NOT EXISTS "leads" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"email" text NOT NULL,
 	"status" text DEFAULT 'new' NOT NULL,
@@ -16,5 +16,5 @@ CREATE TABLE "leads" (
 	"updated_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
-CREATE INDEX "leads_status_idx" ON "leads" USING btree ("status");--> statement-breakpoint
-CREATE INDEX "leads_created_at_idx" ON "leads" USING btree ("created_at");
+CREATE INDEX IF NOT EXISTS "leads_status_idx" ON "leads" USING btree ("status");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "leads_created_at_idx" ON "leads" USING btree ("created_at");
