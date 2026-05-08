@@ -23,9 +23,6 @@
 				"drizzle-*.config.ts"
 			],
 			"ignoreBinaries": ["dotenvx"]
-		},
-		"packages/test-harness": {
-			"entry": ["tests/**/*.test.ts"]
 		}
 	}
 }

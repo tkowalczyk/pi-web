@@ -1,13 +1,7 @@
 name: CI
 
-# Phase M1-P2 regression gate. Runs the full quality + test profile on every
-# pull request to main. Hard gates (lint, test) must pass to merge. Advisory
-# gates (knip, deps, types) report findings but do not block — those are
-# scheduled for hard-gating once their backlog is clean (Phase 3+).
-#
-# On pull requests an ephemeral Neon database branch is created so the test
-# suite runs against real Postgres (TEST_DB_PROFILE=managed). On push to
-# main the branch is not needed — tests fall back to the fast PGLite profile.
+# Hard gates (lint, test) must pass to merge. Advisory gates (knip, deps,
+# types) report findings but do not block.
 
 on:
   pull_request:
@@ -20,34 +14,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # ── Neon branch (PRs only) ──────────────────────────────────────────────────
-
-  neon-branch:
-    name: Create Neon Branch
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    timeout-minutes: 3
-    outputs:
-      db_url: ${{ steps.create.outputs.db_url_with_pooler }}
-      branch_id: ${{ steps.create.outputs.branch_id }}
-    steps:
-      - name: Create ephemeral Neon branch
-        id: create
-        uses: neondatabase/create-branch-action@v6
-        with:
-          project_id: ${{ vars.NEON_PROJECT_ID }}
-          api_key: ${{ secrets.NEON_API_KEY }}
-          branch_name: ci/pr-${{ github.event.pull_request.number }}
-
-  # ── Main CI job ──────────────────────────────────────────────────────────────
-
   ci:
     name: Lint + Test + Quality
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    needs: [neon-branch]
-    # Always run, even if neon-branch was skipped (push to main)
-    if: always()
 
     steps:
       - name: Checkout
@@ -76,12 +46,7 @@ jobs:
       - name: Lint (Biome)
         run: pnpm run lint:ci
 
-      - name: Tests (managed Neon on PRs, local PGLite on push)
-        env:
-          # On PRs the Neon branch URL is available; on push to main it's empty
-          # and test-harness falls back to the local PGLite profile automatically.
-          TEST_DATABASE_URL: ${{ needs.neon-branch.outputs.db_url }}
-          TEST_DB_PROFILE: ${{ needs.neon-branch.outputs.db_url && 'managed' || 'local' }}
+      - name: Tests
         run: pnpm run test
 
       # ── Advisory gates (run, report, do not block) ───────────────────────────
@@ -97,21 +62,3 @@ jobs:
       - name: Dependency freshness (advisory)
         continue-on-error: true
         run: pnpm run deps
-
-  # ── Neon branch cleanup (PRs only) ──────────────────────────────────────────
-
-  cleanup-neon-branch:
-    name: Delete Neon Branch
-    runs-on: ubuntu-latest
-    timeout-minutes: 2
-    needs: [neon-branch, ci]
-    # Run even if ci failed — don't leave orphan branches.
-    # branch_id is only set on PRs so this naturally skips on push to main.
-    if: always() && needs.neon-branch.outputs.branch_id
-    steps:
-      - name: Delete ephemeral Neon branch
-        uses: neondatabase/delete-branch-action@v3
-        with:
-          project_id: ${{ vars.NEON_PROJECT_ID }}
-          api_key: ${{ secrets.NEON_API_KEY }}
-          branch: ${{ needs.neon-branch.outputs.branch_id }}
