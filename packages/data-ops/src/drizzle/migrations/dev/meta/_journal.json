@@ -134,6 +134,13 @@
       "when": 1777531149660,
       "tag": "0018_wealthy_silverclaw",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1778225856614,
+      "tag": "0019_freezing_ender_wiggin",
+      "breakpoints": true
     }
   ]
 }

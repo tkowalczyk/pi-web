@@ -8,13 +8,11 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { authClient } from "@/lib/auth-client";
-import { LogOut, Palette, Languages, Key } from "lucide-react";
+import { LogOut, Palette, Languages } from "lucide-react";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { LanguageToggle } from "@/components/language/language-toggle";
-import { ChangePassword } from "./change-password";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
 
 interface AccountDialogProps {
 	children: React.ReactNode;
@@ -24,17 +22,6 @@ export function AccountDialog({ children }: AccountDialogProps) {
 	const { t } = useTranslation();
 	const navigate = useNavigate();
 	const { data: session } = authClient.useSession();
-
-	const { data: credentialCheck } = useQuery({
-		queryKey: ["has-credential-account", session?.user.id],
-		queryFn: async () => {
-			if (!session?.user.id) return { hasCredentialAccount: false };
-			const res = await fetch("/api/user/has-credential-account");
-			if (!res.ok) return { hasCredentialAccount: false };
-			return res.json() as Promise<{ hasCredentialAccount: boolean }>;
-		},
-		enabled: !!session?.user.id,
-	});
 
 	const signOut = async () => {
 		await authClient.signOut();
@@ -49,8 +36,6 @@ export function AccountDialog({ children }: AccountDialogProps) {
 	const fallbackText = user.name
 		? user.name.charAt(0).toUpperCase()
 		: user.email?.charAt(0).toUpperCase() || "U";
-
-	const hasCredentialAccount = credentialCheck?.hasCredentialAccount ?? false;
 
 	return (
 		<Dialog>
@@ -83,16 +68,6 @@ export function AccountDialog({ children }: AccountDialogProps) {
 							</span>
 							<ThemeToggle />
 						</div>
-						{hasCredentialAccount && (
-							<ChangePassword
-								trigger={
-									<Button variant="outline" size="lg" className="w-full gap-2">
-										<Key className="h-5 w-5" />
-										{t("auth.changePassword")}
-									</Button>
-								}
-							/>
-						)}
 						<Button onClick={signOut} variant="outline" size="lg" className="w-full gap-2">
 							<LogOut className="h-5 w-5" />
 							{t("nav.signOut")}

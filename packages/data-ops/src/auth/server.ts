@@ -1,12 +1,13 @@
 import { createBetterAuth } from "@/auth/setup";
 import type { getDb } from "@/database/setup";
 import { auth_account, auth_session, auth_verification, auth_user } from "@/drizzle/auth-schema";
+import { isEmailWhitelisted } from "@/queries/email-whitelist";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 
 let betterAuth: ReturnType<typeof createBetterAuth>;
 
 export function setAuth(
-	config: Omit<Parameters<typeof createBetterAuth>[0], "database"> & {
+	config: Omit<Parameters<typeof createBetterAuth>[0], "database" | "isEmailAllowed"> & {
 		adapter: {
 			drizzleDb: ReturnType<typeof getDb>;
 			provider: Parameters<typeof drizzleAdapter>[1]["provider"];
@@ -23,6 +24,7 @@ export function setAuth(
 				auth_verification,
 			},
 		}),
+		isEmailAllowed: isEmailWhitelisted,
 		...config,
 	});
 	return betterAuth;

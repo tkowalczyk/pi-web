@@ -33,8 +33,9 @@ export const Route = createRootRouteWithContext<{
 				content: "width=device-width, initial-scale=1",
 			},
 			...seo({
-				title: "powiadomienia.info - wywóz śmieci",
-				description: "Otrzymuj powiadomienia SMS przed odbiorem śmieci na Twojej ulicy",
+				title: "powiadomienia.info",
+				description:
+					"Osobisty hub powiadomień dla Ciebie i Twojej rodziny. Przypomnimy o wywozie śmieci, urodzinach bliskich i innych ważnych datach prosto na Telegramie.",
 			}),
 		],
 		links: [

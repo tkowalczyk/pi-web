@@ -9,7 +9,7 @@
 		"deleting": "Usuwanie..."
 	},
 	"nav": {
-		"appName": "powiadomienia.info - wywóz śmieci",
+		"appName": "powiadomienia.info",
 		"home": "Strona główna",
 		"menu": "Menu",
 		"features": "Funkcje",
@@ -278,42 +278,11 @@
 		}
 	},
 	"auth": {
-		"welcomeBack": "Witaj ponownie",
 		"signInDescription": "Zaloguj się do swojego konta aby kontynuować",
 		"continueWithGoogle": "Kontynuuj z Google",
-		"createAccount": "Utwórz konto",
-		"createAccountDescription": "Wprowadź dane aby utworzyć konto",
-		"fullName": "Imię i nazwisko",
-		"email": "Email",
-		"password": "Hasło",
-		"confirmPassword": "Potwierdź hasło",
-		"signUp": "Zarejestruj się",
 		"signIn": "Zaloguj się",
-		"rememberMe": "Zapamiętaj mnie",
-		"alreadyHaveAccount": "Masz już konto? Zaloguj się",
-		"noAccount": "Nie masz konta? Zarejestruj się",
-		"orContinueWith": "Lub",
-		"currentPassword": "Obecne hasło",
-		"newPassword": "Nowe hasło",
-		"confirmNewPassword": "Potwierdź nowe hasło",
-		"changePassword": "Zmień hasło",
-		"passwordChanged": "Hasło zostało zmienione",
-		"passwordChangeFailed": "Nie udało się zmienić hasła",
 		"agreeToTerms": "Zgadzam się z",
-		"and": "i",
-		"passwordStrength": {
-			"label": "Siła hasła",
-			"weak": "Słabe",
-			"normal": "Normalne",
-			"strong": "Silne"
-		},
-		"passwordPolicy": {
-			"title": "Wymagania hasła",
-			"minLength": "Minimum 8 znaków",
-			"uppercase": "Minimum 1 wielka litera",
-			"lowercase": "Minimum 1 mała litera",
-			"number": "Minimum 1 cyfra"
-		}
+		"and": "i"
 	},
 	"notFound": {
 		"title": "Strona nie znaleziona",
@@ -332,28 +301,7 @@
 		"technicalDetails": "Szczegóły techniczne",
 		"stackTrace": "Ślad stosu błędu:",
 		"persistMessage": "Jeśli błąd się powtarza, zgłoś go do naszego zespołu wsparcia.",
-		"reportError": "Zgłoś błąd",
-		"rateLimitExceeded": "Zbyt wiele prób. Spróbuj ponownie za 15 minut.",
-		"invalidCredentials": "Nieprawidłowy email lub hasło",
-		"emailAlreadyExists": "Ten adres email jest już zarejestrowany"
-	},
-	"validation": {
-		"email": {
-			"required": "Email jest wymagany",
-			"invalid": "Nieprawidłowy format email"
-		},
-		"password": {
-			"required": "Hasło jest wymagane",
-			"minLength": "Hasło musi mieć minimum 8 znaków",
-			"maxLength": "Hasło nie może przekraczać 128 znaków",
-			"uppercase": "Hasło musi zawierać minimum 1 wielką literę",
-			"lowercase": "Hasło musi zawierać minimum 1 małą literę",
-			"number": "Hasło musi zawierać minimum 1 cyfrę",
-			"noMatch": "Hasła nie pasują do siebie"
-		},
-		"name": {
-			"minLength": "Imię musi mieć minimum 2 znaki"
-		}
+		"reportError": "Zgłoś błąd"
 	},
 	"footer": {
 		"copyright": "© powiadomienia.info jest produktem <0>Auditmos OU</0>.<br />Wszelkie prawa zastrzeżone {{year}}",

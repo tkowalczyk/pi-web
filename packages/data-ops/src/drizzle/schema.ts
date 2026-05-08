@@ -159,5 +159,12 @@ export const leads = pgTable(
 	],
 );
 
+export const emailWhitelist = pgTable("email_whitelist", {
+	id: serial("id").primaryKey(),
+	email: text("email").notNull().unique(),
+	note: text("note"),
+	createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 // Legacy tables (cities, streets, addresses, waste_schedules, waste_types,
 // notification_preferences, notification_logs) removed in M2-P2 migration.

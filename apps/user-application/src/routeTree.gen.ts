@@ -15,10 +15,8 @@ import { Route as LegalRouteImport } from './routes/legal'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as AuthAppIndexRouteImport } from './routes/_auth/app/index'
-import { Route as ApiUserHasCredentialAccountRouteImport } from './routes/api/user/has-credential-account'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth.$'
 import { Route as AuthAppSourcesIndexRouteImport } from './routes/_auth/app/sources/index'
 import { Route as AuthAppSettingsIndexRouteImport } from './routes/_auth/app/settings/index'
@@ -57,11 +55,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthRegisterRoute = AuthRegisterRouteImport.update({
-  id: '/auth/register',
-  path: '/auth/register',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AuthLoginRoute = AuthLoginRouteImport.update({
   id: '/auth/login',
   path: '/auth/login',
@@ -72,12 +65,6 @@ const AuthAppIndexRoute = AuthAppIndexRouteImport.update({
   path: '/app/',
   getParentRoute: () => AuthRouteRoute,
 } as any)
-const ApiUserHasCredentialAccountRoute =
-  ApiUserHasCredentialAccountRouteImport.update({
-    id: '/api/user/has-credential-account',
-    path: '/api/user/has-credential-account',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -127,9 +114,7 @@ export interface FileRoutesByFullPath {
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/auth/login': typeof AuthLoginRoute
-  '/auth/register': typeof AuthRegisterRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
   '/app/': typeof AuthAppIndexRoute
   '/app/sources/new': typeof AuthAppSourcesNewRoute
   '/app/deliveries/': typeof AuthAppDeliveriesIndexRoute
@@ -146,9 +131,7 @@ export interface FileRoutesByTo {
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/auth/login': typeof AuthLoginRoute
-  '/auth/register': typeof AuthRegisterRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
   '/app': typeof AuthAppIndexRoute
   '/app/sources/new': typeof AuthAppSourcesNewRoute
   '/app/deliveries': typeof AuthAppDeliveriesIndexRoute
@@ -167,9 +150,7 @@ export interface FileRoutesById {
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/auth/login': typeof AuthLoginRoute
-  '/auth/register': typeof AuthRegisterRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/api/user/has-credential-account': typeof ApiUserHasCredentialAccountRoute
   '/_auth/app/': typeof AuthAppIndexRoute
   '/_auth/app/sources/new': typeof AuthAppSourcesNewRoute
   '/_auth/app/deliveries/': typeof AuthAppDeliveriesIndexRoute
@@ -188,9 +169,7 @@ export interface FileRouteTypes {
     | '/privacy-policy'
     | '/terms-of-service'
     | '/auth/login'
-    | '/auth/register'
     | '/api/auth/$'
-    | '/api/user/has-credential-account'
     | '/app/'
     | '/app/sources/new'
     | '/app/deliveries/'
@@ -207,9 +186,7 @@ export interface FileRouteTypes {
     | '/privacy-policy'
     | '/terms-of-service'
     | '/auth/login'
-    | '/auth/register'
     | '/api/auth/$'
-    | '/api/user/has-credential-account'
     | '/app'
     | '/app/sources/new'
     | '/app/deliveries'
@@ -227,9 +204,7 @@ export interface FileRouteTypes {
     | '/privacy-policy'
     | '/terms-of-service'
     | '/auth/login'
-    | '/auth/register'
     | '/api/auth/$'
-    | '/api/user/has-credential-account'
     | '/_auth/app/'
     | '/_auth/app/sources/new'
     | '/_auth/app/deliveries/'
@@ -248,9 +223,7 @@ export interface RootRouteChildren {
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
   AuthLoginRoute: typeof AuthLoginRoute
-  AuthRegisterRoute: typeof AuthRegisterRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
-  ApiUserHasCredentialAccountRoute: typeof ApiUserHasCredentialAccountRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -297,13 +270,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth/register': {
-      id: '/auth/register'
-      path: '/auth/register'
-      fullPath: '/auth/register'
-      preLoaderRoute: typeof AuthRegisterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/auth/login': {
       id: '/auth/login'
       path: '/auth/login'
@@ -317,13 +283,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/'
       preLoaderRoute: typeof AuthAppIndexRouteImport
       parentRoute: typeof AuthRouteRoute
-    }
-    '/api/user/has-credential-account': {
-      id: '/api/user/has-credential-account'
-      path: '/api/user/has-credential-account'
-      fullPath: '/api/user/has-credential-account'
-      preLoaderRoute: typeof ApiUserHasCredentialAccountRouteImport
-      parentRoute: typeof rootRouteImport
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -418,9 +377,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
   AuthLoginRoute: AuthLoginRoute,
-  AuthRegisterRoute: AuthRegisterRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
-  ApiUserHasCredentialAccountRoute: ApiUserHasCredentialAccountRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
