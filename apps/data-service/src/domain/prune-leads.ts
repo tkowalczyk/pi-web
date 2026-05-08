@@ -1,9 +1,9 @@
-export interface PruneLeadsDeps {
+interface PruneLeadsDeps {
 	now(): Date;
 	deleteLeadsOlderThan(cutoff: Date): Promise<number>;
 }
 
-export interface PruneLeadsResult {
+interface PruneLeadsResult {
 	deletedCount: number;
 }
 

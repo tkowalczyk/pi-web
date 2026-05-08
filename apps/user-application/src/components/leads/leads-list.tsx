@@ -26,7 +26,7 @@ import { DeleteLeadDialog } from "./delete-lead-dialog";
 
 const STATUS_VALUES: LeadStatus[] = ["new", "contacted", "interested", "closed_won", "closed_lost"];
 
-export interface LeadRow {
+interface LeadRow {
 	id: number;
 	email: string;
 	status: LeadStatus;

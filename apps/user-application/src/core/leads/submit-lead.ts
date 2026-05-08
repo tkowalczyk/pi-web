@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { insertLead } from "@repo/data-ops/queries/leads";
 
-export class TurnstileVerificationError extends Error {
+class TurnstileVerificationError extends Error {
 	constructor(message = "Turnstile verification failed") {
 		super(message);
 		this.name = "TurnstileVerificationError";
@@ -19,13 +19,13 @@ export const SubmitLeadInput = z.object({
 
 export type SubmitLeadInput = z.infer<typeof SubmitLeadInput>;
 
-export interface SubmitLeadDeps {
+interface SubmitLeadDeps {
 	verifyToken: (token: string) => Promise<{ success: boolean }>;
 	now?: () => Date;
 	notify?: (input: { email: string; createdAt: Date }) => Promise<unknown>;
 }
 
-export interface SubmitLeadResult {
+interface SubmitLeadResult {
 	success: true;
 }
 

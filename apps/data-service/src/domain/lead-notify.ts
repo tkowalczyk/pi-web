@@ -1,12 +1,12 @@
 import type { NotificationChannel } from "@repo/data-ops/channels/port";
 import { renderMessage } from "./lead-handler";
 
-export interface LeadNotifyInput {
+interface LeadNotifyInput {
 	email: string;
 	createdAt: Date;
 }
 
-export interface LeadNotifyDeps {
+interface LeadNotifyDeps {
 	channel: NotificationChannel;
 	getOrCreateTopicId(): Promise<number>;
 	chatId: string;

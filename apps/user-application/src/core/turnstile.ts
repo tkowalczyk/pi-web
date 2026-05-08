@@ -1,6 +1,6 @@
 const SITEVERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 
-export interface TurnstileVerifyResult {
+interface TurnstileVerifyResult {
 	success: boolean;
 }
 

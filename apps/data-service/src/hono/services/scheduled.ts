@@ -10,7 +10,7 @@ const DEFAULT_FAILURE_THRESHOLD = 5;
 
 export const PRUNE_LEADS_CRON = "0 3 * * *";
 
-export interface ScheduledDeps {
+interface ScheduledDeps {
 	runPruneLeads(): Promise<void>;
 	runSelfAlert(): Promise<void>;
 }
