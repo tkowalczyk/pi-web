@@ -35,10 +35,10 @@
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
-	"packageManager": "pnpm@10.33.2",
+	"packageManager": "pnpm@10.33.4",
 	"devDependencies": {
 		"@biomejs/biome": "2.4.4",
-		"@types/node": "^22.19.17",
+		"@types/node": "^22.19.18",
 		"knip": "^5.88.1",
 		"taze": "^19.11.0",
 		"typescript": "^5.9.3",
